@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -62,6 +64,7 @@ namespace Payroll.Controllers
                 currency.Id = Guid.NewGuid();
                 currency.CreationTime = DateTime.Now;
                 currency.Deleted = false;
+                currency.CreationUser = User.Identity.Name;
                 _context.Add(currency);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -101,7 +104,8 @@ namespace Payroll.Controllers
             {
                 try
                 {
-                    currency.LastUpdateTime = DateTime.Now;                    
+                    currency.LastUpdateTime = DateTime.Now;
+                    currency.LastUpdateUser = User.Identity.Name;
                     _context.Update(currency);
                     await _context.SaveChangesAsync();
                 }
@@ -148,6 +152,7 @@ namespace Payroll.Controllers
             var currency = await _context.Currency.FindAsync(id);
             currency.Deleted = true;
             currency.DeleteTime = DateTime.Now;
+            currency.DeleteUser = User.Identity.Name;
             _context.Currency.Update(currency);            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
