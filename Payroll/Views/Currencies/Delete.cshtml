@@ -27,6 +27,10 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="CreationTime" />
+        <input type="hidden" asp-for="CreationUser" />
+        <input type="hidden" asp-for="LastUpdateTime" />
+        <input type="hidden" asp-for="LastUpdateUser" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
         <a asp-action="Index">Back to List</a>
     </form>

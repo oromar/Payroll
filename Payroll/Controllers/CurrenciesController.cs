@@ -52,9 +52,7 @@ namespace Payroll.Controllers
             return View();
         }
 
-        // POST: Currencies/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Currencies/Create        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Exchange")] Currency currency)
@@ -88,12 +86,10 @@ namespace Payroll.Controllers
             return View(currency);
         }
 
-        // POST: Currencies/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Currencies/Edit/5        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Name,Exchange,Id,CreationTime")] Currency currency)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Name,Exchange,Id,CreationTime,CreationUser")] Currency currency)
         {
             if (id != currency.Id)
             {

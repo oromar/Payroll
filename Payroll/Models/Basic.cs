@@ -10,11 +10,11 @@ namespace Payroll.Models
     {
         public Guid Id { get; set; }
         public DateTime CreationTime { get; set; }
+        public string CreationUser { get; set; }
         public DateTime LastUpdateTime { get; set; }
-        public DateTime DeleteTime { get; set; }
-        public Boolean Deleted { get; set; }
-        public string CreationUser{ get; set; }
         public string LastUpdateUser { get; set; }
+        public Boolean Deleted { get; set; }
+        public DateTime DeleteTime { get; set; }
         public string DeleteUser { get; set; }
     }
 }
