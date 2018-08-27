@@ -22,7 +22,7 @@ namespace Payroll.Controllers
         // GET: Currencies
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Currency.ToListAsync());
+            return View(await _context.Currency.Where(a => !a.Deleted).ToListAsync());
         }
 
         // GET: Currencies/Details/5
@@ -34,6 +34,7 @@ namespace Payroll.Controllers
             }
 
             var currency = await _context.Currency
+                .Where(a => !a.Deleted)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (currency == null)
             {
@@ -89,7 +90,7 @@ namespace Payroll.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Name,Exchange,Id")] Currency currency)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Name,Exchange,Id,CreationTime")] Currency currency)
         {
             if (id != currency.Id)
             {
@@ -129,6 +130,7 @@ namespace Payroll.Controllers
             }
 
             var currency = await _context.Currency
+                .Where(a => !a.Deleted)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (currency == null)
             {

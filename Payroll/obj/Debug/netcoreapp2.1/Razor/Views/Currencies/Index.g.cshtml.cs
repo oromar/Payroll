@@ -66,7 +66,7 @@ using Payroll.Models;
             WriteLiteral("\r\n<h2>Index</h2>\r\n\r\n<p>\r\n    ");
             EndContext();
             BeginContext(117, 37, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3a3458c03ca14d0e8919853afea8bca0", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a2e0bf4b9aed424d8bf6b9ca68c38c2e", async() => {
                 BeginContext(140, 10, true);
                 WriteLiteral("Create New");
                 EndContext();
@@ -136,7 +136,7 @@ using Payroll.Models;
             WriteLiteral("\r\n            </td>            \r\n            <td>\r\n                ");
             EndContext();
             BeginContext(759, 53, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7cd7eb3a9493455ebb604deb43f04e9b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c4958557ce52431abd4249f7de9cc8e3", async() => {
                 BeginContext(804, 4, true);
                 WriteLiteral("Edit");
                 EndContext();
@@ -171,7 +171,7 @@ using Payroll.Models;
             WriteLiteral(" |\r\n                ");
             EndContext();
             BeginContext(832, 59, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3c2b3d00a04b4e1f9ee863ede18c03b9", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e36eaccc45354ac0ada7af04efc0973d", async() => {
                 BeginContext(880, 7, true);
                 WriteLiteral("Details");
                 EndContext();
@@ -206,7 +206,7 @@ using Payroll.Models;
             WriteLiteral(" |\r\n                ");
             EndContext();
             BeginContext(911, 57, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e533599c53c04587b196ce278e0f7997", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bafde46745074e77b17422950f9b4f59", async() => {
                 BeginContext(958, 6, true);
                 WriteLiteral("Delete");
                 EndContext();
