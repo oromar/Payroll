@@ -12218,23 +12218,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\oldm\\.nuget\\packages\\": {},
+    "C:\\Users\\oroma\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\oldm\\GitHub\\Payroll\\Payroll\\Payroll.csproj",
+      "projectUniqueName": "D:\\Projetos\\Payroll\\Payroll\\Payroll.csproj",
       "projectName": "Payroll",
-      "projectPath": "D:\\oldm\\GitHub\\Payroll\\Payroll\\Payroll.csproj",
-      "packagesPath": "C:\\Users\\oldm\\.nuget\\packages\\",
-      "outputPath": "D:\\oldm\\GitHub\\Payroll\\Payroll\\obj\\",
+      "projectPath": "D:\\Projetos\\Payroll\\Payroll\\Payroll.csproj",
+      "packagesPath": "C:\\Users\\oroma\\.nuget\\packages\\",
+      "outputPath": "D:\\Projetos\\Payroll\\Payroll\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\oldm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\oroma\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
