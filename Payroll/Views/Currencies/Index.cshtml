@@ -1,13 +1,15 @@
 ﻿@model IEnumerable<Payroll.Models.Currency>
 
 @{
-    ViewData["Title"] = "Listagem de Moedas";
+    var currentPage = ViewData["CurrentPage"] as int? ?? 1;
+    var totalCount = ViewData["TotalCount"] as int? ?? 0;
+    ViewData["Title"] = Resource.CurrencyTitle;     
 }
 
-<h2>Cadastro de Moedas</h2>
+<h2>@Resource.CurrencyTitle</h2>
 
 <p>
-    <a asp-action="Create">Nova Moeda</a>
+    <a asp-action="Create">@Resource.NewCurrency</a>
 </p>
 <table class="table table-striped table-hover">
     <thead>
@@ -21,27 +23,44 @@
             <th>
                 @Html.DisplayNameFor(model => model.CreationUser)
             </th>
-            <th>Action</th>
+            <th>@Resource.Action</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Exchange)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreationUser)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id"><img alt="Details" src="~/images/baseline-visibility-24px.svg"></a>
-                <a asp-action="Edit" asp-route-id="@item.Id" ><img alt="Edit" src="~/images/baseline-edit-24px.svg"></a>
-                <a asp-action="Delete" asp-route-id="@item.Id"><img alt="Delete" src="~/images/baseline-delete-24px.svg"></a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Exchange)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationUser)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id"><img alt="@Resource.Details" src="~/images/baseline-visibility-24px.svg"></a>
+                    <a asp-action="Edit" asp-route-id="@item.Id"><img alt="@Resource.Edit" src="~/images/baseline-edit-24px.svg"></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id"><img alt="@Resource.Delete" src="~/images/baseline-delete-24px.svg"></a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<div align="center">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+            <a asp-action="Index" 
+               asp-route-page="@(currentPage > 1 ? currentPage-1 : 1)"
+                    style="color:black" class="page-link">Previous</a>
+            </li>
+            <li class="page-item">
+            <a asp-action="Index" 
+                    asp-route-page="@((currentPage * 5) < totalCount ? currentPage+1 : currentPage)"
+                    style="color:black" class="page-link">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>

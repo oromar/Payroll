@@ -22,9 +22,19 @@ namespace Payroll.Controllers
         }
 
         // GET: Currencies
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            return View(await _context.Currency.Where(a => !a.Deleted).ToListAsync());
+
+            ViewData["CurrentPage"] = page;
+            ViewData["TotalCount"] = await _context.Currency
+                .Where(a => !a.Deleted)
+                .CountAsync();
+
+            return View(await _context.Currency
+                .Where(a => !a.Deleted)
+                .Skip((page - 1) * 5)
+                .Take(5)
+                .ToListAsync());
         }
 
         // GET: Currencies/Details/5
