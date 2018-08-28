@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Payroll.Common;
 using Payroll.Data;
 using Payroll.Models;
 
@@ -26,18 +27,18 @@ namespace Payroll.Controllers
         {
 
             ViewData["CurrentPage"] = page;
+            ViewData["CurrentFilter"] = filter;
             ViewData["HasMore"] = await _context.Currency
                 .Where(a => !a.Deleted)
                 .Where(a => string.IsNullOrEmpty(filter) || a.Name.Contains(filter))
-                .CountAsync() > 5;
-            ViewData["CurrentFilter"] = filter;
+                .CountAsync() > (page * Constants.MAX_ITEMS_PER_PAGE);
 
             return View(await _context.Currency
                 .Where(a => !a.Deleted)
                 .Where(a => string.IsNullOrEmpty(filter) || a.Name.Contains(filter))
                 .OrderBy(a => a.Name)
-                .Skip((page - 1) * 5)
-                .Take(5)
+                .Skip((page - 1) * Constants.MAX_ITEMS_PER_PAGE)
+                .Take(Constants.MAX_ITEMS_PER_PAGE)
                 .ToListAsync());
         }
 
