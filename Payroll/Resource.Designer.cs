@@ -178,6 +178,24 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Próximo.
+        /// </summary>
+        public static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anterior.
+        /// </summary>
+        public static string Previous {
+            get {
+                return ResourceManager.GetString("Previous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alterado em.
         /// </summary>
         public static string UpdatedAt {

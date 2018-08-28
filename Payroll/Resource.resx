@@ -156,6 +156,12 @@
   <data name="NewCurrency" xml:space="preserve">
     <value>Nova Moeda</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Próximo</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
   <data name="UpdatedAt" xml:space="preserve">
     <value>Alterado em</value>
   </data>
