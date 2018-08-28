@@ -22,16 +22,20 @@ namespace Payroll.Controllers
         }
 
         // GET: Currencies
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(int page = 1, string filter = "")
         {
 
             ViewData["CurrentPage"] = page;
-            ViewData["TotalCount"] = await _context.Currency
+            ViewData["HasMore"] = await _context.Currency
                 .Where(a => !a.Deleted)
-                .CountAsync();
+                .Where(a => string.IsNullOrEmpty(filter) || a.Name.Contains(filter))
+                .CountAsync() > 5;
+            ViewData["CurrentFilter"] = filter;
 
             return View(await _context.Currency
                 .Where(a => !a.Deleted)
+                .Where(a => string.IsNullOrEmpty(filter) || a.Name.Contains(filter))
+                .OrderBy(a => a.Name)
                 .Skip((page - 1) * 5)
                 .Take(5)
                 .ToListAsync());

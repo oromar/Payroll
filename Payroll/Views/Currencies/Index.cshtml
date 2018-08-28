@@ -2,8 +2,9 @@
 
 @{
     var currentPage = ViewData["CurrentPage"] as int? ?? 1;
-    var totalCount = ViewData["TotalCount"] as int? ?? 0;
-    ViewData["Title"] = Resource.CurrencyTitle;     
+    var hasMore = ViewData["HasMore"] as bool? ?? false;
+    var filter = ViewData["CurrentFilter"] as string ?? string.Empty;
+    ViewData["Title"] = Resource.CurrencyTitle;
 }
 
 <h2>@Resource.CurrencyTitle</h2>
@@ -11,6 +12,19 @@
 <p>
     <a asp-action="Create">@Resource.NewCurrency</a>
 </p>
+<form>
+    <div class="form-group row">
+        <div class="col-md-9">
+            <input asp-for="@(filter)" class="form-control" />
+        </div>
+        <div class="col-md-1">
+            <input asp-route-filter="@(filter)" type="submit" value="@Resource.Search" class="btn" style="color:white; background:black" />
+        </div>
+        <div class="col-md-2">
+            <a asp-action="Index" asp-route-filter="">@Resource.ClearFilter</a>
+        </div>
+    </div>
+</form>
 <table class="table table-striped table-hover">
     <thead>
         <tr>
@@ -54,11 +68,13 @@
             <li class="page-item">
                 <a asp-action="Index"
                    asp-route-page="@(currentPage > 1 ? currentPage-1 : 1)"
+                   asp-route-filter="@(filter)"
                    style="color:black" class="page-link">@Resource.Previous</a>
             </li>
             <li class="page-item">
             <a asp-action="Index" 
-                    asp-route-page="@((currentPage * 5) < totalCount ? currentPage+1 : currentPage)"
+                    asp-route-page="@(hasMore ? currentPage+1 : currentPage)"
+                    asp-route-filter="@(filter)"
                     style="color:black" class="page-link">@Resource.Next</a>
             </li>
         </ul>

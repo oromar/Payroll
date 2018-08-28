@@ -126,6 +126,9 @@
   <data name="Back" xml:space="preserve">
     <value>Voltar</value>
   </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Limpar Filtro</value>
+  </data>
   <data name="CreatedAt" xml:space="preserve">
     <value>Criado em</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="Previous" xml:space="preserve">
     <value>Anterior</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Buscar</value>
   </data>
   <data name="UpdatedAt" xml:space="preserve">
     <value>Alterado em</value>
