@@ -1,10 +1,10 @@
-﻿@model Payroll.Models.Currency
+﻿@model Payroll.Models.Occupation
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = Resource.OccupationsTitle;
 }
 
-<h2>@Resource.NewCurrency</h2>
+<h2>@Resource.NewOccupation</h2>
 
 <hr />
 <div class="row">
@@ -17,17 +17,19 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Symbol" class="control-label"></label>
-                <input asp-for="Symbol" class="form-control" />
-                <span asp-validation-for="Symbol" class="text-danger"></span>
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="IsRegulated" /> @Html.DisplayNameFor(model => model.IsRegulated)
+                    </label>
+                </div>
             </div>
             <div class="form-group">
-                <label asp-for="Exchange" class="control-label"></label>
-                <input asp-for="Exchange" class="form-control" />
-                <span asp-validation-for="Exchange" class="text-danger"></span>
+                <label asp-for="CouncilName" class="control-label"></label>
+                <input asp-for="CouncilName" class="form-control" />
+                <span asp-validation-for="CouncilName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="@Resource.Add" class="btn" style="color:white; background:black" />
+                <input type="submit" value="Create" class="btn btn-default blackWhite" />
             </div>
         </form>
     </div>

@@ -35,3 +35,8 @@ body {
         display: none;
     }
 }
+
+.blackWhite {
+    background:black; 
+    color:white;
+}

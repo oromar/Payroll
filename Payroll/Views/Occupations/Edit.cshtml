@@ -1,12 +1,11 @@
-﻿@model Payroll.Models.Currency
+﻿@model Payroll.Models.Occupation
 
 @{
-    ViewData["Title"] = Resource.CurrencyTitle;
+    ViewData["Title"] =Resource.OccupationsTitle;
 }
 
 <h2>@Resource.Edit</h2>
 
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -17,20 +16,22 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Symbol" class="control-label"></label>
-                <input asp-for="Symbol" class="form-control" />
-                <span asp-validation-for="Symbol" class="text-danger"></span>
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="IsRegulated" /> @Html.DisplayNameFor(model => model.IsRegulated)
+                    </label>
+                </div>
             </div>
             <div class="form-group">
-                <label asp-for="Exchange" class="control-label"></label>
-                <input asp-for="Exchange" class="form-control" />
-                <span asp-validation-for="Exchange" class="text-danger"></span>
+                <label asp-for="CouncilName" class="control-label"></label>
+                <input asp-for="CouncilName" class="form-control" />
+                <span asp-validation-for="CouncilName" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="CreationTime" />
             <input type="hidden" asp-for="CreationUser" />
             <div class="form-group">
-                <input type="submit" value="@Resource.Save" class="btn btn-default" style="color:white; background:black" />
+                <input type="submit" value=@Resource.Save class="btn btn-default blackWhite" />
             </div>
         </form>
     </div>

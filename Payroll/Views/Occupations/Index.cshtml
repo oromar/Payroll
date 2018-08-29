@@ -1,16 +1,16 @@
-﻿@model IEnumerable<Payroll.Models.Currency>
+﻿@model IEnumerable<Payroll.Models.Occupation>
 
 @{
     var currentPage = ViewData["CurrentPage"] as int? ?? 1;
     var hasMore = ViewData["HasMore"] as bool? ?? false;
     var filter = ViewData["CurrentFilter"] as string ?? string.Empty;
-    ViewData["Title"] = Resource.CurrencyTitle;
+    ViewData["Title"] = Resource.OccupationsTitle;
 }
 
-<h2>@Resource.CurrencyTitle</h2>
+<h2>@Resource.OccupationsTitle</h2>
 
 <p>
-    <a asp-action="Create">@Resource.NewCurrency</a>
+    <a asp-action="Create">@Resource.NewOccupation</a>
 </p>
 <form>
     <div class="form-group row">
@@ -25,36 +25,36 @@
         </div>
     </div>
 </form>
-<table class="table table-bordered table-hover">
+<table  class="table table-bordered table-hover">
     <thead class="blackWhite">
         <tr>
-            <th class="col-md-6">
+            <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th class="col-md-2">
-                @Html.DisplayNameFor(model => model.Symbol)
+            <th>
+                @Html.DisplayNameFor(model => model.IsRegulated)
             </th>
-            <th class="col-md-2">
-                @Html.DisplayNameFor(model => model.Exchange)
+            <th>
+                @Html.DisplayNameFor(model => model.CouncilName)
             </th>
-            <th class="col-md-2">
+            <th>
                 @Html.DisplayNameFor(model => model.CreationUser)
-            </th>
+            </th>           
             <th style="text-align:center" class="col-md-2" colspan="3">@Resource.Action</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
+@foreach (var item in Model)
+{
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Symbol)
+                @(item.IsRegulated ? Resource.Yes : Resource.No)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Exchange)
+                @(item.IsRegulated ? item.CouncilName : Resource.NA)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreationUser)
@@ -69,7 +69,7 @@
                 <a asp-action="Delete" asp-route-id="@item.Id"><img alt="@Resource.Delete" src="~/images/baseline-delete-24px.svg"></a>
             </td>
         </tr>
-        }
+}
     </tbody>
 </table>
 <div align="center">
@@ -82,10 +82,10 @@
                    style="color:black" class="page-link">@Resource.Previous</a>
             </li>
             <li class="page-item">
-            <a asp-action="Index" 
-                    asp-route-page="@(hasMore ? currentPage+1 : currentPage)"
-                    asp-route-filter="@(filter)"
-                    style="color:black" class="page-link">@Resource.Next</a>
+                <a asp-action="Index"
+                   asp-route-page="@(hasMore ? currentPage+1 : currentPage)"
+                   asp-route-filter="@(filter)"
+                   style="color:black" class="page-link">@Resource.Next</a>
             </li>
         </ul>
     </nav>

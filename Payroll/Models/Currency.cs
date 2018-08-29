@@ -12,5 +12,8 @@ namespace Payroll.Models
         public String Name { get; set; }
         [Display(Name = "Câmbio")]
         public double Exchange { get; set; }
+        [Display(Name = "Símbolo")]
+        public string Symbol { get; set; }
+
     }
 }

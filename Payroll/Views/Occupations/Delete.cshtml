@@ -1,7 +1,7 @@
-﻿@model Payroll.Models.Currency
+﻿@model Payroll.Models.Occupation
 
 @{
-    ViewData["Title"] = Resource.CurrencyTitle;
+    ViewData["Title"] = Resource.OccupationsTitle;
 }
 
 <h2>@Resource.Remove</h2>
@@ -19,32 +19,32 @@
                 @Html.DisplayFor(model => model.Name)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Symbol)
+                @Html.DisplayNameFor(model => model.IsRegulated)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Symbol)
+                @(Model.IsRegulated? Resource.Yes : Resource.No)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Exchange)
+                @Html.DisplayNameFor(model => model.CouncilName)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Exchange)
+                @Html.DisplayFor(model => model.CouncilName)
             </dd>
         </dl>
 
         <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="CreationTime" />
             <input type="hidden" asp-for="CreationUser" />
             <input type="hidden" asp-for="LastUpdateTime" />
             <input type="hidden" asp-for="LastUpdateUser" />
             <div class="form-group">
-                <input type="submit" value=@Resource.Delete class="btn btn-default blackWhite"  />
+                <input type="submit" value=@Resource.Delete class="btn btn-default blackWhite" />
             </div>
         </form>
     </div>
 </div>
-
 <div>
     <a asp-action="Index">@Resource.Back</a>
 </div>

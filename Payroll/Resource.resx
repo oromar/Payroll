@@ -123,6 +123,12 @@
   <data name="Add" xml:space="preserve">
     <value>Adicionar</value>
   </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>Recursos Humanos</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Tem certeza?</value>
+  </data>
   <data name="Back" xml:space="preserve">
     <value>Voltar</value>
   </data>
@@ -153,17 +159,35 @@
   <data name="ExchangeRequired" xml:space="preserve">
     <value>Taxa de câmbio obrigatória.</value>
   </data>
+  <data name="NA" xml:space="preserve">
+    <value>N/A</value>
+  </data>
   <data name="NameLabel" xml:space="preserve">
     <value>Nome</value>
   </data>
   <data name="NewCurrency" xml:space="preserve">
     <value>Nova Moeda</value>
   </data>
+  <data name="NewOccupation" xml:space="preserve">
+    <value>Nova Profissão</value>
+  </data>
   <data name="Next" xml:space="preserve">
     <value>Próximo</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>Não</value>
+  </data>
+  <data name="Occupation" xml:space="preserve">
+    <value>Profissão</value>
+  </data>
+  <data name="OccupationsTitle" xml:space="preserve">
+    <value>Cadastro de Profissões</value>
+  </data>
   <data name="Previous" xml:space="preserve">
     <value>Anterior</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remover</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Salvar</value>
@@ -176,5 +200,8 @@
   </data>
   <data name="UpdatedBy" xml:space="preserve">
     <value>Alterado por</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Sim</value>
   </data>
 </root>

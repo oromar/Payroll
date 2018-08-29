@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,36 +11,35 @@ using Payroll.Models;
 
 namespace Payroll.Controllers
 {
-    public class CurrenciesController : Controller
+    public class OccupationsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public CurrenciesController(ApplicationDbContext context)
+        public OccupationsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Currencies
+        // GET: Occupations
         public async Task<IActionResult> Index(int page = 1, string filter = "")
         {
-
             ViewData["CurrentPage"] = page;
             ViewData["CurrentFilter"] = filter;
-            ViewData["HasMore"] = await _context.Currency
+            ViewData["HasMore"] = await _context.Occupation
                 .Where(a => !a.Deleted)
-                .Where(a => string.IsNullOrEmpty(filter) || a.Name.Contains(filter))
+                .Where(a => string.IsNullOrEmpty(filter) || (a.Name.Contains(filter) || a.CouncilName.Contains(filter)))
                 .CountAsync() > (page * Constants.MAX_ITEMS_PER_PAGE);
 
-            return View(await _context.Currency
-                .Where(a => !a.Deleted)
-                .Where(a => string.IsNullOrEmpty(filter) || a.Name.Contains(filter))
-                .OrderBy(a => a.Name)
-                .Skip((page - 1) * Constants.MAX_ITEMS_PER_PAGE)
-                .Take(Constants.MAX_ITEMS_PER_PAGE)
-                .ToListAsync());
+            return View(await _context.Occupation
+                                      .Where(a => !a.Deleted)
+                                      .Where(a => string.IsNullOrEmpty(filter) || (a.Name.Contains(filter) || a.CouncilName.Contains(filter)))
+                                      .OrderBy(a => a.Name)
+                                      .Skip((page - 1) * Constants.MAX_ITEMS_PER_PAGE)
+                                      .Take(Constants.MAX_ITEMS_PER_PAGE)
+                                      .ToListAsync());
         }
 
-        // GET: Currencies/Details/5
+        // GET: Occupations/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -50,42 +47,41 @@ namespace Payroll.Controllers
                 return NotFound();
             }
 
-            var currency = await _context.Currency
-                .Where(a => !a.Deleted)
+            var occupation = await _context.Occupation
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (currency == null)
+            if (occupation == null)
             {
                 return NotFound();
             }
 
-            return View(currency);
+            return View(occupation);
         }
 
-        // GET: Currencies/Create
+        // GET: Occupations/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Currencies/Create        
+        // POST: Occupations/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Exchange,Symbol")] Currency currency)
+        public async Task<IActionResult> Create([Bind("Name,IsRegulated,CouncilName")] Occupation occupation)
         {
             if (ModelState.IsValid)
             {
-                currency.Id = Guid.NewGuid();
-                currency.CreationTime = DateTime.Now;
-                currency.Deleted = false;
-                currency.CreationUser = User.Identity.Name;
-                _context.Add(currency);
+                occupation.Id = Guid.NewGuid();
+                occupation.CreationTime = DateTime.Now;
+                occupation.Deleted = false;
+                occupation.CreationUser = User.Identity.Name;
+                _context.Add(occupation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(currency);
+            return View(occupation);
         }
 
-        // GET: Currencies/Edit/5
+        // GET: Occupations/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -93,20 +89,20 @@ namespace Payroll.Controllers
                 return NotFound();
             }
 
-            var currency = await _context.Currency.FindAsync(id);
-            if (currency == null)
+            var occupation = await _context.Occupation.FindAsync(id);
+            if (occupation == null)
             {
                 return NotFound();
             }
-            return View(currency);
+            return View(occupation);
         }
 
-        // POST: Currencies/Edit/5        
+        // POST: Occupations/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Name,Exchange,Symbol,Id,CreationTime,CreationUser")] Currency currency)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Name,IsRegulated,CouncilName,Id,CreationTime,CreationUser")] Occupation occupation)
         {
-            if (id != currency.Id)
+            if (id != occupation.Id)
             {
                 return NotFound();
             }
@@ -115,14 +111,14 @@ namespace Payroll.Controllers
             {
                 try
                 {
-                    currency.LastUpdateTime = DateTime.Now;
-                    currency.LastUpdateUser = User.Identity.Name;
-                    _context.Update(currency);
+                    occupation.LastUpdateTime = DateTime.Now;
+                    occupation.LastUpdateUser = User.Identity.Name;
+                    _context.Update(occupation);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CurrencyExists(currency.Id))
+                    if (!OccupationExists(occupation.Id))
                     {
                         return NotFound();
                     }
@@ -133,10 +129,10 @@ namespace Payroll.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(currency);
+            return View(occupation);
         }
 
-        // GET: Currencies/Delete/5
+        // GET: Occupations/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -144,34 +140,32 @@ namespace Payroll.Controllers
                 return NotFound();
             }
 
-            var currency = await _context.Currency
-                .Where(a => !a.Deleted)
+            var occupation = await _context.Occupation
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (currency == null)
+            if (occupation == null)
             {
                 return NotFound();
             }
 
-            return View(currency);
+            return View(occupation);
         }
 
-        // POST: Currencies/Delete/5
+        // POST: Occupations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var currency = await _context.Currency.FindAsync(id);
-            currency.Deleted = true;
-            currency.DeleteTime = DateTime.Now;
-            currency.DeleteUser = User.Identity.Name;
-            _context.Currency.Update(currency);            
+            var occupation = await _context.Occupation.FindAsync(id);
+            occupation.Deleted = true;
+            occupation.DeleteUser = User.Identity.Name;
+            _context.Occupation.Update(occupation);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CurrencyExists(Guid id)
+        private bool OccupationExists(Guid id)
         {
-            return _context.Currency.Any(e => e.Id == id);
+            return _context.Occupation.Any(e => e.Id == id);
         }
     }
 }
