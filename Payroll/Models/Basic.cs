@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Payroll.Models
 {
-    public class Basic
+    public abstract class Basic
     {
         public Guid Id { get; set; }
         [Display(Name = "Criado em")]

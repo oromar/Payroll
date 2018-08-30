@@ -27,7 +27,7 @@ body {
 #qrCode {
     margin: 15px;
 }
-
+''
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */
@@ -36,7 +36,12 @@ body {
     }
 }
 
-.blackWhite {
-    background:black; 
-    color:white;
+.default_color {
+    background: #123456 !important;
+    color: #FFFFFF !important;    
 }
+
+svg .icon {
+    fill: #123456 !important;
+}
+

@@ -18,7 +18,7 @@
             <input asp-for="@(filter)" class="form-control" />
         </div>
         <div class="col-md-1">
-            <input asp-route-filter="@(filter)" type="submit" value="@Resource.Search" class="btn" style="color:white; background:black" />
+            <input asp-route-filter="@(filter)" type="submit" value="@Resource.Search" class="btn default_color" />
         </div>
         <div class="col-md-2">
             <a asp-action="Index" asp-route-filter="">@Resource.ClearFilter</a>
@@ -26,7 +26,7 @@
     </div>
 </form>
 <table  class="table table-bordered table-hover">
-    <thead class="blackWhite">
+    <thead class="default_color">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -59,15 +59,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CreationUser)
             </td>
-            <td align="center" style="border-right:none">
-                <a asp-action="Details" asp-route-id="@item.Id"><img alt="@Resource.Details" src="~/images/baseline-visibility-24px.svg"></a>
-            </td>
-            <td align="center" style="border-right:none;border-left:none">
-                <a asp-action="Edit" asp-route-id="@item.Id"><img alt="@Resource.Edit" src="~/images/baseline-edit-24px.svg"></a>
-            </td>
-            <td align="center" style="border-left:none">
-                <a asp-action="Delete" asp-route-id="@item.Id"><img alt="@Resource.Delete" src="~/images/baseline-delete-24px.svg"></a>
-            </td>
+            <partial name="_ActionsColumn" model="@item" />
         </tr>
 }
     </tbody>
