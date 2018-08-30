@@ -1,0 +1,24 @@
+@{
+    var currentPage = ViewBag.currentPage;
+    var filter = ViewBag.filter;
+    var hasMore = ViewBag.hasMore;
+}
+
+<div align="center">
+    <nav>
+        <ul class="pagination">
+            <li class="page-item">
+                <a asp-action="Index"
+                   asp-route-page="@(currentPage > 1 ? currentPage-1 : 1)"
+                   asp-route-filter="@(filter)"
+                   style="color:black" class="page-link">@Resource.Previous</a>
+            </li>
+            <li class="page-item">
+                <a asp-action="Index"
+                   asp-route-page="@(hasMore ? currentPage+1 : currentPage)"
+                   asp-route-filter="@(filter)"
+                   style="color:black" class="page-link">@Resource.Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>

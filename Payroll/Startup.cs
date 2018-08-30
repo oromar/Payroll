@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Payroll.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Payroll.Business;
 
 namespace Payroll
 {
@@ -38,6 +39,9 @@ namespace Payroll
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddTransient<OccupationsBO>();
+            services.AddTransient<CurrenciesBO>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

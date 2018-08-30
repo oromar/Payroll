@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Payroll.Business;
 using Payroll.Common;
 using Payroll.Data;
 using Payroll.Models;
@@ -15,11 +14,11 @@ namespace Payroll.Controllers
 {
     public class CurrenciesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly CurrenciesBO _bussinessObject;
 
-        public CurrenciesController(ApplicationDbContext context)
+        public CurrenciesController(CurrenciesBO currenciesBO)
         {
-            _context = context;
+            _bussinessObject = currenciesBO;
         }
 
         // GET: Currencies
@@ -28,18 +27,9 @@ namespace Payroll.Controllers
 
             ViewData["CurrentPage"] = page;
             ViewData["CurrentFilter"] = filter;
-            ViewData["HasMore"] = await _context.Currency
-                .Where(a => !a.Deleted)
-                .Where(a => string.IsNullOrEmpty(filter) || a.Name.Contains(filter))
-                .CountAsync() > (page * Constants.MAX_ITEMS_PER_PAGE);
+            ViewData["HasMore"] = await _bussinessObject.HasMore();
 
-            return View(await _context.Currency
-                .Where(a => !a.Deleted)
-                .Where(a => string.IsNullOrEmpty(filter) || a.Name.Contains(filter))
-                .OrderBy(a => a.Name)
-                .Skip((page - 1) * Constants.MAX_ITEMS_PER_PAGE)
-                .Take(Constants.MAX_ITEMS_PER_PAGE)
-                .ToListAsync());
+            return View(await _bussinessObject.Search(page, filter));
         }
 
         // GET: Currencies/Details/5
@@ -50,9 +40,8 @@ namespace Payroll.Controllers
                 return NotFound();
             }
 
-            var currency = await _context.Currency
-                .Where(a => !a.Deleted)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var currency = await _bussinessObject.Find(id);
+
             if (currency == null)
             {
                 return NotFound();
@@ -74,12 +63,7 @@ namespace Payroll.Controllers
         {
             if (ModelState.IsValid)
             {
-                currency.Id = Guid.NewGuid();
-                currency.CreationTime = DateTime.Now;
-                currency.Deleted = false;
-                currency.CreationUser = User.Identity.Name;
-                _context.Add(currency);
-                await _context.SaveChangesAsync();
+                await _bussinessObject.Create(currency, User.Identity.Name);
                 return RedirectToAction(nameof(Index));
             }
             return View(currency);
@@ -93,7 +77,7 @@ namespace Payroll.Controllers
                 return NotFound();
             }
 
-            var currency = await _context.Currency.FindAsync(id);
+            var currency = await _bussinessObject.Find(id);
             if (currency == null)
             {
                 return NotFound();
@@ -115,10 +99,7 @@ namespace Payroll.Controllers
             {
                 try
                 {
-                    currency.LastUpdateTime = DateTime.Now;
-                    currency.LastUpdateUser = User.Identity.Name;
-                    _context.Update(currency);
-                    await _context.SaveChangesAsync();
+                    await _bussinessObject.Edit(id, currency, User.Identity.Name);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -144,9 +125,7 @@ namespace Payroll.Controllers
                 return NotFound();
             }
 
-            var currency = await _context.Currency
-                .Where(a => !a.Deleted)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var currency = await _bussinessObject.Find(id);                
             if (currency == null)
             {
                 return NotFound();
@@ -160,18 +139,13 @@ namespace Payroll.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var currency = await _context.Currency.FindAsync(id);
-            currency.Deleted = true;
-            currency.DeleteTime = DateTime.Now;
-            currency.DeleteUser = User.Identity.Name;
-            _context.Currency.Update(currency);            
-            await _context.SaveChangesAsync();
+            await _bussinessObject.Delete(id, User.Identity.Name);
             return RedirectToAction(nameof(Index));
         }
 
         private bool CurrencyExists(Guid id)
         {
-            return _context.Currency.Any(e => e.Id == id);
+            return _bussinessObject.CurrencyExists(id);
         }
     }
 }

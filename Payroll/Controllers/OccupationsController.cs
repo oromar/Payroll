@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Payroll.Business;
 using Payroll.Common;
 using Payroll.Data;
 using Payroll.Models;
@@ -13,11 +14,11 @@ namespace Payroll.Controllers
 {
     public class OccupationsController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
-        public OccupationsController(ApplicationDbContext context)
+        private readonly OccupationsBO _businessObject;
+        
+        public OccupationsController(OccupationsBO occupationsBO)
         {
-            _context = context;
+            _businessObject = occupationsBO;
         }
 
         // GET: Occupations
@@ -25,18 +26,9 @@ namespace Payroll.Controllers
         {
             ViewData["CurrentPage"] = page;
             ViewData["CurrentFilter"] = filter;
-            ViewData["HasMore"] = await _context.Occupation
-                .Where(a => !a.Deleted)
-                .Where(a => string.IsNullOrEmpty(filter) || (a.Name.Contains(filter) || a.CouncilName.Contains(filter)))
-                .CountAsync() > (page * Constants.MAX_ITEMS_PER_PAGE);
+            ViewData["HasMore"] = await _businessObject.HasMore(page, filter);
 
-            return View(await _context.Occupation
-                                      .Where(a => !a.Deleted)
-                                      .Where(a => string.IsNullOrEmpty(filter) || (a.Name.Contains(filter) || a.CouncilName.Contains(filter)))
-                                      .OrderBy(a => a.Name)
-                                      .Skip((page - 1) * Constants.MAX_ITEMS_PER_PAGE)
-                                      .Take(Constants.MAX_ITEMS_PER_PAGE)
-                                      .ToListAsync());
+            return View(await _businessObject.Search(page, filter));
         }
 
         // GET: Occupations/Details/5
@@ -47,8 +39,8 @@ namespace Payroll.Controllers
                 return NotFound();
             }
 
-            var occupation = await _context.Occupation
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var occupation = await _businessObject.Find((Guid)id);
+
             if (occupation == null)
             {
                 return NotFound();
@@ -70,12 +62,7 @@ namespace Payroll.Controllers
         {
             if (ModelState.IsValid)
             {
-                occupation.Id = Guid.NewGuid();
-                occupation.CreationTime = DateTime.Now;
-                occupation.Deleted = false;
-                occupation.CreationUser = User.Identity.Name;
-                _context.Add(occupation);
-                await _context.SaveChangesAsync();
+                await _businessObject.Create(occupation, User.Identity.Name);                
                 return RedirectToAction(nameof(Index));
             }
             return View(occupation);
@@ -89,7 +76,7 @@ namespace Payroll.Controllers
                 return NotFound();
             }
 
-            var occupation = await _context.Occupation.FindAsync(id);
+            var occupation = await _businessObject.Find((Guid)id);
             if (occupation == null)
             {
                 return NotFound();
@@ -111,10 +98,7 @@ namespace Payroll.Controllers
             {
                 try
                 {
-                    occupation.LastUpdateTime = DateTime.Now;
-                    occupation.LastUpdateUser = User.Identity.Name;
-                    _context.Update(occupation);
-                    await _context.SaveChangesAsync();
+                    await _businessObject.Edit(id, occupation, User.Identity.Name);                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -140,8 +124,7 @@ namespace Payroll.Controllers
                 return NotFound();
             }
 
-            var occupation = await _context.Occupation
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var occupation = await _businessObject.Find((Guid)id);                
             if (occupation == null)
             {
                 return NotFound();
@@ -155,17 +138,14 @@ namespace Payroll.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var occupation = await _context.Occupation.FindAsync(id);
-            occupation.Deleted = true;
-            occupation.DeleteUser = User.Identity.Name;
-            _context.Occupation.Update(occupation);
-            await _context.SaveChangesAsync();
+
+            await _businessObject.Delete(id, User.Identity.Name);
             return RedirectToAction(nameof(Index));
         }
 
         private bool OccupationExists(Guid id)
         {
-            return _context.Occupation.Any(e => e.Id == id);
+            return _businessObject.OccupationExists(id);
         }
     }
 }

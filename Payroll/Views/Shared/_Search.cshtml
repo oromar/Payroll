@@ -1,0 +1,16 @@
+@{
+    var filter = ViewBag.filter;
+}
+<form>
+    <div class="form-group row">
+        <div class="col-xs-9 col-md-9">
+            <input asp-for="@(filter)" class="form-control" />
+        </div>
+        <div class="col-xs-1 col-md-1">
+            <input asp-route-filter="@(filter)" type="submit" value="@Resource.Search" class="btn default_color" />
+        </div>
+        <div class="col-xs-2 col-md-2">
+            <a asp-action="Index" asp-route-filter="">@Resource.ClearFilter</a>
+        </div>
+    </div>
+</form>

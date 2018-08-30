@@ -12,19 +12,8 @@
 <p>
     <a asp-action="Create">@Resource.NewCurrency</a>
 </p>
-<form>
-    <div class="form-group row">
-        <div class="col-md-9">
-            <input asp-for="@(filter)" class="form-control" />
-        </div>
-        <div class="col-md-1">
-            <input asp-route-filter="@(filter)" type="submit" value="@Resource.Search" class="btn default_color" />
-        </div>
-        <div class="col-md-2">
-            <a asp-action="Index" asp-route-filter="">@Resource.ClearFilter</a>
-        </div>
-    </div>
-</form>
+<partial name="_Search" model="filter" />
+
 <table class="table table-bordered table-hover">
     <thead class="default_color">
         <tr>
@@ -64,21 +53,6 @@
         }
     </tbody>
 </table>
-<div align="center">
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item">
-                <a asp-action="Index"
-                   asp-route-page="@(currentPage > 1 ? currentPage-1 : 1)"
-                   asp-route-filter="@(filter)"
-                   style="color:black" class="page-link">@Resource.Previous</a>
-            </li>
-            <li class="page-item">
-            <a asp-action="Index" 
-                    asp-route-page="@(hasMore ? currentPage+1 : currentPage)"
-                    asp-route-filter="@(filter)"
-                    style="color:black" class="page-link">@Resource.Next</a>
-            </li>
-        </ul>
-    </nav>
-</div>
+<partial name="_Pagination" model="@(new {currentPage, hasMore, filter })" />
+
+
