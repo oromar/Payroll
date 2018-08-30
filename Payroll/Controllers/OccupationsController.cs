@@ -14,24 +14,34 @@ namespace Payroll.Controllers
 {
     public class OccupationsController : Controller
     {
-        private readonly OccupationsBO _businessObject;
+        private readonly OccupationsBO _occupationsBO;
+        private readonly Message _message;
         
-        public OccupationsController(OccupationsBO occupationsBO)
+        public OccupationsController(OccupationsBO occupationsBO, Message message)
         {
-            _businessObject = occupationsBO;
+            _occupationsBO = occupationsBO;
+            _message = message;
         }
 
-        // GET: Occupations
+        
         public async Task<IActionResult> Index(int page = 1, string filter = "")
         {
             ViewData["CurrentPage"] = page;
             ViewData["CurrentFilter"] = filter;
-            ViewData["HasMore"] = await _businessObject.HasMore(page, filter);
+            ViewData["HasMore"] = await _occupationsBO.HasMore(page, filter);
 
-            return View(await _businessObject.Search(page, filter));
+            if (_message.HasMessage)
+            {
+                ViewBag.MessageTitle = _message.Title;
+                ViewBag.Message = _message.Body;
+                ViewBag.MessageType = _message.Type;
+
+                _message.Clear();
+            }
+
+            return View(await _occupationsBO.Search(page, filter));
         }
 
-        // GET: Occupations/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -39,7 +49,7 @@ namespace Payroll.Controllers
                 return NotFound();
             }
 
-            var occupation = await _businessObject.Find((Guid)id);
+            var occupation = await _occupationsBO.Find((Guid)id);
 
             if (occupation == null)
             {
@@ -49,26 +59,33 @@ namespace Payroll.Controllers
             return View(occupation);
         }
 
-        // GET: Occupations/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Occupations/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,IsRegulated,CouncilName")] Occupation occupation)
         {
             if (ModelState.IsValid)
             {
-                await _businessObject.Create(occupation, User.Identity.Name);                
+                await _occupationsBO.Create(occupation, User.Identity.Name);
+
+                CreateMessage(Resource.CreatedSuccessfully_a, Resource.SuccessMessageType);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(occupation);
         }
 
-        // GET: Occupations/Edit/5
+        private void CreateMessage(string message, string type)
+        {
+            _message.Title = Resource.Occupation;
+            _message.Body = message;
+            _message.Type = type;
+        }
+
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -76,7 +93,8 @@ namespace Payroll.Controllers
                 return NotFound();
             }
 
-            var occupation = await _businessObject.Find((Guid)id);
+            var occupation = await _occupationsBO.Find((Guid)id);
+
             if (occupation == null)
             {
                 return NotFound();
@@ -84,7 +102,6 @@ namespace Payroll.Controllers
             return View(occupation);
         }
 
-        // POST: Occupations/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("Name,IsRegulated,CouncilName,Id,CreationTime,CreationUser")] Occupation occupation)
@@ -98,9 +115,11 @@ namespace Payroll.Controllers
             {
                 try
                 {
-                    await _businessObject.Edit(id, occupation, User.Identity.Name);                    
+                    await _occupationsBO.Edit(id, occupation, User.Identity.Name);
+
+                    CreateMessage(Resource.UpdatedSuccessfully_a, Resource.SuccessMessageType);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException e) 
                 {
                     if (!OccupationExists(occupation.Id))
                     {
@@ -108,7 +127,7 @@ namespace Payroll.Controllers
                     }
                     else
                     {
-                        throw;
+                        CreateMessage(e.Message, Resource.DangerMessageType);
                     }
                 }
                 return RedirectToAction(nameof(Index));
@@ -116,7 +135,6 @@ namespace Payroll.Controllers
             return View(occupation);
         }
 
-        // GET: Occupations/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -124,7 +142,8 @@ namespace Payroll.Controllers
                 return NotFound();
             }
 
-            var occupation = await _businessObject.Find((Guid)id);                
+            var occupation = await _occupationsBO.Find((Guid)id);     
+            
             if (occupation == null)
             {
                 return NotFound();
@@ -133,19 +152,21 @@ namespace Payroll.Controllers
             return View(occupation);
         }
 
-        // POST: Occupations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
 
-            await _businessObject.Delete(id, User.Identity.Name);
+            await _occupationsBO.Delete(id, User.Identity.Name);
+
+            CreateMessage(Resource.RemovedSuccessfully_a, Resource.SuccessMessageType);
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool OccupationExists(Guid id)
         {
-            return _businessObject.OccupationExists(id);
+            return _occupationsBO.Exists(id);
         }
     }
 }

@@ -14,25 +14,33 @@ namespace Payroll.Controllers
 {
     public class CurrenciesController : Controller
     {
-        private readonly CurrenciesBO _bussinessObject;
+        private readonly CurrenciesBO _currenciesBO;
+        private readonly Message _message;
 
-        public CurrenciesController(CurrenciesBO currenciesBO)
+        public CurrenciesController(CurrenciesBO currenciesBO, Message message)
         {
-            _bussinessObject = currenciesBO;
+            _currenciesBO = currenciesBO;
+            _message = message;
         }
 
-        // GET: Currencies
         public async Task<IActionResult> Index(int page = 1, string filter = "")
         {
-
             ViewData["CurrentPage"] = page;
             ViewData["CurrentFilter"] = filter;
-            ViewData["HasMore"] = await _bussinessObject.HasMore();
+            ViewData["HasMore"] = await _currenciesBO.HasMore();
 
-            return View(await _bussinessObject.Search(page, filter));
+            if (_message.HasMessage)
+            {
+                ViewBag.MessageTitle = _message.Title;
+                ViewBag.Message = _message.Body;
+                ViewBag.MessageType = _message.Type;
+
+                _message.Clear();
+            }
+
+            return View(await _currenciesBO.Search(page, filter));
         }
 
-        // GET: Currencies/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -40,7 +48,7 @@ namespace Payroll.Controllers
                 return NotFound();
             }
 
-            var currency = await _bussinessObject.Find(id);
+            var currency = await _currenciesBO.Find(id);
 
             if (currency == null)
             {
@@ -50,26 +58,26 @@ namespace Payroll.Controllers
             return View(currency);
         }
 
-        // GET: Currencies/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Currencies/Create        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Exchange,Symbol")] Currency currency)
         {
             if (ModelState.IsValid)
             {
-                await _bussinessObject.Create(currency, User.Identity.Name);
+                await _currenciesBO.Create(currency, User.Identity.Name);
+
+                CreateMessage(Resource.SuccessMessageType, Resource.CreatedSuccessfully_a);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(currency);
         }
 
-        // GET: Currencies/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -77,7 +85,7 @@ namespace Payroll.Controllers
                 return NotFound();
             }
 
-            var currency = await _bussinessObject.Find(id);
+            var currency = await _currenciesBO.Find(id);
             if (currency == null)
             {
                 return NotFound();
@@ -85,7 +93,6 @@ namespace Payroll.Controllers
             return View(currency);
         }
 
-        // POST: Currencies/Edit/5        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("Name,Exchange,Symbol,Id,CreationTime,CreationUser")] Currency currency)
@@ -99,9 +106,11 @@ namespace Payroll.Controllers
             {
                 try
                 {
-                    await _bussinessObject.Edit(id, currency, User.Identity.Name);
+                    await _currenciesBO.Edit(id, currency, User.Identity.Name);
+
+                    CreateMessage(Resource.SuccessMessageType, Resource.UpdatedSuccessfully_a);
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException e)
                 {
                     if (!CurrencyExists(currency.Id))
                     {
@@ -109,7 +118,7 @@ namespace Payroll.Controllers
                     }
                     else
                     {
-                        throw;
+                        CreateMessage(Resource.DangerMessageType, e.Message);
                     }
                 }
                 return RedirectToAction(nameof(Index));
@@ -117,7 +126,6 @@ namespace Payroll.Controllers
             return View(currency);
         }
 
-        // GET: Currencies/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -125,7 +133,8 @@ namespace Payroll.Controllers
                 return NotFound();
             }
 
-            var currency = await _bussinessObject.Find(id);                
+            var currency = await _currenciesBO.Find(id);
+
             if (currency == null)
             {
                 return NotFound();
@@ -134,18 +143,27 @@ namespace Payroll.Controllers
             return View(currency);
         }
 
-        // POST: Currencies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            await _bussinessObject.Delete(id, User.Identity.Name);
+            await _currenciesBO.Delete(id, User.Identity.Name);
+
+            CreateMessage(Resource.SuccessMessageType, Resource.RemovedSuccessfully_a);
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool CurrencyExists(Guid id)
         {
-            return _bussinessObject.CurrencyExists(id);
+            return _currenciesBO.Exists(id);
+        }
+
+        private void CreateMessage(string type, string message)
+        {
+            _message.Title = Resource.Currency;
+            _message.Body = message;            
+            _message.Type = type;
         }
     }
 }

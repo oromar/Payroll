@@ -35,24 +35,23 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Symbol)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Exchange)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreationUser)
-            </td>
-            <partial name="_ActionsColumn" model="@item"/>                 
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Symbol)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Exchange)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationUser)
+                </td>
+                <partial name="_ActionsColumn" model="@item" />
+            </tr>
         }
     </tbody>
 </table>
 <partial name="_Pagination" model="@(new {currentPage, hasMore, filter })" />
-
 

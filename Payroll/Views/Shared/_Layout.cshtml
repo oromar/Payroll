@@ -40,8 +40,19 @@
     </nav>
 
     <partial name="_CookieConsentPartial" />
-
+    
     <div class="container body-content">
+
+        @if (ViewBag.MessageTitle != null)
+        {
+            <div class="alert-message">
+                <div class="alert alert-@(ViewBag.MessageType) alert-dismissible" role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>@(ViewBag.MessageTitle)</strong> @(ViewBag.Message)
+                </div>
+            </div>
+        }
+
         @RenderBody()
         <hr />
         <footer>
@@ -69,7 +80,6 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>

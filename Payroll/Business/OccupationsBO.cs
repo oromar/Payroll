@@ -13,16 +13,13 @@ using Payroll.Models;
 
 namespace Payroll.Business
 {
-    public class OccupationsBO
+    public class OccupationsBO: GenericBO<Occupation>
     {
-        private readonly ApplicationDbContext _context;
-
-        public OccupationsBO(ApplicationDbContext context)
+        public OccupationsBO(ApplicationDbContext context): base(context)
         {
-            _context = context;
         }
 
-        public async Task<bool> HasMore(int page = 1, string filter = "")
+        public override async Task<bool> HasMore(int page = 1, string filter = "")
         {
            return await _context.Occupation
                 .Where(a => !a.Deleted)
@@ -30,7 +27,7 @@ namespace Payroll.Business
                 .CountAsync() > (page * Constants.MAX_ITEMS_PER_PAGE);
         }
 
-        public async Task<List<Occupation>> Search(int page = 1, string filter = "")
+        public override async Task<List<Occupation>> Search(int page = 1, string filter = "")
         {
             return await _context.Occupation
                 .Where(a => !a.Deleted)
@@ -41,7 +38,14 @@ namespace Payroll.Business
                 .ToListAsync();
         }
 
-        public async Task<Occupation> Find(Guid id)
+        public override async Task<Occupation> Details(Guid id)
+        {
+            return await _context.Occupation
+                .Where(a => !a.Deleted)
+                .FirstOrDefaultAsync(a => a.Id == id);
+        }
+
+        public override async Task<Occupation> Find(Guid? id)
         {
             var occupation = await _context.Occupation
                 .Where(a => !a.Deleted)
@@ -50,44 +54,7 @@ namespace Payroll.Business
             return occupation;
         }
 
-        public async Task<Occupation> Create(Occupation occupation, string userIdentity)
-        {
-            occupation.Id = Guid.NewGuid();
-            occupation.CreationTime = DateTime.Now;
-            occupation.CreationUser = userIdentity;
-            occupation.Deleted = false;              
-            _context.Add(occupation);
-            await _context.SaveChangesAsync();                            
-            return occupation;
-        }
-
-        public async Task<Occupation> Edit(Guid id, Occupation occupation, string userIdentity)
-        {
-            try
-            {
-                occupation.LastUpdateTime = DateTime.Now;
-                occupation.LastUpdateUser = userIdentity;
-                _context.Update(occupation);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }                
-            return occupation;
-        }
-
-        public async Task<int> Delete(Guid id, string userIdentity)
-        {
-            var occupation = await _context.Occupation.FindAsync(id);
-            occupation.Deleted = true;
-            occupation.DeleteUser = userIdentity;
-            occupation.DeleteTime = DateTime.Now;
-            _context.Update(occupation);
-            return await _context.SaveChangesAsync();            
-        }
-
-        public bool OccupationExists(Guid id)
+        public override bool Exists(Guid id)
         {
             return _context.Occupation.Any(e => e.Id == id);
         }

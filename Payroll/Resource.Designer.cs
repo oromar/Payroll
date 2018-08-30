@@ -133,6 +133,24 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to adicionada com sucesso..
+        /// </summary>
+        public static string CreatedSuccessfully_a {
+            get {
+                return ResourceManager.GetString("CreatedSuccessfully_a", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to adicionado com sucesso..
+        /// </summary>
+        public static string CreatedSuccessfully_o {
+            get {
+                return ResourceManager.GetString("CreatedSuccessfully_o", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Moeda.
         /// </summary>
         public static string Currency {
@@ -147,6 +165,15 @@ namespace Payroll {
         public static string CurrencyTitle {
             get {
                 return ResourceManager.GetString("CurrencyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to danger.
+        /// </summary>
+        public static string DangerMessageType {
+            get {
+                return ResourceManager.GetString("DangerMessageType", resourceCulture);
             }
         }
         
@@ -183,6 +210,15 @@ namespace Payroll {
         public static string ExchangeRequired {
             get {
                 return ResourceManager.GetString("ExchangeRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to info.
+        /// </summary>
+        public static string InfoMessageType {
+            get {
+                return ResourceManager.GetString("InfoMessageType", resourceCulture);
             }
         }
         
@@ -241,6 +277,15 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nenhum item encontrado..
+        /// </summary>
+        public static string NoItems {
+            get {
+                return ResourceManager.GetString("NoItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Profissão.
         /// </summary>
         public static string Occupation {
@@ -277,6 +322,24 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to removida com sucesso..
+        /// </summary>
+        public static string RemovedSuccessfully_a {
+            get {
+                return ResourceManager.GetString("RemovedSuccessfully_a", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to removido com sucesso..
+        /// </summary>
+        public static string RemovedSuccessfully_o {
+            get {
+                return ResourceManager.GetString("RemovedSuccessfully_o", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Salvar.
         /// </summary>
         public static string Save {
@@ -295,6 +358,15 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to success.
+        /// </summary>
+        public static string SuccessMessageType {
+            get {
+                return ResourceManager.GetString("SuccessMessageType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alterado em.
         /// </summary>
         public static string UpdatedAt {
@@ -309,6 +381,33 @@ namespace Payroll {
         public static string UpdatedBy {
             get {
                 return ResourceManager.GetString("UpdatedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to alterada com sucesso..
+        /// </summary>
+        public static string UpdatedSuccessfully_a {
+            get {
+                return ResourceManager.GetString("UpdatedSuccessfully_a", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to alterado com sucesso..
+        /// </summary>
+        public static string UpdatedSuccessfully_o {
+            get {
+                return ResourceManager.GetString("UpdatedSuccessfully_o", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to warning.
+        /// </summary>
+        public static string WarningMessageType {
+            get {
+                return ResourceManager.GetString("WarningMessageType", resourceCulture);
             }
         }
         

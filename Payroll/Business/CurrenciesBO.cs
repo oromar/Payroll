@@ -11,16 +11,14 @@ using Payroll.Data;
 using Payroll.Models;
 namespace Payroll.Business
 {
-    public class CurrenciesBO
+    public class CurrenciesBO: GenericBO<Currency>
     {
-        private readonly ApplicationDbContext _context;
 
-        public CurrenciesBO(ApplicationDbContext context)
+        public CurrenciesBO(ApplicationDbContext context): base(context)
         {
-            _context = context;
         }
 
-        public async Task<bool> HasMore(int page = 1, string filter = "")
+        public override async Task<bool> HasMore(int page = 1, string filter = "")
         {
             return await _context.Currency
                  .Where(a => !a.Deleted)
@@ -28,7 +26,7 @@ namespace Payroll.Business
                  .CountAsync() > (page * Constants.MAX_ITEMS_PER_PAGE);
         }
 
-        public async Task<List<Currency>> Search(int page = 1, string filter = "")
+        public override async Task<List<Currency>> Search(int page = 1, string filter = "")
         {
             return await _context.Currency
                 .Where(a => !a.Deleted)
@@ -39,7 +37,7 @@ namespace Payroll.Business
                 .ToListAsync();
         }
 
-        public async Task<Currency> Details(Guid id)
+        public override async Task<Currency> Details(Guid id)
         {
             var currency = await _context.Currency
                 .Where(a => !a.Deleted)
@@ -48,49 +46,12 @@ namespace Payroll.Business
             return currency;
         }
 
-        public async Task<Currency> Create(Currency currency, string userIdentity)
-        {
-            currency.Id = Guid.NewGuid();
-            currency.CreationTime = DateTime.Now;
-            currency.CreationUser = userIdentity;
-            currency.Deleted = false;
-            _context.Add(currency);
-            await _context.SaveChangesAsync();
-            return currency;
-        }
-
-        public async Task<Currency> Find(Guid? id)
+        public override async Task<Currency> Find(Guid? id)
         {
             return await _context.Currency.FindAsync(id);
         }
 
-        public async Task<Currency> Edit(Guid id, Currency currency, string userIdentity)
-        {
-            try
-            {
-                currency.LastUpdateTime = DateTime.Now;
-                currency.LastUpdateUser = userIdentity;
-                _context.Update(currency);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }
-            return currency;
-        }
-
-        public async Task<int> Delete(Guid id, string userIdentity)
-        {
-            var currency = await _context.Currency.FindAsync(id);
-            currency.Deleted = true;
-            currency.DeleteUser = userIdentity;
-            currency.DeleteTime = DateTime.Now;
-            _context.Update(currency);
-            return await _context.SaveChangesAsync();
-        }
-
-        public bool CurrencyExists(Guid id)
+        public override bool Exists(Guid id)
         {
             return _context.Currency.Any(e => e.Id == id);
         }

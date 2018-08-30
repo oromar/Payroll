@@ -141,11 +141,20 @@
   <data name="CreatedBy" xml:space="preserve">
     <value>Criado por</value>
   </data>
+  <data name="CreatedSuccessfully_a" xml:space="preserve">
+    <value>adicionada com sucesso.</value>
+  </data>
+  <data name="CreatedSuccessfully_o" xml:space="preserve">
+    <value>adicionado com sucesso.</value>
+  </data>
   <data name="Currency" xml:space="preserve">
     <value>Moeda</value>
   </data>
   <data name="CurrencyTitle" xml:space="preserve">
     <value>Cadastro de Moedas</value>
+  </data>
+  <data name="DangerMessageType" xml:space="preserve">
+    <value>danger</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Remover</value>
@@ -158,6 +167,9 @@
   </data>
   <data name="ExchangeRequired" xml:space="preserve">
     <value>Taxa de câmbio obrigatória.</value>
+  </data>
+  <data name="InfoMessageType" xml:space="preserve">
+    <value>info</value>
   </data>
   <data name="NA" xml:space="preserve">
     <value>N/A</value>
@@ -177,6 +189,9 @@
   <data name="No" xml:space="preserve">
     <value>Não</value>
   </data>
+  <data name="NoItems" xml:space="preserve">
+    <value>Nenhum item encontrado.</value>
+  </data>
   <data name="Occupation" xml:space="preserve">
     <value>Profissão</value>
   </data>
@@ -189,17 +204,35 @@
   <data name="Remove" xml:space="preserve">
     <value>Remover</value>
   </data>
+  <data name="RemovedSuccessfully_a" xml:space="preserve">
+    <value>removida com sucesso.</value>
+  </data>
+  <data name="RemovedSuccessfully_o" xml:space="preserve">
+    <value>removido com sucesso.</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Salvar</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Buscar</value>
   </data>
+  <data name="SuccessMessageType" xml:space="preserve">
+    <value>success</value>
+  </data>
   <data name="UpdatedAt" xml:space="preserve">
     <value>Alterado em</value>
   </data>
   <data name="UpdatedBy" xml:space="preserve">
     <value>Alterado por</value>
+  </data>
+  <data name="UpdatedSuccessfully_a" xml:space="preserve">
+    <value>alterada com sucesso.</value>
+  </data>
+  <data name="UpdatedSuccessfully_o" xml:space="preserve">
+    <value>alterado com sucesso.</value>
+  </data>
+  <data name="WarningMessageType" xml:space="preserve">
+    <value>warning</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Sim</value>

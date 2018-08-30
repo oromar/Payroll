@@ -8,6 +8,7 @@ using Payroll.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Payroll.Business;
+using Payroll.Common;
 
 namespace Payroll
 {
@@ -42,6 +43,8 @@ namespace Payroll
 
             services.AddTransient<OccupationsBO>();
             services.AddTransient<CurrenciesBO>();
+
+            services.AddSingleton<Message>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
