@@ -20,7 +20,7 @@ namespace Payroll.Business
 
         public abstract Task<T> Find(Guid? id);
 
-        public abstract Task<bool> HasMore(int page = 1, string filter = "");
+        public abstract Task<int> Count(int page = 1, string filter = "");
 
         public abstract Task<List<T>> Search(int page = 1, string filter = "");
 

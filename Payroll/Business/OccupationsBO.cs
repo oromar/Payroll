@@ -19,19 +19,20 @@ namespace Payroll.Business
         {
         }
 
-        public override async Task<bool> HasMore(int page = 1, string filter = "")
+        public override async Task<int> Count(int page = 1, string filter = "")
         {
            return await _context.Occupation
                 .Where(a => !a.Deleted)
-                .Where(a => string.IsNullOrEmpty(filter) || a.Name.Contains(filter))
-                .CountAsync() > (page * Constants.MAX_ITEMS_PER_PAGE);
+                .Where(a => string.IsNullOrEmpty(filter) 
+                || (a.Name.Contains(filter, StringComparison.InvariantCultureIgnoreCase) || a.CouncilName.Contains(filter, StringComparison.InvariantCultureIgnoreCase)))
+                .CountAsync();
         }
 
         public override async Task<List<Occupation>> Search(int page = 1, string filter = "")
         {
             return await _context.Occupation
                 .Where(a => !a.Deleted)
-                .Where(a => string.IsNullOrEmpty(filter) || a.Name.Contains(filter))
+                .Where(a => string.IsNullOrEmpty(filter) || (a.Name.Contains(filter, StringComparison.InvariantCultureIgnoreCase) || a.CouncilName.Contains(filter, StringComparison.InvariantCultureIgnoreCase)))
                 .OrderBy(a => a.Name)
                 .Skip((page - 1) * Constants.MAX_ITEMS_PER_PAGE)
                 .Take(Constants.MAX_ITEMS_PER_PAGE)

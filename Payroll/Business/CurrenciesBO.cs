@@ -14,23 +14,21 @@ namespace Payroll.Business
     public class CurrenciesBO: GenericBO<Currency>
     {
 
-        public CurrenciesBO(ApplicationDbContext context): base(context)
-        {
-        }
+        public CurrenciesBO(ApplicationDbContext context): base(context) { }
 
-        public override async Task<bool> HasMore(int page = 1, string filter = "")
+        public override async Task<int> Count(int page = 1, string filter = "")
         {
             return await _context.Currency
                  .Where(a => !a.Deleted)
-                 .Where(a => string.IsNullOrEmpty(filter) || a.Name.Contains(filter))
-                 .CountAsync() > (page * Constants.MAX_ITEMS_PER_PAGE);
+                 .Where(a => string.IsNullOrEmpty(filter) || a.Name.Contains(filter, StringComparison.InvariantCultureIgnoreCase))
+                 .CountAsync();
         }
 
         public override async Task<List<Currency>> Search(int page = 1, string filter = "")
         {
             return await _context.Currency
                 .Where(a => !a.Deleted)
-                .Where(a => string.IsNullOrEmpty(filter) || a.Name.Contains(filter))
+                .Where(a => string.IsNullOrEmpty(filter) || a.Name.Contains(filter, StringComparison.InvariantCultureIgnoreCase))
                 .OrderBy(a => a.Name)
                 .Skip((page - 1) * Constants.MAX_ITEMS_PER_PAGE)
                 .Take(Constants.MAX_ITEMS_PER_PAGE)

@@ -162,14 +162,26 @@
   <data name="Details" xml:space="preserve">
     <value>Detalhes</value>
   </data>
+  <data name="Displaying" xml:space="preserve">
+    <value>Exibindo:</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Editar</value>
   </data>
   <data name="ExchangeRequired" xml:space="preserve">
     <value>Taxa de câmbio obrigatória.</value>
   </data>
+  <data name="First" xml:space="preserve">
+    <value>Primeiro</value>
+  </data>
   <data name="InfoMessageType" xml:space="preserve">
     <value>info</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>items</value>
+  </data>
+  <data name="Last" xml:space="preserve">
+    <value>Último</value>
   </data>
   <data name="NA" xml:space="preserve">
     <value>N/A</value>

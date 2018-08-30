@@ -33,23 +33,34 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @if (Model.Count() == 0)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                <td class="no-items" colspan="5">
+                    @Resource.NoItems
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Symbol)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Exchange)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreationUser)
-                </td>
-                <partial name="_ActionsColumn" model="@item" />
             </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Symbol)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Exchange)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreationUser)
+                    </td>
+                    <partial name="_ActionsColumn" model="@item" />
+                </tr>
+            }
         }
     </tbody>
 </table>

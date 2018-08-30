@@ -2,7 +2,18 @@
     var currentPage = ViewBag.currentPage;
     var filter = ViewBag.filter;
     var hasMore = ViewBag.hasMore;
+    var totalItems = ViewBag.totalItems;
+    var itemsPerPage = ViewBag.itemsPerPage;
+
+    var totalPages = (totalItems / itemsPerPage) + ((totalItems % itemsPerPage == 0) ? 0 : 1);
+
+    var firstItem = currentPage <= 1 ? 1 : (currentPage - 1) * itemsPerPage;
+    var lastItem = ((currentPage - 1) * itemsPerPage + itemsPerPage);
+    lastItem = lastItem <= totalItems ? lastItem : totalItems;
 }
+<div align="right" style="font-size:1.1em;">
+    <p>@Resource.Displaying @(firstItem) a @(lastItem) de @(totalItems) @Resource.Items.</p>
+</div>
 
 <div align="center">
     <nav>
@@ -13,6 +24,17 @@
                    asp-route-filter="@(filter)"
                    style="color:black" class="page-link">@Resource.Previous</a>
             </li>
+
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item">
+                    <a asp-action="Index"
+                       asp-route-page="@(i)"
+                       asp-route-filter="@(filter)"
+                       style="color:black" class="page-link">@(i)</a>
+                </li>
+            }
+
             <li class="page-item">
                 <a asp-action="Index"
                    asp-route-page="@(hasMore ? currentPage+1 : currentPage)"
