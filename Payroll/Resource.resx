@@ -133,7 +133,7 @@
     <value>Voltar</value>
   </data>
   <data name="ClearFilter" xml:space="preserve">
-    <value>Limpar Filtro</value>
+    <value>Limpar</value>
   </data>
   <data name="CreatedAt" xml:space="preserve">
     <value>Criado em</value>

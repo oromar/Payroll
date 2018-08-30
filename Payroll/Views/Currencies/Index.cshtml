@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<Payroll.Models.Currency>
 
 @{
-    var currentPage = ViewData["CurrentPage"] as int? ?? 1;
-    var hasMore = ViewData["HasMore"] as bool? ?? false;
-    var filter = ViewData["CurrentFilter"] as string ?? string.Empty;
+    var currentPage = ViewBag.CurrentPage as int? ?? 1;
+    var hasMore = ViewBag.HasMore as bool? ?? false;
+    var filter = ViewBag.CurrentFilter as string ?? string.Empty;
     ViewData["Title"] = Resource.CurrencyTitle;
 }
 

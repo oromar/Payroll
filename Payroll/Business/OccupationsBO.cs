@@ -32,7 +32,9 @@ namespace Payroll.Business
         {
             return await _context.Occupation
                 .Where(a => !a.Deleted)
-                .Where(a => string.IsNullOrEmpty(filter) || (a.Name.Contains(filter, StringComparison.InvariantCultureIgnoreCase) || a.CouncilName.Contains(filter, StringComparison.InvariantCultureIgnoreCase)))
+                .Where(a => string.IsNullOrEmpty(filter) || 
+                (a.Name.Contains(filter, StringComparison.InvariantCultureIgnoreCase) || 
+                (a.CouncilName != null && a.CouncilName.Contains(filter, StringComparison.InvariantCultureIgnoreCase))))
                 .OrderBy(a => a.Name)
                 .Skip((page - 1) * Constants.MAX_ITEMS_PER_PAGE)
                 .Take(Constants.MAX_ITEMS_PER_PAGE)

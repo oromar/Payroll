@@ -106,7 +106,7 @@ namespace Payroll {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Limpar Filtro.
+        ///   Looks up a localized string similar to Limpar.
         /// </summary>
         public static string ClearFilter {
             get {
