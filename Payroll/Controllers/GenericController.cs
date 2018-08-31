@@ -49,7 +49,6 @@ namespace Payroll.Controllers
 
                 _message.Clear();
             }
-
             return View(await _businessObject.Search(page, filter));
         }
 

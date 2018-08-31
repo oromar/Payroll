@@ -14,7 +14,6 @@ namespace Payroll.Business
 {
     public class CurrenciesBO: GenericBO<Currency>
     {
-
         public CurrenciesBO(ApplicationDbContext context): base(context) { }
 
         public override async Task<int> Count(int page = 1, string filter = "")
