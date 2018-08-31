@@ -6,3 +6,4 @@
 obj
 bin
 .vs/Payroll/DesignTimeBuild/.dtbcache
+.vs/config/applicationhost.config
