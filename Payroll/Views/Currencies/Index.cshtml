@@ -10,7 +10,9 @@
 <h2>@Resource.CurrencyTitle</h2>
 
 <p>
-    <a asp-action="Create">@Resource.NewCurrency</a>
+    <a href="#" data-toggle="modal" data-target="#createModal">
+        @Resource.NewCurrency
+    </a>
 </p>
 <partial name="_Search" model="filter" />
 
@@ -65,4 +67,22 @@
     </tbody>
 </table>
 <partial name="_Pagination" model="@(new {currentPage, hasMore, filter })" />
+
+
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createOccupationModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header default_color">
+                <h3 class="modal-title" id="exampleModalLabel">@Resource.NewCurrency</h3>
+            </div>
+            <div class="modal-body" style="border:none;">
+                <partial name="Create" model="new Currency()" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 

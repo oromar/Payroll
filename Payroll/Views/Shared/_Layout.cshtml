@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - @Resource.ApplicationName</title>
-
+    
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -40,8 +40,23 @@
     </nav>
 
     <partial name="_CookieConsentPartial" />
-    
-    <div class="container body-content">
+
+    <div class="modal fade" id="waiting" tabindex="-1" role="dialog" aria-labelledby="deleteOccupationModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header default_color">
+                    <h4 class="modal-title" align="left" id="exampleModalLabel">Por favor aguarde</h4>
+                </div>
+                <div class="modal-body" style="border:none;">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="main_container" class="container body-content">
 
         @if (ViewBag.MessageTitle != null)
         {
@@ -53,7 +68,7 @@
             </div>
         }
 
-        @RenderBody()        
+        @RenderBody()
     </div>
 
     <environment include="Development">
@@ -76,6 +91,56 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
+
     @RenderSection("Scripts", required: false)
+
 </body>
+
+<script type="text/javascript">
+
+    var zoom = [60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160]
+    var mainContainer = document.getElementById("main_container");
+
+    
+
+    var currentZoom = 100;
+    var currentZoomIndex = 4;
+
+    if (localStorage.getItem("zoom")) {
+        currentZoom = localStorage.getItem("zoom");
+    }
+    if (localStorage.getItem("zoomIndex")) {        
+        currentZoomIndex = localStorage.getItem("zoomIndex");
+    }
+
+    $('#waiting').ready(function () {
+        $('#waiting').modal();
+    });
+
+    $('#main_container').ready(function () {    
+        mainContainer.style.zoom = currentZoom + "%";
+        localStorage.setItem("zoom", currentZoom);
+        localStorage.setItem("zoomIndex", currentZoomIndex);
+        $('#waiting').modal().hide();
+    });
+
+    function plusZoom() {
+        var nextZoom = currentZoomIndex < zoom.length-1 ? ++currentZoomIndex : zoom.length;;
+        mainContainer.style.zoom = zoom[nextZoom] + '%';
+        localStorage.setItem("zoom", zoom[nextZoom]);
+        localStorage.setItem("zoomIndex", nextZoom);
+    }
+
+    function minusZoom() {
+        var nextZoom = currentZoomIndex > 0 ? --currentZoomIndex : 0;
+        mainContainer.style.zoom = zoom[nextZoom] + '%';  
+        localStorage.setItem("zoom", zoom[nextZoom]);
+        localStorage.setItem("zoomIndex", nextZoom);
+    }
+</script>
+
+
+
+
+
 </html>

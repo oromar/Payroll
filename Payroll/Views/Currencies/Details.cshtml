@@ -1,40 +1,28 @@
 ﻿@model Payroll.Models.Currency
 
-@{
-    ViewData["Title"] = Resource.CurrencyTitle;
-}
-
-<h2>@Resource.Details de @Html.DisplayFor(model => model.Name)</h2>
-<div>
-    <div>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Symbol)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Symbol)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Exchange)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Exchange)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default default_color" >@Resource.Edit</a>
-    </div>
+<div class="col-md-12" align="left">
+    <dl style="text-align:left; float:left;">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Symbol)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Symbol)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Exchange)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Exchange)
+        </dd>
+    </dl>
 </div>
-<br/>
-<div>
-    <a asp-action="Index">@Resource.Back</a>
+<div align="right">
+    <a class="btn btn-default" asp-action="Index">@Resource.Back</a>
 </div>
 

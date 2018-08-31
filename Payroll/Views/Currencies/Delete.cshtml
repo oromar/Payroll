@@ -1,36 +1,8 @@
 ﻿@model Payroll.Models.Currency
 
-@{
-    ViewData["Title"] = Resource.CurrencyTitle;
-}
-
-<h2>@Resource.Remove</h2>
-
-<h3>@Resource.AreYouSure</h3>
-<div class="row">
-    <div class="col-md-4">
-        <h4>@Html.DisplayFor(model => model.Name)</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Symbol)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Symbol)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Exchange)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Exchange)
-            </dd>
-        </dl>
+<div class="row" align="left">
+    <div class="col-md-12" align="left">
+        <h4>Tem certeza que deseja remover @Html.DisplayFor(model => model.Name) ?</h4>
 
         <form asp-action="Delete">
             <input type="hidden" asp-for="Id" />
@@ -38,13 +10,10 @@
             <input type="hidden" asp-for="CreationUser" />
             <input type="hidden" asp-for="LastUpdateTime" />
             <input type="hidden" asp-for="LastUpdateUser" />
-            <div class="form-group">
-                <input type="submit" value=@Resource.Delete class="btn btn-default default_color"  />
+            <div class="form-group" align="right">
+                <a asp-action="Index" class="btn btn-default">@Resource.Back</a>
+                <input type="submit" value=@Resource.Delete class="btn btn-default default_color" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">@Resource.Back</a>
 </div>

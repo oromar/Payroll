@@ -88,7 +88,7 @@ namespace Payroll {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tem certeza?.
+        ///   Looks up a localized string similar to Tem certeza que deseja remover.
         /// </summary>
         public static string AreYouSure {
             get {

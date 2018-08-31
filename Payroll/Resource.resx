@@ -127,7 +127,7 @@
     <value>Recursos Humanos</value>
   </data>
   <data name="AreYouSure" xml:space="preserve">
-    <value>Tem certeza?</value>
+    <value>Tem certeza que deseja remover</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Voltar</value>

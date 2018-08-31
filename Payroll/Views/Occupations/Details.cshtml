@@ -1,14 +1,6 @@
 ﻿@model Payroll.Models.Occupation
 
-@{
-    ViewData["Title"] = Resource.OccupationsTitle;
-}
-
-<h2>@Resource.Details de @Html.DisplayFor(model => model.Name)</h2>
-
-<div>
-    
-    <hr />
+<div class="col-md-12" align="left">
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -27,14 +19,9 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.CouncilName)
-        </dd>       
+        </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default default_color">@Resource.Edit</a> 
-    
-</div>
-<br />
-<div>
-    <a asp-action="Index">@Resource.Back</a>
+<div align="right">
+    <a class="btn btn-default" asp-action="Index">@Resource.Back</a>
 </div>
