@@ -34,7 +34,7 @@ namespace Payroll.Controllers
 
         public async Task<IActionResult> Index(int page = 1, string filter = "")
         {
-            var totalItems = await _businessObject.Count();
+            var totalItems = await _businessObject.Count(page, filter);
             ViewBag.CurrentPage = page;
             ViewBag.CurrentFilter = filter;
             ViewBag.TotalItems = totalItems;

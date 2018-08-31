@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MMLib.Extensions;
 using Payroll.Business;
 using Payroll.Common;
 using Payroll.Data;
@@ -20,19 +21,23 @@ namespace Payroll.Business
         {
             return await _context.Currency
                  .Where(a => !a.Deleted)
-                 .Where(a => string.IsNullOrEmpty(filter) || a.Name.Contains(filter, StringComparison.InvariantCultureIgnoreCase))
-                 .CountAsync();
+                 .ToAsyncEnumerable()
+                 .Where(a => string.IsNullOrEmpty(filter) || 
+                    a.Name.RemoveDiacritics().Contains(filter.RemoveDiacritics(), StringComparison.InvariantCultureIgnoreCase))
+                 .Count();
         }
 
         public override async Task<List<Currency>> Search(int page = 1, string filter = "")
         {
             return await _context.Currency
                 .Where(a => !a.Deleted)
-                .Where(a => string.IsNullOrEmpty(filter) || a.Name.Contains(filter, StringComparison.InvariantCultureIgnoreCase))
+                .ToAsyncEnumerable()
+                .Where(a => string.IsNullOrEmpty(filter) || 
+                a.Name.RemoveDiacritics().Contains(filter.RemoveDiacritics(), StringComparison.InvariantCultureIgnoreCase))
                 .OrderBy(a => a.Name)
                 .Skip((page - 1) * Constants.MAX_ITEMS_PER_PAGE)
                 .Take(Constants.MAX_ITEMS_PER_PAGE)
-                .ToListAsync();
+                .ToList();
         }
 
         public override async Task<Currency> Details(Guid id)
