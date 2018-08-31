@@ -24,10 +24,9 @@ namespace Payroll.Business
         {
            return await _context.Occupation
                 .Where(a => !a.Deleted)
-                .ToAsyncEnumerable()
                 .Where(a => string.IsNullOrEmpty(filter) 
                 || (a.Name.RemoveDiacritics().Contains(filter.RemoveDiacritics(), StringComparison.InvariantCultureIgnoreCase) || a.CouncilName.Contains(filter, StringComparison.InvariantCultureIgnoreCase)))
-                .Count();
+                .CountAsync();
         }
 
         public override async Task<List<Occupation>> Search(int page = 1, string filter = "")

@@ -21,23 +21,21 @@ namespace Payroll.Business
         {
             return await _context.Currency
                  .Where(a => !a.Deleted)
-                 .ToAsyncEnumerable()
                  .Where(a => string.IsNullOrEmpty(filter) || 
                     a.Name.RemoveDiacritics().Contains(filter.RemoveDiacritics(), StringComparison.InvariantCultureIgnoreCase))
-                 .Count();
+                 .CountAsync();
         }
 
         public override async Task<List<Currency>> Search(int page = 1, string filter = "")
         {
             return await _context.Currency
                 .Where(a => !a.Deleted)
-                .ToAsyncEnumerable()
                 .Where(a => string.IsNullOrEmpty(filter) || 
                 a.Name.RemoveDiacritics().Contains(filter.RemoveDiacritics(), StringComparison.InvariantCultureIgnoreCase))
                 .OrderBy(a => a.Name)
                 .Skip((page - 1) * Constants.MAX_ITEMS_PER_PAGE)
                 .Take(Constants.MAX_ITEMS_PER_PAGE)
-                .ToList();
+                .ToListAsync();
         }
 
         public override async Task<Currency> Details(Guid id)

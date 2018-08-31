@@ -131,6 +131,8 @@ namespace Payroll.Controllers
                     else
                     {
                         CreateMessage(Resource.DangerMessageType, e.Message);
+
+                        return View(data);
                     }
                 }
                 return RedirectToAction(nameof(Index));
