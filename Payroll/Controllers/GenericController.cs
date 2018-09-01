@@ -4,8 +4,6 @@ using Payroll.Business;
 using Payroll.Common;
 using Payroll.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Payroll.Controllers
@@ -34,7 +32,7 @@ namespace Payroll.Controllers
 
         public async Task<IActionResult> Index(int page = 1, string filter = "")
         {
-            var totalItems = await _businessObject.Count(page, filter);
+            var totalItems = await _businessObject.Count(filter);
             ViewBag.CurrentPage = page;
             ViewBag.CurrentFilter = filter;
             ViewBag.TotalItems = totalItems;

@@ -101,8 +101,6 @@
     var zoom = [60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160]
     var mainContainer = document.getElementById("main_container");
 
-    
-
     var currentZoom = 100;
     var currentZoomIndex = 4;
 
@@ -113,15 +111,10 @@
         currentZoomIndex = localStorage.getItem("zoomIndex");
     }
 
-    $('#waiting').ready(function () {
-        $('#waiting').modal();
-    });
-
-    $('#main_container').ready(function () {    
+    $('#main_container').ready(function () {
         mainContainer.style.zoom = currentZoom + "%";
         localStorage.setItem("zoom", currentZoom);
         localStorage.setItem("zoomIndex", currentZoomIndex);
-        $('#waiting').modal().hide();
     });
 
     function plusZoom() {
@@ -138,9 +131,4 @@
         localStorage.setItem("zoomIndex", nextZoom);
     }
 </script>
-
-
-
-
-
 </html>

@@ -8,9 +8,9 @@
 {
 <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
 
-    <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" style="padding:15px;font-size:0.8em" onclick="minusZoom();">A-</a></li>
-        <li><a href="#" style="padding:15px;font-size:1.2em" onclick="plusZoom();">A+</a></li>
+    <ul class="nav navbar-nav navbar-right" style="padding:0px;margin:0px;">
+        <li><a href="#" style="font-size:0.8em;margin:0;padding-right:4px;" onclick="minusZoom();">A-</a></li>
+        <li><a href="#" style="font-size:1.2em;margin:0;padding-left:4px;" onclick="plusZoom();">A+</a></li>
     </ul>
 
     <ul class="nav navbar-nav navbar-right">

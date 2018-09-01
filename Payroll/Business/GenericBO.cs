@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.WebSockets.Internal;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Payroll.Common;
 using Payroll.Data;
 using Payroll.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Payroll.Business
@@ -18,15 +19,35 @@ namespace Payroll.Business
             _context = context;
         }
 
+        public abstract Expression<Func<T, object>> GetOrder();
+
+        public abstract IQueryable<T> BaseQuery(string filter);
+
         public abstract Task<T> Find(Guid? id);
 
-        public abstract Task<int> Count(int page = 1, string filter = "");
+        public bool Exists(Guid id)
+        {
+            return Find(id) != null;
+        }
 
-        public abstract Task<List<T>> Search(int page = 1, string filter = "");
+        public async Task<List<T>> Search(int page = 1, string filter = "")
+        {
+            return await BaseQuery(filter)
+                .OrderBy(GetOrder())
+                .Skip((page - 1) * Constants.MAX_ITEMS_PER_PAGE)
+                .Take(Constants.MAX_ITEMS_PER_PAGE)
+                .ToListAsync();
+        }
 
-        public abstract Task<T> Details(Guid id);
+        public async Task<int> Count(string filter = "")
+        {
+            return await BaseQuery(filter).CountAsync();
+        }
 
-        public abstract bool Exists(Guid id);
+        public async Task<T> Details(Guid id)
+        {
+            return await Find(id);
+        }
 
         public async Task<T> Create(T data, string userIdentity)
         {

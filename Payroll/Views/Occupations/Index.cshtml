@@ -47,24 +47,25 @@
         {
             @foreach (var item in Model)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @(item.IsRegulated ? Resource.Yes : Resource.No)
-                </td>
-                <td>
-                    @(item.IsRegulated ? item.CouncilName : Resource.NA)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreationUser)
-                </td>
-                <partial name="_ActionsColumn" model="@item" />
-                
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @(item.IsRegulated ? Resource.Yes : Resource.No)
+                    </td>
+                    <td>
+                        @(item.IsRegulated ? item.CouncilName : Resource.NA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreationUser)
+                    </td>
+                    <partial name="_ActionsColumn" model="@item" />
+                </tr>
             }
         }
+
+
     </tbody>
 </table>
 <partial name="_Pagination" model="@(new {currentPage, hasMore, filter })" />
@@ -81,9 +82,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-
-
