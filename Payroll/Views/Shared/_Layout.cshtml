@@ -35,13 +35,17 @@
                     <li><a asp-area="" asp-controller="Occupations" asp-action="Index">@Resource.Occupation</a></li>
                 </ul>
                 <partial name="_LoginPartial" />
+                <ul class="nav navbar-nav navbar-right" style="padding:0px;margin:0px;">
+                    <li><a href="#" style="font-size:0.8em;margin:0;padding-right:4px;" onclick="minusZoom();">A-</a></li>
+                    <li><a href="#" style="font-size:1.2em;margin:0;padding-left:4px;" onclick="plusZoom();">A+</a></li>
+                </ul>
             </div>
         </div>
     </nav>
 
     <partial name="_CookieConsentPartial" />
 
-    <div class="modal fade" id="waiting" tabindex="-1" role="dialog" aria-labelledby="deleteOccupationModal" aria-hidden="true">
+    <div class="modal fade" id="waiting" tabindex="-1" role="dialog" aria-labelledby="waitingModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header default_color">
@@ -56,7 +60,7 @@
         </div>
     </div>
 
-    <div id="main_container" class="container body-content">
+    <div id="main_container" class="container body-content" style="display:none;">
 
         @if (ViewBag.MessageTitle != null)
         {
@@ -115,6 +119,7 @@
         mainContainer.style.zoom = currentZoom + "%";
         localStorage.setItem("zoom", currentZoom);
         localStorage.setItem("zoomIndex", currentZoomIndex);
+        mainContainer.style.display = 'block';
     });
 
     function plusZoom() {
