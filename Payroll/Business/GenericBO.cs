@@ -19,21 +19,32 @@ namespace Payroll.Business
             _context = context;
         }
 
-        public abstract Expression<Func<T, object>> GetOrder();
+        public abstract Expression<Func<T, bool>> FilterBy(string filter);
 
-        public abstract IQueryable<T> BaseQuery(string filter);
+        public abstract Expression<Func<T, object>> OrderBy();
 
-        public abstract Task<T> Find(Guid? id);
+        public async Task<T> Find(Guid? id)
+        {
+            return await _context
+                .Set<T>()
+                .Where(FilterBy(null))
+                .FirstOrDefaultAsync(a => a.Id == id);
+        }
 
         public bool Exists(Guid id)
         {
-            return Find(id) != null;
+            return _context
+                .Set<T>()
+                .Where(FilterBy(null))
+                .Any(a => a.Id == id);
         }
 
         public async Task<List<T>> Search(int page = 1, string filter = "")
         {
-            return await BaseQuery(filter)
-                .OrderBy(GetOrder())
+            return await _context
+                .Set<T>()
+                .Where(FilterBy(filter))
+                .OrderBy(OrderBy())
                 .Skip((page - 1) * Constants.MAX_ITEMS_PER_PAGE)
                 .Take(Constants.MAX_ITEMS_PER_PAGE)
                 .ToListAsync();
@@ -41,7 +52,10 @@ namespace Payroll.Business
 
         public async Task<int> Count(string filter = "")
         {
-            return await BaseQuery(filter).CountAsync();
+            return await _context
+                .Set<T>()
+                .Where(FilterBy(filter))
+                .CountAsync();
         }
 
         public async Task<T> Details(Guid id)

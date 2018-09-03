@@ -15,25 +15,18 @@ namespace Payroll.Business
     {
         public OccupationsBO(ApplicationDbContext context): base(context) {}
 
-        public override Expression<Func<Occupation, object>> GetOrder()
-        {
-            return a => a.Name;
-        }
+        public override Expression<Func<Occupation, object>> OrderBy() 
+            => a => a.Name;
 
-        public override IQueryable<Occupation> BaseQuery(string filter)
-        {
-            return _context.Occupation
-                .Where(a => !a.Deleted)
-                .Where(a => string.IsNullOrEmpty(filter) ||
-                (a.Name.RemoveDiacritics().Contains(filter.RemoveDiacritics(), StringComparison.InvariantCultureIgnoreCase) ||
-                (a.CouncilName != null && a.CouncilName.Contains(filter, StringComparison.InvariantCultureIgnoreCase))));
-        }
-
-        public override async Task<Occupation> Find(Guid? id)
-        {
-            return await _context.Occupation
-                .Where(a => !a.Deleted)
-                .FirstOrDefaultAsync(a => a.Id == id);
-        }
+        public override Expression<Func<Occupation, bool>> FilterBy(string filter) 
+            => a => !a.Deleted &&
+                (string.IsNullOrEmpty(filter) || 
+                    (a.Name.RemoveDiacritics().
+                        Contains(filter.RemoveDiacritics(), 
+                            StringComparison.InvariantCultureIgnoreCase) ||
+                            (a.CouncilName != null &&
+                                a.CouncilName.RemoveDiacritics().
+                                    Contains(filter.RemoveDiacritics(), 
+                                        StringComparison.InvariantCultureIgnoreCase))));
     }
 }

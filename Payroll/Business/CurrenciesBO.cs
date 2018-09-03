@@ -15,26 +15,12 @@ namespace Payroll.Business
     {
         public CurrenciesBO(ApplicationDbContext context): base(context) {}
 
-        public override Expression<Func<Currency, object>> GetOrder()
-        {
-            return a => a.Name;
-        }
+        public override Expression<Func<Currency, object>> OrderBy() 
+            => a => a.Name;
 
-        public override IQueryable<Currency> BaseQuery(string filter)
-        {
-            return _context.Currency
-                 .Where(a => !a.Deleted)
-                 .Where(a => string.IsNullOrEmpty(filter) ||
-                    a.Name.RemoveDiacritics().Contains(filter.RemoveDiacritics(), 
-                        StringComparison.InvariantCultureIgnoreCase));
-        }
-
-        public override async Task<Currency> Find(Guid? id)
-        {
-            var currency = await _context.Currency
-             .Where(a => !a.Deleted)
-             .FirstOrDefaultAsync(m => m.Id == id);
-            return currency;
-        }
+        public override Expression<Func<Currency, bool>> FilterBy(string filter) 
+            => a => !a.Deleted &&
+            (string.IsNullOrEmpty(filter) || a.Name.RemoveDiacritics().Contains(
+                filter.RemoveDiacritics(), StringComparison.InvariantCultureIgnoreCase));
     }
 }
