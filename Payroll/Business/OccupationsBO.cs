@@ -15,8 +15,27 @@ namespace Payroll.Business
     {
         public OccupationsBO(ApplicationDbContext context): base(context) {}
 
-        public override Expression<Func<Occupation, object>> OrderBy() 
-            => a => a.Name;
+        public override Expression<Func<Occupation, object>> OrderBy(string sort)
+        {
+            if (string.IsNullOrEmpty(sort))
+            {
+                return a => a.Name;
+            } 
+            else
+            {
+                switch(sort)
+                {
+                    case "Name":
+                        return a => a.Name;
+                    case "CouncilName":
+                        return a => a.CouncilName;
+                    case "CreatedBy":
+                        return a => a.CreatedBy;
+                }
+            }
+            return null;
+        }
+            
 
         public override Expression<Func<Occupation, bool>> FilterBy(string filter) 
             => a => !a.IsDeleted &&

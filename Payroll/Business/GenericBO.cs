@@ -21,7 +21,7 @@ namespace Payroll.Business
 
         public abstract Expression<Func<T, bool>> FilterBy(string filter);
 
-        public abstract Expression<Func<T, object>> OrderBy();
+        public abstract Expression<Func<T, object>> OrderBy(string sort);
 
         public async Task<T> Find(Guid? id)
         {
@@ -39,12 +39,22 @@ namespace Payroll.Business
                 .Any(a => a.Id == id);
         }
 
-        public async Task<List<T>> Search(int page = 1, string filter = "")
+        public async Task<List<T>> Search(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
-            return await _context
+            var query = _context
                 .Set<T>()
-                .Where(FilterBy(filter))
-                .OrderBy(OrderBy())
+                .Where(FilterBy(filter));
+
+            if (order == "ASC")
+            { 
+                query = query.OrderBy(OrderBy(sort));
+            } 
+            else
+            {
+                query = query.OrderByDescending(OrderBy(sort));
+            }
+
+            return await query
                 .Skip((page - 1) * Constants.MAX_ITEMS_PER_PAGE)
                 .Take(Constants.MAX_ITEMS_PER_PAGE)
                 .ToListAsync();

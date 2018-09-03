@@ -5,6 +5,8 @@
     var hasMore = ViewData["HasMore"] as bool? ?? false;
     var filter = ViewData["CurrentFilter"] as string ?? string.Empty;
     ViewData["Title"] = Resource.OccupationsTitle;
+    var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
+    var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
 }
 
 <h2>@Resource.OccupationsTitle</h2>
@@ -19,16 +21,35 @@
     <thead class="default_color">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="Name"
+                   asp-route-order="@(previousSort == "Name" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.Name)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsRegulated)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CouncilName)
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="CouncilName"
+                   asp-route-order="@(previousSort == "CouncilName" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.CouncilName)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="CreatedBy"
+                   asp-route-order="@(previousSort == "CreatedBy" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </a>
+
             </th>
             <th style="text-align:center" class="col-md-2" colspan="3">@Resource.Action</th>
         </tr>

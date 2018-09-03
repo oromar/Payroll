@@ -5,6 +5,8 @@
     var hasMore = ViewBag.HasMore as bool? ?? false;
     var filter = ViewBag.CurrentFilter as string ?? string.Empty;
     ViewData["Title"] = Resource.CurrencyTitle;
+    var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
+    var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
 }
 
 <h2>@Resource.CurrencyTitle</h2>
@@ -20,16 +22,40 @@
     <thead class="default_color">
         <tr>
             <th class="col-md-6">
-                @Html.DisplayNameFor(model => model.Name)
+                <a asp-action="Index" 
+                   asp-route-filter="@filter" 
+                   asp-route-page="@currentPage" 
+                   asp-route-sort="Name" 
+                   asp-route-order="@(previousSort == "Name" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color"> 
+                        @Html.DisplayNameFor(model => model.Name) 
+                </a>
             </th>
             <th class="col-md-2">
-                @Html.DisplayNameFor(model => model.Symbol)
+                <a asp-action="Index" 
+                   asp-route-filter="@filter" 
+                   asp-route-page="@currentPage" 
+                   asp-route-sort="Symbol" 
+                   asp-route-order="@(previousSort == "Symbol" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color"> 
+                        @Html.DisplayNameFor(model => model.Symbol) 
+                </a>
             </th>
             <th class="col-md-2">
-                @Html.DisplayNameFor(model => model.Exchange)
+                <a asp-action="Index" 
+                   asp-route-filter="@filter" 
+                   asp-route-page="@currentPage" 
+                   asp-route-sort="Exchange" 
+                   asp-route-order="@(previousSort == "Exchange" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                        @Html.DisplayNameFor(model => model.Exchange)
+                </a>
             </th>
             <th class="col-md-2">
-                @Html.DisplayNameFor(model => model.CreatedBy)
+                <a asp-action="Index" 
+                   asp-route-filter="@filter" 
+                   asp-route-page="@currentPage" 
+                   asp-route-sort="CreatedBy" 
+                   asp-route-order="@(previousSort == "CreatedBy" && previousOrder == "ASC" ? "DESC" : "ASC"))" class="default_color">
+                        @Html.DisplayNameFor(model => model.CreatedBy)
+                </a>
             </th>
             <th style="text-align:center" class="col-md-2" colspan="3">@Resource.Action</th>
         </tr>

@@ -30,7 +30,7 @@ namespace Payroll.Controllers
             _message.Type = type;
         }
 
-        public async Task<IActionResult> Index(int page = 1, string filter = "")
+        public async Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
             var totalItems = await _businessObject.Count(filter);
             ViewBag.CurrentPage = page;
@@ -38,6 +38,8 @@ namespace Payroll.Controllers
             ViewBag.TotalItems = totalItems;
             ViewBag.HasMore = totalItems > (page * Constants.MAX_ITEMS_PER_PAGE);
             ViewBag.ItemsPerPage = Constants.MAX_ITEMS_PER_PAGE;
+            ViewBag.Sort = sort;
+            ViewBag.Order = order;
 
             if (_message.HasMessage)
             {
@@ -47,7 +49,7 @@ namespace Payroll.Controllers
 
                 _message.Clear();
             }
-            return View(await _businessObject.Search(page, filter));
+            return View(await _businessObject.Search(page, filter, sort, order));
         }
 
         public async Task<IActionResult> Details(Guid? id)
