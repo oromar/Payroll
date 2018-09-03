@@ -19,8 +19,9 @@ namespace Payroll.Business
             => a => a.Name;
 
         public override Expression<Func<Currency, bool>> FilterBy(string filter) 
-            => a => !a.Deleted &&
-            (string.IsNullOrEmpty(filter) || a.Name.RemoveDiacritics().Contains(
-                filter.RemoveDiacritics(), StringComparison.InvariantCultureIgnoreCase));
+            => a => !a.IsDeleted &&
+            (string.IsNullOrEmpty(filter) || 
+                a.Name.RemoveDiacritics()
+                    .Contains(filter.RemoveDiacritics(), StringComparison.InvariantCultureIgnoreCase));
     }
 }

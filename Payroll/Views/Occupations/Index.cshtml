@@ -28,7 +28,7 @@
                 @Html.DisplayNameFor(model => model.CouncilName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreationUser)
+                @Html.DisplayNameFor(model => model.CreatedBy)
             </th>
             <th style="text-align:center" class="col-md-2" colspan="3">@Resource.Action</th>
         </tr>
@@ -58,7 +58,7 @@
                         @(item.IsRegulated ? item.CouncilName : Resource.NA)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CreationUser)
+                        @Html.DisplayFor(modelItem => item.CreatedBy)
                     </td>
                     <partial name="_ActionsColumn" model="@item" />
                 </tr>

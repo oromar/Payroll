@@ -41,8 +41,8 @@ namespace Payroll
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddTransient<OccupationsBO>();
-            services.AddTransient<CurrenciesBO>();
+            services.AddScoped<OccupationsBO>();
+            services.AddScoped<CurrenciesBO>();
 
             services.AddSingleton<Message>();
         }

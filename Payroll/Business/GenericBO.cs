@@ -66,9 +66,9 @@ namespace Payroll.Business
         public async Task<T> Create(T data, string userIdentity)
         {
             data.Id = Guid.NewGuid();
-            data.CreationTime = DateTime.Now;
-            data.CreationUser = userIdentity;
-            data.Deleted = false;
+            data.CreatedAt = DateTime.Now;
+            data.CreatedBy = userIdentity;
+            data.IsDeleted = false;
             _context.Add(data);
             await _context.SaveChangesAsync();
             return data;
@@ -78,8 +78,8 @@ namespace Payroll.Business
         {
             try
             {
-                data.LastUpdateTime = DateTime.Now;
-                data.LastUpdateUser = userIdentity;
+                data.UpdatedAt = DateTime.Now;
+                data.UpdatedBy = userIdentity;
                 _context.Update(data);
                 await _context.SaveChangesAsync();
             }
@@ -93,9 +93,9 @@ namespace Payroll.Business
         public async Task<int> Delete(Guid id, string userIdentity)
         {
             var data = await Find(id);
-            data.Deleted = true;
-            data.DeleteUser = userIdentity;
-            data.DeleteTime = DateTime.Now;
+            data.IsDeleted = true;
+            data.DeletedBy = userIdentity;
+            data.DeletedAt = DateTime.Now;
             _context.Update(data);
             return await _context.SaveChangesAsync();
         }

@@ -191,9 +191,9 @@ namespace Payroll.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreationTime");
+                    b.Property<DateTime>("CreatedAt");
 
-                    b.Property<string>("CreationUser");
+                    b.Property<string>("CreatedBy");
 
                     b.Property<DateTime>("DeleteTime");
 
@@ -203,9 +203,9 @@ namespace Payroll.Data.Migrations
 
                     b.Property<double>("Exchange");
 
-                    b.Property<DateTime>("LastUpdateTime");
+                    b.Property<DateTime>("UpdatedAt");
 
-                    b.Property<string>("LastUpdateUser");
+                    b.Property<string>("UpdatedBy");
 
                     b.Property<string>("Name");
 

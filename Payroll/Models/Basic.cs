@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Payroll.Models
 {
@@ -11,18 +7,18 @@ namespace Payroll.Models
     {
         public Guid Id { get; set; }
         [Display(Name = "Criado em")]
-        public DateTime CreationTime { get; set; }
+        public DateTime? CreatedAt { get; set; }
         [Display(Name = "Criado por")]
-        public string CreationUser { get; set; }
+        public string CreatedBy { get; set; }
         [Display(Name = "Alterado em")]
-        public DateTime LastUpdateTime { get; set; }
+        public DateTime? UpdatedAt { get; set; }
         [Display(Name = "Alterado por")]
-        public string LastUpdateUser { get; set; }
+        public string UpdatedBy { get; set; }
         [Display(Name = "Removido")]
-        public Boolean Deleted { get; set; }
+        public Boolean IsDeleted { get; set; }
         [Display(Name = "Removido em")]
-        public DateTime DeleteTime { get; set; }
+        public DateTime? DeletedAt { get; set; }
         [Display(Name = "Removido por")]
-        public string DeleteUser { get; set; }
+        public string DeletedBy { get; set; }
     }
 }

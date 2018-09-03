@@ -10,8 +10,8 @@ using Payroll.Data;
 namespace Payroll.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180829195256_AddSymbolInCurrency")]
-    partial class AddSymbolInCurrency
+    [Migration("20180903205403_ChangedBasicEntityColumns")]
+    partial class ChangedBasicEntityColumns
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -195,21 +195,22 @@ namespace Payroll.Data.Migrations
 
                     b.Property<string>("CreatedBy");
 
-                    b.Property<DateTime>("DeleteTime");
+                    b.Property<DateTime>("DeletedAt");
 
-                    b.Property<string>("DeleteUser");
-
-                    b.Property<bool>("Deleted");
+                    b.Property<string>("DeletedBy");
 
                     b.Property<double>("Exchange");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("Symbol");
 
                     b.Property<DateTime>("UpdatedAt");
 
                     b.Property<string>("UpdatedBy");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Symbol");
 
                     b.HasKey("Id");
 
@@ -227,19 +228,20 @@ namespace Payroll.Data.Migrations
 
                     b.Property<string>("CreatedBy");
 
-                    b.Property<DateTime>("DeleteTime");
+                    b.Property<DateTime>("DeletedAt");
 
-                    b.Property<string>("DeleteUser");
+                    b.Property<string>("DeletedBy");
 
-                    b.Property<bool>("Deleted");
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<bool>("IsRegulated");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<DateTime>("UpdatedAt");
 
                     b.Property<string>("UpdatedBy");
-
-                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 

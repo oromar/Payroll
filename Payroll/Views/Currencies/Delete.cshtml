@@ -6,10 +6,10 @@
 
         <form asp-action="Delete">
             <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="CreationTime" />
-            <input type="hidden" asp-for="CreationUser" />
-            <input type="hidden" asp-for="LastUpdateTime" />
-            <input type="hidden" asp-for="LastUpdateUser" />
+            <input type="hidden" asp-for="CreatedAt" />
+            <input type="hidden" asp-for="CreatedBy" />
+            <input type="hidden" asp-for="UpdatedAt" />
+            <input type="hidden" asp-for="UpdatedBy" />
             <div class="form-group" align="right">
                 <a asp-action="Index" class="btn btn-default">@Resource.Back</a>
                 <input type="submit" value=@Resource.Delete class="btn btn-default default_color" />

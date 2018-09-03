@@ -12,8 +12,8 @@ namespace Payroll.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CreationTime = table.Column<DateTime>(nullable: false),
-                    LastUpdateTime = table.Column<DateTime>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
                     DeleteTime = table.Column<DateTime>(nullable: false),
                     Deleted = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),

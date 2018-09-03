@@ -189,26 +189,26 @@ namespace Payroll.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreationTime");
+                    b.Property<DateTime?>("CreatedAt");
 
-                    b.Property<string>("CreationUser");
+                    b.Property<string>("CreatedBy");
 
-                    b.Property<DateTime>("DeleteTime");
+                    b.Property<DateTime?>("DeletedAt");
 
-                    b.Property<string>("DeleteUser");
-
-                    b.Property<bool>("Deleted");
+                    b.Property<string>("DeletedBy");
 
                     b.Property<double>("Exchange");
 
-                    b.Property<DateTime>("LastUpdateTime");
-
-                    b.Property<string>("LastUpdateUser");
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name")
                         .IsRequired();
 
                     b.Property<string>("Symbol");
+
+                    b.Property<DateTime?>("UpdatedAt");
+
+                    b.Property<string>("UpdatedBy");
 
                     b.HasKey("Id");
 
@@ -222,24 +222,24 @@ namespace Payroll.Data.Migrations
 
                     b.Property<string>("CouncilName");
 
-                    b.Property<DateTime>("CreationTime");
+                    b.Property<DateTime?>("CreatedAt");
 
-                    b.Property<string>("CreationUser");
+                    b.Property<string>("CreatedBy");
 
-                    b.Property<DateTime>("DeleteTime");
+                    b.Property<DateTime?>("DeletedAt");
 
-                    b.Property<string>("DeleteUser");
+                    b.Property<string>("DeletedBy");
 
-                    b.Property<bool>("Deleted");
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<bool>("IsRegulated");
 
-                    b.Property<DateTime>("LastUpdateTime");
-
-                    b.Property<string>("LastUpdateUser");
-
                     b.Property<string>("Name")
                         .IsRequired();
+
+                    b.Property<DateTime?>("UpdatedAt");
+
+                    b.Property<string>("UpdatedBy");
 
                     b.HasKey("Id");
 

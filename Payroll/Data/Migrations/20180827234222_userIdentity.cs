@@ -7,7 +7,7 @@ namespace Payroll.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "CreationUser",
+                name: "CreatedBy",
                 table: "Currency",
                 nullable: true);
 
@@ -17,7 +17,7 @@ namespace Payroll.Data.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "LastUpdateUser",
+                name: "UpdatedBy",
                 table: "Currency",
                 nullable: true);
         }
@@ -25,7 +25,7 @@ namespace Payroll.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "CreationUser",
+                name: "CreatedBy",
                 table: "Currency");
 
             migrationBuilder.DropColumn(
@@ -33,7 +33,7 @@ namespace Payroll.Data.Migrations
                 table: "Currency");
 
             migrationBuilder.DropColumn(
-                name: "LastUpdateUser",
+                name: "UpdatedBy",
                 table: "Currency");
         }
     }

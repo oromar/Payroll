@@ -19,7 +19,7 @@ namespace Payroll.Business
             => a => a.Name;
 
         public override Expression<Func<Occupation, bool>> FilterBy(string filter) 
-            => a => !a.Deleted &&
+            => a => !a.IsDeleted &&
                 (string.IsNullOrEmpty(filter) || 
                     (a.Name.RemoveDiacritics().
                         Contains(filter.RemoveDiacritics(), 
