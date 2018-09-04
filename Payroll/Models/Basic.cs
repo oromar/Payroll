@@ -20,5 +20,6 @@ namespace Payroll.Models
         public DateTime? DeletedAt { get; set; }
         [Display(Name = "Removido por")]
         public string DeletedBy { get; set; }
+        public string SearchFields { get; set; }
     }
 }

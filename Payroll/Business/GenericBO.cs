@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MMLib.Extensions;
 using Payroll.Common;
 using Payroll.Data;
 using Payroll.Models;
@@ -19,9 +20,22 @@ namespace Payroll.Business
             _context = context;
         }
 
-        public abstract Expression<Func<T, bool>> FilterBy(string filter);
+        public Expression<Func<T, bool>> FilterBy(string filter) =>
+            a => !a.IsDeleted && 
+                    a.SearchFields.RemoveDiacritics()
+                            .Contains(filter.RemoveDiacritics(), StringComparison.InvariantCultureIgnoreCase);
 
-        public abstract Expression<Func<T, object>> OrderBy(string sort);
+        public Expression<Func<T, object>> SortBy(string sort)
+        {
+            if (string.IsNullOrEmpty(sort))
+            {
+                return a => a.Id;
+            }
+
+            return a => a.GetType()
+                         .GetProperty(sort)
+                         .GetValue(a);
+        }
 
         public async Task<T> Find(Guid? id)
         {
@@ -47,11 +61,11 @@ namespace Payroll.Business
 
             if (order == "ASC")
             { 
-                query = query.OrderBy(OrderBy(sort));
+                query = query.OrderBy(SortBy(sort));
             } 
             else
             {
-                query = query.OrderByDescending(OrderBy(sort));
+                query = query.OrderByDescending(SortBy(sort));
             }
 
             return await query
@@ -78,6 +92,13 @@ namespace Payroll.Business
             data.Id = Guid.NewGuid();
             data.CreatedAt = DateTime.Now;
             data.CreatedBy = userIdentity;
+            data.SearchFields = data.GetType()
+                                    .GetProperties()
+                                    .ToList()
+                                    .Where(a => a.PropertyType == typeof(string))
+                                    .Where(a => a.GetValue(data) != null)
+                                    .Select(a => a.GetValue(data).ToString())
+                                    .Aggregate((a, b) => a + "," + b);
             data.IsDeleted = false;
             _context.Add(data);
             await _context.SaveChangesAsync();
@@ -90,6 +111,13 @@ namespace Payroll.Business
             {
                 data.UpdatedAt = DateTime.Now;
                 data.UpdatedBy = userIdentity;
+                data.SearchFields = data.GetType()
+                                        .GetProperties()
+                                        .ToList()
+                                        .Where(a => a.GetValue(data) != null)
+                                        .Where(a => a.PropertyType == typeof(string))
+                                        .Select(a => a.GetValue(data).ToString())
+                                        .Aggregate((a, b) => a + "," + b);
                 _context.Update(data);
                 await _context.SaveChangesAsync();
             }
