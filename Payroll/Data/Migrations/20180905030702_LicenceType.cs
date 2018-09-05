@@ -8,7 +8,7 @@ namespace Payroll.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "TipoLicenca",
+                name: "LicenseType",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -26,14 +26,14 @@ namespace Payroll.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TipoLicenca", x => x.Id);
+                    table.PrimaryKey("PK_LicenseType", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "TipoLicenca");
+                name: "LicenseType");
         }
     }
 }
