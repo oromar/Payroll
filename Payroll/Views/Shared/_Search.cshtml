@@ -4,7 +4,7 @@
 <form>
     <div class="form-group row">
         <div class="col-xs-10 col-md-10">
-            <input asp-for="@(filter)" class="form-control" />
+            <input asp-for="@(filter)" class="form-control" placeholder="@Resource.ExecuteSearch" />
         </div>
         <div class="col-xs-1 col-md-1">
             <input asp-route-filter="@(filter)" type="submit" value="@Resource.Search" class="btn default_color" />

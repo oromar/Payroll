@@ -10,22 +10,18 @@ namespace Payroll.Controllers
 {
     public abstract class GenericController<T> : Controller where T : Basic
     {
-        protected readonly GenericBO<T> _businessObject;
+        protected readonly BusinessObject<T> _businessObject;
 
         protected readonly Message _message;
 
-        protected readonly string _entityName = string.Empty;
-
-        public GenericController(GenericBO<T> genericBO, Message message, string entityName)
+        public GenericController(BusinessObject<T> businessObject, Message message)
         {
-            _businessObject = genericBO;
+            _businessObject = businessObject;
             _message = message;
-            _entityName = entityName;
         }
 
         public void CreateMessage(string type, string message)
         {
-            _message.Title = _entityName;
             _message.Body = message;
             _message.Type = type;
         }
@@ -43,12 +39,12 @@ namespace Payroll.Controllers
 
             if (_message.HasMessage)
             {
-                ViewBag.MessageTitle = _message.Title;
                 ViewBag.Message = _message.Body;
                 ViewBag.MessageType = _message.Type;
 
                 _message.Clear();
             }
+
             return View(await _businessObject.Search(page, filter, sort, order));
         }
 
@@ -82,7 +78,7 @@ namespace Payroll.Controllers
             {
                 await _businessObject.Create(data, User.Identity.Name);
 
-                CreateMessage(Resource.SuccessMessageType, Resource.CreatedSuccessfully_a);
+                CreateMessage(Resource.SuccessMessageType, Resource.CreatedSuccessfully);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -119,7 +115,7 @@ namespace Payroll.Controllers
                 {
                     await _businessObject.Edit(id, data, User.Identity.Name);
 
-                    CreateMessage(Resource.SuccessMessageType, Resource.UpdatedSuccessfully_a);
+                    CreateMessage(Resource.SuccessMessageType, Resource.UpdatedSuccessfully);
                 }
                 catch (DbUpdateConcurrencyException e)
                 {
@@ -162,7 +158,7 @@ namespace Payroll.Controllers
         {
             await _businessObject.Delete(id, User.Identity.Name);
 
-            CreateMessage(Resource.SuccessMessageType, Resource.RemovedSuccessfully_a);
+            CreateMessage(Resource.SuccessMessageType, Resource.RemovedSuccessfully);
 
             return RedirectToAction(nameof(Index));
         }

@@ -6,6 +6,9 @@ namespace Payroll.Models
     public abstract class Basic
     {
         public Guid Id { get; set; }
+        [Display(Name = "Nome")]
+        [Required(ErrorMessage="Campo obrigatório")]
+        public string Name { get; set; }
         [Display(Name = "Criado em")]
         public DateTime? CreatedAt { get; set; }
         [Display(Name = "Criado por")]

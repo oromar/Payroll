@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Shared\_Delete.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shared\_Search.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

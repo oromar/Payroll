@@ -14,7 +14,7 @@ namespace Payroll.Controllers
 {
     public class OccupationsController : GenericController<Occupation>
     {
-        public OccupationsController(OccupationsBO occupationsBO, Message message): 
-            base(occupationsBO, message, Resource.Occupation) {}
+        public OccupationsController(BusinessObject<Occupation> occupationBO, Message message): 
+            base(occupationBO, message) {}
     }
 }

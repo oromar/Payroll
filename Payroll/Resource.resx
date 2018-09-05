@@ -141,11 +141,8 @@
   <data name="CreatedBy" xml:space="preserve">
     <value>Criado por</value>
   </data>
-  <data name="CreatedSuccessfully_a" xml:space="preserve">
-    <value>adicionada com sucesso.</value>
-  </data>
-  <data name="CreatedSuccessfully_o" xml:space="preserve">
-    <value>adicionado com sucesso.</value>
+  <data name="CreatedSuccessfully" xml:space="preserve">
+    <value>Registro adicionado com sucesso.</value>
   </data>
   <data name="Currency" xml:space="preserve">
     <value>Moeda</value>
@@ -171,6 +168,9 @@
   <data name="ExchangeRequired" xml:space="preserve">
     <value>Taxa de câmbio obrigatória.</value>
   </data>
+  <data name="ExecuteSearch" xml:space="preserve">
+    <value>Pesquisar</value>
+  </data>
   <data name="First" xml:space="preserve">
     <value>Primeiro</value>
   </data>
@@ -183,6 +183,12 @@
   <data name="Last" xml:space="preserve">
     <value>Último</value>
   </data>
+  <data name="LicenseType" xml:space="preserve">
+    <value>Tipo de Licença</value>
+  </data>
+  <data name="LicenseTypeTitle" xml:space="preserve">
+    <value>Cadastro de Tipo de Licença</value>
+  </data>
   <data name="NA" xml:space="preserve">
     <value>N/A</value>
   </data>
@@ -191,6 +197,9 @@
   </data>
   <data name="NewCurrency" xml:space="preserve">
     <value>Nova Moeda</value>
+  </data>
+  <data name="NewLicenceType" xml:space="preserve">
+    <value>Novo Tipo de Licença</value>
   </data>
   <data name="NewOccupation" xml:space="preserve">
     <value>Nova Profissão</value>
@@ -216,11 +225,8 @@
   <data name="Remove" xml:space="preserve">
     <value>Remover</value>
   </data>
-  <data name="RemovedSuccessfully_a" xml:space="preserve">
-    <value>removida com sucesso.</value>
-  </data>
-  <data name="RemovedSuccessfully_o" xml:space="preserve">
-    <value>removido com sucesso.</value>
+  <data name="RemovedSuccessfully" xml:space="preserve">
+    <value>Registro removido com sucesso.</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Salvar</value>
@@ -237,11 +243,8 @@
   <data name="UpdatedBy" xml:space="preserve">
     <value>Alterado por</value>
   </data>
-  <data name="UpdatedSuccessfully_a" xml:space="preserve">
-    <value>alterada com sucesso.</value>
-  </data>
-  <data name="UpdatedSuccessfully_o" xml:space="preserve">
-    <value>alterado com sucesso.</value>
+  <data name="UpdatedSuccessfully" xml:space="preserve">
+    <value>Registro alterado com sucesso.</value>
   </data>
   <data name="WarningMessageType" xml:space="preserve">
     <value>warning</value>

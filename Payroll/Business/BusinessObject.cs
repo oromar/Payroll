@@ -11,25 +11,27 @@ using System.Threading.Tasks;
 
 namespace Payroll.Business
 {
-    public abstract class GenericBO<T> where T : Basic
+    public class BusinessObject<T> where T : Basic
     {
         protected readonly ApplicationDbContext _context;
 
-        public GenericBO(ApplicationDbContext context)
+        public BusinessObject(ApplicationDbContext context)
         {
             _context = context;
         }
 
         public Expression<Func<T, bool>> FilterBy(string filter) =>
-            a => !a.IsDeleted && 
+            a => !a.IsDeleted &&  
+                (string.IsNullOrEmpty(filter) ||
                     a.SearchFields.RemoveDiacritics()
-                            .Contains(filter.RemoveDiacritics(), StringComparison.InvariantCultureIgnoreCase);
+                        .Contains(filter.RemoveDiacritics(), 
+                            StringComparison.InvariantCultureIgnoreCase));
 
         public Expression<Func<T, object>> SortBy(string sort)
         {
             if (string.IsNullOrEmpty(sort))
             {
-                return a => a.Id;
+                return a => a.Name;
             }
 
             return a => a.GetType()
@@ -92,13 +94,7 @@ namespace Payroll.Business
             data.Id = Guid.NewGuid();
             data.CreatedAt = DateTime.Now;
             data.CreatedBy = userIdentity;
-            data.SearchFields = data.GetType()
-                                    .GetProperties()
-                                    .ToList()
-                                    .Where(a => a.PropertyType == typeof(string))
-                                    .Where(a => a.GetValue(data) != null)
-                                    .Select(a => a.GetValue(data).ToString())
-                                    .Aggregate((a, b) => a + "," + b);
+            HandleSearchFields(data);
             data.IsDeleted = false;
             _context.Add(data);
             await _context.SaveChangesAsync();
@@ -111,13 +107,7 @@ namespace Payroll.Business
             {
                 data.UpdatedAt = DateTime.Now;
                 data.UpdatedBy = userIdentity;
-                data.SearchFields = data.GetType()
-                                        .GetProperties()
-                                        .ToList()
-                                        .Where(a => a.GetValue(data) != null)
-                                        .Where(a => a.PropertyType == typeof(string))
-                                        .Select(a => a.GetValue(data).ToString())
-                                        .Aggregate((a, b) => a + "," + b);
+                HandleSearchFields(data);
                 _context.Update(data);
                 await _context.SaveChangesAsync();
             }
@@ -136,6 +126,18 @@ namespace Payroll.Business
             data.DeletedAt = DateTime.Now;
             _context.Update(data);
             return await _context.SaveChangesAsync();
+        }
+
+        private static void HandleSearchFields(T data)
+        {
+            data.SearchFields = data.GetType()
+                                    .GetProperties()
+                                    .Where(a => a.PropertyType != typeof(Guid))
+                                    .Where(a => a.PropertyType != typeof(DateTime?))
+                                    .Where(a => a.PropertyType != typeof(bool))
+                                    .Where(a => a.GetValue(data) != null)
+                                    .Select(a => a.GetValue(data).ToString())
+                                    .Aggregate((a, b) => a + "," + b);
         }
     }
 }

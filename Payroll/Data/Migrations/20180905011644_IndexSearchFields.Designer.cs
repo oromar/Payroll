@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Payroll.Data;
 
 namespace Payroll.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180905011644_IndexSearchFields")]
+    partial class IndexSearchFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,44 +221,6 @@ namespace Payroll.Data.Migrations
                         .HasFilter("[SearchFields] IS NOT NULL");
 
                     b.ToTable("Currency");
-                });
-
-            modelBuilder.Entity("Payroll.Models.LicenseType", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime?>("CreatedAt");
-
-                    b.Property<string>("CreatedBy");
-
-                    b.Property<DateTime?>("DeletedAt");
-
-                    b.Property<string>("DeletedBy");
-
-                    b.Property<string>("Description")
-                        .IsRequired();
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.Property<int>("QtyDaysDefault");
-
-                    b.Property<string>("SearchFields");
-
-                    b.Property<DateTime?>("UpdatedAt");
-
-                    b.Property<string>("UpdatedBy");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id", "SearchFields")
-                        .IsUnique()
-                        .HasFilter("[SearchFields] IS NOT NULL");
-
-                    b.ToTable("TipoLicenca");
                 });
 
             modelBuilder.Entity("Payroll.Models.Occupation", b =>

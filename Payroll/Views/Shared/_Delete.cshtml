@@ -1,9 +1,8 @@
-﻿@model Payroll.Models.Currency
-
+﻿@model Payroll.Models.Basic
 <div class="row" align="left">
     <div class="col-md-12" align="left">
-        <h4>Tem certeza que deseja remover @Html.DisplayFor(model => model.Name) ?</h4>
-
+        <h4>@Resource.AreYouSure @Html.DisplayFor(model => model.Name) ?</h4>
+        
         <form asp-action="Delete">
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="CreatedAt" />

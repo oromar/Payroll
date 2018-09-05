@@ -8,9 +8,6 @@ namespace Payroll.Models
 {
     public class Occupation : Basic
     {
-        [Display(Name="Nome")]
-        [Required(ErrorMessage = "Campo obrigatório")]
-        public string Name { get; set; }
         [Display(Name = "Possui Conselho?")]
         public bool IsRegulated { get; set; }
         [Display(Name = "Nome do Órgão de Classe")]

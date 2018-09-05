@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Payroll.Business;
 using Payroll.Common;
+using Payroll.Models;
 
 namespace Payroll
 {
@@ -41,8 +42,9 @@ namespace Payroll
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddScoped<OccupationsBO>();
-            services.AddScoped<CurrenciesBO>();
+            services.AddScoped<BusinessObject<Occupation>>();
+            services.AddScoped<BusinessObject<Currency>>();
+            services.AddScoped<BusinessObject<LicenseType>>();
 
             services.AddSingleton<Message>();
         }
