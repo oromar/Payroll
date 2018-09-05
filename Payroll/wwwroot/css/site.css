@@ -37,12 +37,12 @@ body {
 }
 
 .default_color {
-    background: #12005e !important;
+    background: #205081 !important;
     color: #FFFFFF !important;
 }
 
 svg .icon {
-    fill: #12005e !important;
+    fill: #205081 !important;
 }
 
 .navbar-inverse .navbar-nav > li > a {

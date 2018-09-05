@@ -22,13 +22,21 @@ namespace Payroll.Business
 
         public Expression<Func<T, bool>> FilterBy(string filter)
         {
-            if (filter.IsNullOrEmpty()) return a => true;
-            var normalizedFilter = filter.RemoveDiacritics();
             var parameter = Expression.Parameter(typeof(T), "entity");
+
+            var isDeletedProperty = Expression.Property(parameter, "IsDeleted");
+            var falseConstant = Expression.Constant(false);
+            var notDeletedMethod = Expression.Call(isDeletedProperty, typeof(Boolean).GetMethod("Equals", new[] { typeof(Boolean) }), falseConstant);
+            var notDeletedExpression = Expression.Lambda<Func<T, bool>>(notDeletedMethod, parameter);
+            if (filter.IsNullOrEmpty()) return notDeletedExpression;
+
+            var normalizedFilter = filter.RemoveDiacritics();            
             var propertyName = Expression.Property(parameter, "SearchFields");
             var constantParameter = Expression.Constant(normalizedFilter);
             var containsMethod = Expression.Call(propertyName, typeof(string).GetMethod("Contains", new[] { typeof(string) }), constantParameter);
-            return Expression.Lambda<Func<T, bool>>(containsMethod, parameter);            
+            var containsExpression = Expression.Lambda<Func<T, bool>>(containsMethod, parameter);
+            var body = Expression.And(Expression.Invoke(notDeletedExpression, parameter), Expression.Invoke(containsExpression, parameter));
+            return Expression.Lambda<Func<T, bool>>(body, parameter);
         }
             
 
@@ -138,11 +146,11 @@ namespace Payroll.Business
 
         private static void HandleSearchFields(T data)
         {
+            var searchableTypes = new[] { typeof(string), typeof(int), typeof(double), typeof(decimal), typeof(float) };
+
             data.SearchFields = data.GetType()
                                     .GetProperties()
-                                    .Where(a => a.PropertyType != typeof(Guid))
-                                    .Where(a => a.PropertyType != typeof(DateTime?))
-                                    .Where(a => a.PropertyType != typeof(bool))
+                                    .Where(a => searchableTypes.Contains(a.PropertyType))
                                     .Where(a => a.GetValue(data) != null)
                                     .Select(a => a.GetValue(data).ToString().RemoveDiacritics())
                                     .Aggregate((a, b) => a + "," + b);

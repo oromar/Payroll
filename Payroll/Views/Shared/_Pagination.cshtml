@@ -7,7 +7,7 @@
 
     var totalPages = (totalItems / itemsPerPage) + ((totalItems % itemsPerPage == 0) ? 0 : 1);
 
-    var firstItem = currentPage <= 1 ? 1 : (currentPage - 1) * itemsPerPage;
+    var firstItem = currentPage <= 1 && totalItems > 0 ? 1 : (currentPage - 1) * itemsPerPage;
     var lastItem = ((currentPage - 1) * itemsPerPage + itemsPerPage);
     lastItem = lastItem <= totalItems ? lastItem : totalItems;
 }
