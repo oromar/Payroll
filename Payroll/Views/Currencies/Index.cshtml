@@ -53,7 +53,7 @@
                    asp-route-filter="@filter" 
                    asp-route-page="@currentPage" 
                    asp-route-sort="CreatedBy" 
-                   asp-route-order="@(previousSort == "CreatedBy" && previousOrder == "ASC" ? "DESC" : "ASC"))" class="default_color">
+                   asp-route-order="@(previousSort == "CreatedBy" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
                         @Html.DisplayNameFor(model => model.CreatedBy)
                 </a>
             </th>
