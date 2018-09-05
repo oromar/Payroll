@@ -20,12 +20,17 @@ namespace Payroll.Business
             _context = context;
         }
 
-        public Expression<Func<T, bool>> FilterBy(string filter) =>
-            a => !a.IsDeleted &&  
-                (string.IsNullOrEmpty(filter) ||
-                    a.SearchFields.RemoveDiacritics()
-                        .Contains(filter.RemoveDiacritics(), 
-                            StringComparison.InvariantCultureIgnoreCase));
+        public Expression<Func<T, bool>> FilterBy(string filter)
+        {
+            if (filter.IsNullOrEmpty()) return a => true;
+            var normalizedFilter = filter.RemoveDiacritics();
+            var parameter = Expression.Parameter(typeof(T), "entity");
+            var propertyName = Expression.Property(parameter, "SearchFields");
+            var constantParameter = Expression.Constant(normalizedFilter);
+            var containsMethod = Expression.Call(propertyName, typeof(string).GetMethod("Contains", new[] { typeof(string) }), constantParameter);
+            return Expression.Lambda<Func<T, bool>>(containsMethod, parameter);            
+        }
+            
 
         public Expression<Func<T, object>> SortBy(string sort)
         {
@@ -57,17 +62,20 @@ namespace Payroll.Business
 
         public async Task<List<T>> Search(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
+            var where = FilterBy(filter);
+            var orderBy = SortBy(sort);
+
             var query = _context
                 .Set<T>()
-                .Where(FilterBy(filter));
+                .Where(where);
 
             if (order == "ASC")
-            { 
-                query = query.OrderBy(SortBy(sort));
-            } 
+            {
+                query = query.OrderBy(orderBy);
+            }
             else
             {
-                query = query.OrderByDescending(SortBy(sort));
+                query = query.OrderByDescending(orderBy);
             }
 
             return await query
@@ -136,7 +144,7 @@ namespace Payroll.Business
                                     .Where(a => a.PropertyType != typeof(DateTime?))
                                     .Where(a => a.PropertyType != typeof(bool))
                                     .Where(a => a.GetValue(data) != null)
-                                    .Select(a => a.GetValue(data).ToString())
+                                    .Select(a => a.GetValue(data).ToString().RemoveDiacritics())
                                     .Aggregate((a, b) => a + "," + b);
         }
     }
