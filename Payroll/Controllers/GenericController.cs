@@ -10,9 +10,9 @@ namespace Payroll.Controllers
 {
     public abstract class GenericController<T> : Controller where T : Basic
     {
-        protected readonly BusinessObject<T> _businessObject;
+        private readonly BusinessObject<T> _businessObject;
 
-        protected readonly Message _message;
+        private readonly Message _message;
 
         public GenericController(BusinessObject<T> businessObject, Message message)
         {
