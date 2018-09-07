@@ -8,14 +8,15 @@ namespace Payroll.Data.Migrations
         {
             migrationBuilder.AlterColumn<string>(
                 name: "SearchFields",
-                table: "TipoLicenca",
+                table: "LicenseType",
                 nullable: true,
+                maxLength: 450,
                 oldClrType: typeof(string),
                 oldNullable: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_TipoLicenca_Id_SearchFields",
-                table: "TipoLicenca",
+                name: "IX_LicenseType_Id_SearchFields",
+                table: "LicenseType",
                 columns: new[] { "Id", "SearchFields" },
                 unique: true,
                 filter: "[SearchFields] IS NOT NULL");
@@ -24,12 +25,12 @@ namespace Payroll.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropIndex(
-                name: "IX_TipoLicenca_Id_SearchFields",
-                table: "TipoLicenca");
+                name: "IX_LicenseType_Id_SearchFields",
+                table: "LicenseType");
 
             migrationBuilder.AlterColumn<string>(
                 name: "SearchFields",
-                table: "TipoLicenca",
+                table: "LicenseType",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldNullable: true);

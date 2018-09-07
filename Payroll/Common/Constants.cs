@@ -7,6 +7,6 @@ namespace Payroll.Common
 {
     public class Constants
     {
-        public const int MAX_ITEMS_PER_PAGE = 10;
+        public const int MAX_ITEMS_PER_PAGE = 5;
     }
 }

@@ -35,6 +35,6 @@ namespace Payroll.Data
 
         public DbSet<Payroll.Models.Currency> Currency { get; set; }
         public DbSet<Payroll.Models.Occupation> Occupation { get; set; }        
-        public DbSet<Payroll.Models.LicenseType> TipoLicenca { get; set; }
+        public DbSet<Payroll.Models.LicenseType> LicenseType { get; set; }
     }
 }

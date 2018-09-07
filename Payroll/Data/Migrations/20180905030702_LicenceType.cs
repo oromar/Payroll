@@ -20,7 +20,7 @@ namespace Payroll.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedAt = table.Column<DateTime>(nullable: true),
                     DeletedBy = table.Column<string>(nullable: true),
-                    SearchFields = table.Column<string>(nullable: true),
+                    SearchFields = table.Column<string>(nullable: true, maxLength: 450),
                     Description = table.Column<string>(nullable: false),
                     QtyDaysDefault = table.Column<int>(nullable: false)
                 },
