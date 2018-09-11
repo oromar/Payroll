@@ -46,7 +46,7 @@
                                value="@(Model.GetType().GetProperty(item.Name).GetValue(Model) != null ? Model.GetType().GetProperty(item.Name).GetValue(Model).ToString() : "")"
                                class="form-control" />
 
-                        <span asp-validation-for="@item.Name" class="text-danger"></span>
+                        <span asp-validation-for="@(Model.GetType().GetProperty(item.Name).Name)" class="text-danger"></span>
                     </div>
                 }
             }
