@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Payroll.Models
 {
@@ -13,6 +9,5 @@ namespace Payroll.Models
         public double Exchange { get; set; }
         [Display(Name = "Símbolo")]
         public string Symbol { get; set; }
-
     }
 }
