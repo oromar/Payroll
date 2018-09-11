@@ -153,7 +153,7 @@ namespace Payroll.Business
                                     .Where(a => searchableTypes.Contains(a.PropertyType))
                                     .Where(a => a.GetValue(data) != null)
                                     .Select(a => a.GetValue(data).ToString().RemoveDiacritics())
-                                    .Aggregate((a, b) => a + "," + b);
+                                    .Aggregate((a, b) => a + " " + b);
         }
     }
 }
