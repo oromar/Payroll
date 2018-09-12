@@ -4,9 +4,9 @@ namespace Payroll.Models
 {
     public class Occupation : Basic
     {
-        [Display(Name = "Possui Conselho?")]
+        [Display(ResourceType = typeof(Resource), Name = "HasCouncil")]
         public bool IsRegulated { get; set; }
-        [Display(Name = "Nome do Órgão de Classe")]
+        [Display(ResourceType = typeof(Resource), Name = "CouncilName")]
         public string CouncilName { get; set; }
     }
 }

@@ -279,4 +279,58 @@
   <data name="AskForgotPassword" xml:space="preserve">
     <value>Esqueceu sua senha?</value>
   </data>
+  <data name="CouncilName" xml:space="preserve">
+    <value>Nome do órgão de classe</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Removido</value>
+  </data>
+  <data name="DeletedAt" xml:space="preserve">
+    <value>Removido Em</value>
+  </data>
+  <data name="DeletedBy" xml:space="preserve">
+    <value>Removido Por</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="Exchange" xml:space="preserve">
+    <value>Câmbio</value>
+  </data>
+  <data name="HasCouncil" xml:space="preserve">
+    <value>Possui Conselho?</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Senha</value>
+  </data>
+  <data name="QtyDaysDefault" xml:space="preserve">
+    <value>Quantidade padrão de dias.</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Lembrar-me</value>
+  </data>
+  <data name="RequiredField" xml:space="preserve">
+    <value>Campo Obrigatório.</value>
+  </data>
+  <data name="Symbol" xml:space="preserve">
+    <value>Símbolo</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="BasicCRUD" xml:space="preserve">
+    <value>Cadastros Básicos</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirmar Senha</value>
+  </data>
+  <data name="ConfirmPasswordErrorMessage" xml:space="preserve">
+    <value>Senhas não conferem.</value>
+  </data>
+  <data name="PasswordLengthErrorMessage" xml:space="preserve">
+    <value>Senha inválida.</value>
+  </data>
 </root>

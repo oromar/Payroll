@@ -121,37 +121,37 @@
     <value>Action</value>
   </data>
   <data name="Add" xml:space="preserve">
-    <value>Add</value>
+    <value>Ajouter</value>
   </data>
   <data name="ApplicationName" xml:space="preserve">
-    <value>Human Resources</value>
+    <value>Ressources humaines</value>
   </data>
   <data name="AreYouSure" xml:space="preserve">
-    <value>Are you sure to remove</value>
+    <value>Êtes-vous sûr de supprimer</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Back</value>
+    <value>Arrière</value>
   </data>
   <data name="ClearFilter" xml:space="preserve">
-    <value>Clear</value>
+    <value>Clair</value>
   </data>
   <data name="CreatedAt" xml:space="preserve">
-    <value>Created At</value>
+    <value>Créé à</value>
   </data>
   <data name="CreatedBy" xml:space="preserve">
-    <value>Created By</value>
+    <value>Créé par</value>
   </data>
   <data name="CreatedSuccessfully" xml:space="preserve">
-    <value>Record added successfully</value>
+    <value>Enregistrement ajouté avec succès</value>
   </data>
   <data name="CreateNewAccount" xml:space="preserve">
-    <value>Create a new account.</value>
+    <value>Créer un nouveau compte.</value>
   </data>
   <data name="Currency" xml:space="preserve">
-    <value>Currency</value>
+    <value>Devise</value>
   </data>
   <data name="CurrencyTitle" xml:space="preserve">
-    <value>Currencies</value>
+    <value>Les devises</value>
   </data>
   <data name="DangerMessageType" xml:space="preserve">
     <value>danger</value>
@@ -160,73 +160,73 @@
     <value>Remove</value>
   </data>
   <data name="Details" xml:space="preserve">
-    <value>Details</value>
+    <value>Détails</value>
   </data>
   <data name="Displaying" xml:space="preserve">
-    <value>Showing:</value>
+    <value>Montrer:</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Modifier</value>
   </data>
   <data name="ExchangeRequired" xml:space="preserve">
-    <value>Exchange required</value>
+    <value>Échange requis</value>
   </data>
   <data name="ExecuteSearch" xml:space="preserve">
-    <value>Search</value>
+    <value>Chercher</value>
   </data>
   <data name="First" xml:space="preserve">
-    <value>First</value>
+    <value>Premier</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
-    <value>Forgot my password.</value>
+    <value>J'ai oublié mon mot de passe</value>
   </data>
   <data name="InfoMessageType" xml:space="preserve">
     <value>info</value>
   </data>
   <data name="Items" xml:space="preserve">
-    <value>items</value>
+    <value>articles</value>
   </data>
   <data name="Last" xml:space="preserve">
-    <value>Last</value>
+    <value>Dernier</value>
   </data>
   <data name="LicenseType" xml:space="preserve">
-    <value>License Type</value>
+    <value>Type de licence</value>
   </data>
   <data name="LicenseTypeTitle" xml:space="preserve">
-    <value>License Types</value>
+    <value>Type de licences</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Login</value>
+    <value>S'identifier</value>
   </data>
   <data name="LoginMessage" xml:space="preserve">
-    <value>Do login or create a new user.</value>
+    <value>Connectez-vous ou créez un nouvel utilisateur.</value>
   </data>
   <data name="NA" xml:space="preserve">
     <value>N/A</value>
   </data>
   <data name="NameLabel" xml:space="preserve">
-    <value>Name</value>
+    <value>Prénom</value>
   </data>
   <data name="NewCurrency" xml:space="preserve">
-    <value>New Currency</value>
+    <value>Nouvelle monnaie</value>
   </data>
   <data name="NewLicenceType" xml:space="preserve">
     <value>New License Type</value>
   </data>
   <data name="NewOccupation" xml:space="preserve">
-    <value>New Occupation</value>
+    <value>Nouveau type de licence</value>
   </data>
   <data name="NewUser" xml:space="preserve">
-    <value>New User</value>
+    <value>Nouvel utilisateur</value>
   </data>
   <data name="Next" xml:space="preserve">
-    <value>Next</value>
+    <value>Prochain</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>No</value>
+    <value>Non</value>
   </data>
   <data name="NoItems" xml:space="preserve">
-    <value>No items found.</value>
+    <value>Aucun élément trouvé.</value>
   </data>
   <data name="Occupation" xml:space="preserve">
     <value>Occupation</value>
@@ -235,7 +235,7 @@
     <value>Occupations</value>
   </data>
   <data name="Previous" xml:space="preserve">
-    <value>Previous</value>
+    <value>Précédent</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
@@ -244,93 +244,93 @@
     <value>Remove</value>
   </data>
   <data name="RemovedSuccessfully" xml:space="preserve">
-    <value>Record removed successfully.</value>
+    <value>Enregistrement supprimé avec succès.</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>Save</value>
+    <value>Sauvegarder</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Search</value>
+    <value>Chercher</value>
   </data>
   <data name="SuccessMessageType" xml:space="preserve">
     <value>success</value>
   </data>
   <data name="UpdatedAt" xml:space="preserve">
-    <value>Updated at</value>
+    <value>Mis à jour à</value>
   </data>
   <data name="UpdatedBy" xml:space="preserve">
-    <value>Updated by</value>
+    <value>Mis à jour par</value>
   </data>
   <data name="UpdatedSuccessfully" xml:space="preserve">
-    <value>Record updated successfully</value>
+    <value>Enregistrement mis à jour avec succès</value>
   </data>
   <data name="WarningMessageType" xml:space="preserve">
     <value>warning</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
+    <value>Oui</value>
   </data>
   <data name="EnterYourEmail" xml:space="preserve">
-    <value>Enter your email.</value>
+    <value>Entrer votre Email.</value>
   </data>
   <data name="SendEmail" xml:space="preserve">
-    <value>Send</value>
+    <value>Envoyer</value>
   </data>
   <data name="AskForgotPassword" xml:space="preserve">
     <value>Forgot your password?</value>
   </data>
-  <data name="CouncilName" xml:space="preserve">
-    <value>Council Name</value>
-  </data>
-  <data name="Deleted" xml:space="preserve">
-    <value>Deleted</value>
-  </data>
-  <data name="DeletedAt" xml:space="preserve">
-    <value>Deleted At</value>
-  </data>
-  <data name="DeletedBy" xml:space="preserve">
-    <value>Deleted By</value>
-  </data>
-  <data name="Description" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="Exchange" xml:space="preserve">
-    <value>Exchange</value>
-  </data>
-  <data name="HasCouncil" xml:space="preserve">
-    <value>Has Council?</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
   <data name="Password" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="QtyDaysDefault" xml:space="preserve">
-    <value>Default days</value>
+    <value>Mot de passe</value>
   </data>
   <data name="RememberMe" xml:space="preserve">
-    <value>Remember-me</value>
+    <value>Se souvenir de moi Mot de passe oublié?</value>
+  </data>
+  <data name="CouncilName" xml:space="preserve">
+    <value>Nom du conseil</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Supprimé</value>
+  </data>
+  <data name="DeletedAt" xml:space="preserve">
+    <value>Supprimé à</value>
+  </data>
+  <data name="DeletedBy" xml:space="preserve">
+    <value>Supprimé par</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>La description</value>
+  </data>
+  <data name="Exchange" xml:space="preserve">
+    <value>Échange</value>
+  </data>
+  <data name="HasCouncil" xml:space="preserve">
+    <value>Est-ce que le Conseil?</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Prénom</value>
+  </data>
+  <data name="QtyDaysDefault" xml:space="preserve">
+    <value>Jours par défaut</value>
   </data>
   <data name="RequiredField" xml:space="preserve">
-    <value>Required field.</value>
+    <value>Champs requis.</value>
   </data>
   <data name="Symbol" xml:space="preserve">
-    <value>Symbol</value>
+    <value>Symbole</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
   <data name="BasicCRUD" xml:space="preserve">
-    <value>Registers</value>
+    <value>S'inscrire</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
-    <value>Confirm Password</value>
+    <value>Confirmez le mot de passe</value>
   </data>
   <data name="ConfirmPasswordErrorMessage" xml:space="preserve">
-    <value>The password and confirmation password do not match.</value>
+    <value>Le mot de passe et le mot de passe de confirmation ne correspondent pas.</value>
   </data>
   <data name="PasswordLengthErrorMessage" xml:space="preserve">
-    <value>Invalid password.</value>
+    <value>Mot de passe incorrect.</value>
   </data>
 </root>

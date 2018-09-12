@@ -115,11 +115,47 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cadastros Básicos.
+        /// </summary>
+        public static string BasicCRUD {
+            get {
+                return ResourceManager.GetString("BasicCRUD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Limpar.
         /// </summary>
         public static string ClearFilter {
             get {
                 return ResourceManager.GetString("ClearFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmar Senha.
+        /// </summary>
+        public static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Senhas não conferem..
+        /// </summary>
+        public static string ConfirmPasswordErrorMessage {
+            get {
+                return ResourceManager.GetString("ConfirmPasswordErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nome do órgão de classe.
+        /// </summary>
+        public static string CouncilName {
+            get {
+                return ResourceManager.GetString("CouncilName", resourceCulture);
             }
         }
         
@@ -196,6 +232,42 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Removido.
+        /// </summary>
+        public static string Deleted {
+            get {
+                return ResourceManager.GetString("Deleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removido Em.
+        /// </summary>
+        public static string DeletedAt {
+            get {
+                return ResourceManager.GetString("DeletedAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removido Por.
+        /// </summary>
+        public static string DeletedBy {
+            get {
+                return ResourceManager.GetString("DeletedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Descrição.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Detalhes.
         /// </summary>
         public static string Details {
@@ -223,11 +295,29 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Digite o seu email..
         /// </summary>
         public static string EnterYourEmail {
             get {
                 return ResourceManager.GetString("EnterYourEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Câmbio.
+        /// </summary>
+        public static string Exchange {
+            get {
+                return ResourceManager.GetString("Exchange", resourceCulture);
             }
         }
         
@@ -264,6 +354,15 @@ namespace Payroll {
         public static string ForgotPassword {
             get {
                 return ResourceManager.GetString("ForgotPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Possui Conselho?.
+        /// </summary>
+        public static string HasCouncil {
+            get {
+                return ResourceManager.GetString("HasCouncil", resourceCulture);
             }
         }
         
@@ -336,6 +435,15 @@ namespace Payroll {
         public static string NA {
             get {
                 return ResourceManager.GetString("NA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nome.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
@@ -430,6 +538,24 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Senha.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Senha inválida..
+        /// </summary>
+        public static string PasswordLengthErrorMessage {
+            get {
+                return ResourceManager.GetString("PasswordLengthErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Anterior.
         /// </summary>
         public static string Previous {
@@ -439,11 +565,29 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quantidade padrão de dias..
+        /// </summary>
+        public static string QtyDaysDefault {
+            get {
+                return ResourceManager.GetString("QtyDaysDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Registrar.
         /// </summary>
         public static string Register {
             get {
                 return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lembrar-me.
+        /// </summary>
+        public static string RememberMe {
+            get {
+                return ResourceManager.GetString("RememberMe", resourceCulture);
             }
         }
         
@@ -462,6 +606,15 @@ namespace Payroll {
         public static string RemovedSuccessfully {
             get {
                 return ResourceManager.GetString("RemovedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Campo Obrigatório..
+        /// </summary>
+        public static string RequiredField {
+            get {
+                return ResourceManager.GetString("RequiredField", resourceCulture);
             }
         }
         
@@ -498,6 +651,15 @@ namespace Payroll {
         public static string SuccessMessageType {
             get {
                 return ResourceManager.GetString("SuccessMessageType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Símbolo.
+        /// </summary>
+        public static string Symbol {
+            get {
+                return ResourceManager.GetString("Symbol", resourceCulture);
             }
         }
         

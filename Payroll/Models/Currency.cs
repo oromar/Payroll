@@ -4,10 +4,10 @@ namespace Payroll.Models
 {
     public class Currency: Basic
     {
-        [Display(Name = "Câmbio")]
-        [Required(ErrorMessage ="Campo obrigatório")]
+        [Display(ResourceType = typeof(Resource), Name = "Exchange")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName ="RequiredField")]
         public double Exchange { get; set; }
-        [Display(Name = "Símbolo")]
+        [Display(ResourceType = typeof(Resource), Name = "Symbol")]
         public string Symbol { get; set; }
     }
 }

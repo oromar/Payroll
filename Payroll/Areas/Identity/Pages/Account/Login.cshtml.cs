@@ -36,16 +36,17 @@ namespace Payroll.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
             [EmailAddress]
+            [Display(ResourceType = typeof(Resource), Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
             [DataType(DataType.Password)]
-            [Display(Name="Senha")]
+            [Display(ResourceType = typeof(Resource), Name = "Password")]
             public string Password { get; set; }
 
-            [Display(Name = "Lembrar-me")]
+            [Display(ResourceType = typeof(Resource), Name = "RememberMe")]
             public bool RememberMe { get; set; }
         }
 

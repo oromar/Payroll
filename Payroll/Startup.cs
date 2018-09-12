@@ -68,7 +68,7 @@ namespace Payroll
                 app.UseHsts();
             }
 
-            app.UseRequestLocalization("pt-BR", "en-US");
+            app.UseRequestLocalization("pt-BR", "en-US", "fr-FR");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

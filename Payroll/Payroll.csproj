@@ -40,6 +40,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resource.fr.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resource.en.resx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>

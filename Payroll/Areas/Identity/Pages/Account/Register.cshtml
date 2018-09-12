@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-md-12 center-container">
-        <div class="col-md-4" style="border: solid 1px #205081; border-radius:5px; padding:0;">
+        <div class="col-md-4 center-internal-container">
             <div class="default_color" style="margin: 0; padding:0;border-radius:5px;">
                 <h2 style="margin: 0; padding: 10px;">@ViewData["Title"]</h2>
             </div>
@@ -14,7 +14,7 @@
                 <form asp-route-returnUrl="/Dashboard/Index" method="post">
                     <h4>@Resource.CreateNewAccount</h4>
                     <hr />
-                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Input.Email"></label>
                         <input asp-for="Input.Email" class="form-control" />

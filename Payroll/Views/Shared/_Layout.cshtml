@@ -44,12 +44,14 @@
             <div class="navbar-collapse collapse default_color">
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <ul class="nav navbar-nav default_color">
-                        <li><a asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
-                        <li><a asp-area="" asp-controller="Currencies" asp-action="Index">@Resource.Currency</a></li>
-                        <li><a asp-area="" asp-controller="Occupations" asp-action="Index">@Resource.Occupation</a></li>
-                        <li><a asp-area="" asp-controller="LicenseTypes" asp-action="Index">@Resource.LicenseType</a></li>
-                    </ul>
+                    <div>
+                        <ul class="nav navbar-nav default_color">
+                            <li><a class="dropdown-item" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+                            <li><a class="dropdown-item" asp-area="" asp-controller="Currencies" asp-action="Index">@Resource.Currency</a></li>
+                            <li><a class="dropdown-item" asp-area="" asp-controller="Occupations" asp-action="Index">@Resource.Occupation</a></li>
+                            <li><a class="dropdown-item" asp-area="" asp-controller="LicenseTypes" asp-action="Index">@Resource.LicenseType</a></li>
+                        </ul>
+                    </div>
                 }
                 <partial name="_LoginPartial" />
                 <ul class="nav navbar-nav navbar-right" style="padding:0px;margin:0px;">
