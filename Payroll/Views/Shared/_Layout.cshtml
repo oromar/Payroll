@@ -1,10 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - @Resource.ApplicationName</title>
-    
+
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -29,12 +35,15 @@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand default_color">@Resource.ApplicationName</a>
             </div>
             <div class="navbar-collapse collapse default_color">
-                <ul class="nav navbar-nav default_color">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a></li>
-                    <li><a asp-area="" asp-controller="Currencies" asp-action="Index">@Resource.Currency</a></li>
-                    <li><a asp-area="" asp-controller="Occupations" asp-action="Index">@Resource.Occupation</a></li>
-                    <li><a asp-area="" asp-controller="LicenseTypes" asp-action="Index">@Resource.LicenseType</a></li>
-                </ul>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <ul class="nav navbar-nav default_color">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a></li>
+                        <li><a asp-area="" asp-controller="Currencies" asp-action="Index">@Resource.Currency</a></li>
+                        <li><a asp-area="" asp-controller="Occupations" asp-action="Index">@Resource.Occupation</a></li>
+                        <li><a asp-area="" asp-controller="LicenseTypes" asp-action="Index">@Resource.LicenseType</a></li>
+                    </ul>
+                }
                 <partial name="_LoginPartial" />
                 <ul class="nav navbar-nav navbar-right" style="padding:0px;margin:0px;">
                     <li><a href="#" style="font-size:0.8em;margin:0;padding-right:4px;" onclick="minusZoom();">A-</a></li>
@@ -68,7 +77,7 @@
             <div class="alert-message">
                 <div class="alert alert-@(ViewBag.MessageType) alert-dismissible" role="alert">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        @(ViewBag.Message)
+                    @(ViewBag.Message)
                 </div>
             </div>
         }
@@ -112,7 +121,7 @@
     if (localStorage.getItem("zoom")) {
         currentZoom = localStorage.getItem("zoom");
     }
-    if (localStorage.getItem("zoomIndex")) {        
+    if (localStorage.getItem("zoomIndex")) {
         currentZoomIndex = localStorage.getItem("zoomIndex");
     }
 
@@ -124,7 +133,7 @@
     });
 
     function plusZoom() {
-        var nextZoom = currentZoomIndex < zoom.length-1 ? ++currentZoomIndex : zoom.length;;
+        var nextZoom = currentZoomIndex < zoom.length - 1 ? ++currentZoomIndex : zoom.length;;
         mainContainer.style.zoom = zoom[nextZoom] + '%';
         localStorage.setItem("zoom", zoom[nextZoom]);
         localStorage.setItem("zoomIndex", nextZoom);
@@ -132,7 +141,7 @@
 
     function minusZoom() {
         var nextZoom = currentZoomIndex > 0 ? --currentZoomIndex : 0;
-        mainContainer.style.zoom = zoom[nextZoom] + '%';  
+        mainContainer.style.zoom = zoom[nextZoom] + '%';
         localStorage.setItem("zoom", zoom[nextZoom]);
         localStorage.setItem("zoomIndex", nextZoom);
     }
