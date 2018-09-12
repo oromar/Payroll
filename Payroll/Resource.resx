@@ -174,6 +174,9 @@
   <data name="First" xml:space="preserve">
     <value>Primeiro</value>
   </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Esqueci minha senha.</value>
+  </data>
   <data name="InfoMessageType" xml:space="preserve">
     <value>info</value>
   </data>
@@ -189,6 +192,12 @@
   <data name="LicenseTypeTitle" xml:space="preserve">
     <value>Cadastro de Tipo de Licença</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Entrar</value>
+  </data>
+  <data name="LoginMessage" xml:space="preserve">
+    <value>Faça login ou registre uma nova conta.</value>
+  </data>
   <data name="NA" xml:space="preserve">
     <value>N/A</value>
   </data>
@@ -203,6 +212,9 @@
   </data>
   <data name="NewOccupation" xml:space="preserve">
     <value>Nova Profissão</value>
+  </data>
+  <data name="NewUser" xml:space="preserve">
+    <value>Novo Usuário</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>Próximo</value>

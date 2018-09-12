@@ -35,3 +35,26 @@ body {
         display: none;
     }
 }
+
+
+.default_color {
+    background: #205081 !important;
+    color: #FFFFFF !important;
+}
+
+svg .icon {
+    fill: #205081 !important;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #FFFFFF;
+}
+
+    .navbar-inverse .navbar-nav > li > a:hover {
+        color: #9d9d9d;
+    }
+
+.alert-message {
+    margin-top: 30px !important;
+}
+
