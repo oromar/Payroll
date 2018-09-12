@@ -40,7 +40,12 @@ namespace Payroll
 
             services
                 .AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddRazorPagesOptions(options =>
+                {
+                    options.AllowAreas = true;
+                    options.Conventions.AddAreaPageRoute("Identity", "/Account/Login", "");                    
+                });
 
             services.AddScoped<BusinessObject<Occupation>>();
             services.AddScoped<BusinessObject<Currency>>();
@@ -59,7 +64,7 @@ namespace Payroll
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Dashboard/Error");
                 app.UseHsts();
             }
 
@@ -75,7 +80,7 @@ namespace Payroll
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller}/{action}/{id?}");
             });
         }
     }

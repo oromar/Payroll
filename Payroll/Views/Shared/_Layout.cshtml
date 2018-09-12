@@ -32,13 +32,20 @@
                     <span class="icon-bar default_color"></span>
                     <span class="icon-bar default_color"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand default_color">@Resource.ApplicationName</a>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <a asp-area="" asp-controller="Dashboard" asp-action="Index" class="navbar-brand default_color">@Resource.ApplicationName</a>
+                }
+                else
+                {
+                    <a href="/" class="navbar-brand default_color">@Resource.ApplicationName</a>
+                }
             </div>
             <div class="navbar-collapse collapse default_color">
                 @if (SignInManager.IsSignedIn(User))
                 {
                     <ul class="nav navbar-nav default_color">
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a></li>
+                        <li><a asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
                         <li><a asp-area="" asp-controller="Currencies" asp-action="Index">@Resource.Currency</a></li>
                         <li><a asp-area="" asp-controller="Occupations" asp-action="Index">@Resource.Occupation</a></li>
                         <li><a asp-area="" asp-controller="LicenseTypes" asp-action="Index">@Resource.LicenseType</a></li>

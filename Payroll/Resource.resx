@@ -144,6 +144,9 @@
   <data name="CreatedSuccessfully" xml:space="preserve">
     <value>Registro adicionado com sucesso.</value>
   </data>
+  <data name="CreateNewAccount" xml:space="preserve">
+    <value>Criar nova conta.</value>
+  </data>
   <data name="Currency" xml:space="preserve">
     <value>Moeda</value>
   </data>
@@ -234,6 +237,9 @@
   <data name="Previous" xml:space="preserve">
     <value>Anterior</value>
   </data>
+  <data name="Register" xml:space="preserve">
+    <value>Registrar</value>
+  </data>
   <data name="Remove" xml:space="preserve">
     <value>Remover</value>
   </data>
@@ -263,5 +269,14 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Sim</value>
+  </data>
+  <data name="EnterYourEmail" xml:space="preserve">
+    <value>Digite o seu email.</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="AskForgotPassword" xml:space="preserve">
+    <value>Esqueceu sua senha?</value>
   </data>
 </root>

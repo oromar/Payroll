@@ -58,3 +58,10 @@ svg .icon {
     margin-top: 30px !important;
 }
 
+.center-container {
+    display: flex;
+    justify-content: center;
+    top: 60px;
+    padding: 0;
+    margin: 0;
+}
