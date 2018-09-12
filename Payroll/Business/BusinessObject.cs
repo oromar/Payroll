@@ -30,7 +30,7 @@ namespace Payroll.Business
             var notDeletedExpression = Expression.Lambda<Func<T, bool>>(notDeletedMethod, parameter);
             if (filter.IsNullOrEmpty()) return notDeletedExpression;
 
-            var normalizedFilter = filter.RemoveDiacritics();            
+            var normalizedFilter = filter.RemoveDiacritics().Trim();            
             var propertyName = Expression.Property(parameter, "SearchFields");
             var constantParameter = Expression.Constant(normalizedFilter);
             var containsMethod = Expression.Call(propertyName, typeof(string).GetMethod("Contains", new[] { typeof(string) }), constantParameter);
@@ -152,8 +152,8 @@ namespace Payroll.Business
                                     .GetProperties()
                                     .Where(a => searchableTypes.Contains(a.PropertyType))
                                     .Where(a => a.GetValue(data) != null)
-                                    .Select(a => a.GetValue(data).ToString().RemoveDiacritics())
-                                    .Aggregate((a, b) => a + "," + b);
+                                    .Select(a => a.GetValue(data).ToString().RemoveDiacritics().Trim())
+                                    .Aggregate((a, b) => a + " " + b);
         }
     }
 }
