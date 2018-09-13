@@ -333,4 +333,7 @@
   <data name="PasswordLengthErrorMessage" xml:space="preserve">
     <value>Senha inválida.</value>
   </data>
+  <data name="ForgotPasswordEmailBody" xml:space="preserve">
+    <value>Por favor clique no link para resetar a sua senha: &lt;a href='{0}'&gt;Aqui &lt;/a&gt;.</value>
+  </data>
 </root>

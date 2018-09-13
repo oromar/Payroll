@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Payroll.Business;
 using Payroll.Common;
 using Payroll.Models;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Payroll
 {
@@ -50,6 +51,7 @@ namespace Payroll
             services.AddScoped<BusinessObject<Occupation>>();
             services.AddScoped<BusinessObject<Currency>>();
             services.AddScoped<BusinessObject<LicenseType>>();
+            services.AddScoped<IEmailSender, EmailSender>();
 
             services.AddSingleton<Message>();
         }

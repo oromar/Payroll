@@ -333,4 +333,7 @@
   <data name="PasswordLengthErrorMessage" xml:space="preserve">
     <value>Invalid password.</value>
   </data>
+  <data name="ForgotPasswordEmailBody" xml:space="preserve">
+    <value>Please click in link to reset your password: &lt;a href='{0}'&gt;Here &lt;/a&gt;.</value>
+  </data>
 </root>
