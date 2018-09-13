@@ -18,7 +18,7 @@ namespace Payroll.Models
         [Display(ResourceType = typeof(Resource), Name = "UpdatedBy")]
         public string UpdatedBy { get; set; }
         [Display(ResourceType = typeof(Resource), Name = "Deleted")]
-        public Boolean IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
         [Display(ResourceType = typeof(Resource), Name = "DeletedAt")]
         public DateTime? DeletedAt { get; set; }
         [Display(ResourceType = typeof(Resource), Name = "DeletedBy")]

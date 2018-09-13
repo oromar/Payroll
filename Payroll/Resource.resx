@@ -336,4 +336,52 @@
   <data name="ForgotPasswordEmailBody" xml:space="preserve">
     <value>Por favor clique no link para resetar a sua senha: &lt;a href='{0}'&gt;Aqui &lt;/a&gt;.</value>
   </data>
+  <data name="Address" xml:space="preserve">
+    <value>Endereço</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Cidade</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="FoundationDate" xml:space="preserve">
+    <value>Data de Criação</value>
+  </data>
+  <data name="HasDangeroues" xml:space="preserve">
+    <value>Tem periculosidade?</value>
+  </data>
+  <data name="HasStrangers" xml:space="preserve">
+    <value>Contrata Estrangeiros?</value>
+  </data>
+  <data name="HasUnhealthy" xml:space="preserve">
+    <value>Tem insalubridade?</value>
+  </data>
+  <data name="IsManagerFunction" xml:space="preserve">
+    <value>É uma função de gerência?</value>
+  </data>
+  <data name="ManagerCommission" xml:space="preserve">
+    <value>Comissão de Gestão</value>
+  </data>
+  <data name="Nacionality" xml:space="preserve">
+    <value>Nacionalidade</value>
+  </data>
+  <data name="Neighborhood" xml:space="preserve">
+    <value>Bairro</value>
+  </data>
+  <data name="OccupationArea" xml:space="preserve">
+    <value>Área de Atuação</value>
+  </data>
+  <data name="PersonalJuridicalName" xml:space="preserve">
+    <value>CNPJ</value>
+  </data>
+  <data name="Salary" xml:space="preserve">
+    <value>Salário</value>
+  </data>
+  <data name="SocialReason" xml:space="preserve">
+    <value>Razão Social</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Estado</value>
+  </data>
 </root>

@@ -2,13 +2,13 @@
 
 namespace Payroll.Models
 {
-    public class LicenseType : Basic
+    public class JobRole: Basic
     {
-        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName ="RequiredField")]
         [Display(ResourceType = typeof(Resource), Name = "Description")]
-        public string Description { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
-        [Display(ResourceType = typeof(Resource), Name = "QtyDaysDefault")]
-        public int QtyDaysDefault { get; set; }
+        public string Description { get; set; }
+        [Display(ResourceType = typeof(Resource), Name = "Salary")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
+        public double Salary { get; set; }
     }
 }

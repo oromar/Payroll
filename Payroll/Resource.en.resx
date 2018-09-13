@@ -336,4 +336,52 @@
   <data name="ForgotPasswordEmailBody" xml:space="preserve">
     <value>Please click in link to reset your password: &lt;a href='{0}'&gt;Here &lt;/a&gt;.</value>
   </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="FoundationDate" xml:space="preserve">
+    <value>Foundation Date</value>
+  </data>
+  <data name="HasDangeroues" xml:space="preserve">
+    <value>Has Dangerous?</value>
+  </data>
+  <data name="HasStrangers" xml:space="preserve">
+    <value>Hire Strangers?</value>
+  </data>
+  <data name="HasUnhealthy" xml:space="preserve">
+    <value>Has Unhealthy?</value>
+  </data>
+  <data name="IsManagerFunction" xml:space="preserve">
+    <value>Is Manager function?</value>
+  </data>
+  <data name="ManagerCommission" xml:space="preserve">
+    <value>Manager Commission</value>
+  </data>
+  <data name="Nacionality" xml:space="preserve">
+    <value>Nacionality</value>
+  </data>
+  <data name="Neighborhood" xml:space="preserve">
+    <value>Neighborhood</value>
+  </data>
+  <data name="OccupationArea" xml:space="preserve">
+    <value>Occupation Area</value>
+  </data>
+  <data name="PersonalJuridicalName" xml:space="preserve">
+    <value>Juridical Person Document</value>
+  </data>
+  <data name="Salary" xml:space="preserve">
+    <value>Salary</value>
+  </data>
+  <data name="SocialReason" xml:space="preserve">
+    <value>Social Reason</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>State</value>
+  </data>
 </root>
