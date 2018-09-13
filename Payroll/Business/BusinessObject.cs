@@ -146,11 +146,13 @@ namespace Payroll.Business
 
         private static void HandleSearchFields(T data)
         {
-            var searchableTypes = new[] { typeof(string), typeof(int), typeof(double), typeof(decimal), typeof(float) };
+            var types = new[] { typeof(string), typeof(int), typeof(double), typeof(decimal), typeof(float) };
 
-            data.SearchFields = data.GetType()
+            var fields = data.GetType()
                                     .GetProperties()
-                                    .Where(a => searchableTypes.Contains(a.PropertyType))
+                                    .Where(a => types.Contains(a.PropertyType));
+
+            data.SearchFields = fields
                                     .Where(a => a.GetValue(data) != null)
                                     .Select(a => a.GetValue(data).ToString().RemoveDiacritics().Trim())
                                     .Aggregate((a, b) => a + " " + b);

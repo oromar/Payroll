@@ -331,7 +331,7 @@ namespace Payroll {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Pesquisar.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pesquisar por .
         /// </summary>
         public static string ExecuteSearch {
             get {
@@ -574,7 +574,7 @@ namespace Payroll {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Quantidade padrão de dias..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Quantidade padrão de dias.
         /// </summary>
         public static string QtyDaysDefault {
             get {

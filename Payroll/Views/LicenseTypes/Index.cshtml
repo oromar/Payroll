@@ -7,6 +7,14 @@
     ViewData["Title"] = Resource.CurrencyTitle;
     var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
     var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
+
+    var searchFields = new List<string> {
+        Html.DisplayNameFor(model => model.Name),
+        Html.DisplayNameFor(model => model.Description),
+        Html.DisplayNameFor(model => model.QtyDaysDefault),
+        Html.DisplayNameFor(model => model.CreatedBy),
+    };
+
 }
 
 
@@ -17,7 +25,7 @@
         @Resource.NewLicenceType
     </a>
 </p>
-<partial name="_Search" model="@filter" />
+<partial name="_Search" model="searchFields" />
 <table class="table table-bordered table-hover">
     <thead class="default_color">
         <tr>

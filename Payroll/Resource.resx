@@ -172,7 +172,7 @@
     <value>Taxa de câmbio obrigatória.</value>
   </data>
   <data name="ExecuteSearch" xml:space="preserve">
-    <value>Pesquisar</value>
+    <value>Pesquisar por </value>
   </data>
   <data name="First" xml:space="preserve">
     <value>Primeiro</value>
@@ -307,7 +307,7 @@
     <value>Senha</value>
   </data>
   <data name="QtyDaysDefault" xml:space="preserve">
-    <value>Quantidade padrão de dias.</value>
+    <value>Quantidade padrão de dias</value>
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Lembrar-me</value>
