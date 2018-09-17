@@ -24,7 +24,7 @@
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top default_color">
-        <div class="container default_color">
+        <div class="default_color">
             <div class="navbar-header default_color">
                 <button type="button" class="navbar-toggle default_color" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only default_color">Toggle navigation</span>
@@ -44,12 +44,13 @@
             <div class="navbar-collapse collapse default_color">
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <div>
-                        <ul class="nav navbar-nav default_color">
-                            <li><a class="dropdown-item" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
-                            <li><a class="dropdown-item" asp-area="" asp-controller="Currencies" asp-action="Index">@Resource.Currency</a></li>
-                            <li><a class="dropdown-item" asp-area="" asp-controller="Occupations" asp-action="Index">@Resource.Occupation</a></li>
-                            <li><a class="dropdown-item" asp-area="" asp-controller="LicenseTypes" asp-action="Index">@Resource.LicenseType</a></li>
+                    <div >
+                        <ul class="nav navbar-nav default_color" >
+                            <li><a asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+                            <li><a asp-area="" asp-controller="Companies" asp-action="Index">@Resource.Company</a></li>
+                            <li><a asp-area="" asp-controller="Currencies" asp-action="Index">@Resource.Currency</a></li>
+                            <li><a asp-area="" asp-controller="Occupations" asp-action="Index">@Resource.Occupation</a></li>
+                            <li><a asp-area="" asp-controller="LicenseTypes" asp-action="Index">@Resource.LicenseType</a></li>
                         </ul>
                     </div>
                 }

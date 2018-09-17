@@ -384,4 +384,13 @@
   <data name="State" xml:space="preserve">
     <value>State</value>
   </data>
+  <data name="CompaniesTitle" xml:space="preserve">
+    <value>Companies</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="NewCompany" xml:space="preserve">
+    <value>New Company</value>
+  </data>
 </root>

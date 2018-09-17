@@ -39,6 +39,10 @@ namespace Payroll.Business
             return Expression.Lambda<Func<T, bool>>(body, parameter);
         }
             
+        public ApplicationDbContext GetContext()
+        {
+            return _context;
+        }
 
         public Expression<Func<T, object>> SortBy(string sort)
         {

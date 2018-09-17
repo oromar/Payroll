@@ -23,7 +23,7 @@ namespace Payroll.Models
         public string Nacionality { get; set; }
         [Display(ResourceType = typeof(Resource), Name = "HasStrangers")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
-        public string HasStrangers { get; set; }
+        public bool HasStrangers { get; set; }
         [Display(ResourceType = typeof(Resource), Name = "Currency")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public Guid CurrencyId { get; set; }

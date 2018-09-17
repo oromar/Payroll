@@ -1,0 +1,119 @@
+﻿@model IEnumerable<Payroll.Models.Company>
+
+@{
+    var currentPage = ViewBag.CurrentPage as int? ?? 1;
+    var hasMore = ViewBag.HasMore as bool? ?? false;
+    var filter = ViewBag.CurrentFilter as string ?? string.Empty;
+    ViewData["Title"] = Resource.CompaniesTitle;
+    var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
+    var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
+
+    var searchFields = new List<string> {
+Html.DisplayNameFor(model => model.Name),
+Html.DisplayNameFor(model => model.SocialReason),
+Html.DisplayNameFor(model => model.OccupationArea),
+Html.DisplayNameFor(model => model.CreatedBy),
+};
+}
+
+<h2>@Resource.CompaniesTitle</h2>
+
+<p>
+    <a href="#" data-toggle="modal" data-target="#createModal">
+        @Resource.NewCompany
+    </a>
+</p>
+<partial name="_Search" model="searchFields" />
+<table class="table table-bordered table-hover">
+    <thead class="default_color">
+        <tr>
+            <th class="col-md-4">
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="Name"
+                   asp-route-order="@(previousSort == "Name" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.Name)
+                </a>
+            </th>
+            <th class="col-md-4">
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="Name"
+                   asp-route-order="@(previousSort == "SocialReason" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.SocialReason)
+                </a>
+            </th>
+            <th class="col-md-2">
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="Name"
+                   asp-route-order="@(previousSort == "OccupationArea" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.OccupationArea)
+                </a>
+            </th>
+            <th class="col-md-2">
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="Name"
+                   asp-route-order="@(previousSort == "CreatedBy" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </a>
+            </th>
+            <th style="text-align:center" class="col-md-2" colspan="3">@Resource.Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td class="no-items" colspan="5">
+                    @Resource.NoItems
+                </td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SocialReason)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OccupationArea)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                    </td>
+                    <partial name="_ActionsColumn" model="@item" />
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<partial name="_Pagination" model="@(new {currentPage, hasMore, filter })" />
+
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createCompanyModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header default_color">
+                <h3 class="modal-title" id="exampleModalLabel">@Resource.NewCompany</h3>
+            </div>
+            <div class="modal-body" style="border:none;">
+                <partial name="Create" model="new Company()" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

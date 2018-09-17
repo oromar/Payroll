@@ -10,9 +10,9 @@ namespace Payroll.Controllers
 {
     public abstract class GenericController<T> : Controller where T : Basic
     {
-        private readonly BusinessObject<T> _businessObject;
+        protected readonly BusinessObject<T> _businessObject;
 
-        private readonly Message _message;
+        protected readonly Message _message;
 
         public GenericController(BusinessObject<T> businessObject, Message message)
         {
@@ -26,7 +26,7 @@ namespace Payroll.Controllers
             _message.Type = type;
         }
 
-        public async Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")
+        public virtual async Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
             var totalItems = await _businessObject.Count(filter);
             ViewBag.CurrentPage = page;
@@ -48,7 +48,7 @@ namespace Payroll.Controllers
             return View(await _businessObject.Search(page, filter, sort, order));
         }
 
-        public async Task<IActionResult> Details(Guid? id)
+        public virtual async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -65,14 +65,14 @@ namespace Payroll.Controllers
             return View(currency);
         }
 
-        public IActionResult Create()
+        public virtual IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind] T data)
+        public virtual async Task<IActionResult> Create([Bind] T data)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace Payroll.Controllers
             return View(data);
         }
 
-        public async Task<IActionResult> Edit(Guid? id)
+        public virtual async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
@@ -102,7 +102,7 @@ namespace Payroll.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind] T data)
+        public virtual async Task<IActionResult> Edit(Guid id, [Bind] T data)
         {
             if (id != data.Id)
             {
@@ -135,7 +135,7 @@ namespace Payroll.Controllers
             return View(data);
         }
 
-        public async Task<IActionResult> Delete(Guid? id)
+        public virtual async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -154,7 +154,7 @@ namespace Payroll.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public virtual async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             await _businessObject.Delete(id, User.Identity.Name);
 

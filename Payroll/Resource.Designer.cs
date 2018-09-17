@@ -151,6 +151,24 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cadastro de Empresas.
+        /// </summary>
+        public static string CompaniesTitle {
+            get {
+                return ResourceManager.GetString("CompaniesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Empresa.
+        /// </summary>
+        public static string Company {
+            get {
+                return ResourceManager.GetString("Company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirmar Senha.
         /// </summary>
         public static string ConfirmPassword {
@@ -561,6 +579,15 @@ namespace Payroll {
         public static string Neighborhood {
             get {
                 return ResourceManager.GetString("Neighborhood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nova Empresa.
+        /// </summary>
+        public static string NewCompany {
+            get {
+                return ResourceManager.GetString("NewCompany", resourceCulture);
             }
         }
         
