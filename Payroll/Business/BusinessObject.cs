@@ -85,7 +85,8 @@ namespace Payroll.Business
                                    .GetType()
                                    .GetProperties()
                                    .Where(a => a.PropertyType.BaseType != null)
-                                   .Where(a => a.PropertyType.BaseType.Name == nameof(Basic))
+                                   .Where(a => a.PropertyType.BaseType.Name == nameof(Basic) || 
+                                               a.PropertyType.BaseType.Name == nameof(Addressable))
                                    .ToList();
 
             if (related != null && related.Any())

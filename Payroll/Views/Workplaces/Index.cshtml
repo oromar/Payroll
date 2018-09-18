@@ -9,12 +9,12 @@
     var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
 
     var searchFields = new List<string> {
-Html.DisplayNameFor(model => model.Name),
-Html.DisplayNameFor(model => model.Address),
-Html.DisplayNameFor(model => model.City),
-Html.DisplayNameFor(model => model.State),
-Html.DisplayNameFor(model => model.CreatedBy),
-};
+        Html.DisplayNameFor(model => model.Name),
+        Html.DisplayNameFor(model => model.Address),
+        Html.DisplayNameFor(model => model.City),
+        Html.DisplayNameFor(model => model.State),
+        Html.DisplayNameFor(model => model.CreatedBy),
+    };
 }
 
 <h2>@Resource.WorkplaceTitle</h2>
