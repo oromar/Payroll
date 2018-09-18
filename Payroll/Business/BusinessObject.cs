@@ -51,18 +51,6 @@ namespace Payroll.Business
                 return a => a.Name;
             }
 
-            //if (sort.Contains(Constants.RELATED_ENTITIES_SEPARATOR))
-            //{
-            //    var sortEntity = sort.Split(Constants.RELATED_ENTITIES_SEPARATOR)[0];
-            //    var sortProperty = sort.Split(Constants.RELATED_ENTITIES_SEPARATOR)[1];
-
-            //    return a => a.GetType()
-            //                 .GetProperty(sortEntity)
-            //                 .PropertyType
-            //                 .GetProperty(sortProperty)
-            //                 .GetValue(a);
-            //}
-
             return a => a.GetType()
                          .GetProperty(sort)
                          .GetValue(a);
