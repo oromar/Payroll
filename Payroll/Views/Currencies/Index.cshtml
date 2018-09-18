@@ -109,7 +109,8 @@
                 <h3 class="modal-title" id="exampleModalLabel">@Resource.NewCurrency</h3>
             </div>
             <div class="modal-body" style="border:none;">
-                <partial name="Create" model="new Currency()" />
+                @{ ViewData["Mode"] = "Create";}
+                <partial name="Form" model="new Currency()" view-data="ViewData"/>
             </div>
         </div>
     </div>

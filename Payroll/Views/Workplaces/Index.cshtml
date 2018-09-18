@@ -127,7 +127,8 @@ Html.DisplayNameFor(model => model.CreatedBy),
                 <h3 class="modal-title" id="exampleModalLabel">@Resource.NewWorkplace</h3>
             </div>
             <div class="modal-body" style="border:none;">
-                <partial name="Create" model="new Workplace()" />
+                @{ ViewData["Mode"] = "Create"; }
+                <partial name="Form" model="new Workplace()" view-data="ViewData"/>
             </div>
         </div>
     </div>

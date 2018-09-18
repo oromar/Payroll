@@ -457,6 +457,15 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Olá.
+        /// </summary>
+        public static string Hello {
+            get {
+                return ResourceManager.GetString("Hello", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to info.
         /// </summary>
         public static string InfoMessageType {
@@ -525,6 +534,15 @@ namespace Payroll {
         public static string LoginMessage {
             get {
                 return ResourceManager.GetString("LoginMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sair.
+        /// </summary>
+        public static string Logout {
+            get {
+                return ResourceManager.GetString("Logout", resourceCulture);
             }
         }
         

@@ -101,7 +101,7 @@
         }
     </tbody>
 </table>
-<partial name="_Pagination" model="@(new {currentPage, hasMore, filter })" />
+<partial name="_Pagination" model="@(new {currentPage, hasMore, filter})" />
 
 <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createLicenseTypeModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -110,7 +110,8 @@
                 <h3 class="modal-title" id="exampleModalLabel">@Resource.NewLicenceType</h3>
             </div>
             <div class="modal-body" style="border:none;">
-                <partial name="Create" model="new LicenseType()" />
+                @{ ViewData["Mode"] = "Create"; }
+                <partial name="Form" model="new LicenseType()" view-data="ViewData" />
             </div>
         </div>
     </div>

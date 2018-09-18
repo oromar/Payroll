@@ -402,4 +402,10 @@
   <data name="WorkplaceTitle" xml:space="preserve">
     <value>Cadastro de Local de Trabalho</value>
   </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Olá</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Sair</value>
+  </data>
 </root>

@@ -8,6 +8,5 @@ namespace Payroll.Common
     public class Constants
     {
         public const int MAX_ITEMS_PER_PAGE = 5;
-        public const string RELATED_ENTITIES_SEPARATOR = ".";
     }
 }
