@@ -37,5 +37,6 @@ namespace Payroll.Data
         public DbSet<Payroll.Models.Occupation> Occupation { get; set; }        
         public DbSet<Payroll.Models.LicenseType> LicenseType { get; set; }
         public DbSet<Payroll.Models.Company> Company { get; set; }
+        public DbSet<Payroll.Models.Workplace> Workplace { get; set; }
     }
 }

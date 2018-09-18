@@ -51,6 +51,18 @@ namespace Payroll.Business
                 return a => a.Name;
             }
 
+            //if (sort.Contains(Constants.RELATED_ENTITIES_SEPARATOR))
+            //{
+            //    var sortEntity = sort.Split(Constants.RELATED_ENTITIES_SEPARATOR)[0];
+            //    var sortProperty = sort.Split(Constants.RELATED_ENTITIES_SEPARATOR)[1];
+
+            //    return a => a.GetType()
+            //                 .GetProperty(sortEntity)
+            //                 .PropertyType
+            //                 .GetProperty(sortProperty)
+            //                 .GetValue(a);
+            //}
+
             return a => a.GetType()
                          .GetProperty(sort)
                          .GetValue(a);
@@ -80,6 +92,21 @@ namespace Payroll.Business
             var query = _context
                 .Set<T>()
                 .Where(where);
+
+            var related = Activator.CreateInstance<T>()
+                                   .GetType()
+                                   .GetProperties()
+                                   .Where(a => a.PropertyType.BaseType != null)
+                                   .Where(a => a.PropertyType.BaseType.Name == nameof(Basic))
+                                   .ToList();
+
+            if (related != null && related.Any())
+            {
+                foreach (var item in related)
+                {
+                    query = query.Include(item.Name);
+                }
+            }
 
             if (order == "ASC")
             {
@@ -163,3 +190,4 @@ namespace Payroll.Business
         }
     }
 }
+

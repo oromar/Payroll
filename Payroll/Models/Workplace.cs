@@ -1,9 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Payroll.Models
 {
     public class Workplace: Basic
     {
+        [ForeignKey("CompanyId")]
+        public virtual Company Company { get; set; }
+        [Display(ResourceType = typeof(Resource), Name = "Company")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
+        public Guid CompanyId { get; set; }
         [Display(ResourceType = typeof(Resource), Name = "Address")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public string Address { get; set; }

@@ -393,4 +393,13 @@
   <data name="NewCompany" xml:space="preserve">
     <value>New Company</value>
   </data>
+  <data name="NewWorkplace" xml:space="preserve">
+    <value>New Workplace</value>
+  </data>
+  <data name="Workplace" xml:space="preserve">
+    <value>Workplace</value>
+  </data>
+  <data name="WorkplaceTitle" xml:space="preserve">
+    <value>Workplaces</value>
+  </data>
 </root>

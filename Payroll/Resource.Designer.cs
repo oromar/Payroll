@@ -628,6 +628,15 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Novo Local de Trabalho.
+        /// </summary>
+        public static string NewWorkplace {
+            get {
+                return ResourceManager.GetString("NewWorkplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Próximo.
         /// </summary>
         public static string Next {
@@ -876,6 +885,24 @@ namespace Payroll {
         public static string WarningMessageType {
             get {
                 return ResourceManager.GetString("WarningMessageType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Local de Trabalho.
+        /// </summary>
+        public static string Workplace {
+            get {
+                return ResourceManager.GetString("Workplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cadastro de Local de Trabalho.
+        /// </summary>
+        public static string WorkplaceTitle {
+            get {
+                return ResourceManager.GetString("WorkplaceTitle", resourceCulture);
             }
         }
         

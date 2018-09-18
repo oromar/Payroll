@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -44,5 +45,6 @@ namespace Payroll.Models
         [Display(ResourceType = typeof(Resource), Name = "Country")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public string Country { get; set; }
+        public virtual IEnumerable<Workplace> Workplaces { get; set; }
     }
 }

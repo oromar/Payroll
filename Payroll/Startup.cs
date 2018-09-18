@@ -52,6 +52,7 @@ namespace Payroll
             services.AddScoped<BusinessObject<Currency>>();
             services.AddScoped<BusinessObject<LicenseType>>();
             services.AddScoped<BusinessObject<Company>>();
+            services.AddScoped<BusinessObject<Workplace>>();
             services.AddScoped<IEmailSender, EmailSender>();
 
             services.AddSingleton<Message>();
