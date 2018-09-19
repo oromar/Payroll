@@ -7,15 +7,6 @@
     ViewData["Title"] = Resource.OccupationsTitle;
     var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
     var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
-
-    var searchFields = new List<string> {
-        "Nome da Empresa",
-        Html.DisplayNameFor(model => model.Name),
-        Html.DisplayNameFor(model => model.Address),
-        Html.DisplayNameFor(model => model.City),
-        Html.DisplayNameFor(model => model.State),
-        Html.DisplayNameFor(model => model.CreatedBy),
-    };
 }
 
 <h2>@Resource.WorkplaceTitle</h2>
@@ -25,7 +16,7 @@
         @Resource.NewWorkplace
     </a>
 </p>
-<partial name="_Search" model="searchFields" />
+<partial name="_Search" />
 <table class="table table-bordered table-hover">
     <thead class="default_color">
         <tr>

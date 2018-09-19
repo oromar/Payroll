@@ -54,6 +54,60 @@ svg .icon {
     fill: #205081 !important;
 }
 
+.red_color {
+    background: #B71C1C !important;
+    color: #FFFFFF !important;
+}
+
+svg .icon_red {
+    fill: #B71C1C !important;
+}
+
+.black_color {
+    background: #000000 !important;
+    color: #FFFFFF !important;
+}
+
+svg .icon_black {
+    fill: #000000 !important;
+}
+
+.brown_color {
+    background: #3E2723 !important;
+    color: #FFFFFF !important;
+}
+
+svg .icon_brown {
+    fill: #3E2723 !important;
+}
+
+.green_color {
+    background: #1B5E20 !important;
+    color: #FFFFFF !important;
+}
+
+svg .icon_green {
+    fill: #1B5E20 !important;
+}
+
+.orange_color {
+    background: #E65100 !important;
+    color: #FFFFFF !important;
+}
+
+svg .icon_orange {
+    fill: #E65100 !important;
+}
+
+.yellow_color {
+    background: #FFD600 !important;
+    color: #000000 !important;
+}
+
+svg .icon_yellow {
+    fill: #FFD600 !important;
+}
+
 .navbar-inverse .navbar-nav > li > a {
     color: #FFFFFF;
 }

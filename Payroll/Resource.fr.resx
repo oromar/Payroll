@@ -172,7 +172,7 @@
     <value>Échange requis</value>
   </data>
   <data name="ExecuteSearch" xml:space="preserve">
-    <value>Chercher par</value>
+    <value>Chercher</value>
   </data>
   <data name="First" xml:space="preserve">
     <value>Premier</value>
@@ -407,5 +407,41 @@
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Connectez - Out</value>
+  </data>
+  <data name="ChangePasswordTitle" xml:space="preserve">
+    <value>Changer le mot de passe</value>
+  </data>
+  <data name="ChangeSettingsTitle" xml:space="preserve">
+    <value>Modifier les paramètres de votre compte</value>
+  </data>
+  <data name="Colors" xml:space="preserve">
+    <value>Couleurs</value>
+  </data>
+  <data name="ComparePasswordsInvalidMessage" xml:space="preserve">
+    <value>Le mot de passe et confirmer le mot de passe ne correspond pas</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Confirmer le nouveau mot de passe</value>
+  </data>
+  <data name="ManagerAccountTitle" xml:space="preserve">
+    <value>Gérer le profil</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nouveau mot de passe</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Téléphone</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="ProfileTitle" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="UpdatePassword" xml:space="preserve">
+    <value>Changer</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Nom d'utilisateur</value>
   </data>
 </root>

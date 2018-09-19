@@ -44,22 +44,52 @@
             <div class="navbar-collapse collapse default_color">
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <div >
+                    <div>
                         <ul class="nav navbar-nav default_color">
-                            <li><a asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
-                            <li><a asp-area="" asp-controller="Companies" asp-action="Index">@Resource.Company</a></li>
-                            <li><a asp-area="" asp-controller="Workplaces" asp-action="Index">@Resource.Workplace</a></li>
-                            <li><a asp-area="" asp-controller="Currencies" asp-action="Index">@Resource.Currency</a></li>
-                            <li><a asp-area="" asp-controller="Occupations" asp-action="Index">@Resource.Occupation</a></li>
-                            <li><a asp-area="" asp-controller="LicenseTypes" asp-action="Index">@Resource.LicenseType</a></li>
+                            <li><a asp-area="" asp-controller="Dashboard" class="default_color" asp-action="Index">Dashboard</a></li>
+                            <li><a asp-area="" asp-controller="Companies" class="default_color" asp-action="Index">@Resource.Company</a></li>
+                            <li><a asp-area="" asp-controller="Workplaces" class="default_color" asp-action="Index">@Resource.Workplace</a></li>
+                            <li><a asp-area="" asp-controller="Currencies" class="default_color" asp-action="Index">@Resource.Currency</a></li>
+                            <li><a asp-area="" asp-controller="Occupations" class="default_color" asp-action="Index">@Resource.Occupation</a></li>
+                            <li><a asp-area="" asp-controller="LicenseTypes" class="default_color" asp-action="Index">@Resource.LicenseType</a></li>
                         </ul>
                     </div>
                 }
                 <partial name="_LoginPartial" />
-                <ul class="nav navbar-nav navbar-right" style="padding:0px;margin:0px;">
-                    <li><a href="#" style="font-size:0.8em;margin:0;padding-right:4px;" onclick="minusZoom();">A-</a></li>
-                    <li><a href="#" style="font-size:1.2em;margin:0;padding-left:4px;" onclick="plusZoom();">A+</a></li>
-                </ul>
+                <ul class="nav navbar-nav navbar-right" style="padding:0px;margin:0px;vertical-align:middle;">
+                    <li>
+                        <div class="dropdown" style="margin-top:8px;">
+                            <button class="btn btn-secondary dropdown-toggle default_color" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @Resource.Colors
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" style="margin-left:5px;float:left;" href="#" onclick="doChangeColor('icon', 'default_color');">
+                                    <div style="background-color:#205081;width:24px;height:24px;">&nbsp;</div>
+                                </a>
+                                <a class="dropdown-item" style="margin-left:5px;float:left;" href="#" onclick="doChangeColor('icon_red', 'red_color');">
+                                    <div style="background-color:#B71C1C;width:24px;height:24px;">&nbsp;</div>
+                                </a>
+                                <a class="dropdown-item" style="margin-left:5px;float:left;" href="#" onclick="doChangeColor('icon_green', 'green_color');">
+                                    <div style="background-color:#1B5E20;width:24px;height:24px;">&nbsp;</div>
+                                </a>
+                                <a class="dropdown-item" style="margin-left:5px;float:left;" href="#" onclick="doChangeColor('icon_yellow', 'yellow_color');">
+                                    <div style="background-color:#FFD600;width:24px;height:24px;">&nbsp;</div>
+                                </a>
+                                <a class="dropdown-item" style="margin-left:5px;float:left;" href="#" onclick="doChangeColor('icon_orange', 'orange_color');">
+                                    <div style="background-color:#E65100;width:24px;height:24px;">&nbsp;</div>
+                                </a>
+                                <a class="dropdown-item" style="margin-left:5px; margin-top: 5px;float:left;" href="#" onclick="doChangeColor('icon_brown', 'brown_color');">
+                                    <div style="background-color:#3E2723;width:24px;height:24px;">&nbsp;</div>
+                                </a>
+                                <a class="dropdown-item" style="margin-left:5px; margin-top: 5px;float:left;" href="#" onclick=" doChangeColor('icon_black', 'black_color');">
+                                    <div style="background-color:#000000;width:24px;height:24px;">&nbsp;</div>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="#" class="default_color" style="font-size:0.8em;margin:0;padding-right:4px;" onclick="minusZoom();">A-</a></li>
+                    <li><a href="#" class="default_color" style="font-size:1.2em;margin:0;padding-left:4px;" onclick="plusZoom();">A+</a></li>
+                </ul>               
             </div>
         </div>
     </nav>
@@ -129,12 +159,24 @@
     var currentZoom = 100;
     var currentZoomIndex = 4;
 
+    var currentClass = 'default_color';
+    var currentIconClass = 'icon';
+
     if (localStorage.getItem("zoom")) {
         currentZoom = localStorage.getItem("zoom");
     }
     if (localStorage.getItem("zoomIndex")) {
         currentZoomIndex = localStorage.getItem("zoomIndex");
     }
+
+    $('document').ready(function () {
+        if (localStorage.getItem('currentClass') != null) {
+            currentClass = localStorage.getItem('currentClass');
+            currentIconClass = localStorage.getItem('currentIconClass');
+        }
+        $('.icon').removeClass('icon').addClass(currentIconClass);
+        $('.default_color').removeClass('default_color').addClass(currentClass);
+    });
 
     $('#main_container').ready(function () {
         mainContainer.style.zoom = currentZoom + "%";
@@ -158,5 +200,18 @@
         localStorage.setItem("zoom", zoom[nextZoom]);
         localStorage.setItem("zoomIndex", nextZoom);
     }
+
+    function doChangeColor(iconClass, defaultClass) {
+        if (localStorage.getItem('currentClass') != null) {
+            currentClass = localStorage.getItem('currentClass');
+            currentIconClass = localStorage.getItem('currentIconClass');
+        }
+        $('.' + currentIconClass).removeClass(currentIconClass).addClass(iconClass);
+        $('.' + currentClass).removeClass(currentClass).addClass(defaultClass);
+
+        localStorage.setItem('currentClass', defaultClass);
+        localStorage.setItem('currentIconClass', iconClass);
+    }
+    
 </script>
 </html>

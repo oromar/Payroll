@@ -1,5 +1,6 @@
 ﻿@inject SignInManager<IdentityUser> SignInManager
 <ul class="nav nav-pills nav-stacked">
-    <li class="@ManageNavPages.IndexNavClass(ViewContext)"><a asp-page="./Index">Profile</a></li>
-    <li class="@ManageNavPages.ChangePasswordNavClass(ViewContext)"><a id="change-password" asp-page="./ChangePassword">Password</a></li>    
+    <li ><a asp-page="./Index">@Resource.Profile</a></li>
+    <li>
+        <a id="change-password" asp-page="./ChangePassword">@Resource.Password</a></li>    
 </ul>

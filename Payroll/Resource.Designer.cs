@@ -133,6 +133,24 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alterar Senha.
+        /// </summary>
+        public static string ChangePasswordTitle {
+            get {
+                return ResourceManager.GetString("ChangePasswordTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Altere as informações do seu perfil.
+        /// </summary>
+        public static string ChangeSettingsTitle {
+            get {
+                return ResourceManager.GetString("ChangeSettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cidade.
         /// </summary>
         public static string City {
@@ -151,6 +169,15 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cores.
+        /// </summary>
+        public static string Colors {
+            get {
+                return ResourceManager.GetString("Colors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cadastro de Empresas.
         /// </summary>
         public static string CompaniesTitle {
@@ -165,6 +192,24 @@ namespace Payroll {
         public static string Company {
             get {
                 return ResourceManager.GetString("Company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Senha e confirmar senha não conferem.
+        /// </summary>
+        public static string ComparePasswordsInvalidMessage {
+            get {
+                return ResourceManager.GetString("ComparePasswordsInvalidMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmar nova senha.
+        /// </summary>
+        public static string ConfirmNewPassword {
+            get {
+                return ResourceManager.GetString("ConfirmNewPassword", resourceCulture);
             }
         }
         
@@ -376,7 +421,7 @@ namespace Payroll {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pesquisar por .
+        ///   Looks up a localized string similar to Pesquisar.
         /// </summary>
         public static string ExecuteSearch {
             get {
@@ -547,6 +592,15 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gerencie o seu perfil.
+        /// </summary>
+        public static string ManagerAccountTitle {
+            get {
+                return ResourceManager.GetString("ManagerAccountTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comissão de Gestão.
         /// </summary>
         public static string ManagerCommission {
@@ -633,6 +687,15 @@ namespace Payroll {
         public static string NewOccupation {
             get {
                 return ResourceManager.GetString("NewOccupation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nova Senha.
+        /// </summary>
+        public static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
             }
         }
         
@@ -736,11 +799,38 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Telefone.
+        /// </summary>
+        public static string PhoneNumber {
+            get {
+                return ResourceManager.GetString("PhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Anterior.
         /// </summary>
         public static string Previous {
             get {
                 return ResourceManager.GetString("Previous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perfil.
+        /// </summary>
+        public static string Profile {
+            get {
+                return ResourceManager.GetString("Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editar Perfil.
+        /// </summary>
+        public static string ProfileTitle {
+            get {
+                return ResourceManager.GetString("ProfileTitle", resourceCulture);
             }
         }
         
@@ -894,6 +984,24 @@ namespace Payroll {
         public static string UpdatedSuccessfully {
             get {
                 return ResourceManager.GetString("UpdatedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alterar Senha.
+        /// </summary>
+        public static string UpdatePassword {
+            get {
+                return ResourceManager.GetString("UpdatePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nome de usuário.
+        /// </summary>
+        public static string Username {
+            get {
+                return ResourceManager.GetString("Username", resourceCulture);
             }
         }
         

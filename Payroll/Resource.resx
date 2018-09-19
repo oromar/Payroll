@@ -172,7 +172,7 @@
     <value>Taxa de câmbio obrigatória.</value>
   </data>
   <data name="ExecuteSearch" xml:space="preserve">
-    <value>Pesquisar por </value>
+    <value>Pesquisar</value>
   </data>
   <data name="First" xml:space="preserve">
     <value>Primeiro</value>
@@ -407,5 +407,41 @@
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Sair</value>
+  </data>
+  <data name="ChangePasswordTitle" xml:space="preserve">
+    <value>Alterar Senha</value>
+  </data>
+  <data name="ChangeSettingsTitle" xml:space="preserve">
+    <value>Altere as informações do seu perfil</value>
+  </data>
+  <data name="Colors" xml:space="preserve">
+    <value>Cores</value>
+  </data>
+  <data name="ComparePasswordsInvalidMessage" xml:space="preserve">
+    <value>Senha e confirmar senha não conferem</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Confirmar nova senha</value>
+  </data>
+  <data name="ManagerAccountTitle" xml:space="preserve">
+    <value>Gerencie o seu perfil</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nova Senha</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Telefone</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="ProfileTitle" xml:space="preserve">
+    <value>Editar Perfil</value>
+  </data>
+  <data name="UpdatePassword" xml:space="preserve">
+    <value>Alterar Senha</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Nome de usuário</value>
   </data>
 </root>

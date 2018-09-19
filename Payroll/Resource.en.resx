@@ -172,7 +172,7 @@
     <value>Exchange required</value>
   </data>
   <data name="ExecuteSearch" xml:space="preserve">
-    <value>Search by </value>
+    <value>Search </value>
   </data>
   <data name="First" xml:space="preserve">
     <value>First</value>
@@ -407,5 +407,41 @@
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
+  </data>
+  <data name="ChangePasswordTitle" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="ChangeSettingsTitle" xml:space="preserve">
+    <value>Change your account settings</value>
+  </data>
+  <data name="Colors" xml:space="preserve">
+    <value>Colors</value>
+  </data>
+  <data name="ComparePasswordsInvalidMessage" xml:space="preserve">
+    <value>Password and confirm password does not match</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Confirm new password</value>
+  </data>
+  <data name="ManagerAccountTitle" xml:space="preserve">
+    <value>Manage your Profile</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="ProfileTitle" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="UpdatePassword" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
 </root>

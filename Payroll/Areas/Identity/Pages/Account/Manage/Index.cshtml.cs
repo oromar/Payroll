@@ -27,6 +27,7 @@ namespace Payroll.Areas.Identity.Pages.Account.Manage
             _emailSender = emailSender;
         }
 
+        [Display(ResourceType = typeof(Resource), Name = "Username")]
         public string Username { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
@@ -39,12 +40,13 @@ namespace Payroll.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
+            [Display(ResourceType = typeof(Resource), Name = "Email")]
+            [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
             [EmailAddress]
             public string Email { get; set; }
 
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(ResourceType = typeof(Resource), Name = "PhoneNumber")]
             public string PhoneNumber { get; set; }
         }
 
@@ -109,38 +111,7 @@ namespace Payroll.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
-            return RedirectToPage();
-        }
-
-        public async Task<IActionResult> OnPostSendVerificationEmailAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
-
-            var userId = await _userManager.GetUserIdAsync(user);
-            var email = await _userManager.GetEmailAsync(user);
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var callbackUrl = Url.Page(
-                "/Account/ConfirmEmail",
-                pageHandler: null,
-                values: new { userId = userId, code = code },
-                protocol: Request.Scheme);
-            await _emailSender.SendEmailAsync(
-                email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-            StatusMessage = "Verification email sent. Please check your email.";
+            StatusMessage = Resource.UpdatedSuccessfully;
             return RedirectToPage();
         }
     }

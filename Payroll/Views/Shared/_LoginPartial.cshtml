@@ -10,7 +10,7 @@
     
     <ul class="nav navbar-nav navbar-right" style="margin-right:10px;">
         <li>
-            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@Resource.Hello @UserManager.GetUserName(User)!</a>
+            <a asp-area="Identity" class="default_color" asp-page="/Account/Manage/Index" title="Manage">@Resource.Hello @UserManager.GetUserName(User)!</a>
         </li>
         <li>
             <button type="submit" class="btn btn-link navbar-btn navbar-link">@Resource.Logout</button>

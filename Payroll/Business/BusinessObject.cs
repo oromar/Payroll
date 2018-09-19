@@ -228,7 +228,7 @@ namespace Payroll.Business
                         var value = relatedObject.GetPropertyValue(property.Name);
                         if (value != null)
                         {
-                            searchValues.Add(value.ToString());
+                            searchValues.Add(value.ToString().RemoveDiacritics().Trim());
                         }
                     }
                 }
