@@ -28,15 +28,21 @@ namespace Payroll.Data
                 .HasIndex(p => new { p.Id, p.SearchFields })
                 .IsUnique(true);
 
+            modelBuilder.Entity<Company>()
+                .HasIndex(p => new { p.Id, p.SearchFields })
+                .IsUnique(true);
+
+            modelBuilder.Entity<Workplace>()
+                .HasIndex(p => new { p.Id, p.SearchFields })
+                .IsUnique(true);
+
             base.OnModelCreating(modelBuilder);
         }
 
-
-
-        public DbSet<Payroll.Models.Currency> Currency { get; set; }
-        public DbSet<Payroll.Models.Occupation> Occupation { get; set; }        
-        public DbSet<Payroll.Models.LicenseType> LicenseType { get; set; }
-        public DbSet<Payroll.Models.Company> Company { get; set; }
-        public DbSet<Payroll.Models.Workplace> Workplace { get; set; }
+        public DbSet<Currency> Currency { get; set; }
+        public DbSet<Occupation> Occupation { get; set; }        
+        public DbSet<LicenseType> LicenseType { get; set; }
+        public DbSet<Company> Company { get; set; }
+        public DbSet<Workplace> Workplace { get; set; }
     }
 }

@@ -9,6 +9,7 @@
     var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
 
     var searchFields = new List<string> {
+        "Nome da Empresa",
         Html.DisplayNameFor(model => model.Name),
         Html.DisplayNameFor(model => model.Address),
         Html.DisplayNameFor(model => model.City),
