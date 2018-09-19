@@ -23,7 +23,7 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top default_color" style="zoom:140%">
+    <nav  id="navBar"  class="navbar navbar-inverse navbar-fixed-top default_color" style="zoom:140%;display:none;">
         <div class="default_color">
             <div class="navbar-header default_color">
                 <button type="button" class="navbar-toggle default_color" data-toggle="collapse" data-target=".navbar-collapse">
@@ -41,7 +41,7 @@
                     <a href="/" class="navbar-brand default_color">@Resource.ApplicationName</a>
                 }
             </div>
-            <div class="navbar-collapse collapse default_color">
+            <div class="navbar-collapse collapse default_color" >
                 @if (SignInManager.IsSignedIn(User))
                 {
                     <div>
@@ -60,7 +60,7 @@
                     <li>
                         <div class="dropdown" style="margin-top:8px;">
                             <button class="btn btn-secondary dropdown-toggle default_color" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @Resource.Colors
+                                @Resource.Theme
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" style="margin-left:5px;float:left;" href="#" onclick="doChangeColor('icon', 'default_color');">
@@ -176,6 +176,8 @@
         }
         $('.icon').removeClass('icon').addClass(currentIconClass);
         $('.default_color').removeClass('default_color').addClass(currentClass);
+
+        document.getElementById('navBar').style.display = 'block';
     });
 
     $('#main_container').ready(function () {

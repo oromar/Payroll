@@ -961,6 +961,15 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tema.
+        /// </summary>
+        public static string Theme {
+            get {
+                return ResourceManager.GetString("Theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alterado em.
         /// </summary>
         public static string UpdatedAt {

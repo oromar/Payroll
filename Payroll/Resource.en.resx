@@ -444,4 +444,7 @@
   <data name="Username" xml:space="preserve">
     <value>Username</value>
   </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
 </root>
