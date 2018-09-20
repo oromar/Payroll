@@ -172,7 +172,7 @@
     <value>Échange requis</value>
   </data>
   <data name="ExecuteSearch" xml:space="preserve">
-    <value>Chercher</value>
+    <value>Chercher par</value>
   </data>
   <data name="First" xml:space="preserve">
     <value>Premier</value>
@@ -446,5 +446,14 @@
   </data>
   <data name="Theme" xml:space="preserve">
     <value>Thème</value>
+  </data>
+  <data name="JobRole" xml:space="preserve">
+    <value>Poste</value>
+  </data>
+  <data name="JobRoleTitle" xml:space="preserve">
+    <value>Rôles de l'emploi</value>
+  </data>
+  <data name="NewJobRole" xml:space="preserve">
+    <value>Nouveau Poste</value>
   </data>
 </root>

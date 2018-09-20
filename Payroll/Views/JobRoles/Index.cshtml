@@ -1,36 +1,39 @@
-﻿@model IEnumerable<Payroll.Models.LicenseType>
+﻿@model IEnumerable<Payroll.Models.JobRole>
 
 @{
     var currentPage = ViewBag.CurrentPage as int? ?? 1;
     var hasMore = ViewBag.HasMore as bool? ?? false;
     var filter = ViewBag.CurrentFilter as string ?? string.Empty;
-    ViewData["Title"] = Resource.CurrencyTitle;
+    ViewData["Title"] = Resource.JobRoleTitle;
     var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
     var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
 
     var searchFields = new List<string>
     {
+        Resource.Company,
         Html.DisplayNameFor(model => model.Name),
         Html.DisplayNameFor(model => model.Description),
-        Html.DisplayNameFor(model => model.QtyDaysDefault),
+        Html.DisplayNameFor(model => model.Salary),
         Html.DisplayNameFor(model => model.CreatedBy),
     };
 
-
 }
 
-
-<h2>@Resource.LicenseTypeTitle</h2>
+<h2>@Resource.JobRoleTitle</h2>
 
 <p>
     <a href="#" data-toggle="modal" data-target="#createModal" class="btn btn-default default_color">
-        @Resource.NewLicenceType
+        @Resource.NewJobRole
     </a>
 </p>
-<partial name="_Search" model="searchFields"/>
+<partial name="_Search" model="@searchFields" />
+
 <table class="table table-bordered table-hover">
     <thead class="default_color">
         <tr>
+            <th>
+                @Resource.Company
+            </th>
             <th>
                 <a asp-action="Index"
                    asp-route-filter="@filter"
@@ -39,7 +42,7 @@
                    asp-route-order="@(previousSort == "Name" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
                     @Html.DisplayNameFor(model => model.Name)
                 </a>
-            </th>
+            </th>            
             <th>
                 <a asp-action="Index"
                    asp-route-filter="@filter"
@@ -53,9 +56,9 @@
                 <a asp-action="Index"
                    asp-route-filter="@filter"
                    asp-route-page="@currentPage"
-                   asp-route-sort="QtyDaysDefault"
-                   asp-route-order="@(previousSort == "QtyDaysDefault" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
-                    @Html.DisplayNameFor(model => model.QtyDaysDefault)
+                   asp-route-sort="Salary"
+                   asp-route-order="@(previousSort == "Salary" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.Salary)
                 </a>
             </th>
             <th>
@@ -81,44 +84,47 @@
         }
         else
         {
-
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td style="text-align:right;">
-                        @Html.DisplayFor(modelItem => item.QtyDaysDefault)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreatedBy)
-                    </td>
-                    <partial name="_ActionsColumn" model="@item" />
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                </td>
+                <partial name="_ActionsColumn" model="@item" />
+            </tr>
             }
         }
     </tbody>
 </table>
-<partial name="_Pagination" model="@(new {currentPage, hasMore, filter})" />
 
-<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createLicenseTypeModal" aria-hidden="true">
+<partial name="_Pagination" model="@(new {currentPage, hasMore, filter })" />
+
+
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createJobRoleModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header default_color">
-                <h3 class="modal-title" id="exampleModalLabel">@Resource.NewLicenceType</h3>
+                <h3 class="modal-title" id="exampleModalLabel">@Resource.NewJobRole</h3>
             </div>
             <div class="modal-body" style="border:none;">
-                @{ ViewData["Mode"] = "Create"; }
-                <partial name="Form" model="new LicenseType()" view-data="ViewData" />
+                @{ ViewData["Mode"] = "Create";}
+                <partial name="Form" model="new JobRole()" view-data="ViewData" />
             </div>
         </div>
     </div>
 </div>
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

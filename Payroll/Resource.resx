@@ -172,7 +172,8 @@
     <value>Taxa de câmbio obrigatória.</value>
   </data>
   <data name="ExecuteSearch" xml:space="preserve">
-    <value>Pesquisar</value>
+    <value>Pesquisar por</value>
+    <comment> </comment>
   </data>
   <data name="First" xml:space="preserve">
     <value>Primeiro</value>
@@ -446,5 +447,14 @@
   </data>
   <data name="Theme" xml:space="preserve">
     <value>Tema</value>
+  </data>
+  <data name="JobRole" xml:space="preserve">
+    <value>Cargo</value>
+  </data>
+  <data name="JobRoleTitle" xml:space="preserve">
+    <value>Cadastro de Cargos</value>
+  </data>
+  <data name="NewJobRole" xml:space="preserve">
+    <value>Novo Cargo</value>
   </data>
 </root>

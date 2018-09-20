@@ -108,6 +108,33 @@ svg .icon_yellow {
     fill: #FFD600 !important;
 }
 
+.gray_color {
+    background: #616161 !important;
+    color: #FFFFFF !important;
+}
+
+svg .icon_gray {
+    fill: #616161 !important;
+}
+
+.pink_color {
+    background: #ff4081 !important;
+    color: #FFFFFF !important;
+}
+
+svg .icon_pink {
+    fill: #ff4081 !important;
+}
+
+.purple_color {
+    background: #4a148c !important;
+    color: #FFFFFF !important;
+}
+
+svg .icon_purple {
+    fill: #4a148c !important;
+}
+
 .navbar-inverse .navbar-nav > li > a {
     color: #FFFFFF;
 }

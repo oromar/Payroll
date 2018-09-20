@@ -1,10 +1,12 @@
+@model IEnumerable<string>
 @{
     var filter = ViewBag.filter;
+    var placeHolder = Model.Aggregate((a, b) => a + ", " + b);
 }
 <form>
     <div class="form-group row">
         <div class="col-xs-10 col-md-10">
-            <input asp-for="@(filter)" class="form-control" placeholder="@(Resource.ExecuteSearch)" />
+            <input asp-for="@(filter)" class="form-control" placeholder="@(Resource.ExecuteSearch + " " + placeHolder)" />
         </div>
         <div class="col-xs-1 col-md-1">
             <input asp-route-filter="@(filter)" type="submit" value="@Resource.Search" class="btn default_color" />

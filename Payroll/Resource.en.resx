@@ -172,7 +172,7 @@
     <value>Exchange required</value>
   </data>
   <data name="ExecuteSearch" xml:space="preserve">
-    <value>Search </value>
+    <value>Search by</value>
   </data>
   <data name="First" xml:space="preserve">
     <value>First</value>
@@ -446,5 +446,14 @@
   </data>
   <data name="Theme" xml:space="preserve">
     <value>Theme</value>
+  </data>
+  <data name="JobRole" xml:space="preserve">
+    <value>Job Role</value>
+  </data>
+  <data name="JobRoleTitle" xml:space="preserve">
+    <value>Job Roles</value>
+  </data>
+  <data name="NewJobRole" xml:space="preserve">
+    <value>New Job Role</value>
   </data>
 </root>

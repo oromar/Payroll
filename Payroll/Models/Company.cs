@@ -18,7 +18,7 @@ namespace Payroll.Models
         public string OccupationArea { get; set; }
         [Display(ResourceType = typeof(Resource), Name = "FoundationDate")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
-        public DateTime FoundationDate { get; set; }
+        public DateTime? FoundationDate { get; set; }
         [Display(ResourceType = typeof(Resource), Name = "Nacionality")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public string Nacionality { get; set; }
@@ -31,5 +31,6 @@ namespace Payroll.Models
         [ForeignKey("CurrencyId")]
         public virtual Currency PaymentCurrency { get; set; }
         public virtual IEnumerable<Workplace> Workplaces { get; set; }
+        public virtual IEnumerable<JobRole> JobRoles { get; set; }
     }
 }

@@ -36,6 +36,10 @@ namespace Payroll.Data
                 .HasIndex(p => new { p.Id, p.SearchFields })
                 .IsUnique(true);
 
+            modelBuilder.Entity<JobRole>()
+                .HasIndex(p => new { p.Id, p.SearchFields })
+                .IsUnique(true);
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -44,5 +48,6 @@ namespace Payroll.Data
         public DbSet<LicenseType> LicenseType { get; set; }
         public DbSet<Company> Company { get; set; }
         public DbSet<Workplace> Workplace { get; set; }
+        public DbSet<JobRole> JobRole { get; set; }
     }
 }

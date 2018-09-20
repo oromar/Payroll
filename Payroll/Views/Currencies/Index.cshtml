@@ -7,16 +7,25 @@
     ViewData["Title"] = Resource.CurrencyTitle;
     var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
     var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
+
+    var searchFields = new List<string>
+    {
+        Html.DisplayNameFor(model => model.Name),
+        Html.DisplayNameFor(model => model.Symbol),
+        Html.DisplayNameFor(model => model.Exchange),
+        Html.DisplayNameFor(model => model.CreatedBy),
+    };
+
 }
 
 <h2>@Resource.CurrencyTitle</h2>
 
 <p>
-    <a href="#" data-toggle="modal" data-target="#createModal">
+    <a href="#" data-toggle="modal" data-target="#createModal" class="btn btn-default default_color">
         @Resource.NewCurrency
     </a>
 </p>
-<partial name="_Search" />
+<partial name="_Search" model="@searchFields"/>
 
 <table class="table table-bordered table-hover">
     <thead class="default_color">

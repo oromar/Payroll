@@ -124,18 +124,7 @@ namespace Payroll.Business
             data.IsDeleted = false;
             _context.Add(data);
 
-
-            HandleRelatedItems((item) =>
-            {
-                if (typeof(IEnumerable).IsAssignableFrom(item.PropertyType))
-                {
-                    _context.Entry(data).Collection(item.Name).Load();
-                }
-                else
-                {
-                    _context.Entry(data).Reference(item.Name).Load();
-                }
-            });
+            LoadRelatedItems(data);
 
             HandleSearchFields(data);
             await _context.SaveChangesAsync();
@@ -150,6 +139,7 @@ namespace Payroll.Business
                 data.UpdatedBy = userIdentity;
                 HandleSearchFields(data);
                 _context.Update(data);
+                LoadRelatedItems(data);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -167,6 +157,17 @@ namespace Payroll.Business
             data.DeletedAt = DateTime.Now;
             _context.Update(data);
             return await _context.SaveChangesAsync();
+        }
+
+        private void LoadRelatedItems(T data)
+        {
+            HandleRelatedItems((item) =>
+            {
+                if (!typeof(IEnumerable).IsAssignableFrom(item.PropertyType))
+                {
+                    _context.Entry(data).Reference(item.Name).Load();
+                }
+            });
         }
 
         private void HandleRelatedItems(Action<PropertyInfo> action)
@@ -219,21 +220,18 @@ namespace Payroll.Business
                     .Where(a => types.Contains(a.PropertyType))
                     .ToList();
 
-                foreach (var property in entityProperties)
-                {
-                    var relatedObject = data.GetPropertyValue(data.GetType().GetProperty(entity.Name).Name);
+                var relatedObject = data.GetPropertyValue(data.GetType().GetProperty(entity.Name).Name);
 
-                    if (relatedObject != null)
+                if (relatedObject != null)
+                {
+                    var value = relatedObject.GetPropertyValue<string>("Name");
+
+                    if (value != null)
                     {
-                        var value = relatedObject.GetPropertyValue(property.Name);
-                        if (value != null)
-                        {
-                            searchValues.Add(value.ToString().RemoveDiacritics().Trim());
-                        }
+                        searchValues.Add(value.ToString().RemoveDiacritics().Trim());
                     }
                 }
             }
-
             data.SearchFields = searchValues.Aggregate((a, b) => a + " " + b);
         }
     }
