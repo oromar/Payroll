@@ -1,0 +1,18 @@
+﻿
+<div class="nav navbar-nav dropdown" style="margin-top:12px;">
+    <a class="nav-link dropdown-toggle default_color" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path class="default_color" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+        </svg>
+    </a>
+    <div class="dropdown-menu default_color" style="padding:10px" aria-labelledby="navbarDropdown">
+        <a asp-area="" class="dropdown-item default_color" asp-controller="Dashboard" asp-action="Index">Dashboard</a><br />
+        <a asp-area="" class="dropdown-item default_color" asp-controller="Companies" asp-action="Index">@Resource.Company</a><br />
+        <a asp-area="" class="dropdown-item default_color" asp-controller="Workplaces" asp-action="Index">@Resource.Workplace</a><br />
+        <a asp-area="" class="dropdown-item default_color" asp-controller="JobRoles" asp-action="Index">@Resource.JobRole</a><br />
+        <a asp-area="" class="dropdown-item default_color" asp-controller="Currencies" asp-action="Index">@Resource.Currency</a><br />
+        <a asp-area="" class="dropdown-item default_color" asp-controller="Occupations" asp-action="Index">@Resource.Occupation</a><br />
+        <a asp-area="" class="dropdown-item default_color" asp-controller="LicenseTypes" asp-action="Index">@Resource.LicenseType</a><br />
+    </div>
+</div>

@@ -48,6 +48,7 @@ body {
 .default_color {
     background: #205081 !important;
     color: #FFFFFF !important;
+    fill: #FFFFFF !important;
 }
 
 svg .icon {
@@ -57,6 +58,7 @@ svg .icon {
 .red_color {
     background: #B71C1C !important;
     color: #FFFFFF !important;
+    fill: #FFFFFF !important;
 }
 
 svg .icon_red {
@@ -66,6 +68,7 @@ svg .icon_red {
 .black_color {
     background: #000000 !important;
     color: #FFFFFF !important;
+    fill: #FFFFFF !important;
 }
 
 svg .icon_black {
@@ -75,6 +78,7 @@ svg .icon_black {
 .brown_color {
     background: #3E2723 !important;
     color: #FFFFFF !important;
+    fill: #FFFFFF !important;
 }
 
 svg .icon_brown {
@@ -84,6 +88,7 @@ svg .icon_brown {
 .green_color {
     background: #1B5E20 !important;
     color: #FFFFFF !important;
+    fill: #FFFFFF !important;
 }
 
 svg .icon_green {
@@ -93,6 +98,7 @@ svg .icon_green {
 .orange_color {
     background: #E65100 !important;
     color: #FFFFFF !important;
+    fill: #FFFFFF !important;
 }
 
 svg .icon_orange {
@@ -102,6 +108,7 @@ svg .icon_orange {
 .yellow_color {
     background: #FFD600 !important;
     color: #000000 !important;
+    fill: #000000 !important;
 }
 
 svg .icon_yellow {
@@ -111,6 +118,7 @@ svg .icon_yellow {
 .gray_color {
     background: #616161 !important;
     color: #FFFFFF !important;
+    fill: #FFFFFF !important;
 }
 
 svg .icon_gray {
@@ -120,6 +128,7 @@ svg .icon_gray {
 .pink_color {
     background: #ff4081 !important;
     color: #FFFFFF !important;
+    fill: #FFFFFF !important;
 }
 
 svg .icon_pink {
@@ -129,6 +138,7 @@ svg .icon_pink {
 .purple_color {
     background: #4a148c !important;
     color: #FFFFFF !important;
+    fill: #FFFFFF !important;
 }
 
 svg .icon_purple {

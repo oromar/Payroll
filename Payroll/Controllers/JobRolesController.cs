@@ -16,6 +16,7 @@ namespace Payroll.Models
         public override async Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
             ViewBag.Companies = _businessObject
+                .GetDAO()
                 .GetContext()
                 .Company
                 .Where(a => !a.IsDeleted)

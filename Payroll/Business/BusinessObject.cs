@@ -1,114 +1,44 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MMLib.Extensions;
-using Payroll.Common;
 using Payroll.Data;
 using Payroll.Models;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Payroll.Business
 {
     public class BusinessObject<T> where T : Basic
     {
-        protected readonly ApplicationDbContext _context;
+        protected readonly GenericDAO<T> _dao;
 
-        public BusinessObject(ApplicationDbContext context)
+        public BusinessObject(GenericDAO<T> dao)
         {
-            _context = context;
+            _dao = dao;
         }
 
-        public Expression<Func<T, bool>> FilterBy(string filter)
+        public GenericDAO<T> GetDAO()
         {
-            var parameter = Expression.Parameter(typeof(T), "entity");
-
-            var isDeletedProperty = Expression.Property(parameter, "IsDeleted");
-            var falseConstant = Expression.Constant(false);
-            var notDeletedMethod = Expression.Call(isDeletedProperty, typeof(Boolean).GetMethod("Equals", new[] { typeof(Boolean) }), falseConstant);
-            var notDeletedExpression = Expression.Lambda<Func<T, bool>>(notDeletedMethod, parameter);
-            if (filter.IsNullOrEmpty()) return notDeletedExpression;
-
-            var normalizedFilter = filter.RemoveDiacritics().Trim();
-            var propertyName = Expression.Property(parameter, "SearchFields");
-            var constantParameter = Expression.Constant(normalizedFilter);
-            var containsMethod = Expression.Call(propertyName, typeof(string).GetMethod("Contains", new[] { typeof(string) }), constantParameter);
-            var containsExpression = Expression.Lambda<Func<T, bool>>(containsMethod, parameter);
-            var body = Expression.And(Expression.Invoke(notDeletedExpression, parameter), Expression.Invoke(containsExpression, parameter));
-            return Expression.Lambda<Func<T, bool>>(body, parameter);
-        }
-
-        public ApplicationDbContext GetContext()
-        {
-            return _context;
-        }
-
-        public Expression<Func<T, object>> SortBy(string sort)
-        {
-            if (string.IsNullOrEmpty(sort))
-            {
-                return a => a.Name;
-            }
-
-            return a => a.GetType()
-                         .GetProperty(sort)
-                         .GetValue(a);
+            return _dao;
         }
 
         public async Task<T> Find(Guid? id)
         {
-            return await _context
-                .Set<T>()
-                .Where(FilterBy(null))
-                .FirstOrDefaultAsync(a => a.Id == id);
+            return await _dao.Find(id);
         }
 
         public bool Exists(Guid id)
         {
-            return _context
-                .Set<T>()
-                .Where(FilterBy(null))
-                .Any(a => a.Id == id);
+            return _dao.Exists(id);
         }
 
         public async Task<List<T>> Search(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
-            var where = FilterBy(filter);
-            var orderBy = SortBy(sort);
-
-            var query = _context
-                .Set<T>()
-                .Where(where);
-
-            HandleRelatedItems((item) =>
-            {
-                query = query.Include(item.Name);
-            });
-
-            if (order == "ASC")
-            {
-                query = query.OrderBy(orderBy);
-            }
-            else
-            {
-                query = query.OrderByDescending(orderBy);
-            }
-
-            return await query
-                .Skip((page - 1) * Constants.MAX_ITEMS_PER_PAGE)
-                .Take(Constants.MAX_ITEMS_PER_PAGE)
-                .ToListAsync();
+            return await _dao.Search(page, filter, sort, order);
         }
 
         public async Task<int> Count(string filter = "")
         {
-            return await _context
-                .Set<T>()
-                .Where(FilterBy(filter))
-                .CountAsync();
+            return await _dao.Count(filter);
         }
 
         public async Task<T> Details(Guid id)
@@ -122,13 +52,7 @@ namespace Payroll.Business
             data.CreatedAt = DateTime.Now;
             data.CreatedBy = userIdentity;
             data.IsDeleted = false;
-            _context.Add(data);
-
-            LoadRelatedItems(data);
-
-            HandleSearchFields(data);
-            await _context.SaveChangesAsync();
-            return data;
+            return await _dao.Create(data);
         }
 
         public async Task<T> Edit(Guid id, T data, string userIdentity)
@@ -137,10 +61,7 @@ namespace Payroll.Business
             {
                 data.UpdatedAt = DateTime.Now;
                 data.UpdatedBy = userIdentity;
-                HandleSearchFields(data);
-                _context.Update(data);
-                LoadRelatedItems(data);
-                await _context.SaveChangesAsync();
+                await _dao.Edit(id, data);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -155,84 +76,7 @@ namespace Payroll.Business
             data.IsDeleted = true;
             data.DeletedBy = userIdentity;
             data.DeletedAt = DateTime.Now;
-            _context.Update(data);
-            return await _context.SaveChangesAsync();
-        }
-
-        private void LoadRelatedItems(T data)
-        {
-            HandleRelatedItems((item) =>
-            {
-                if (!typeof(IEnumerable).IsAssignableFrom(item.PropertyType))
-                {
-                    _context.Entry(data).Reference(item.Name).Load();
-                }
-            });
-        }
-
-        private void HandleRelatedItems(Action<PropertyInfo> action)
-        {
-            var related = Activator.CreateInstance<T>()
-                                   .GetType()
-                                   .GetProperties()
-                                   .Where(a => a.PropertyType.BaseType != null)
-                                   .Where(a => a.PropertyType.BaseType.Name == nameof(Basic) ||
-                                               a.PropertyType.BaseType.Name == nameof(Addressable))
-                                   .ToList();
-
-
-            if (related != null && related.Any())
-            {
-                foreach (var item in related)
-                {
-                    action(item);
-                }
-            }
-        }
-
-        private static void HandleSearchFields(T data)
-        {
-            var searchValues = new List<string>();
-
-            var types = new[] { typeof(string), typeof(int), typeof(double), typeof(decimal), typeof(float) };
-
-            var relatedTypes = new[] { nameof(Basic), nameof(Addressable) };
-
-            var baseProperties = data.GetType()
-                .GetProperties();
-
-            var relatedEntities = baseProperties
-                .Where(a => a.PropertyType.BaseType != null)
-                .Where(a => relatedTypes.Contains(a.PropertyType.BaseType.Name))
-                .ToList();
-
-            var fields = baseProperties
-                .Where(a => types.Contains(a.PropertyType))
-                .Where(a => a.GetValue(data) != null)
-                .Select(a => a.GetValue(data).ToString().RemoveDiacritics().Trim());
-
-            searchValues.AddRange(fields);
-
-            foreach (var entity in relatedEntities)
-            {
-                var entityProperties = entity.PropertyType
-                    .GetProperties()
-                    .Where(a => types.Contains(a.PropertyType))
-                    .ToList();
-
-                var relatedObject = data.GetPropertyValue(data.GetType().GetProperty(entity.Name).Name);
-
-                if (relatedObject != null)
-                {
-                    var value = relatedObject.GetPropertyValue<string>("Name");
-
-                    if (value != null)
-                    {
-                        searchValues.Add(value.ToString().RemoveDiacritics().Trim());
-                    }
-                }
-            }
-            data.SearchFields = searchValues.Aggregate((a, b) => a + " " + b);
+            return await _dao.Delete(data);
         }
     }
 }

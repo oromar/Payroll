@@ -23,15 +23,16 @@
     </environment>
 </head>
 <body>
-    <nav  id="navBar"  class="navbar navbar-inverse navbar-fixed-top default_color" style="zoom:140%;display:none;">
+    <nav id="navBar" class="navbar navbar-inverse navbar-fixed-top default_color" style="zoom:140%;display:none;">
         <div class="default_color">
             <div class="navbar-header default_color">
-                <button type="button" class="navbar-toggle default_color" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only default_color">Toggle navigation</span>
-                    <span class="icon-bar default_color"></span>
-                    <span class="icon-bar default_color"></span>
-                    <span class="icon-bar default_color"></span>
-                </button>
+                <div style="float:left; margin-left:10px;">
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <partial name="_Menu" />
+                    }
+                </div>
+
                 @if (SignInManager.IsSignedIn(User))
                 {
                     <a asp-area="" asp-controller="Dashboard" asp-action="Index" class="navbar-brand default_color">@Resource.ApplicationName</a>
@@ -41,21 +42,8 @@
                     <a href="/" class="navbar-brand default_color">@Resource.ApplicationName</a>
                 }
             </div>
-            <div class="navbar-collapse collapse default_color" >
-                @if (SignInManager.IsSignedIn(User))
-                {
-                    <div>
-                        <ul class="nav navbar-nav default_color">
-                            <li><a asp-area="" asp-controller="Dashboard" class="default_color" asp-action="Index">Dashboard</a></li>
-                            <li><a asp-area="" asp-controller="Companies" class="default_color" asp-action="Index">@Resource.Company</a></li>
-                            <li><a asp-area="" asp-controller="Workplaces" class="default_color" asp-action="Index">@Resource.Workplace</a></li>
-                            <li><a asp-area="" asp-controller="JobRoles" class="default_color" asp-action="Index">@Resource.JobRole</a></li>
-                            <li><a asp-area="" asp-controller="Currencies" class="default_color" asp-action="Index">@Resource.Currency</a></li>
-                            <li><a asp-area="" asp-controller="Occupations" class="default_color" asp-action="Index">@Resource.Occupation</a></li>
-                            <li><a asp-area="" asp-controller="LicenseTypes" class="default_color" asp-action="Index">@Resource.LicenseType</a></li>
-                        </ul>
-                    </div>
-                }
+            <div class="navbar-collapse collapse default_color">
+
                 <partial name="_LoginPartial" />
                 <ul class="nav navbar-nav navbar-right" style="padding:0px;margin:0px;vertical-align:middle;">
                     <li>
@@ -99,7 +87,7 @@
                     </li>
                     <li><a href="#" class="default_color" style="font-size:0.8em;margin:0;padding-right:4px;" onclick="minusZoom();">A-</a></li>
                     <li><a href="#" class="default_color" style="font-size:1.2em;margin:0;padding-left:4px;" onclick="plusZoom();">A+</a></li>
-                </ul>               
+                </ul>
             </div>
         </div>
     </nav>
@@ -137,9 +125,12 @@
     </div>
 
     <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery/dist/jquery.js">
+        </script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js">
+        </script>
+        <script src="~/js/site.js" asp-append-version="true">
+        </script>
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
@@ -154,7 +145,8 @@
                 crossorigin="anonymous"
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.min.js" asp-append-version="true">
+        </script>
     </environment>
 
     @RenderSection("Scripts", required: false)
@@ -173,57 +165,57 @@
     var currentIconClass = 'icon';
 
     if (localStorage.getItem("zoom")) {
-        currentZoom = localStorage.getItem("zoom");
+    currentZoom = localStorage.getItem("zoom");
     }
     if (localStorage.getItem("zoomIndex")) {
-        currentZoomIndex = localStorage.getItem("zoomIndex");
+    currentZoomIndex = localStorage.getItem("zoomIndex");
     }
 
     $('document').ready(function () {
-        if (localStorage.getItem('currentClass') != null) {
-            currentClass = localStorage.getItem('currentClass');
-            currentIconClass = localStorage.getItem('currentIconClass');
-        }
-        $('.icon').removeClass('icon').addClass(currentIconClass);
-        $('.default_color').removeClass('default_color').addClass(currentClass);
+    if (localStorage.getItem('currentClass') != null) {
+    currentClass = localStorage.getItem('currentClass');
+    currentIconClass = localStorage.getItem('currentIconClass');
+    }
+    $('.icon').removeClass('icon').addClass(currentIconClass);
+    $('.default_color').removeClass('default_color').addClass(currentClass);
 
-        document.getElementById('navBar').style.display = 'block';
+    document.getElementById('navBar').style.display = 'block';
     });
 
     $('#main_container').ready(function () {
-        mainContainer.style.zoom = currentZoom + "%";
-        localStorage.setItem("zoom", currentZoom);
-        localStorage.setItem("zoomIndex", currentZoomIndex);
-        mainContainer.style.display = 'block';        
+    mainContainer.style.zoom = currentZoom + "%";
+    localStorage.setItem("zoom", currentZoom);
+    localStorage.setItem("zoomIndex", currentZoomIndex);
+    mainContainer.style.display = 'block';
     });
 
     function plusZoom() {
-        var nextZoom = currentZoomIndex < zoom.length - 1 ? ++currentZoomIndex : zoom.length;;
-        mainContainer.style.zoom = zoom[nextZoom] + '%';
-        if (zoom[nextZoom]) {
-            localStorage.setItem("zoom", zoom[nextZoom]);
-            localStorage.setItem("zoomIndex", nextZoom);
-        }        
+    var nextZoom = currentZoomIndex < zoom.length - 1 ? ++currentZoomIndex : zoom.length;;
+    mainContainer.style.zoom = zoom[nextZoom] + '%';
+    if (zoom[nextZoom]) {
+    localStorage.setItem("zoom", zoom[nextZoom]);
+    localStorage.setItem("zoomIndex", nextZoom);
+    }
     }
 
     function minusZoom() {
-        var nextZoom = currentZoomIndex > 0 ? --currentZoomIndex : 0;
-        mainContainer.style.zoom = zoom[nextZoom] + '%';
-        localStorage.setItem("zoom", zoom[nextZoom]);
-        localStorage.setItem("zoomIndex", nextZoom);
+    var nextZoom = currentZoomIndex > 0 ? --currentZoomIndex : 0;
+    mainContainer.style.zoom = zoom[nextZoom] + '%';
+    localStorage.setItem("zoom", zoom[nextZoom]);
+    localStorage.setItem("zoomIndex", nextZoom);
     }
 
     function doChangeColor(iconClass, defaultClass) {
-        if (localStorage.getItem('currentClass') != null) {
-            currentClass = localStorage.getItem('currentClass');
-            currentIconClass = localStorage.getItem('currentIconClass');
-        }
-        $('.' + currentIconClass).removeClass(currentIconClass).addClass(iconClass);
-        $('.' + currentClass).removeClass(currentClass).addClass(defaultClass);
-
-        localStorage.setItem('currentClass', defaultClass);
-        localStorage.setItem('currentIconClass', iconClass);
+    if (localStorage.getItem('currentClass') != null) {
+    currentClass = localStorage.getItem('currentClass');
+    currentIconClass = localStorage.getItem('currentIconClass');
     }
-    
+    $('.' + currentIconClass).removeClass(currentIconClass).addClass(iconClass);
+    $('.' + currentClass).removeClass(currentClass).addClass(defaultClass);
+
+    localStorage.setItem('currentClass', defaultClass);
+    localStorage.setItem('currentIconClass', iconClass);
+    }
+
 </script>
 </html>

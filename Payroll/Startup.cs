@@ -54,6 +54,14 @@ namespace Payroll
             services.AddScoped<BusinessObject<Company>>();
             services.AddScoped<BusinessObject<Workplace>>();
             services.AddScoped<BusinessObject<JobRole>>();
+
+            services.AddScoped<GenericDAO<Occupation>>();
+            services.AddScoped<GenericDAO<Currency>>();
+            services.AddScoped<GenericDAO<LicenseType>>();
+            services.AddScoped<GenericDAO<Company>>();
+            services.AddScoped<GenericDAO<Workplace>>();
+            services.AddScoped<GenericDAO<JobRole>>();
+
             services.AddScoped<IEmailSender, EmailSender>();
 
             services.AddSingleton<Message>();

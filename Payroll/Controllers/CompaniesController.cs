@@ -16,6 +16,7 @@ namespace Payroll.Controllers
         public override async Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
             ViewBag.Currencies = _businessObject
+                .GetDAO()
                 .GetContext()
                 .Currency
                 .Where(a => !a.IsDeleted)                                     
