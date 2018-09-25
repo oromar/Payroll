@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Payroll.Models
@@ -11,15 +12,22 @@ namespace Payroll.Models
 
         public Guid JobRoleId { get; set; }
         [ForeignKey("JobRoleId")]
-        public JobRole JobRole { get; set; }
+        public virtual JobRole JobRole { get; set; }
 
         public Guid WorkplaceId { get; set; }
         [ForeignKey("WorkplaceId")]
-        public Workplace Workplace { get; set; }
+        public virtual Workplace Workplace { get; set; }
 
         public Guid FunctionId { get; set; }
         [ForeignKey("FunctionId")]
-        public Function Function { get; set; }
+        public virtual Function Function { get; set; }
+
+        public Guid ManagerId { get; set; }
+        [ForeignKey("ManagerId")]
+        public virtual Employee Manager { get; set; }
+
+        public virtual IEnumerable<EmployeeHistory> Occurrences { get; set; }
+        public virtual IEnumerable<Employee> Subordinates { get; set; }
 
         public string Nationality { get; set; }
         public string EmployeeNumber { get; set; }

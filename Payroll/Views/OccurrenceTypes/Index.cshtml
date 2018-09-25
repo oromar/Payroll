@@ -1,39 +1,33 @@
-﻿@model IEnumerable<Payroll.Models.JobRole>
+﻿@model IEnumerable<Payroll.Models.OccurrenceType>
 
 @{
-    var currentPage = ViewBag.CurrentPage as int? ?? 1;
-    var hasMore = ViewBag.HasMore as bool? ?? false;
-    var filter = ViewBag.CurrentFilter as string ?? string.Empty;
-    ViewData["Title"] = Resource.JobRoleTitle;
+    var currentPage = ViewData["CurrentPage"] as int? ?? 1;
+    var hasMore = ViewData["HasMore"] as bool? ?? false;
+    var filter = ViewData["CurrentFilter"] as string ?? string.Empty;
+    ViewData["Title"] = Resource.OccupationsTitle;
     var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
     var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
 
     var searchFields = new List<string>
-    {
-        Resource.Company,
-        Html.DisplayNameFor(model => model.Name),
-        Html.DisplayNameFor(model => model.Description),
-        Html.DisplayNameFor(model => model.Salary),
-        Html.DisplayNameFor(model => model.CreatedBy),
-    };
+{
+Html.DisplayNameFor(model => model.Name),
+Html.DisplayNameFor(model => model.Description),
+Html.DisplayNameFor(model => model.CreatedBy),
+};
 
 }
 
-<h2>@Resource.JobRoleTitle</h2>
+<h2>@Resource.OccurrenceTypeTitle</h2>
 
 <p>
-    <a href="#" data-toggle="modal" data-target="#createModal" >
-        @Resource.NewJobRole
+    <a href="#" data-toggle="modal" data-target="#createModal">
+        @Resource.NewOccurrenceType
     </a>
 </p>
 <partial name="_Search" model="@searchFields" />
-
 <table class="table table-bordered table-hover">
     <thead class="default_color">
         <tr>
-            <th>
-                @Resource.Company
-            </th>
             <th>
                 <a asp-action="Index"
                    asp-route-filter="@filter"
@@ -42,7 +36,7 @@
                    asp-route-order="@(previousSort == "Name" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
                     @Html.DisplayNameFor(model => model.Name)
                 </a>
-            </th>            
+            </th>
             <th>
                 <a asp-action="Index"
                    asp-route-filter="@filter"
@@ -56,9 +50,9 @@
                 <a asp-action="Index"
                    asp-route-filter="@filter"
                    asp-route-page="@currentPage"
-                   asp-route-sort="Salary"
-                   asp-route-order="@(previousSort == "Salary" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
-                    @Html.DisplayNameFor(model => model.Salary)
+                   asp-route-sort="IsAbsence"
+                   asp-route-order="@(previousSort == "IsAbsence" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.IsAbsence)
                 </a>
             </th>
             <th>
@@ -77,19 +71,17 @@
         @if (Model.Count() == 0)
         {
             <tr>
-                <td class="no-items" colspan="6">
+                <td class="no-items" colspan="5">
                     @Resource.NoItems
                 </td>
             </tr>
         }
         else
         {
+
             @foreach (var item in Model)
             {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Company.Name)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
@@ -97,7 +89,7 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Salary)
+                    @(item.IsAbsence ? Resource.Yes : Resource.No)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreatedBy)
@@ -108,19 +100,17 @@
         }
     </tbody>
 </table>
-
 <partial name="_Pagination" model="@(new {currentPage, hasMore, filter })" />
 
-
-<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createJobRoleModal" aria-hidden="true">
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createOccurrenceTypeModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header default_color">
-                <h3 class="modal-title" id="exampleModalLabel">@Resource.NewJobRole</h3>
+                <h3 class="modal-title" id="exampleModalLabel">@Resource.NewOccurrenceType</h3>
             </div>
             <div class="modal-body" style="border:none;">
                 @{ ViewData["Mode"] = "Create";}
-                <partial name="Form" model="new JobRole()" view-data="ViewData" />
+                <partial name="Form" model="new OccurrenceType()" view-data="ViewData" />
             </div>
         </div>
     </div>

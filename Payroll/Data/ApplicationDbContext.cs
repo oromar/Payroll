@@ -40,6 +40,14 @@ namespace Payroll.Data
                 .HasIndex(p => new { p.Id, p.SearchFields })
                 .IsUnique(true);
 
+            modelBuilder.Entity<Function>()
+                .HasIndex(p => new { p.Id, p.SearchFields })
+                .IsUnique(true);
+
+            modelBuilder.Entity<OccurrenceType>()
+               .HasIndex(p => new { p.Id, p.SearchFields })
+               .IsUnique(true);
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -49,5 +57,7 @@ namespace Payroll.Data
         public DbSet<Company> Company { get; set; }
         public DbSet<Workplace> Workplace { get; set; }
         public DbSet<JobRole> JobRole { get; set; }
+        public DbSet<Function> Function { get; set; }
+        public DbSet<Payroll.Models.OccurrenceType> OccurrenceType { get; set; }
     }
 }

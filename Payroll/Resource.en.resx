@@ -456,4 +456,25 @@
   <data name="NewJobRole" xml:space="preserve">
     <value>New Job Role</value>
   </data>
+  <data name="FunctionsTitle" xml:space="preserve">
+    <value>Functions</value>
+  </data>
+  <data name="NewFunction" xml:space="preserve">
+    <value>New Function</value>
+  </data>
+  <data name="Function" xml:space="preserve">
+    <value>Function</value>
+  </data>
+  <data name="IsAbsence" xml:space="preserve">
+    <value>Absence</value>
+  </data>
+  <data name="NewOccurrenceType" xml:space="preserve">
+    <value>New OccurrenceType</value>
+  </data>
+  <data name="OccurrenceType" xml:space="preserve">
+    <value>OccurrenceType</value>
+  </data>
+  <data name="OccurrenceTypeTitle" xml:space="preserve">
+    <value>Occurrence Types</value>
+  </data>
 </root>

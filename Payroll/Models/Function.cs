@@ -11,7 +11,7 @@ namespace Payroll.Models
         public bool IsManagerFunction { get; set; }
         [Display(ResourceType = typeof(Resource), Name = "ManagerCommission")]
         public double ManagerCommission { get; set; }
-        [Display(ResourceType = typeof(Resource), Name = "HasDangerous")]
+        [Display(ResourceType = typeof(Resource), Name = "HasDangeroues")]
         public bool HasDangerous { get; set; }
         [Display(ResourceType = typeof(Resource), Name = "HasUnhealthy")]
         public bool HasUnhealthy { get; set; }

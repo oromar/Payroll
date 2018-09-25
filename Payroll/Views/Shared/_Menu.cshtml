@@ -6,13 +6,15 @@
             <path class="default_color" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
         </svg>
     </a>
-    <div class="dropdown-menu default_color" style="padding:10px" aria-labelledby="navbarDropdown">
-        <a asp-area="" class="dropdown-item default_color" asp-controller="Dashboard" asp-action="Index">Dashboard</a><br />
-        <a asp-area="" class="dropdown-item default_color" asp-controller="Companies" asp-action="Index">@Resource.Company</a><br />
-        <a asp-area="" class="dropdown-item default_color" asp-controller="Workplaces" asp-action="Index">@Resource.Workplace</a><br />
-        <a asp-area="" class="dropdown-item default_color" asp-controller="JobRoles" asp-action="Index">@Resource.JobRole</a><br />
-        <a asp-area="" class="dropdown-item default_color" asp-controller="Currencies" asp-action="Index">@Resource.Currency</a><br />
-        <a asp-area="" class="dropdown-item default_color" asp-controller="Occupations" asp-action="Index">@Resource.Occupation</a><br />
-        <a asp-area="" class="dropdown-item default_color" asp-controller="LicenseTypes" asp-action="Index">@Resource.LicenseType</a><br />
+    <div class="dropdown-menu" style="padding:10px;width:200px;font-size:1.3em;" aria-labelledby="navbarDropdown">
+        <a asp-area="" class="dropdown-item" asp-controller="Dashboard" asp-action="Index">Dashboard</a><br />
+        <a asp-area="" class="dropdown-item" asp-controller="Companies" asp-action="Index">@Resource.Company</a><br />
+        <a asp-area="" class="dropdown-item" asp-controller="JobRoles" asp-action="Index">@Resource.JobRole</a><br />
+        <a asp-area="" class="dropdown-item" asp-controller="Occupations" asp-action="Index">@Resource.Occupation</a><br />
+        <a asp-area="" class="dropdown-item" asp-controller="Functions" asp-action="Index">@Resource.Function</a><br />
+        <a asp-area="" class="dropdown-item" asp-controller="Workplaces" asp-action="Index">@Resource.Workplace</a><br />
+        <a asp-area="" class="dropdown-item" asp-controller="Currencies" asp-action="Index">@Resource.Currency</a><br />
+        <a asp-area="" class="dropdown-item" asp-controller="LicenseTypes" asp-action="Index">@Resource.LicenseType</a><br />
+        <a asp-area="" class="dropdown-item" asp-controller="OccurrenceTypes" asp-action="Index">@Resource.OccurrenceType</a><br />
     </div>
 </div>
