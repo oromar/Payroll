@@ -18,7 +18,7 @@ namespace Payroll.Data
 
         public GenericDAO(ApplicationDbContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         public Expression<Func<T, bool>> FilterBy(string filter)
@@ -152,7 +152,11 @@ namespace Payroll.Data
         {
             HandleRelatedItems((item) =>
             {
-                if (!typeof(IEnumerable).IsAssignableFrom(item.PropertyType))
+                if (typeof(IEnumerable).IsAssignableFrom(item.PropertyType))
+                {
+                    _context.Entry(data).Collection(item.Name).Load();
+                }
+                else
                 {
                     _context.Entry(data).Reference(item.Name).Load();
                 }
