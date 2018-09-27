@@ -7,8 +7,8 @@
 <div class="row" align="left">
     <div class="col-md-12">
         <form asp-action="@mode">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="col-md-6">
+            <div style="overflow-y:auto;max-height:350px;padding:10px;">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
                     <input id="CompanyName" asp-for="Name" class="form-control" disabled="@(mode == "Details")" />
@@ -28,8 +28,6 @@
                     <input asp-for="Neighborhood" class="form-control" disabled="@(mode == "Details")" />
                     <span asp-validation-for="Neighborhood" class="text-danger"></span>
                 </div>
-            </div>
-            <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="City" class="control-label"></label>
                     <input asp-for="City" class="form-control" disabled="@(mode == "Details")" />
@@ -45,21 +43,21 @@
                     <input asp-for="Country" class="form-control" disabled="@(mode == "Details")" />
                     <span asp-validation-for="Country" class="text-danger"></span>
                 </div>
+            </div>
 
-                @if (mode == "Edit")
+            @if (mode == "Edit")
+            {
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="CreatedAt" />
+                <input type="hidden" asp-for="CreatedBy" />
+            }
+            <div class="form-group" align="right" style="padding-top:40px;">
+
+                <a class="btn btn-default" asp-action="Index">@Resource.Back</a>
+                @if (mode != "Details")
                 {
-                    <input type="hidden" asp-for="Id" />
-                    <input type="hidden" asp-for="CreatedAt" />
-                    <input type="hidden" asp-for="CreatedBy" />
+                    <input type="submit" value="@(mode == "Create" ? Resource.Add : mode == "Edit" ? Resource.Save : "")" class="btn btn-default default_color" />
                 }
-                <div class="form-group" align="right" style="margin-top:40px;">
-
-                    <a class="btn btn-default" asp-action="Index">@Resource.Back</a>
-                    @if (mode != "Details")
-                    {
-                        <input type="submit" value="@(mode == "Create" ? Resource.Add : mode == "Edit" ? Resource.Save : "")" class="btn btn-default default_color" />
-                    }
-                </div>
             </div>
         </form>
     </div>
