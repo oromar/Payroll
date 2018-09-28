@@ -48,6 +48,27 @@ namespace Payroll.Data
                .HasIndex(p => new { p.Id, p.SearchFields })
                .IsUnique(true);
 
+            modelBuilder.Entity<Employee>()
+               .HasIndex(p => new { p.Id, p.SearchFields })
+               .IsUnique(true);
+
+            modelBuilder.Entity<Project>()
+               .HasIndex(p => new { p.Id, p.SearchFields })
+               .IsUnique(true);
+
+            modelBuilder.Entity<ProjectEmployee>()
+                .HasKey(p => new { p.ProjectId, p.EmployeeId });
+
+            modelBuilder.Entity<ProjectEmployee>()
+                .HasOne(p => p.Project)
+                .WithMany(p => p.Employees)
+                .HasForeignKey(p => p.ProjectId);
+
+            modelBuilder.Entity<ProjectEmployee>()
+                .HasOne(p => p.Employee)
+                .WithMany(p => p.Projects)
+                .HasForeignKey(p => p.EmployeeId);
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -59,5 +80,6 @@ namespace Payroll.Data
         public DbSet<JobRole> JobRole { get; set; }
         public DbSet<Function> Function { get; set; }
         public DbSet<Payroll.Models.OccurrenceType> OccurrenceType { get; set; }
+        public DbSet<Payroll.Models.Employee> Employee { get; set; }
     }
 }

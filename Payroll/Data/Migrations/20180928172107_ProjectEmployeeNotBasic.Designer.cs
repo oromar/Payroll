@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Payroll.Data;
 
 namespace Payroll.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180928172107_ProjectEmployeeNotBasic")]
+    partial class ProjectEmployeeNotBasic
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -310,43 +312,37 @@ namespace Payroll.Data.Migrations
 
                     b.Property<string>("CreatedBy");
 
-                    b.Property<DateTime?>("DateBirth")
-                        .IsRequired();
+                    b.Property<DateTime>("DateBirth");
 
                     b.Property<DateTime?>("DeletedAt");
 
                     b.Property<string>("DeletedBy");
 
-                    b.Property<string>("EmployeeNumber")
-                        .IsRequired();
+                    b.Property<string>("EmployeeNumber");
 
                     b.Property<Guid>("FunctionId");
 
-                    b.Property<string>("IDName")
-                        .IsRequired();
+                    b.Property<string>("IDName");
 
                     b.Property<bool>("IsDeleted");
 
                     b.Property<Guid>("JobRoleId");
 
-                    b.Property<Guid?>("ManagerId");
+                    b.Property<Guid>("ManagerId");
 
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<string>("Nationality")
-                        .IsRequired();
+                    b.Property<string>("Nationality");
 
                     b.Property<string>("Neighborhood")
                         .IsRequired();
 
                     b.Property<Guid>("OccupationId");
 
-                    b.Property<string>("PersonalDocument")
-                        .IsRequired();
+                    b.Property<string>("PersonalDocument");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired();
+                    b.Property<string>("PhoneNumber");
 
                     b.Property<string>("SearchFields");
 
@@ -799,7 +795,8 @@ namespace Payroll.Data.Migrations
 
                     b.HasOne("Payroll.Models.Employee", "Manager")
                         .WithMany("Subordinates")
-                        .HasForeignKey("ManagerId");
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Payroll.Models.Occupation", "Occupation")
                         .WithMany()

@@ -1,0 +1,124 @@
+﻿@model Payroll.Models.Employee
+
+
+@{
+    var mode = ViewBag.Mode;
+}
+
+<div class="row" align="left">
+    <div class="col-md-12">
+        <form asp-action="@mode">
+            <div style="overflow-y:auto;max-height:350px;padding:10px;">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IDName" class="control-label"></label>
+                    <input asp-for="IDName" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="IDName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EmployeeNumber" class="control-label"></label>
+                    <input asp-for="EmployeeNumber" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="EmployeeNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CompanyId" class="control-label"></label>
+                    <select asp-for="CompanyId" disabled="@(mode == "Details")" class="form-control" asp-items="ViewBag.Companies"></select>
+                    <span asp-validation-for="IDName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="JobRoleId" class="control-label"></label>
+                    <select asp-for="JobRoleId" disabled="@(mode == "Details")" class="form-control" asp-items="ViewBag.JobRoles"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="WorkplaceId" class="control-label"></label>
+                    <select asp-for="WorkplaceId" disabled="@(mode == "Details")" class="form-control" asp-items="ViewBag.Workplaces"></select>
+                    <span asp-validation-for="IDName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OccupationId" class="control-label"></label>
+                    <select asp-for="OccupationId" disabled="@(mode == "Details")" class="form-control" asp-items="ViewBag.Occupations"></select>
+                    <span asp-validation-for="IDName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FunctionId" class="control-label"></label>
+                    <select asp-for="FunctionId" disabled="@(mode == "Details")" class="form-control" asp-items="ViewBag.Functions"></select>
+                    <span asp-validation-for="IDName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ManagerId" class="control-label"></label>
+                    <select asp-for="ManagerId" disabled="@(mode == "Details")" class="form-control" asp-items="ViewBag.Managers"></select>
+                    <span asp-validation-for="IDName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Nationality" class="control-label"></label>
+                    <input asp-for="Nationality" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="Nationality" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateBirth" class="control-label"></label>
+                    <input asp-for="DateBirth" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="DateBirth" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PersonalDocument" class="control-label"></label>
+                    <input asp-for="PersonalDocument" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="PersonalDocument" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label"></label>
+                    <input asp-for="PhoneNumber" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label"></label>
+                    <input asp-for="Address" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Neighborhood" class="control-label"></label>
+                    <input asp-for="Neighborhood" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="Neighborhood" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="City" class="control-label"></label>
+                    <input asp-for="City" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="State" class="control-label"></label>
+                    <input asp-for="State" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="State" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Country" class="control-label"></label>
+                    <input asp-for="Country" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+            </div>
+
+            @if (mode == "Edit")
+            {
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="CreatedAt" />
+                <input type="hidden" asp-for="CreatedBy" />
+            }
+            <div class="form-group" style="padding-top:30px;" align="right">
+
+                <a class="btn btn-default" asp-action="Index">@Resource.Back</a>
+                @if (mode != "Details")
+                {
+                    <input type="submit" value="@(mode == "Create" ? Resource.Add : mode == "Edit" ? Resource.Save : "")" class="btn btn-default default_color" />
+                }
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

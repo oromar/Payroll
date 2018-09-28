@@ -477,4 +477,37 @@
   <data name="OccurrenceTypeTitle" xml:space="preserve">
     <value>Cadastro de Tipo de Ocorrências</value>
   </data>
+  <data name="EmployeeNumber" xml:space="preserve">
+    <value>Matrícula</value>
+  </data>
+  <data name="EmployeesTitle" xml:space="preserve">
+    <value>Cadastro de Funcionários</value>
+  </data>
+  <data name="IDName" xml:space="preserve">
+    <value>Nome no Crachá</value>
+  </data>
+  <data name="Manager" xml:space="preserve">
+    <value>Gerente</value>
+  </data>
+  <data name="NewEmployee" xml:space="preserve">
+    <value>Novo Funcionário</value>
+  </data>
+  <data name="Employee" xml:space="preserve">
+    <value>Funcionário</value>
+  </data>
+  <data name="DateBirth" xml:space="preserve">
+    <value>Data de Nascimento</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Data de Término</value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>Nacionalidade</value>
+  </data>
+  <data name="PersonalDocument" xml:space="preserve">
+    <value>CPF</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Data de Início</value>
+  </data>
 </root>

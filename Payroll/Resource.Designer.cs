@@ -313,6 +313,15 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data de Nascimento.
+        /// </summary>
+        public static string DateBirth {
+            get {
+                return ResourceManager.GetString("DateBirth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remover.
         /// </summary>
         public static string Delete {
@@ -390,6 +399,42 @@ namespace Payroll {
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Funcionário.
+        /// </summary>
+        public static string Employee {
+            get {
+                return ResourceManager.GetString("Employee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Matrícula.
+        /// </summary>
+        public static string EmployeeNumber {
+            get {
+                return ResourceManager.GetString("EmployeeNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cadastro de Funcionários.
+        /// </summary>
+        public static string EmployeesTitle {
+            get {
+                return ResourceManager.GetString("EmployeesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data de Término.
+        /// </summary>
+        public static string EndDate {
+            get {
+                return ResourceManager.GetString("EndDate", resourceCulture);
             }
         }
         
@@ -529,6 +574,15 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nome no Crachá.
+        /// </summary>
+        public static string IDName {
+            get {
+                return ResourceManager.GetString("IDName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to info.
         /// </summary>
         public static string InfoMessageType {
@@ -637,6 +691,15 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gerente.
+        /// </summary>
+        public static string Manager {
+            get {
+                return ResourceManager.GetString("Manager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gerencie o seu perfil.
         /// </summary>
         public static string ManagerAccountTitle {
@@ -691,6 +754,15 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nacionalidade.
+        /// </summary>
+        public static string Nationality {
+            get {
+                return ResourceManager.GetString("Nationality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bairro.
         /// </summary>
         public static string Neighborhood {
@@ -714,6 +786,15 @@ namespace Payroll {
         public static string NewCurrency {
             get {
                 return ResourceManager.GetString("NewCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Novo Funcionário.
+        /// </summary>
+        public static string NewEmployee {
+            get {
+                return ResourceManager.GetString("NewEmployee", resourceCulture);
             }
         }
         
@@ -880,6 +961,15 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CPF.
+        /// </summary>
+        public static string PersonalDocument {
+            get {
+                return ResourceManager.GetString("PersonalDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CNPJ.
         /// </summary>
         public static string PersonalJuridicalName {
@@ -1020,6 +1110,15 @@ namespace Payroll {
         public static string SocialReason {
             get {
                 return ResourceManager.GetString("SocialReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data de Início.
+        /// </summary>
+        public static string StartDate {
+            get {
+                return ResourceManager.GetString("StartDate", resourceCulture);
             }
         }
         
