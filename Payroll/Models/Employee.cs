@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Payroll.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq.Expressions;
 
 namespace Payroll.Models
 {
@@ -64,5 +66,31 @@ namespace Payroll.Models
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         [Display(ResourceType = typeof(Resource), Name = "PhoneNumber")]
         public string PhoneNumber { get; set; }
+
+        public override Expression SortBy(string sort)
+        {
+            Expression<Func<Employee, object>> result = null;
+
+            switch (sort)
+            {
+                case Constants.SORT_COMPANY_NAME:
+                    result = a => a.Company.Name;
+                    break;
+
+                case Constants.SORT_CREATED_BY:
+                    result = a => a.CreatedBy;
+                    break;
+
+                case Constants.SORT_EMPLOYEE_NUMBER:
+                    result = a => a.EmployeeNumber;
+                    break;
+
+                default:
+                    result = a => a.Name;
+                    break;
+            }
+
+            return result as Expression;
+        }
     }
 }

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Payroll.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq.Expressions;
 
 namespace Payroll.Models
 {
@@ -32,5 +34,32 @@ namespace Payroll.Models
         public virtual Currency PaymentCurrency { get; set; }
         public virtual IEnumerable<Workplace> Workplaces { get; set; }
         public virtual IEnumerable<JobRole> JobRoles { get; set; }
+
+        public override Expression SortBy(string sort)
+        {
+            Expression<Func<Company, object>> result = null;
+
+           switch(sort)
+            {
+                case Constants.SORT_OCCUPATION_AREA:
+                    result = a => a.OccupationArea;
+                    break;
+
+                case Constants.SORT_SOCIAL_REASON:
+                    result = a => a.SocialReason;
+                    break;
+
+                case Constants.SORT_CREATED_BY:
+                    result = a => a.CreatedBy;
+                    break;
+
+                default:
+                    result = a => a.Name;
+                    break;
+                
+            }
+
+            return result as Expression;
+        }
     }
 }

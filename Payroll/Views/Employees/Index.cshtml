@@ -34,7 +34,13 @@
     <thead class="default_color">
         <tr>
             <th class="col-md-1">
-               @Resource.Company
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="Company.Name"
+                   asp-route-order="@(previousSort == "Company.Name" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Resource.Company
+                </a>
             </th>
             <th class="col-md-2">
                 <a asp-action="Index"

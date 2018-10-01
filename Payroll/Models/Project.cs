@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
 
 namespace Payroll.Models
 {
@@ -17,5 +18,10 @@ namespace Payroll.Models
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public DateTime End { get; set; }
         public virtual IEnumerable<ProjectEmployee> Employees { get; set; }
+
+        public override Expression SortBy(string sort)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

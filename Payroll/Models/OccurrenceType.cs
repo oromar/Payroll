@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Payroll.Common;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
 
 namespace Payroll.Models
 {
@@ -10,5 +13,30 @@ namespace Payroll.Models
         [Display(ResourceType = typeof(Resource), Name = "IsAbsence")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public bool IsAbsence { get; set; }
+
+        public override Expression SortBy(string sort)
+        {
+            Expression<Func<OccurrenceType, object>> result = null;
+
+            switch (sort)
+            {
+                case Constants.SORT_IS_ABSENCE:
+                    result = a => a.IsAbsence;
+                    break;
+
+                case Constants.SORT_CREATED_BY:
+                    result = a => a.CreatedBy;
+                    break;
+
+                case Constants.SORT_DESCRIPTION:
+                    result = a => a.Description;
+                    break;
+
+                default:
+                    result = a => a.Name;
+                    break;
+            }
+            return result as Expression;
+        }
     }
 }

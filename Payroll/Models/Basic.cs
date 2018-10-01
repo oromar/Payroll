@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
 
 namespace Payroll.Models
 {
@@ -24,5 +25,7 @@ namespace Payroll.Models
         [Display(ResourceType = typeof(Resource), Name = "DeletedBy")]
         public string DeletedBy { get; set; }
         public string SearchFields { get; set; }
-    }
+
+        public abstract Expression SortBy(string sort);
+    }  
 }

@@ -45,17 +45,7 @@ namespace Payroll.Data
             return _context;
         }
 
-        public Expression<Func<T, object>> SortBy(string sort)
-        {
-            if (string.IsNullOrEmpty(sort))
-            {
-                return a => a.Name;
-            }
-
-            return a => a.GetType()
-                         .GetProperty(sort)
-                         .GetValue(a);
-        }
+        public Expression<Func<T, object>> SortBy(string sort) => Activator.CreateInstance<T>().SortBy(sort) as Expression<Func<T, object>>;
 
         public async Task<T> Find(Guid? id)
         {

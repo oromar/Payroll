@@ -8,5 +8,24 @@ namespace Payroll.Common
     public class Constants
     {
         public const int MAX_ITEMS_PER_PAGE = 5;
+
+        public const string SORT_QTY_DAYS = "QtyDaysDefault";
+        public const string SORT_DESCRIPTION = "Description";
+        public const string SORT_CREATED_BY = "CreatedBy";
+        public const string SORT_OCCUPATION_AREA = "OccupationArea";
+        public const string SORT_SOCIAL_REASON = "SocialReason";
+        public const string SORT_EXCHANGE = "Exchange";
+        public const string SORT_SYMBOL = "Symbol";
+        public const string SORT_COMPANY_NAME = "Company.Name";
+        public const string SORT_EMPLOYEE_NUMBER = "EmployeeNumber";
+        public const string SORT_MANAGER_COMMISSION = "ManagerCommission";
+        public const string SORT_SALARY = "Salary";
+        public const string SORT_COUNCIL_NAME = "CouncilName";
+        public const string SORT_IS_ABSENCE = "IsAbsence";
+        public const string SORT_ADDRESS = "Address";
+        public const string SORT_CITY = "City";
+        public const string SORT_STATE = "State";
+
     }
 }
+

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq.Expressions;
 
 namespace Payroll.Models
 {
@@ -16,5 +17,10 @@ namespace Payroll.Models
         public string Occurrence { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
+
+        public override Expression SortBy(string sort)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
