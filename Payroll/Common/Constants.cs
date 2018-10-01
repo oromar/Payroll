@@ -25,7 +25,11 @@ namespace Payroll.Common
         public const string SORT_ADDRESS = "Address";
         public const string SORT_CITY = "City";
         public const string SORT_STATE = "State";
-
+        public const string SORT_START_DATE = "Start";
+        public const string SORT_END_DATE = "End";
+        public const string SORT_EMPLOYEE_NAME = "Employee.Name";
+        public const string SORT_OCCURRENCE = "Occurrence";
+        public const string SORT_OCCURRENCE_TYPE_NAME = "OccurrenceType.Name";
     }
 }
 
