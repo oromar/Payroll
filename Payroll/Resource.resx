@@ -510,4 +510,7 @@
   <data name="StartDate" xml:space="preserve">
     <value>Data de Início</value>
   </data>
+  <data name="SelectItem" xml:space="preserve">
+    <value>Selecione</value>
+  </data>
 </root>

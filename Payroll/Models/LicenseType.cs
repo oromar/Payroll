@@ -1,12 +1,14 @@
 ﻿using Payroll.Common;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
 
 namespace Payroll.Models
 {
     public class LicenseType : Basic
     {
+
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName ="RequiredField")]
         [Display(ResourceType = typeof(Resource), Name = "Description")]
         public string Description { get; set; }

@@ -13,7 +13,6 @@
         Resource.Company,
         Html.DisplayNameFor(model => model.Name),
         Html.DisplayNameFor(model => model.Description),
-        Html.DisplayNameFor(model => model.Salary),
         Html.DisplayNameFor(model => model.CreatedBy),
     };
 
@@ -62,15 +61,6 @@
                 <a asp-action="Index"
                    asp-route-filter="@filter"
                    asp-route-page="@currentPage"
-                   asp-route-sort="Salary"
-                   asp-route-order="@(previousSort == "Salary" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
-                    @Html.DisplayNameFor(model => model.Salary)
-                </a>
-            </th>
-            <th>
-                <a asp-action="Index"
-                   asp-route-filter="@filter"
-                   asp-route-page="@currentPage"
                    asp-route-sort="CreatedBy"
                    asp-route-order="@(previousSort == "CreatedBy" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
                     @Html.DisplayNameFor(model => model.CreatedBy)
@@ -101,9 +91,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Salary)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreatedBy)

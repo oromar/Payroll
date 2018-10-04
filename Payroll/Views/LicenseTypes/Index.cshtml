@@ -4,7 +4,7 @@
     var currentPage = ViewBag.CurrentPage as int? ?? 1;
     var hasMore = ViewBag.HasMore as bool? ?? false;
     var filter = ViewBag.CurrentFilter as string ?? string.Empty;
-    ViewData["Title"] = Resource.CurrencyTitle;
+    ViewData["Title"] = Resource.LicenseTypeTitle;
     var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
     var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
 

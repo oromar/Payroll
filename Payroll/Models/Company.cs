@@ -34,6 +34,7 @@ namespace Payroll.Models
         public virtual Currency PaymentCurrency { get; set; }
         public virtual IEnumerable<Workplace> Workplaces { get; set; }
         public virtual IEnumerable<JobRole> JobRoles { get; set; }
+        public virtual IEnumerable<Department> Departments { get; set; }
 
         public override Expression SortBy(string sort)
         {

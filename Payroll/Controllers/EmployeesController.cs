@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,79 +17,49 @@ namespace Payroll.Controllers
 
         public override Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
-            ViewBag.Companies = _businessObject
+            ViewBag.Companies = Utils
+                .GetOptions(_businessObject
                 .GetDAO()
                 .GetContext()
                 .Company
-                .Where(a => !a.IsDeleted)
-                .Select(a => new SelectListItem
-                {
-                    Value = a.Id.ToString(),
-                    Text = a.Name
-                })
-                .ToList();
+                .Where(a => !a.IsDeleted));
 
-            ViewBag.JobRoles = _businessObject
+            ViewBag.JobRoles = Utils
+                .GetOptions(_businessObject
                 .GetDAO()
                 .GetContext()
                 .JobRole
-                .Where(a => !a.IsDeleted)
-                .Select(a => new SelectListItem
-                {
-                    Value = a.Id.ToString(),
-                    Text = a.Name
-                })
-                .ToList();
+                .Where(a => !a.IsDeleted));
 
-            ViewBag.Workplaces = _businessObject
+            ViewBag.Workplaces = Utils
+                .GetOptions(_businessObject
                 .GetDAO()
                 .GetContext()
                 .Workplace
-                .Where(a => !a.IsDeleted)
-                .Select(a => new SelectListItem
-                {
-                    Value = a.Id.ToString(),
-                    Text = a.Name
-                })
-                .ToList();
+                .Where(a => !a.IsDeleted));
 
-            ViewBag.Occupations = _businessObject
+            ViewBag.Occupations = Utils
+                .GetOptions(_businessObject
                 .GetDAO()
                 .GetContext()
                 .Occupation
-                .Where(a => !a.IsDeleted)
-                .Select(a => new SelectListItem
-                {
-                    Value = a.Id.ToString(),
-                    Text = a.Name
-                })
-                .ToList();
+                .Where(a => !a.IsDeleted));
 
-            ViewBag.Functions = _businessObject
+            ViewBag.Functions = Utils
+                .GetOptions(_businessObject
                 .GetDAO()
                 .GetContext()
                 .Function
-                .Where(a => !a.IsDeleted)
-                .Select(a => new SelectListItem
-                {
-                    Value = a.Id.ToString(),
-                    Text = a.Name
-                })
-                .ToList();
+                .Where(a => !a.IsDeleted));
 
-            ViewBag.Managers = _businessObject
+            ViewBag.Managers = Utils
+                .GetOptions(_businessObject
                 .GetDAO()
                 .GetContext()
                 .Employee
                 .Include(a => a.Function)
                 .Where(a => !a.IsDeleted)
-                .Where(a => a.Function.IsManagerFunction)
-                .Select(a => new SelectListItem
-                {
-                    Value = a.Id.ToString(),
-                    Text = a.Name
-                })
-                .ToList();
+                .Where(a => a.Function.IsManagerFunction));
 
             return base.Index(page, filter, sort, order);
         }

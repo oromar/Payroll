@@ -1,12 +1,19 @@
 ﻿using Payroll.Common;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
 
 namespace Payroll.Models
 {
     public class Function: Basic
     {
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
+        [Display(ResourceType = typeof(Resource), Name = "Company")]
+        public Guid CompanyId { get; set; }
+        [ForeignKey("CompanyId")]
+        public virtual Company Company { get; set; }
+
         [Display(ResourceType = typeof(Resource), Name = "Description")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public string Description { get; set; }
@@ -25,6 +32,10 @@ namespace Payroll.Models
 
             switch (sort)
             {
+                case Constants.SORT_COMPANY_NAME:
+                    result = a => a.Company.Name;
+                    break;
+
                 case Constants.SORT_MANAGER_COMMISSION:
                     result = a => a.ManagerCommission;
                     break;

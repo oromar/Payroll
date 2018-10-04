@@ -15,17 +15,12 @@ namespace Payroll.Models
 
         public override async Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
-            ViewBag.Companies = _businessObject
+            ViewBag.Companies = Utils
+                .GetOptions(_businessObject
                 .GetDAO()
                 .GetContext()
                 .Company
-                .Where(a => !a.IsDeleted)
-                .Select(a => new SelectListItem
-                {
-                    Value = a.Id.ToString(),
-                    Text = a.Name
-                })
-                .ToList();
+                .Where(a => !a.IsDeleted));
 
             return await base.Index(page, filter, sort, order);
         }

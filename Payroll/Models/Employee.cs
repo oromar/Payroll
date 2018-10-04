@@ -66,6 +66,9 @@ namespace Payroll.Models
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         [Display(ResourceType = typeof(Resource), Name = "PhoneNumber")]
         public string PhoneNumber { get; set; }
+        [Display(ResourceType = typeof(Resource), Name = "Salary")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
+        public double Salary { get; set; }
 
         public override Expression SortBy(string sort)
         {
@@ -75,6 +78,10 @@ namespace Payroll.Models
             {
                 case Constants.SORT_COMPANY_NAME:
                     result = a => a.Company.Name;
+                    break;
+
+                case Constants.SORT_SALARY:
+                    result = a => a.Salary;
                     break;
 
                 case Constants.SORT_CREATED_BY:

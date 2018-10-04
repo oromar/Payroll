@@ -55,6 +55,11 @@
                     <span asp-validation-for="IDName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <label asp-for="Salary" class="control-label"></label>
+                    <input asp-for="Salary" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="Salary" class="text-danger"></span>
+                </div>
+                <div class="form-group">
                     <label asp-for="Nationality" class="control-label"></label>
                     <input asp-for="Nationality" disabled="@(mode == "Details")" class="form-control" />
                     <span asp-validation-for="Nationality" class="text-danger"></span>

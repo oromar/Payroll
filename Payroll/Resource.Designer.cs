@@ -1096,6 +1096,15 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selecione.
+        /// </summary>
+        public static string SelectItem {
+            get {
+                return ResourceManager.GetString("SelectItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enviar.
         /// </summary>
         public static string SendEmail {

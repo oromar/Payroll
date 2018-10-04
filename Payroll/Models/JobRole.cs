@@ -11,9 +11,6 @@ namespace Payroll.Models
         [Display(ResourceType = typeof(Resource), Name = "Description")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public string Description { get; set; }
-        [Display(ResourceType = typeof(Resource), Name = "Salary")]
-        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
-        public double Salary { get; set; }
         [ForeignKey("CompanyId")]
         public virtual Company Company { get; set; }
         [Display(ResourceType = typeof(Resource), Name = "Company")]
@@ -31,10 +28,7 @@ namespace Payroll.Models
                     break;
                 case Constants.SORT_DESCRIPTION:
                     result = a => a.Description;
-                    break;
-                case Constants.SORT_SALARY:
-                    result = a => a.Salary;
-                    break;
+                    break;                
                 case Constants.SORT_CREATED_BY:
                     result = a => a.CreatedBy;
                     break;

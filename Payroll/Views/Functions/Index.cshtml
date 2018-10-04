@@ -4,7 +4,7 @@
     var currentPage = ViewData["CurrentPage"] as int? ?? 1;
     var hasMore = ViewData["HasMore"] as bool? ?? false;
     var filter = ViewData["CurrentFilter"] as string ?? string.Empty;
-    ViewData["Title"] = Resource.OccupationsTitle;
+    ViewData["Title"] = Resource.FunctionsTitle;
     var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
     var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
 

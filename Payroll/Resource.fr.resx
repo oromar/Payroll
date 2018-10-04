@@ -507,4 +507,7 @@
   <data name="PersonalDocument" xml:space="preserve">
     <value>Document Personnel</value>
   </data>
+  <data name="SelectItem" xml:space="preserve">
+    <value>Sélectionner</value>
+  </data>
 </root>

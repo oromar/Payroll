@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Payroll.Data;
 
 namespace Payroll.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181004164904_CompanyRelationShip")]
+    partial class CompanyRelationShip
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -392,8 +394,6 @@ namespace Payroll.Data.Migrations
                     b.Property<string>("PhoneNumber")
                         .IsRequired();
 
-                    b.Property<double>("Salary");
-
                     b.Property<string>("SearchFields");
 
                     b.Property<string>("State")
@@ -541,6 +541,8 @@ namespace Payroll.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired();
+
+                    b.Property<double>("Salary");
 
                     b.Property<string>("SearchFields");
 
