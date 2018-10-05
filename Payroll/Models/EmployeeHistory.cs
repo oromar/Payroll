@@ -1,5 +1,6 @@
 ﻿using Payroll.Common;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
 
@@ -15,9 +16,12 @@ namespace Payroll.Models
         [ForeignKey("OccurrenceTypeId")]
         public OccurrenceType OccurrenceType { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public string Occurrence { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
+        public DateTime? Start { get; set; }
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
+        public DateTime? End { get; set; }
 
         public override Expression SortBy(string sort)
         {

@@ -16,6 +16,12 @@ namespace Payroll.Models
         public virtual Company Company { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
+        [Display(ResourceType = typeof(Resource), Name = "Department")]
+        public Guid DepartmentId { get; set; }
+        [ForeignKey("DepartmentId")]
+        public virtual Department Department { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         [Display(ResourceType = typeof(Resource), Name = "JobRole")]
         public Guid JobRoleId { get; set; }
         [ForeignKey("JobRoleId")]
@@ -60,6 +66,9 @@ namespace Payroll.Models
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         [Display(ResourceType = typeof(Resource), Name = "DateBirth")]
         public DateTime? DateBirth { get; set; }
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
+        [Display(ResourceType = typeof(Resource), Name = "AdmissionalDate")]
+        public DateTime? AdmissionalDate { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         [Display(ResourceType = typeof(Resource), Name = "PersonalDocument")]
         public string PersonalDocument { get; set; }

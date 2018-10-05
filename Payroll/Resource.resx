@@ -513,4 +513,25 @@
   <data name="SelectItem" xml:space="preserve">
     <value>Selecione</value>
   </data>
+  <data name="AdmissionalDate" xml:space="preserve">
+    <value>Data de admissão</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>Departamento</value>
+  </data>
+  <data name="DepartmentsTitle" xml:space="preserve">
+    <value>Cadastro de Departamentos</value>
+  </data>
+  <data name="IsDirectionDepartment" xml:space="preserve">
+    <value>Diretoria?</value>
+  </data>
+  <data name="IsManagerDepartment" xml:space="preserve">
+    <value>Gerência?</value>
+  </data>
+  <data name="IsOperationalDepartment" xml:space="preserve">
+    <value>Operacional?</value>
+  </data>
+  <data name="NewDepartment" xml:space="preserve">
+    <value>Novo Departamento</value>
+  </data>
 </root>

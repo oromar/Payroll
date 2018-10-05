@@ -27,8 +27,19 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="CompanyId" class="control-label"></label>
-                    <select asp-for="CompanyId" disabled="@(mode == "Details")" class="form-control" asp-items="ViewBag.Companies"></select>
+                    <select id="companiesSelect" asp-for="CompanyId" onchange="loadDepartments();" disabled="@(mode == "Details")" class="form-control" asp-items="ViewBag.Companies"></select>
                     <span asp-validation-for="IDName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DepartmentId" class="control-label"></label>
+                    <select id="departmentsSelect" name="DepartmentId" asp-for="DepartmentId" disabled="@(mode == "Details")" class="form-control">
+                        <option>@Resource.SelectItem</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AdmissionalDate" class="control-label"></label>
+                    <input type="date" asp-for="AdmissionalDate" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="AdmissionalDate" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="JobRoleId" class="control-label"></label>
@@ -66,7 +77,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="DateBirth" class="control-label"></label>
-                    <input asp-for="DateBirth" disabled="@(mode == "Details")" class="form-control" />
+                    <input type="date" asp-for="DateBirth" disabled="@(mode == "Details")" class="form-control" />
                     <span asp-validation-for="DateBirth" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -123,7 +134,3 @@
         </form>
     </div>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

@@ -56,6 +56,10 @@ namespace Payroll.Data
                .HasIndex(p => new { p.Id, p.SearchFields })
                .IsUnique(true);
 
+            modelBuilder.Entity<Department>()
+                .HasIndex(p => new { p.Id, p.SearchFields })
+                .IsUnique(true);
+
             modelBuilder.Entity<ProjectEmployee>()
                 .HasKey(p => new { p.ProjectId, p.EmployeeId });
 
@@ -81,5 +85,6 @@ namespace Payroll.Data
         public DbSet<Function> Function { get; set; }
         public DbSet<Payroll.Models.OccurrenceType> OccurrenceType { get; set; }
         public DbSet<Payroll.Models.Employee> Employee { get; set; }
+        public DbSet<Payroll.Models.Department> Department { get; set; }
     }
 }

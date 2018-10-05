@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Payroll.Data;
 
 namespace Payroll.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181005134110_AdmissionalDateInEmployee")]
+    partial class AdmissionalDateInEmployee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -329,10 +331,6 @@ namespace Payroll.Data.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("Id", "SearchFields")
-                        .IsUnique()
-                        .HasFilter("[SearchFields] IS NOT NULL");
-
                     b.ToTable("Department");
                 });
 
@@ -344,8 +342,7 @@ namespace Payroll.Data.Migrations
                     b.Property<string>("Address")
                         .IsRequired();
 
-                    b.Property<DateTime?>("AdmissionalDate")
-                        .IsRequired();
+                    b.Property<DateTime>("AdmissionalDate");
 
                     b.Property<string>("City")
                         .IsRequired();
@@ -359,14 +356,13 @@ namespace Payroll.Data.Migrations
 
                     b.Property<string>("CreatedBy");
 
-                    b.Property<DateTime?>("DateBirth")
-                        .IsRequired();
+                    b.Property<DateTime>("DateBirth");
 
                     b.Property<DateTime?>("DeletedAt");
 
                     b.Property<string>("DeletedBy");
 
-                    b.Property<Guid>("DepartmentId");
+                    b.Property<Guid?>("DepartmentId");
 
                     b.Property<string>("EmployeeNumber")
                         .IsRequired();
@@ -450,23 +446,20 @@ namespace Payroll.Data.Migrations
 
                     b.Property<Guid>("EmployeeId");
 
-                    b.Property<DateTime?>("End")
-                        .IsRequired();
+                    b.Property<DateTime>("End");
 
                     b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<string>("Occurrence")
-                        .IsRequired();
+                    b.Property<string>("Occurrence");
 
                     b.Property<Guid>("OccurrenceTypeId");
 
                     b.Property<string>("SearchFields");
 
-                    b.Property<DateTime?>("Start")
-                        .IsRequired();
+                    b.Property<DateTime>("Start");
 
                     b.Property<DateTime?>("UpdatedAt");
 
@@ -867,10 +860,9 @@ namespace Payroll.Data.Migrations
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Payroll.Models.Department", "Department")
+                    b.HasOne("Payroll.Models.Department")
                         .WithMany("Employees")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DepartmentId");
 
                     b.HasOne("Payroll.Models.Function", "Function")
                         .WithMany()

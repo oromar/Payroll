@@ -88,6 +88,15 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data de admissão.
+        /// </summary>
+        public static string AdmissionalDate {
+            get {
+                return ResourceManager.GetString("AdmissionalDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recursos Humanos.
         /// </summary>
         public static string ApplicationName {
@@ -358,6 +367,24 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Departamento.
+        /// </summary>
+        public static string Department {
+            get {
+                return ResourceManager.GetString("Department", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cadastro de Departamentos.
+        /// </summary>
+        public static string DepartmentsTitle {
+            get {
+                return ResourceManager.GetString("DepartmentsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Descrição.
         /// </summary>
         public static string Description {
@@ -601,11 +628,38 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Diretoria?.
+        /// </summary>
+        public static string IsDirectionDepartment {
+            get {
+                return ResourceManager.GetString("IsDirectionDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gerência?.
+        /// </summary>
+        public static string IsManagerDepartment {
+            get {
+                return ResourceManager.GetString("IsManagerDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to É uma função de gerência?.
         /// </summary>
         public static string IsManagerFunction {
             get {
                 return ResourceManager.GetString("IsManagerFunction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operacional?.
+        /// </summary>
+        public static string IsOperationalDepartment {
+            get {
+                return ResourceManager.GetString("IsOperationalDepartment", resourceCulture);
             }
         }
         
@@ -786,6 +840,15 @@ namespace Payroll {
         public static string NewCurrency {
             get {
                 return ResourceManager.GetString("NewCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Novo Departamento.
+        /// </summary>
+        public static string NewDepartment {
+            get {
+                return ResourceManager.GetString("NewDepartment", resourceCulture);
             }
         }
         
