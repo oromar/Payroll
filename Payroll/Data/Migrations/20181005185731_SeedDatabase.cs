@@ -65,8 +65,6 @@ namespace Payroll.Data.Migrations
 
             migrationBuilder.Sql("INSERT INTO OccurrenceType(Id, CreatedAt, CreatedBy, IsDeleted, Name, Description, IsAbsence, SearchFields) VALUES (" +
                 "NEWID(), GETDATE(), 'oldm@cin.ufpe.br', 0, 'Suspensão', 'Suspensão aplicada ao funcionário', 1, 'Suspensão aplicada ao funcionário oldm@cin.ufpe.br')");
-
-
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
