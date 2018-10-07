@@ -127,27 +127,6 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-
-    function loadDepartments() {
-        $.ajax({
-            url: '/Departments/DepartmentsByCompany',
-            method: 'GET',
-            data: { companyId: $('#companiesSelect option:selected').val() },
-            success: function (data) {
-                if (data) {
-                    $('#departmentsSelect').empty();
-                    data.forEach(function (a) {
-                        $('#departmentsSelect').append('<option value=' + a.value + '>' + a.text + '</option>');
-                    })
-                }
-            }
-        })
-    }
-
-</script>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

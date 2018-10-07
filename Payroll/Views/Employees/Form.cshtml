@@ -35,6 +35,7 @@
                     <select id="departmentsSelect" name="DepartmentId" asp-for="DepartmentId" disabled="@(mode == "Details")" class="form-control">
                         <option>@Resource.SelectItem</option>
                     </select>
+                    <span asp-validation-for="DepartmentId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="AdmissionalDate" class="control-label"></label>
@@ -79,6 +80,11 @@
                     <label asp-for="DateBirth" class="control-label"></label>
                     <input type="date" asp-for="DateBirth" disabled="@(mode == "Details")" class="form-control" />
                     <span asp-validation-for="DateBirth" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Gender" class="control-label"></label>
+                    <select asp-for="Gender" disabled="@(mode == "Details")" class="form-control" asp-items="ViewBag.Genders"></select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="PersonalDocument" class="control-label"></label>

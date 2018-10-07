@@ -534,4 +534,10 @@
   <data name="NewDepartment" xml:space="preserve">
     <value>Novo Departamento</value>
   </data>
+  <data name="Fem" xml:space="preserve">
+    <value>Feminino</value>
+  </data>
+  <data name="Masc" xml:space="preserve">
+    <value>Masculino</value>
+  </data>
 </root>

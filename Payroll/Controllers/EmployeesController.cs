@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -60,6 +61,8 @@ namespace Payroll.Controllers
                 .Include(a => a.Function)
                 .Where(a => !a.IsDeleted)
                 .Where(a => a.Function.IsManagerFunction));
+
+            ViewBag.Genders = Utils.GetGenders();
 
             return base.Index(page, filter, sort, order);
         }

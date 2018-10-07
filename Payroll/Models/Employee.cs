@@ -79,6 +79,9 @@ namespace Payroll.Models
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public double Salary { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
+        public Gender Gender { get; set; }
+
         public override Expression SortBy(string sort)
         {
             Expression<Func<Employee, object>> result = null;
