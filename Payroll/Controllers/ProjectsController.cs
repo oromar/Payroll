@@ -14,7 +14,7 @@ namespace Payroll.Controllers
 {
     public class ProjectsController : GenericController<Project>
     {
-        public ProjectsController(ProjectBO businessObject, Message message) 
+        public ProjectsController(BusinessObject<Project> businessObject, Message message) 
             : base(businessObject, message) { }
 
 
@@ -29,6 +29,22 @@ namespace Payroll.Controllers
 
 
             return base.Index(page, filter, sort, order);
+        }
+
+        public override Task<IActionResult> Create([Bind] Project data)
+        {
+            var projectEmployees = HttpContext
+                .Request
+                .Form[Constants.EMPLOYEE_ID]
+                .Select(a => new ProjectEmployee
+                {
+                    EmployeeId = Guid.Parse(a)
+                })
+                .ToList();
+
+            data.Employees = projectEmployees;
+           
+            return base.Create(data);
         }
     }
 }
