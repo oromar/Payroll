@@ -537,4 +537,19 @@
   <data name="Masc" xml:space="preserve">
     <value>Mâle</value>
   </data>
+  <data name="EmployeeHistory" xml:space="preserve">
+    <value>Historique de Employé</value>
+  </data>
+  <data name="EmployeeHistoryTitle" xml:space="preserve">
+    <value>Histoire des Employés</value>
+  </data>
+  <data name="EmployeeName" xml:space="preserve">
+    <value>Employé</value>
+  </data>
+  <data name="NewEmployeeHistory" xml:space="preserve">
+    <value>Nouveaux  Historique des Employés</value>
+  </data>
+  <data name="Occurrence" xml:space="preserve">
+    <value>Occurrence</value>
+  </data>
 </root>

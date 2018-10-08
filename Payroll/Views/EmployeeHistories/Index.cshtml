@@ -1,0 +1,147 @@
+﻿@model IEnumerable<Payroll.Models.EmployeeHistory>
+
+@{
+    var currentPage = ViewBag.CurrentPage as int? ?? 1;
+    var hasMore = ViewBag.HasMore as bool? ?? false;
+    var filter = ViewBag.CurrentFilter as string ?? string.Empty;
+    ViewData["Title"] = Resource.EmployeeHistoryTitle;
+    var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
+    var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
+
+    var searchFields = new List<string>
+    {
+        Resource.EmployeeName,
+        Resource.OccurrenceType,
+        Resource.Occurrence,
+        Html.DisplayNameFor(model => model.CreatedBy),
+    };
+
+}
+
+<h2>@Resource.EmployeeHistoryTitle</h2>
+
+<p>
+    <a href="#" data-toggle="modal" data-target="#createModal">
+        @Resource.NewEmployeeHistory
+    </a>
+</p>
+<partial name="_Search" model="@searchFields" />
+<table class="table table-bordered table-hover">
+    <thead class="default_color">
+        <tr>
+            <th>
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="Employee.Name"
+                   asp-route-order="@(previousSort == "Employee.Name" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.EmployeeId)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="OccurrenceType.Name"
+                   asp-route-order="@(previousSort == "OccurrenceType.Name" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.OccurrenceTypeId)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="Occurrence"
+                   asp-route-order="@(previousSort == "Occurrence" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.Occurrence)
+                </a>
+                
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="Start"
+                   asp-route-order="@(previousSort == "Start" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.Start)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="End"
+                   asp-route-order="@(previousSort == "End" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.End)
+                </a>                
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="CreatedBy"
+                   asp-route-order="@(previousSort == "CreatedBy" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </a>               
+            </th>
+            <th style="text-align:center" class="col-md-2" colspan="3">@Resource.Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td class="no-items" colspan="7">
+                    @Resource.NoItems
+                </td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OccurrenceType.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Occurrence)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Start)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.End)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                    </td>
+                    <partial name="_ActionsColumn" model="@item" />
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<partial name="_Pagination" model="@(new {currentPage, hasMore, filter })" />
+
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createEmployeeHistoryModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header default_color">
+                <h3 class="modal-title" id="exampleModalLabel">@Resource.NewEmployeeHistory</h3>
+            </div>
+            <div class="modal-body" style="border:none;">
+                @{ ViewData["Mode"] = "Create";}
+                <partial name="Form" model="new EmployeeHistory()" view-data="ViewData" />
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

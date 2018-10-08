@@ -21,32 +21,32 @@ namespace Payroll.Business
             return _dao;
         }
 
-        public async Task<T> Find(Guid? id)
+        public virtual async Task<T> Find(Guid? id)
         {
             return await _dao.Find(id);
         }
 
-        public bool Exists(Guid id)
+        public virtual bool Exists(Guid id)
         {
             return _dao.Exists(id);
         }
 
-        public async Task<List<T>> Search(int page = 1, string filter = "", string sort = "", string order = "ASC")
+        public virtual async Task<List<T>> Search(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
             return await _dao.Search(page, filter, sort, order);
         }
 
-        public async Task<int> Count(string filter = "")
+        public virtual async Task<int> Count(string filter = "")
         {
             return await _dao.Count(filter);
         }
 
-        public async Task<T> Details(Guid id)
+        public virtual async Task<T> Details(Guid id)
         {
             return await Find(id);
         }
 
-        public async Task<T> Create(T data, string userIdentity)
+        public virtual async Task<T> Create(T data, string userIdentity)
         {
             data.Id = Guid.NewGuid();
             data.CreatedAt = DateTime.Now;
@@ -55,7 +55,7 @@ namespace Payroll.Business
             return await _dao.Create(data);
         }
 
-        public async Task<T> Edit(Guid id, T data, string userIdentity)
+        public virtual async Task<T> Edit(Guid id, T data, string userIdentity)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace Payroll.Business
             return data;
         }
 
-        public async Task<int> Delete(Guid id, string userIdentity)
+        public virtual async Task<int> Delete(Guid id, string userIdentity)
         {
             var data = await Find(id);
             data.IsDeleted = true;

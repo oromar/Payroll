@@ -86,5 +86,6 @@ namespace Payroll.Data
         public DbSet<Payroll.Models.OccurrenceType> OccurrenceType { get; set; }
         public DbSet<Payroll.Models.Employee> Employee { get; set; }
         public DbSet<Payroll.Models.Department> Department { get; set; }
+        public DbSet<Payroll.Models.EmployeeHistory> EmployeeHistory { get; set; }
     }
 }
