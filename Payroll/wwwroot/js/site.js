@@ -18,3 +18,36 @@ function loadDepartments() {
         }
     })
 }
+
+function loadEmployees() {
+    $.ajax({
+        url: '/Employees/EmployeesByDepartment',
+        method: 'GET',
+        data: { departmentId: $('#departmentsSelect option:selected').val() },
+        success: function (data) {
+            if (data) {
+                $('#EmployeeId').empty();
+                data.forEach(function (a) {
+                    $('#EmployeeId').append('<option value=' + a.value + '>' + a.text + '</option>');
+                })
+            }
+        }
+    })
+}
+
+
+function loadWorkplaces() {
+    $.ajax({
+        url: '/Workplaces/WorkplacesByCompany',
+        method: 'GET',
+        data: { companyId: $('#companiesSelect option:selected').val() },
+        success: function (data) {
+            if (data) {
+                $('#WorkplaceId').empty();
+                data.forEach(function (a) {
+                    $('#WorkplaceId').append('<option value=' + a.value + '>' + a.text + '</option>');
+                })
+            }
+        }
+    })
+}

@@ -66,5 +66,24 @@ namespace Payroll.Controllers
 
             return base.Index(page, filter, sort, order);
         }
+
+
+        public IActionResult EmployeesByDepartment(string departmentId)
+        {
+            var employees = _businessObject
+                .GetDAO()
+                .GetContext()
+                .Employee
+                .Include(a => a.Department)
+                .Where(a => !a.IsDeleted)
+                .Where(a => a.DepartmentId.ToString() == departmentId)
+                .Select(a => new SelectListItem {
+                        Text = a.Name,
+                        Value = a.Id.ToString()
+                })
+                .ToList();
+
+            return Ok(employees);
+        }
     }
 }

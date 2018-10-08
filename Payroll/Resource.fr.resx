@@ -552,4 +552,16 @@
   <data name="Occurrence" xml:space="preserve">
     <value>Occurrence</value>
   </data>
+  <data name="Employees" xml:space="preserve">
+    <value>Employés</value>
+  </data>
+  <data name="NewProject" xml:space="preserve">
+    <value>Noveau Projet</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Projet</value>
+  </data>
+  <data name="ProjectsTitle" xml:space="preserve">
+    <value>Enregistrement de Projet</value>
+  </data>
 </root>

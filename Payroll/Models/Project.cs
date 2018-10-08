@@ -22,6 +22,7 @@ namespace Payroll.Models
         [ForeignKey("DepartmentId")]
         public virtual Department Department { get; set; }
 
+        [Display(ResourceType = typeof(Resource), Name = "Workplace")]
         public Guid WorkplaceId { get; set; }
         [ForeignKey("WorkplaceId")]
         public Workplace Workplace { get; set; }
@@ -31,10 +32,10 @@ namespace Payroll.Models
         public string Description { get; set; }
         [Display(ResourceType = typeof(Resource), Name = "StartDate")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
-        public DateTime Start { get; set; }
+        public DateTime? Start { get; set; }
         [Display(ResourceType = typeof(Resource), Name = "EndDate")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
-        public DateTime End { get; set; }
+        public DateTime? End { get; set; }
 
         public virtual IEnumerable<ProjectEmployee> Employees { get; set; }
 
