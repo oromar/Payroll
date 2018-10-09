@@ -3,6 +3,10 @@
 
 @{
     var mode = ViewBag.Mode;
+
+    var EmployeeCompanySelect = mode == "Details" ? "EmployeeCompanySelectDetails" : mode == "Create" ? "EmployeeCompanySelectCreate": "EmployeeCompanySelectEdit" + Model.Id;
+    var EmployeeDepartmentSelect = mode == "Details" ? "EmployeeDepartmentSelectDetails" : mode == "Create" ? "EmployeeDepartmentSelectCreate" : "EmployeeDepartmentSelectEdit" + Model.Id;
+
 }
 
 <div class="row" align="left">
@@ -25,18 +29,21 @@
                     <input asp-for="EmployeeNumber" disabled="@(mode == "Details")" class="form-control" />
                     <span asp-validation-for="EmployeeNumber" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
                     <label asp-for="CompanyId" class="control-label"></label>
-                    <select id="companiesSelect" asp-for="CompanyId" onchange="loadDepartments();" disabled="@(mode == "Details")" class="form-control" asp-items="ViewBag.Companies"></select>
-                    <span asp-validation-for="IDName" class="text-danger"></span>
+                    <select id="@EmployeeCompanySelect" asp-for="CompanyId" onchange="loadDepartments('@(EmployeeCompanySelect)', '@(EmployeeDepartmentSelect)');" disabled="@(mode == "Details")" class="form-control" asp-items="ViewBag.Companies"></select>
+                    <span asp-validation-for="CompanyId" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
                     <label asp-for="DepartmentId" class="control-label"></label>
-                    <select id="departmentsSelect" name="DepartmentId" asp-for="DepartmentId" disabled="@(mode == "Details")" class="form-control">
+                    <select id="@EmployeeDepartmentSelect" name="DepartmentId" disabled="@(mode == "Details")" class="form-control">
                         <option>@Resource.SelectItem</option>
                     </select>
                     <span asp-validation-for="DepartmentId" class="text-danger"></span>
                 </div>
+                
                 <div class="form-group">
                     <label asp-for="AdmissionalDate" class="control-label"></label>
                     <input type="date" asp-for="AdmissionalDate" disabled="@(mode == "Details")" class="form-control" />

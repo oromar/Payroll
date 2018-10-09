@@ -33,6 +33,7 @@ namespace Payroll.Common
 
         public const string VALUE_FIRST_SELECT = null;
         public const string EMPLOYEE_ID = "EmployeeId";
+        public const string NAME_FIELD = "Name";
     }
 }
 

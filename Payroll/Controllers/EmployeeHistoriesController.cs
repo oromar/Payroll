@@ -9,7 +9,7 @@ namespace Payroll.Controllers
 {
     public class EmployeeHistoriesController : GenericController<EmployeeHistory>
     {
-        public EmployeeHistoriesController(EmployeeHistoryBO businessObject, Message message) :
+        public EmployeeHistoriesController(BusinessObject<EmployeeHistory> businessObject, Message message) :
             base(businessObject, message)
         {
         }
@@ -37,6 +37,23 @@ namespace Payroll.Controllers
                 .Where(a => !a.IsDeleted));
 
             return base.Index(page, filter, sort, order);
+        }
+
+
+        public override Task<IActionResult> Create([Bind] EmployeeHistory data)
+        {
+            var employee = _businessObject
+                .GetDAO()
+                .GetContext()
+                .Employee
+                .Find(data.EmployeeId);
+
+            data.Name = employee.Name;
+
+            ModelState.ClearValidationState(Constants.NAME_FIELD);
+            ModelState.MarkFieldValid(Constants.NAME_FIELD);
+
+            return base.Create(data);
         }
     }
 }

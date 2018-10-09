@@ -2,6 +2,11 @@
 
 @{
     var mode = ViewBag.Mode;
+
+    var ProjectCompanySelect = mode == "Details" ? "ProjectCompanySelectDetails" : mode == "Create" ? "ProjectCompanySelectCreate" : "ProjectCompanySelectEdit" + Model.Id;
+    var ProjectDepartmentSelect = mode == "Details" ? "ProjectDepartmentSelectDetails" : mode == "Create" ? "ProjectDepartmentSelectCreate" : "ProjectDepartmentSelectEdit" + Model.Id; ;
+    var ProjectWorkplaceSelect = mode == "Details" ? "ProjectWorkplaceSelectDetails" : mode == "Create" ? "ProjectWorkplaceSelectCreate" : "ProjectWorkplaceSelectEdit" + Model.Id; ; ;
+    var ProjectEmployeeSelect = mode == "Details" ? "ProjectEmployeeSelectDetails" : mode == "Create" ? "ProjectEmployeeSelectCreate" : "ProjectEmployeeSelectEdit" + Model.Id; ; ; ;
 }
 
 <div class="row" align="left">
@@ -11,21 +16,47 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="CompanyId" class="control-label"></label>
-                    <select id="companiesSelect" asp-for="CompanyId" disabled="@(mode == "Details")" onchange="loadDepartments(); loadWorkplaces();" class="form-control" asp-items="ViewBag.Companies"></select>
+                    <select id="@ProjectCompanySelect" asp-for="CompanyId" disabled="@(mode == "Details")" onchange="loadDepartments('@(ProjectCompanySelect)', '@(ProjectDepartmentSelect)'); loadWorkplaces('@(ProjectCompanySelect)','@(ProjectWorkplaceSelect)');" class="form-control" asp-items="ViewBag.Companies"></select>
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="DepartmentId" class="control-label"></label>
-                    <select id="departmentsSelect" name="DepartmentId" onchange="loadEmployees();" disabled="@(mode == "Details")" class="form-control">
-                        <option>@Resource.SelectItem</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label asp-for="WorkplaceId" class="control-label"></label>
-                    <select id="WorkplaceId" name="WorkplaceId" disabled="@(mode == "Details")" class="form-control">
-                        <option>@Resource.SelectItem</option>
-                    </select>
-                </div>
+                @if (mode == "Create")
+                {
+                    <div class="form-group">
+                        <label asp-for="DepartmentId" class="control-label"></label>
+                        <select id="@ProjectDepartmentSelect" name="DepartmentId" onchange="loadEmployees('@(ProjectDepartmentSelect)', '@(ProjectEmployeeSelect)' );" disabled="@(mode == "Details")" class="form-control">
+                            <option>@Resource.SelectItem</option>
+                        </select>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label asp-for="DepartmentId" class="control-label"></label>
+                        <select id="@ProjectDepartmentSelect" name="DepartmentId" onchange="loadEmployees('@(ProjectDepartmentSelect)', '@(ProjectEmployeeSelect)' );" disabled="@(mode == "Details")" class="form-control">
+                            <option value="@(Model.DepartmentId)">@Model.Department.Name</option>
+                        </select>
+                    </div>
+                }
+
+                @if (mode == "Create")
+                {
+                    <div class="form-group">
+                        <label asp-for="WorkplaceId" class="control-label"></label>
+                        <select id="@ProjectWorkplaceSelect" name="WorkplaceId" disabled="@(mode == "Details")" class="form-control">
+                            <option>@Resource.SelectItem</option>
+                        </select>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label asp-for="WorkplaceId" class="control-label"></label>
+                        <select id="@ProjectWorkplaceSelect" name="WorkplaceId" disabled="@(mode == "Details")" class="form-control">
+                            <option value="@(Model.WorkplaceId)">@(Model.Workplace.Name)</option>
+                        </select>
+                    </div>
+                }
+
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
                     <input asp-for="Name" disabled="@(mode == "Details")" class="form-control" />
@@ -33,7 +64,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Description" class="control-label"></label>
-                    <textarea asp-for="Description" disabled="@(mode == "Details")" rows="4" class="form-control" ></textarea>
+                    <textarea asp-for="Description" disabled="@(mode == "Details")" rows="4" class="form-control"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -46,12 +77,28 @@
                     <input asp-for="End" type="date" disabled="@(mode == "Details")" class="form-control" />
                     <span asp-validation-for="End" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label for="EmployeeId" class="control-label">@Resource.Employees</label>
-                    <select id="EmployeeId" multiple name="EmployeeId" disabled="@(mode == "Details")" class="form-control">
-                        <option>@Resource.SelectItem</option>
-                    </select>
-                </div>
+                @if (mode == "Create")
+                {
+                    <div class="form-group">
+                        <label for="EmployeeId" class="control-label">@Resource.Employees</label>
+                        <select id="@ProjectEmployeeSelect" multiple name="EmployeeId" disabled="@(mode == "Details")" class="form-control">
+                            <option>@Resource.SelectItem</option>
+                        </select>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label for="EmployeeId" class="control-label">@Resource.Employees</label>
+                        <select id="@ProjectEmployeeSelect" multiple name="EmployeeId" disabled="@(mode == "Details")" class="form-control">
+                            @foreach (var employee in Model.Employees)
+                            {
+                                <option value="@employee.Employee.Id">@employee.Employee.Name</option>
+                            }
+                        </select>
+                    </div>
+                }
+
 
                 @if (mode == "Edit")
                 {

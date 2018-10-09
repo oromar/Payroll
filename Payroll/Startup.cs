@@ -58,8 +58,8 @@ namespace Payroll
             services.AddScoped<BusinessObject<OccurrenceType>>();
             services.AddScoped<BusinessObject<Employee>>();
             services.AddScoped<BusinessObject<Department>>();
-            services.AddScoped<EmployeeHistoryBO>();
-            services.AddScoped<BusinessObject<Project>>();
+            services.AddScoped<BusinessObject<EmployeeHistory>>();
+            services.AddScoped<ProjectBO>();
 
             services.AddScoped<GenericDAO<Occupation>>();
             services.AddScoped<GenericDAO<Currency>>();

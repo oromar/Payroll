@@ -14,7 +14,7 @@ namespace Payroll.Controllers
 {
     public class ProjectsController : GenericController<Project>
     {
-        public ProjectsController(BusinessObject<Project> businessObject, Message message) 
+        public ProjectsController(ProjectBO businessObject, Message message) 
             : base(businessObject, message) { }
 
 
@@ -26,7 +26,6 @@ namespace Payroll.Controllers
                 .GetContext()
                 .Company
                 .Where(a => !a.IsDeleted));
-
 
             return base.Index(page, filter, sort, order);
         }

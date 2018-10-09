@@ -88,5 +88,6 @@ namespace Payroll.Data
         public DbSet<Payroll.Models.Department> Department { get; set; }
         public DbSet<Payroll.Models.EmployeeHistory> EmployeeHistory { get; set; }
         public DbSet<Payroll.Models.Project> Project { get; set; }
+        public DbSet<Payroll.Models.ProjectEmployee> ProjectEmployee { get; set; }
     }
 }

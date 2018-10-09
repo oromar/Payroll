@@ -2,6 +2,10 @@
 
 @{
     var mode = ViewBag.Mode;
+
+    var EmployeeHistoryCompanySelect = mode == "Details" ? "EmployeeHistoryCompanySelectDetails" : mode == "Create" ? "EmployeeHistoryCompanySelectCreate" : "EmployeeHistoryCompanySelectEdit" + Model.Id;
+    var EmployeeHistoryDepartmentSelect = mode == "Details" ? "EmployeeHistoryDepartmentSelectDetails" : mode == "Create" ? "EmployeeHistoryDepartmentSelectCreate" : "EmployeeHistoryDepartmentSelectEdit" + Model.Id; ;
+    var EmployeeHistoryEmployeeSelect = mode == "Details" ? "EmployeeHistoryEmployeeSelectDetails" : mode == "Create" ? "EmployeeHistoryEmployeeSelectCreate" : "EmployeeHistoryEmployeeSelectEdit" + Model.Id; ; ;
 }
 
 <div class="row" align="left">
@@ -11,17 +15,17 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label for="CompanyId" class="control-label">@Resource.Company</label>
-                    <select id="companiesSelect" name="CompanyId" disabled="@(mode == "Details")" onchange="loadDepartments()" class="form-control" asp-items="ViewBag.Companies"></select>
+                    <select id="@EmployeeHistoryCompanySelect" name="CompanyId" disabled="@(mode == "Details")" onchange="loadDepartments('@(EmployeeHistoryCompanySelect)', '@(EmployeeHistoryDepartmentSelect)')" class="form-control" asp-items="ViewBag.Companies"></select>
                 </div>
                 <div class="form-group">
                     <label for="departmentsSelect" class="control-label">@Resource.Department</label>
-                    <select id="departmentsSelect" name="DepartmentId" onchange="loadEmployees()" disabled="@(mode == "Details")" class="form-control">
+                    <select id="@EmployeeHistoryDepartmentSelect" name="DepartmentId" onchange="loadEmployees('@(EmployeeHistoryDepartmentSelect)', '@(EmployeeHistoryEmployeeSelect)')" disabled="@(mode == "Details")" class="form-control">
                         <option>@Resource.SelectItem</option>
                     </select>                    
                 </div>
                 <div class="form-group">
                     <label asp-for="EmployeeId" class="control-label"></label>
-                    <select id="EmployeeId" name="EmployeeId" disabled="@(mode == "Details")" class="form-control">
+                    <select id="@EmployeeHistoryEmployeeSelect" name="EmployeeId" disabled="@(mode == "Details")" class="form-control">
                         <option value="">@Resource.SelectItem</option>
                     </select>
                 </div>

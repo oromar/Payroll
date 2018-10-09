@@ -3,32 +3,36 @@
 
 // Write your JavaScript code.
 
-function loadDepartments() {
+function loadDepartments(companySelector, departmentSelector) {
+    companySelector = '#' + companySelector;
+    departmentSelector = '#' + departmentSelector;    
     $.ajax({
         url: '/Departments/DepartmentsByCompany',
         method: 'GET',
-        data: { companyId: $('#companiesSelect option:selected').val() },
+        data: { companyId: $(companySelector + ' option:selected').val() },
         success: function (data) {
             if (data) {
-                $('#departmentsSelect').empty();
+                $(departmentSelector).empty();
                 data.forEach(function (a) {
-                    $('#departmentsSelect').append('<option value=' + a.value + '>' + a.text + '</option>');
+                    $(departmentSelector).append('<option value=' + a.value + '>' + a.text + '</option>');
                 })
             }
         }
     })
 }
 
-function loadEmployees() {
+function loadEmployees(departmentSelector, employeeSelector) {
+    departmentSelector = '#' + departmentSelector;
+    employeeSelector = '#' + employeeSelector;
     $.ajax({
         url: '/Employees/EmployeesByDepartment',
         method: 'GET',
-        data: { departmentId: $('#departmentsSelect option:selected').val() },
+        data: { departmentId: $(departmentSelector  + ' option:selected').val() },
         success: function (data) {
             if (data) {
-                $('#EmployeeId').empty();
+                $(employeeSelector).empty();
                 data.forEach(function (a) {
-                    $('#EmployeeId').append('<option value=' + a.value + '>' + a.text + '</option>');
+                    $(employeeSelector).append('<option value=' + a.value + '>' + a.text + '</option>');
                 })
             }
         }
@@ -36,16 +40,18 @@ function loadEmployees() {
 }
 
 
-function loadWorkplaces() {
+function loadWorkplaces(companySelector, workplaceSelector) {
+    companySelector = "#" + companySelector;
+    workplaceSelector = "#" + workplaceSelector;
     $.ajax({
         url: '/Workplaces/WorkplacesByCompany',
         method: 'GET',
-        data: { companyId: $('#companiesSelect option:selected').val() },
+        data: { companyId: $(companySelector + ' option:selected').val() },
         success: function (data) {
             if (data) {
-                $('#WorkplaceId').empty();
+                $(workplaceSelector).empty();
                 data.forEach(function (a) {
-                    $('#WorkplaceId').append('<option value=' + a.value + '>' + a.text + '</option>');
+                    $(workplaceSelector).append('<option value=' + a.value + '>' + a.text + '</option>');
                 })
             }
         }
