@@ -10,8 +10,20 @@
             <div style="overflow-y:auto;max-height:350px;padding:10px;">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
+                    <label for="CompanyId" class="control-label">@Resource.Company</label>
+                    <select id="companiesSelect" name="CompanyId" disabled="@(mode == "Details")" onchange="loadDepartments()" class="form-control" asp-items="ViewBag.Companies"></select>
+                </div>
+                <div class="form-group">
+                    <label for="departmentsSelect" class="control-label">@Resource.Department</label>
+                    <select id="departmentsSelect" name="DepartmentId" onchange="loadEmployees()" disabled="@(mode == "Details")" class="form-control">
+                        <option>@Resource.SelectItem</option>
+                    </select>                    
+                </div>
+                <div class="form-group">
                     <label asp-for="EmployeeId" class="control-label"></label>
-                    <select asp-for="EmployeeId" disabled="@(mode == "Details")" class="form-control" asp-items="ViewBag.Employees"></select>
+                    <select id="EmployeeId" name="EmployeeId" disabled="@(mode == "Details")" class="form-control">
+                        <option value="">@Resource.SelectItem</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label asp-for="OccurrenceTypeId" class="control-label"></label>

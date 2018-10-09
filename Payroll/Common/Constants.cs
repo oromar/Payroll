@@ -31,7 +31,7 @@ namespace Payroll.Common
         public const string SORT_OCCURRENCE = "Occurrence";
         public const string SORT_OCCURRENCE_TYPE_NAME = "OccurrenceType.Name";
 
-        public const string VALUE_FIRST_SELECT = "-1";
+        public const string VALUE_FIRST_SELECT = null;
         public const string EMPLOYEE_ID = "EmployeeId";
     }
 }

@@ -15,6 +15,13 @@ namespace Payroll.Controllers
         }
         public override Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
+            ViewBag.Companies = Utils
+                .GetOptions(_businessObject
+                .GetDAO()
+                .GetContext()
+                .Company
+                .Where(a => !a.IsDeleted));
+
             ViewBag.Employees = Utils
                 .GetOptions(_businessObject
                 .GetDAO()
@@ -31,6 +38,5 @@ namespace Payroll.Controllers
 
             return base.Index(page, filter, sort, order);
         }
-
     }
 }

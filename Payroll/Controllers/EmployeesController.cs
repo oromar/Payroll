@@ -53,35 +53,34 @@ namespace Payroll.Controllers
                 .Function
                 .Where(a => !a.IsDeleted));
 
-            ViewBag.Managers = Utils
-                .GetOptions(_businessObject
+            ViewBag.Managers = _businessObject
                 .GetDAO()
                 .GetContext()
                 .Employee
                 .Include(a => a.Function)
                 .Where(a => !a.IsDeleted)
-                .Where(a => a.Function.IsManagerFunction));
+                .Where(a => a.Function.IsManagerFunction)
+                .Select(a => new SelectListItem
+                {
+                   Text = a.Name,
+                   Value = a.Id.ToString()
+                });
 
             ViewBag.Genders = Utils.GetGenders();
 
             return base.Index(page, filter, sort, order);
         }
 
-
         public IActionResult EmployeesByDepartment(string departmentId)
         {
-            var employees = _businessObject
+            var employees = Utils
+                .GetOptions(_businessObject
                 .GetDAO()
                 .GetContext()
                 .Employee
                 .Include(a => a.Department)
                 .Where(a => !a.IsDeleted)
-                .Where(a => a.DepartmentId.ToString() == departmentId)
-                .Select(a => new SelectListItem {
-                        Text = a.Name,
-                        Value = a.Id.ToString()
-                })
-                .ToList();
+                .Where(a => a.DepartmentId.ToString() == departmentId));
 
             return Ok(employees);
         }

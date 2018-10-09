@@ -30,19 +30,14 @@ namespace Payroll.Controllers
 
         public IActionResult WorkplacesByCompany(string companyId)
         {
-            var workplaces = _businessObject
+            var workplaces = Utils
+                .GetOptions(_businessObject
                 .GetDAO()
                 .GetContext()
                 .Workplace
                 .Include(a => a.Company)
                 .Where(a => !a.IsDeleted)
-                .Where(a => a.CompanyId.ToString() == companyId)
-                .Select(a => new SelectListItem
-                {
-                    Text = a.Name,
-                    Value = a.Id.ToString()
-                })
-                .ToList();
+                .Where(a => a.CompanyId.ToString() == companyId));
 
             return Ok(workplaces);
         }
