@@ -1,18 +1,37 @@
 ﻿@model Payroll.Models.Basic
+
+<script type="text/javascript">
+    var id = '@(Model.Id)';
+    function confirm() {
+        if (document.getElementById('name_' + id).value != document.getElementById('confirm_' + id).value) {
+            var spanId = 'span_' + id;          
+            $('#' + spanId).html('@(Resource.RequiredField)');            
+            return;
+        }
+        document.getElementById('@("form_"+Model.Id)').submit();
+    }
+</script>
+
 <div class="row" align="left">
     <div class="col-md-12" align="left">
         <h4>@Resource.AreYouSure @Html.DisplayFor(model => model.Name) ?</h4>
-        
-        <form asp-action="Delete">
+        <form asp-action="Delete" id=@("form_"+Model.Id) onsubmit="return false;">
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" id=@("name_"+Model.Id) asp-for="Name" />
             <input type="hidden" asp-for="CreatedAt" />
             <input type="hidden" asp-for="CreatedBy" />
             <input type="hidden" asp-for="UpdatedAt" />
             <input type="hidden" asp-for="UpdatedBy" />
             <div class="form-group" align="right">
+                <div class="form-group" align="left">
+                    <label for="confirm">Informe o nome do registro a ser removido:</label>
+                    <input id=@("confirm_"+Model.Id) type="text" class="form-control" />
+                    <span id=@("span_"+Model.Id) class="text-danger"></span>
+                </div>
                 <a asp-action="Index" class="btn btn-default">@Resource.Back</a>
-                <input type="submit" value=@Resource.Delete class="btn btn-default default_color" />
+                <input type="button" value=@Resource.Delete class="btn btn-default default_color" onclick="confirm()" />
             </div>
         </form>
     </div>
 </div>
+
