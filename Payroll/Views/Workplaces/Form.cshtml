@@ -2,6 +2,7 @@
 
 @{
     var mode = ViewBag.Mode;
+    var modalId = mode + "_Modal" + Model.Id;
 }
 
 <div class="row" align="left">
@@ -53,7 +54,7 @@
             }
             <div class="form-group" align="right" style="padding-top:40px;">
 
-                <a class="btn btn-default" asp-action="Index">@Resource.Back</a>
+                <a class="btn btn-default" onclick="$('#@(modalId)').modal('hide');">@Resource.Back</a>
                 @if (mode != "Details")
                 {
                     <input type="submit" value="@(mode == "Create" ? Resource.Add : mode == "Edit" ? Resource.Save : "")" class="btn btn-default default_color" />

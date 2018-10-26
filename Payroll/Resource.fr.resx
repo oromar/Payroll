@@ -564,4 +564,13 @@
   <data name="ProjectsTitle" xml:space="preserve">
     <value>Enregistrement de Projet</value>
   </data>
+  <data name="ConfirmDeleteInstruction" xml:space="preserve">
+    <value>Veuillez indiquer le nom de l'enregistrement à supprimer:</value>
+  </data>
+  <data name="InvalidValue" xml:space="preserve">
+    <value>Valeur invalide</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Le Sexe</value>
+  </data>
 </root>

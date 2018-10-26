@@ -567,4 +567,13 @@
   <data name="ProjectsTitle" xml:space="preserve">
     <value>Cadastro de Projetos</value>
   </data>
+  <data name="ConfirmDeleteInstruction" xml:space="preserve">
+    <value>Informe o nome do registro a ser removido:</value>
+  </data>
+  <data name="InvalidValue" xml:space="preserve">
+    <value>Valor inválido</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Sexo</value>
+  </data>
 </root>

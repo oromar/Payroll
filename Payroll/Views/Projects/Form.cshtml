@@ -7,6 +7,8 @@
     var ProjectDepartmentSelect = mode == "Details" ? "ProjectDepartmentSelectDetails" : mode == "Create" ? "ProjectDepartmentSelectCreate" : "ProjectDepartmentSelectEdit" + Model.Id; ;
     var ProjectWorkplaceSelect = mode == "Details" ? "ProjectWorkplaceSelectDetails" : mode == "Create" ? "ProjectWorkplaceSelectCreate" : "ProjectWorkplaceSelectEdit" + Model.Id; ; ;
     var ProjectEmployeeSelect = mode == "Details" ? "ProjectEmployeeSelectDetails" : mode == "Create" ? "ProjectEmployeeSelectCreate" : "ProjectEmployeeSelectEdit" + Model.Id; ; ; ;
+
+    var modalId = mode + "_Modal" + Model.Id;   
 }
 
 <div class="row" align="left">
@@ -77,29 +79,60 @@
                     <input asp-for="End" type="date" disabled="@(mode == "Details")" class="form-control" />
                     <span asp-validation-for="End" class="text-danger"></span>
                 </div>
-                @if (mode == "Create")
+                @if (mode == "Details")
                 {
                     <div class="form-group">
                         <label for="EmployeeId" class="control-label">@Resource.Employees</label>
-                        <select id="@ProjectEmployeeSelect" multiple name="EmployeeId" disabled="@(mode == "Details")" class="form-control">
-                            <option>@Resource.SelectItem</option>
-                        </select>
+                        @foreach (var employee in Model.Employees)
+                        {
+                            <br />
+                            <input type="checkbox"
+                                   id="EmployeeId_@(employee.EmployeeId)"
+                                   name="EmployeeId"
+                                   value="@(employee.EmployeeId)"
+                                   checked="checked"
+                                   disabled="disabled" />
+
+                            <label for="EmployeeId_@(employee.EmployeeId)"> @(employee.Employee.Name) </label>
+                        }
                     </div>
                 }
                 else
                 {
                     <div class="form-group">
                         <label for="EmployeeId" class="control-label">@Resource.Employees</label>
-                        <select id="@ProjectEmployeeSelect" multiple name="EmployeeId" disabled="@(mode == "Details")" class="form-control">
-                            @foreach (var employee in Model.Employees)
-                            {
-                                <option value="@employee.Employee.Id">@employee.Employee.Name</option>
-                            }
-                        </select>
+                        <div id="@ProjectEmployeeSelect">
+                        </div>
                     </div>
+                    if (mode == "Edit")
+                    {
+                        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+                        <script src="~/js/site.js"></script>
+                        <script type="text/javascript">
+                            @{
+                                var employeesFromModel =
+                                Model.Employees
+                                    .Select(a => a.EmployeeId.ToString())
+                                    .ToList()
+                                    .Aggregate((a, b) => a + ", " + b);
+
+                            }
+                            var employeesToJS = "@(employeesFromModel)"
+                            loadEmployees('@ProjectDepartmentSelect', '@ProjectEmployeeSelect',
+                                function check() {
+                                    var checks = $("input[name='EmployeeId']");
+                                    var employees = employeesToJS.split(', ');
+                                    for (var i = 0; i < checks.length; i++) {
+                                        if (!checks[i].disabled) {
+                                            if (employees.includes(checks[i].value.toLowerCase())) {
+                                                checks[i].setAttribute("checked", "checked");
+                                            }
+                                        }
+                                    }
+                                });
+                        </script>
+                    }
                 }
-
-
                 @if (mode == "Edit")
                 {
                     <input type="hidden" asp-for="Id" />
@@ -107,8 +140,8 @@
                     <input type="hidden" asp-for="CreatedBy" />
                 }
             </div>
-            <div class="form-group" align="right">
-                <a class="btn btn-default" asp-action="Index">@Resource.Back</a>
+            <div class="form-group" style="padding-top:30px;" align="right">
+                <a class="btn btn-default" onclick="$('#@(modalId)').modal('hide');">@Resource.Back</a>
                 @if (mode != "Details")
                 {
                     <input type="submit" value="@(mode == "Create" ? Resource.Add : mode == "Edit" ? Resource.Save : "")" class="btn btn-default default_color" />

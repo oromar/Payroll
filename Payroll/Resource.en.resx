@@ -567,4 +567,13 @@
   <data name="ProjectsTitle" xml:space="preserve">
     <value>Projects</value>
   </data>
+  <data name="ConfirmDeleteInstruction" xml:space="preserve">
+    <value>Please, inform the record name to remove:</value>
+  </data>
+  <data name="InvalidValue" xml:space="preserve">
+    <value>Invalid Value</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
 </root>

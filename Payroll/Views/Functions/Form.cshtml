@@ -2,6 +2,7 @@
 
 @{
     var mode = ViewBag.Mode;
+    var modalId = mode + "_Modal" + Model.Id;
 }
 
 <div class="row" align="left">
@@ -55,14 +56,14 @@
                 <input type="hidden" asp-for="CreatedAt" />
                 <input type="hidden" asp-for="CreatedBy" />
             }
-            <div class="form-group" align="right">
+                <div class="form-group" style="padding-top:30px;" align="right">
 
-                <a class="btn btn-default" asp-action="Index">@Resource.Back</a>
-                @if (mode != "Details")
-                {
-                    <input type="submit" value="@(mode == "Create" ? Resource.Add : mode == "Edit" ? Resource.Save : "")" class="btn btn-default default_color" />
-                }
-            </div>
+                    <a class="btn btn-default" onclick="$('#@(modalId)').modal('hide');">@Resource.Back</a>
+                    @if (mode != "Details")
+                    {
+                        <input type="submit" value="@(mode == "Create" ? Resource.Add : mode == "Edit" ? Resource.Save : "")" class="btn btn-default default_color" />
+                    }
+                </div>
         </form>
     </div>
 </div>

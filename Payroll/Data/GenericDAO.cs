@@ -120,9 +120,9 @@ namespace Payroll.Data
         {
             try
             {
-                HandleSearchFields(data);
                 _context.Update(data);
                 LoadRelatedItems(data);
+                HandleSearchFields(data);                                
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

@@ -5,7 +5,7 @@
 
 function loadDepartments(companySelector, departmentSelector) {
     companySelector = '#' + companySelector;
-    departmentSelector = '#' + departmentSelector;    
+    departmentSelector = '#' + departmentSelector;
     $.ajax({
         url: '/Departments/DepartmentsByCompany',
         method: 'GET',
@@ -21,19 +21,32 @@ function loadDepartments(companySelector, departmentSelector) {
     })
 }
 
-function loadEmployees(departmentSelector, employeeSelector) {
+function loadEmployees(departmentSelector, employeeSelector, callback, isSelect) {
     departmentSelector = '#' + departmentSelector;
     employeeSelector = '#' + employeeSelector;
     $.ajax({
         url: '/Employees/EmployeesByDepartment',
         method: 'GET',
-        data: { departmentId: $(departmentSelector  + ' option:selected').val() },
+        data: { departmentId: $(departmentSelector + ' option:selected').val() },
         success: function (data) {
             if (data) {
                 $(employeeSelector).empty();
+                data[0] = '';
                 data.forEach(function (a) {
-                    $(employeeSelector).append('<option value=' + a.value + '>' + a.text + '</option>');
+                    if (a) {
+                        if (isSelect) {
+                            $(employeeSelector).append('<option value=' + a.value + '>' + a.text + '</option>');
+                        } else {
+                            $(employeeSelector)
+                                .append(
+                                    '<input type="checkbox" name="EmployeeId" id="EmployeeId_' + a.value + '" value="' + a.value + '"/>' +
+                                    '<label for="EmployeeId_' + a.value + '"> ' + a.text + '</label><br/>');
+                        }
+                    }
                 })
+                if (callback) {
+                    callback();
+                }
             }
         }
     })

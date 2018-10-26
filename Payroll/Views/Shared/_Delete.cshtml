@@ -3,9 +3,15 @@
 <script type="text/javascript">
     var id = '@(Model.Id)';
     function confirm() {
-        if (document.getElementById('name_' + id).value != document.getElementById('confirm_' + id).value) {
+        var input = document.getElementById('confirm_' + id).value;
+        var name = document.getElementById('name_' + id).value;
+        if (name != input) {
             var spanId = 'span_' + id;          
-            $('#' + spanId).html('@(Resource.RequiredField)');            
+            if (input === "") {
+                $('#' + spanId).html('@(Resource.RequiredField)');
+            } else {
+                $('#' + spanId).html('@(Resource.InvalidValue)');            
+            }
             return;
         }
         document.getElementById('@("form_"+Model.Id)').submit();
@@ -24,7 +30,7 @@
             <input type="hidden" asp-for="UpdatedBy" />
             <div class="form-group" align="right">
                 <div class="form-group" align="left">
-                    <label for="confirm">Informe o nome do registro a ser removido:</label>
+                    <label for="confirm">@Resource.ConfirmDeleteInstruction</label>
                     <input id=@("confirm_"+Model.Id) type="text" class="form-control" />
                     <span id=@("span_"+Model.Id) class="text-danger"></span>
                 </div>

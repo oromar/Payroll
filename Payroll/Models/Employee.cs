@@ -79,6 +79,7 @@ namespace Payroll.Models
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public double Salary { get; set; }
 
+        [Display(ResourceType = typeof(Resource), Name = "Gender")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public Gender Gender { get; set; }
 
