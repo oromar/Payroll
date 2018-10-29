@@ -1,16 +1,22 @@
 ﻿@model Payroll.Models.Basic
 
+@{
+
+    var modalId = "Delete_Modal"+Model.Id;
+
+}
+
 <script type="text/javascript">
     var id = '@(Model.Id)';
     function confirm() {
         var input = document.getElementById('confirm_' + id).value;
         var name = document.getElementById('name_' + id).value;
         if (name != input) {
-            var spanId = 'span_' + id;          
+            var spanId = 'span_' + id;
             if (input === "") {
                 $('#' + spanId).html('@(Resource.RequiredField)');
             } else {
-                $('#' + spanId).html('@(Resource.InvalidValue)');            
+                $('#' + spanId).html('@(Resource.InvalidValue)');
             }
             return;
         }
@@ -34,7 +40,7 @@
                     <input id=@("confirm_"+Model.Id) type="text" class="form-control" />
                     <span id=@("span_"+Model.Id) class="text-danger"></span>
                 </div>
-                <a asp-action="Index" class="btn btn-default">@Resource.Back</a>
+                <a class="btn btn-default" onclick="$('#@(modalId)').modal('hide');">@Resource.Back</a>
                 <input type="button" value=@Resource.Delete class="btn btn-default default_color" onclick="confirm()" />
             </div>
         </form>

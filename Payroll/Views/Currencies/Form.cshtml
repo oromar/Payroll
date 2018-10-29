@@ -1,7 +1,15 @@
 ﻿@model Payroll.Models.Currency
 @{
     var mode = ViewBag.Mode;
-    var modalId = mode + "_Modal" + Model.Id;
+    var modalId = string.Empty;
+    if (mode != "Create")
+    {
+        modalId = mode + "_Modal" + Model.Id;
+    }
+    else
+    {
+        modalId = "Create_Modal";
+    }
 }
 <div class="row" align="left">
     <div class="col-md-12">

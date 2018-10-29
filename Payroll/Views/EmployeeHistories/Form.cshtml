@@ -7,7 +7,15 @@
     var EmployeeHistoryDepartmentSelect = mode == "Details" ? "EmployeeHistoryDepartmentSelectDetails" : mode == "Create" ? "EmployeeHistoryDepartmentSelectCreate" : "EmployeeHistoryDepartmentSelectEdit" + Model.Id; ;
     var EmployeeHistoryEmployeeSelect = mode == "Details" ? "EmployeeHistoryEmployeeSelectDetails" : mode == "Create" ? "EmployeeHistoryEmployeeSelectCreate" : "EmployeeHistoryEmployeeSelectEdit" + Model.Id; ; ;
 
-    var modalId = mode + "_Modal" + Model.Id;
+    var modalId = string.Empty;
+    if (mode != "Create")
+    {
+        modalId = mode + "_Modal" + Model.Id;
+    }
+    else
+    {
+        modalId = "Create_Modal";
+    }
 }
 
 <div class="row" align="left">

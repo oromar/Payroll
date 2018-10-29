@@ -7,7 +7,15 @@
     var EmployeeCompanySelect = mode == "Details" ? "EmployeeCompanySelectDetails" : mode == "Create" ? "EmployeeCompanySelectCreate" : "EmployeeCompanySelectEdit" + Model.Id;
     var EmployeeDepartmentSelect = mode == "Details" ? "EmployeeDepartmentSelectDetails" : mode == "Create" ? "EmployeeDepartmentSelectCreate" : "EmployeeDepartmentSelectEdit" + Model.Id;
 
-    var modalId = mode + "_Modal" + Model.Id;
+    var modalId = string.Empty;
+    if (mode != "Create")
+    {
+        modalId = mode + "_Modal" + Model.Id;
+    }
+    else
+    {
+        modalId = "Create_Modal";
+    }
 
 }
 

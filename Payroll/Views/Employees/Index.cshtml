@@ -26,7 +26,7 @@
 <h2>@Resource.EmployeesTitle</h2>
 
 <p>
-    <a href="#" data-toggle="modal" data-target="#createModal">
+    <a href="#" data-toggle="modal" data-target="#Create_Modal">
         @Resource.NewEmployee
     </a>
 </p>
@@ -114,7 +114,7 @@
 
 <partial name="_Pagination" model="@(new {currentPage, hasMore, filter })" />
 
-<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createEmployeeModal" aria-hidden="true">
+<div class="modal fade" id="Create_Modal" tabindex="-1" role="dialog" aria-labelledby="createEmployeeModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header default_color">

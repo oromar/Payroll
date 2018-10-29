@@ -8,7 +8,15 @@
     var ProjectWorkplaceSelect = mode == "Details" ? "ProjectWorkplaceSelectDetails" : mode == "Create" ? "ProjectWorkplaceSelectCreate" : "ProjectWorkplaceSelectEdit" + Model.Id; ; ;
     var ProjectEmployeeSelect = mode == "Details" ? "ProjectEmployeeSelectDetails" : mode == "Create" ? "ProjectEmployeeSelectCreate" : "ProjectEmployeeSelectEdit" + Model.Id; ; ; ;
 
-    var modalId = mode + "_Modal" + Model.Id;   
+    var modalId = string.Empty;
+    if (mode != "Create")
+    {
+        modalId = mode + "_Modal" + Model.Id;
+    }
+    else
+    {
+        modalId = "Create_Modal";
+    }
 }
 
 <div class="row" align="left">
