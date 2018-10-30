@@ -70,3 +70,28 @@ function loadWorkplaces(companySelector, workplaceSelector) {
         }
     })
 }
+
+function loadEmployeesByCompany(companySelector, employeeSelector) {
+    companySelector = '#' + companySelector;
+    employeeSelector = '#' + employeeSelector;
+    $.ajax({
+        url: '/Employees/EmployeesByCompany',
+        method: 'GET',
+        data: { companyId: $(companySelector + ' option:selected').val() },
+        success: function (data) {
+            if (data) {
+                $(employeeSelector).empty();
+                data[0] = '';
+                data.forEach(function (a) {
+                    if (a) {
+                        $(employeeSelector)
+                            .append(
+                                '<input type="checkbox" name="EmployeeId" id="EmployeeId_' + a.value + '" value="' + a.value + '"/>' +
+                                '<label for="EmployeeId_' + a.value + '"> ' + a.text + '</label><br/>');
+                    }
+                })
+            }
+        }
+    })
+}
+

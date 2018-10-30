@@ -573,4 +573,10 @@
   <data name="Gender" xml:space="preserve">
     <value>Le Sexe</value>
   </data>
+  <data name="NewVacation" xml:space="preserve">
+    <value>Nouvelle Vacance</value>
+  </data>
+  <data name="VacationTitle" xml:space="preserve">
+    <value>Les Vacances</value>
+  </data>
 </root>

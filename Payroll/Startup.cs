@@ -60,6 +60,7 @@ namespace Payroll
             services.AddScoped<BusinessObject<Department>>();
             services.AddScoped<BusinessObject<EmployeeHistory>>();
             services.AddScoped<ProjectBO>();
+            services.AddScoped<BusinessObject<Vacation>>();
 
             services.AddScoped<GenericDAO<Occupation>>();
             services.AddScoped<GenericDAO<Currency>>();
@@ -73,6 +74,7 @@ namespace Payroll
             services.AddScoped<GenericDAO<Department>>();
             services.AddScoped<GenericDAO<EmployeeHistory>>();
             services.AddScoped<GenericDAO<Project>>();
+            services.AddScoped<GenericDAO<Vacation>>();
 
             services.AddScoped<IEmailSender, EmailSender>();
 

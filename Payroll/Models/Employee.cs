@@ -53,7 +53,8 @@ namespace Payroll.Models
         public virtual IEnumerable<EmployeeHistory> Occurrences { get; set; }
         public virtual IEnumerable<Employee> Subordinates { get; set; }
         public virtual IEnumerable<ProjectEmployee> Projects { get; set; }
-
+        public virtual IEnumerable<VacationEmployee> Vacations { get; set; }
+        
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         [Display(ResourceType = typeof(Resource), Name = "IDName")]
         public string IDName { get; set; }

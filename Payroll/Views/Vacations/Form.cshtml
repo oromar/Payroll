@@ -1,0 +1,68 @@
+﻿@model Payroll.Models.Vacation
+
+@{
+    var mode = ViewBag.Mode;
+
+    var VacationCompanySelect = mode == "Details" ? "VacationCompanySelectDetails" : mode == "Create" ? "VacationCompanySelectCreate" : "VacationCompanySelectEdit" + Model.Id;
+    var VacationEmployeeSelect = mode == "Details" ? "VacationEmployeeSelectDetails" : mode == "Create" ? "VacationEmployeeSelectCreate" : "VacationEmployeeSelectEdit" + Model.Id;
+
+    var modalId = string.Empty;
+    if (mode != "Create")
+    {
+        modalId = mode + "_Modal" + Model.Id;
+    }
+    else
+    {
+        modalId = "Create_Modal";
+    }
+}
+
+<div class="row" align="left">
+    <div class="col-md-12">
+        <form asp-action="@mode">
+            <div style="overflow-y:auto;max-height:350px;padding:10px;">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CompanyId" class="control-label"></label>
+                    <select id="@VacationCompanySelect" asp-for="CompanyId" disabled="@(mode == "Details")" onchange="loadEmployeesByCompany('@(VacationCompanySelect)','@(VacationEmployeeSelect)');" class="form-control" asp-items="ViewBag.Companies"></select>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StartDate" class="control-label"></label>
+                    <input asp-for="StartDate" type="date" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EndDate" class="control-label"></label>
+                    <input asp-for="EndDate" type="date" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group" disabled="@(mode == "Details")">
+                    <label for="EmployeeId" class="control-label">@Resource.Employees</label>
+                    <div id="@VacationEmployeeSelect">
+                    </div>
+                </div>
+
+                @if (mode == "Edit")
+                {
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="CreatedAt" />
+                    <input type="hidden" asp-for="CreatedBy" />
+                }
+            </div>
+            <div class="form-group" style="padding-top:30px;" align="right">
+                <a class="btn btn-default" onclick="$('#@(modalId)').modal('hide');">@Resource.Back</a>
+                @if (mode != "Details")
+                {
+                    <input type="submit" value="@(mode == "Create" ? Resource.Add : mode == "Edit" ? Resource.Save : "")" class="btn btn-default default_color" />
+                }
+            </div>
+        </form>
+    </div>
+</div>

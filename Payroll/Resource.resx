@@ -576,4 +576,10 @@
   <data name="Gender" xml:space="preserve">
     <value>Sexo</value>
   </data>
+  <data name="NewVacation" xml:space="preserve">
+    <value>Novo Período de Férias</value>
+  </data>
+  <data name="VacationTitle" xml:space="preserve">
+    <value>Cadastro de Férias</value>
+  </data>
 </root>

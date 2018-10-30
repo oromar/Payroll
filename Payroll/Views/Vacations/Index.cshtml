@@ -1,0 +1,140 @@
+﻿@model IEnumerable<Payroll.Models.Vacation>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@{
+    var currentPage = ViewData["CurrentPage"] as int? ?? 1;
+    var hasMore = ViewData["HasMore"] as bool? ?? false;
+    var filter = ViewData["CurrentFilter"] as string ?? string.Empty;
+    ViewData["Title"] = Resource.ProjectsTitle;
+    var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
+    var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
+
+    var searchFields = new List<string>
+{
+Resource.Company,
+Html.DisplayNameFor(model => model.Name),
+Resource.Company,
+Html.DisplayNameFor(model => model.CreatedBy),
+};
+
+}
+
+<h2>@Resource.VacationTitle</h2>
+
+<p>
+    <a href="#" data-toggle="modal" data-target="#Create_Modal">
+        @Resource.NewVacation
+    </a>
+</p>
+<partial name="_Search" model="@searchFields" />
+<table class="table table-bordered table-hover">
+    <thead class="default_color">
+        <tr>
+            <th>
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="Name"
+                   asp-route-order="@(previousSort == "Name" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.Name)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="Company.Name"
+                   asp-route-order="@(previousSort == "Company.Name" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.CompanyId)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="StartDate"
+                   asp-route-order="@(previousSort == "StartDate" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="EndDate"
+                   asp-route-order="@(previousSort == "EndDate" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="CreatedBy"
+                   asp-route-order="@(previousSort == "CreatedBy" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </a>
+            </th>
+            <th style="text-align:center" class="col-md-2" colspan="3">@Resource.Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td class="no-items" colspan="8">
+                    @Resource.NoItems
+                </td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Company.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                    </td>
+                    <partial name="_ActionsColumn" model="@item" />
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<partial name="_Pagination" model="@(new {currentPage, hasMore, filter })" />
+
+<div class="modal fade" id="Create_Modal" tabindex="-1" role="dialog" aria-labelledby="createProjectModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header default_color">
+                <h3 class="modal-title" id="exampleModalLabel">@Resource.NewVacation</h3>
+            </div>
+            <div class="modal-body" style="border:none;">
+                @{ ViewData["Mode"] = "Create";}
+                <partial name="Form" model="new Vacation()" view-data="ViewData" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

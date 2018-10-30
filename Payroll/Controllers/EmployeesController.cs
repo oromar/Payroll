@@ -14,7 +14,7 @@ namespace Payroll.Controllers
     public class EmployeesController : GenericController<Employee>
     {
         public EmployeesController(BusinessObject<Employee> businessObject, Message message)
-            : base(businessObject, message) {}
+            : base(businessObject, message) { }
 
         public override Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
@@ -62,8 +62,8 @@ namespace Payroll.Controllers
                 .Where(a => a.Function.IsManagerFunction)
                 .Select(a => new SelectListItem
                 {
-                   Text = a.Name,
-                   Value = a.Id.ToString()
+                    Text = a.Name,
+                    Value = a.Id.ToString()
                 });
 
             ViewBag.Genders = Utils.GetGenders();
@@ -81,6 +81,20 @@ namespace Payroll.Controllers
                 .Include(a => a.Department)
                 .Where(a => !a.IsDeleted)
                 .Where(a => a.DepartmentId.ToString() == departmentId));
+
+            return Ok(employees);
+        }
+
+        public IActionResult EmployeesByCompany(string companyId)
+        {
+            var employees = Utils
+                .GetOptions(_businessObject
+                .GetDAO()
+                .GetContext()
+                .Employee
+                .Include(a => a.Company)
+                .Where(a => !a.IsDeleted)
+                .Where(a => a.CompanyId.ToString() == companyId));
 
             return Ok(employees);
         }

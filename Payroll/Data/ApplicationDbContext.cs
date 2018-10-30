@@ -73,6 +73,23 @@ namespace Payroll.Data
                 .WithMany(p => p.Projects)
                 .HasForeignKey(p => p.EmployeeId);
 
+            modelBuilder.Entity<Vacation>()
+               .HasIndex(p => new { p.Id, p.SearchFields })
+               .IsUnique(true);
+
+            modelBuilder.Entity<VacationEmployee>()
+                .HasKey(p => new { p.VacationId, p.EmployeeId });
+
+            modelBuilder.Entity<VacationEmployee>()
+                .HasOne(p => p.Vacation)
+                .WithMany(p => p.Employees)
+                .HasForeignKey(p => p.VacationId);
+
+            modelBuilder.Entity<VacationEmployee>()
+                .HasOne(p => p.Employee)
+                .WithMany(p => p.Vacations)
+                .HasForeignKey(p => p.EmployeeId);
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -83,11 +100,12 @@ namespace Payroll.Data
         public DbSet<Workplace> Workplace { get; set; }
         public DbSet<JobRole> JobRole { get; set; }
         public DbSet<Function> Function { get; set; }
-        public DbSet<Payroll.Models.OccurrenceType> OccurrenceType { get; set; }
-        public DbSet<Payroll.Models.Employee> Employee { get; set; }
-        public DbSet<Payroll.Models.Department> Department { get; set; }
-        public DbSet<Payroll.Models.EmployeeHistory> EmployeeHistory { get; set; }
-        public DbSet<Payroll.Models.Project> Project { get; set; }
-        public DbSet<Payroll.Models.ProjectEmployee> ProjectEmployee { get; set; }
+        public DbSet<OccurrenceType> OccurrenceType { get; set; }
+        public DbSet<Employee> Employee { get; set; }
+        public DbSet<Department> Department { get; set; }
+        public DbSet<EmployeeHistory> EmployeeHistory { get; set; }
+        public DbSet<Project> Project { get; set; }
+        public DbSet<ProjectEmployee> ProjectEmployee { get; set; }
+        public DbSet<Vacation> Vacation { get; set; }
     }
 }
