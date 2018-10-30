@@ -582,4 +582,7 @@
   <data name="VacationTitle" xml:space="preserve">
     <value>Cadastro de Férias</value>
   </data>
+  <data name="Vacation" xml:space="preserve">
+    <value>Férias</value>
+  </data>
 </root>

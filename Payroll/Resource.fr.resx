@@ -579,4 +579,7 @@
   <data name="VacationTitle" xml:space="preserve">
     <value>Les Vacances</value>
   </data>
+  <data name="Vacation" xml:space="preserve">
+    <value>Vacance</value>
+  </data>
 </root>

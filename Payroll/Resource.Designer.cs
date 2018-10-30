@@ -1411,6 +1411,15 @@ namespace Payroll {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Férias.
+        /// </summary>
+        public static string Vacation {
+            get {
+                return ResourceManager.GetString("Vacation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cadastro de Férias.
         /// </summary>
         public static string VacationTitle {
