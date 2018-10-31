@@ -71,7 +71,7 @@ function loadWorkplaces(companySelector, workplaceSelector) {
     })
 }
 
-function loadEmployeesByCompany(companySelector, employeeSelector) {
+function loadEmployeesByCompany(companySelector, employeeSelector, callback) {
     companySelector = '#' + companySelector;
     employeeSelector = '#' + employeeSelector;
     $.ajax({
@@ -90,6 +90,9 @@ function loadEmployeesByCompany(companySelector, employeeSelector) {
                                 '<label for="EmployeeId_' + a.value + '"> ' + a.text + '</label><br/>');
                     }
                 })
+                if (callback) {
+                    callback();
+                }
             }
         }
     })

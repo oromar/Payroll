@@ -19,7 +19,7 @@
     }
 }
 
-<div class="row" align="left">
+<div class="row" align="left" id="projectFormDiv">
     <div class="col-md-12">
         <form asp-action="@mode">
             <div style="overflow-y:auto;max-height:350px;padding:10px;">
@@ -119,22 +119,18 @@
                         <script type="text/javascript">
                             @{
                                 var employeesFromModel =
+                                    Model.Employees.Any() ?
                                 Model.Employees
                                     .Select(a => a.EmployeeId.ToString())
                                     .ToList()
-                                    .Aggregate((a, b) => a + ", " + b);
+                                    .Aggregate((a, b) => a + ", " + b) : string.Empty;
 
                             }
-                            var employeesToJS = "@(employeesFromModel)"
-                            loadEmployees('@ProjectDepartmentSelect', '@ProjectEmployeeSelect',
-                                function check() {
-                                    var checks = $("input[name='EmployeeId']");
-                                    var employees = employeesToJS.split(', ');
-                                    for (var i = 0; i < checks.length; i++) {
-                                        if (!checks[i].disabled) {
-                                            if (employees.includes(checks[i].value.toLowerCase())) {
-                                                checks[i].setAttribute("checked", "checked");
-                                            }
+                            loadEmployees('@ProjectDepartmentSelect', '@ProjectEmployeeSelect', function () {
+                                    let employees = "@(employeesFromModel)".split(', ');
+                                    if (employees.length) {
+                                        for (let i = 0; i < employees.length; i++) {
+                                            $('#EmployeeId_' + employees[i]).prop('checked', true);
                                         }
                                     }
                                 });

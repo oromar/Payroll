@@ -10,7 +10,7 @@ namespace Payroll.Controllers
 {
     public class ProjectsController : GenericController<Project>
     {
-        public ProjectsController(ProjectBO businessObject, Message message) 
+        public ProjectsController(ProjectBO businessObject, Message message)
             : base(businessObject, message) { }
 
 
@@ -26,20 +26,32 @@ namespace Payroll.Controllers
             return base.Index(page, filter, sort, order);
         }
 
+        public override Task<IActionResult> Edit(Guid id, [BindAttribute] Project data)
+        {
+            HandleEmployees(data);
+
+            return base.Edit(id, data);
+        }
+
         public override Task<IActionResult> Create([Bind] Project data)
         {
+            HandleEmployees(data);
+
+            return base.Create(data);
+        }
+
+        private void HandleEmployees(Project data)
+        {
             var projectEmployees = HttpContext
-                .Request
-                .Form[Constants.EMPLOYEE_ID]
-                .Select(a => new ProjectEmployee
-                {
-                    EmployeeId = Guid.Parse(a)
-                })
-                .ToList();
+                            .Request
+                            .Form[Constants.EMPLOYEE_ID]
+                            .Select(a => new ProjectEmployee
+                            {
+                                EmployeeId = Guid.Parse(a)
+                            })
+                            .ToList();
 
             data.Employees = projectEmployees;
-           
-            return base.Create(data);
         }
     }
 }

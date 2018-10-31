@@ -17,6 +17,10 @@
     }
 }
 
+<script type="text/javascript">
+    let employeesToJS = "";
+</script>
+
 <div class="row" align="left">
     <div class="col-md-12">
         <form asp-action="@mode">
@@ -43,11 +47,62 @@
                     <span asp-validation-for="EndDate" class="text-danger"></span>
                 </div>
 
-                <div class="form-group" disabled="@(mode == "Details")">
-                    <label for="EmployeeId" class="control-label">@Resource.Employees</label>
-                    <div id="@VacationEmployeeSelect">
+                @if (mode == "Details")
+                {
+                    <div class="form-group">
+                        <label for="EmployeeId" class="control-label">@Resource.Employees</label>
+                        @foreach (var employee in Model.Employees)
+                        {
+                            <br />
+                            <input type="checkbox"
+                                   id="EmployeeId_@(employee.EmployeeId)"
+                                   name="EmployeeId"
+                                   value="@(employee.EmployeeId)"
+                                   checked="checked"
+                                   disabled="disabled" />
+
+                            <label for="EmployeeId_@(employee.EmployeeId)"> @(employee.Employee.Name) </label>
+                        }
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label for="EmployeeId" class="control-label">@Resource.Employees</label>
+                        <div id="@VacationEmployeeSelect">
+                        </div>
+                    </div>
+                    if (mode == "Edit")
+                    {
+                        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+                        <script src="~/js/site.js"></script>
+                        <script type="text/javascript">
+                            @{
+                                var employeesFromModel =
+                                    Model.Employees.Any() ? 
+                                        Model.Employees
+                                            .Select(a => a.EmployeeId.ToString())
+                                            .ToList()
+                                            .Aggregate((a, b) => a + ", " + b) 
+                                            : string.Empty;
+
+                            }
+                            employeesToJS = "@(employeesFromModel)";
+                            loadEmployeesByCompany('@VacationCompanySelect', '@VacationEmployeeSelect',
+                                function check() {
+                                    var checks = $("input[name='EmployeeId']");
+                                    var employees = employeesToJS.split(', ');
+                                    for (var i = 0; i < checks.length; i++) {
+                                        if (!checks[i].disabled) {
+                                            if (employees.includes(checks[i].value.toLowerCase())) {
+                                                checks[i].setAttribute("checked", "checked");
+                                            }
+                                        }
+                                    }                                    
+                                });
+                        </script>
+                    }
+                }
 
                 @if (mode == "Edit")
                 {

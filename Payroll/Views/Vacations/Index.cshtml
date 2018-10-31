@@ -1,15 +1,11 @@
 ﻿@model IEnumerable<Payroll.Models.Vacation>
 
-@{
-    ViewData["Title"] = "Index";
-}
-
 
 @{
     var currentPage = ViewData["CurrentPage"] as int? ?? 1;
     var hasMore = ViewData["HasMore"] as bool? ?? false;
     var filter = ViewData["CurrentFilter"] as string ?? string.Empty;
-    ViewData["Title"] = Resource.ProjectsTitle;
+    ViewData["Title"] = Resource.VacationTitle;
     var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
     var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
 

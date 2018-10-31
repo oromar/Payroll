@@ -14,7 +14,7 @@ namespace Payroll.Controllers
 {
     public class VacationsController : GenericController<Vacation>
     {
-        public VacationsController(BusinessObject<Vacation> businessObject, Message message) : base(businessObject, message) {}
+        public VacationsController(VacationBO businessObject, Message message) : base(businessObject, message) { }
 
 
         public override Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")
@@ -27,6 +27,35 @@ namespace Payroll.Controllers
                 .Where(a => !a.IsDeleted));
 
             return base.Index(page, filter, sort, order);
+        }
+
+        public override Task<IActionResult> Edit(Guid id, [BindAttribute] Vacation data)
+        {
+            HandleEmployees(data);
+
+            return base.Edit(id, data);
+        }
+
+
+        public override Task<IActionResult> Create([Bind] Vacation data)
+        {
+            HandleEmployees(data);
+
+            return base.Create(data);
+        }
+
+        private void HandleEmployees(Vacation data)
+        {
+            var vacationsEmployees = HttpContext
+                            .Request
+                            .Form[Constants.EMPLOYEE_ID]
+                            .Select(a => new VacationEmployee
+                            {
+                                EmployeeId = Guid.Parse(a)
+                            })
+                            .ToList();
+
+            data.Employees = vacationsEmployees;
         }
     }
 }

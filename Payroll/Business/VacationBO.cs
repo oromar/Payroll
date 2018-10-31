@@ -8,28 +8,28 @@ using Payroll.Models;
 
 namespace Payroll.Business
 {
-    public class ProjectBO : BusinessObject<Project>
+    public class VacationBO : BusinessObject<Vacation>
     {
 
-        public ProjectBO(GenericDAO<Project> dao) : base(dao)
+        public VacationBO(GenericDAO<Vacation> dao) : base(dao)
         {
 
         }
 
-        public override Task<Project> Edit(Guid id, Project data, string userIdentity)
+        public override Task<Vacation> Edit(Guid id, Vacation data, string userIdentity)
         {
             _dao
                 .GetContext()
-                .ProjectEmployee
+                .VacationEmployee
                 .RemoveRange(_dao
                     .GetContext()
-                    .ProjectEmployee
-                    .Where(a => a.ProjectId == id));
+                    .VacationEmployee
+                    .Where(a => a.VacationId == id));
 
             return base.Edit(id, data, userIdentity);
         }
 
-        public override async Task<List<Project>> Search(int page = 1, string filter = "", string sort = "", string order = "ASC")
+        public override async Task<List<Vacation>> Search(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
             var result = await base.Search(page, filter, sort, order);
 
@@ -37,16 +37,13 @@ namespace Payroll.Business
             {
                 a.Employees = _dao
                 .GetContext()
-                .ProjectEmployee
+                .VacationEmployee
                 .Include(b => b.Employee)
-                .Where(b => b.ProjectId == a.Id)
+                .Where(b => b.VacationId == a.Id)
                 .ToList();
             });
 
-
             return result;
-
         }
-
     }
 }

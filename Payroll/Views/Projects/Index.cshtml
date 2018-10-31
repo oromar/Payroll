@@ -11,14 +11,13 @@
 
     var searchFields = new List<string>
 {
-    Resource.Company,
-    Html.DisplayNameFor(model => model.Name),
-    Html.DisplayNameFor(model => model.Description),
-    Html.DisplayNameFor(model => model.CreatedBy),
+Resource.Company,
+Html.DisplayNameFor(model => model.Name),
+Html.DisplayNameFor(model => model.Description),
+Html.DisplayNameFor(model => model.CreatedBy),
 };
 
 }
-
 <h2>@Resource.ProjectsTitle</h2>
 
 <p>
@@ -46,7 +45,7 @@
                    asp-route-sort="Department.Name"
                    asp-route-order="@(previousSort == "Department.Name" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
                     @Html.DisplayNameFor(model => model.DepartmentId)
-                </a>                
+                </a>
             </th>
             <th>
                 <a asp-action="Index"
@@ -55,7 +54,7 @@
                    asp-route-sort="Name"
                    asp-route-order="@(previousSort == "Name" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
                     @Html.DisplayNameFor(model => model.Name)
-                </a>                
+                </a>
             </th>
             <th>
                 <a asp-action="Index"

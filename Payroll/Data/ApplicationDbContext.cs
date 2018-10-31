@@ -107,5 +107,6 @@ namespace Payroll.Data
         public DbSet<Project> Project { get; set; }
         public DbSet<ProjectEmployee> ProjectEmployee { get; set; }
         public DbSet<Vacation> Vacation { get; set; }
+        public DbSet<VacationEmployee> VacationEmployee { get; set; }
     }
 }
