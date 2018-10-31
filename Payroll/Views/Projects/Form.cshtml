@@ -107,34 +107,27 @@
                 }
                 else
                 {
-                    <div class="form-group">
-                        <label for="EmployeeId" class="control-label">@Resource.Employees</label>
-                        <div id="@ProjectEmployeeSelect">
-                        </div>
-                    </div>
-                    if (mode == "Edit")
-                    {
-                        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-                        <script src="~/js/site.js"></script>
-                        <script type="text/javascript">
-                            @{
-                                var employeesFromModel =
-                                    Model.Employees.Any() ?
-                                Model.Employees
-                                    .Select(a => a.EmployeeId.ToString())
-                                    .ToList()
-                                    .Aggregate((a, b) => a + ", " + b) : string.Empty;
 
+                    var employeesFromModel = Model.Employees != null && Model.Employees.Any() ? 
+                        Model.Employees
+                            .Select(a => a.EmployeeId.ToString())
+                            .ToList() : new List<string>();
+
+                    @foreach (var item in ViewBag.EmployeesByCompany)
+                    {
+                        if (Model.CompanyId == item.Key)
+                        {
+                            foreach (var employee in item.Value)
+                            {
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="EmployeeId" checked="@(employeesFromModel.Contains(employee.Id.ToString()))" /> <b>@employee.Name</b>
+                                        </label>
+                                    </div>
+                                </div>
                             }
-                            loadEmployees('@ProjectDepartmentSelect', '@ProjectEmployeeSelect', function () {
-                                    let employees = "@(employeesFromModel)".split(', ');
-                                    if (employees.length) {
-                                        for (let i = 0; i < employees.length; i++) {
-                                            $('#EmployeeId_' + employees[i]).prop('checked', true);
-                                        }
-                                    }
-                                });
-                        </script>
+                        }
                     }
                 }
                 @if (mode == "Edit")
