@@ -105,10 +105,17 @@
                         }
                     </div>
                 }
-                else
+                else if (mode == "Create")
+                {
+                    <label>@Resource.Employees</label>
+                    <div class="form-group" id="@ProjectEmployeeSelect">
+
+                    </div>
+                }
+                else if (mode == "Edit")
                 {
 
-                    var employeesFromModel = Model.Employees != null && Model.Employees.Any() ? 
+                    var employeesFromModel = Model.Employees != null && Model.Employees.Any() ?
                         Model.Employees
                             .Select(a => a.EmployeeId.ToString())
                             .ToList() : new List<string>();

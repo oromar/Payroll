@@ -39,8 +39,11 @@ function loadEmployees(departmentSelector, employeeSelector, callback, isSelect)
                         } else {
                             $(employeeSelector)
                                 .append(
-                                    '<input type="checkbox" name="EmployeeId" id="EmployeeId_' + a.value + '" value="' + a.value + '"/>' +
-                                    '<label for="EmployeeId_' + a.value + '"> ' + a.text + '</label><br/>');
+                                    '<div class="checkbox">' +
+                                        '<label>' +
+                                            '<input type="checkbox" name="EmployeeId" id="EmployeeId_' + a.value + '" value="' + a.value + '"/>' + '<b>' + a.text + '</b>' +
+                                        '</label>' +
+                                    '</div>');
                         }
                     }
                 })
@@ -86,8 +89,11 @@ function loadEmployeesByCompany(companySelector, employeeSelector, callback) {
                     if (a) {
                         $(employeeSelector)
                             .append(
-                                '<input type="checkbox" name="EmployeeId" id="EmployeeId_' + a.value + '" value="' + a.value + '"/>' +
-                                '<label for="EmployeeId_' + a.value + '"> ' + a.text + '</label><br/>');
+                                '<div class="checkbox">' +
+                                    '<label>' +
+                                        '<input type="checkbox" name="EmployeeId" id="EmployeeId_' + a.value + '" value="' + a.value + '"/>' + '<b>' + a.text + '</b>' +
+                                    '</label>' +
+                                '</div>');
                     }
                 })
                 if (callback) {

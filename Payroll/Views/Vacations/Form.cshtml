@@ -17,10 +17,6 @@
     }
 }
 
-<script type="text/javascript">
-    let employeesToJS = "";
-</script>
-
 <div class="row" align="left">
     <div class="col-md-12">
         <form asp-action="@mode">
@@ -65,7 +61,14 @@
                         }
                     </div>
                 }
-                else
+                else if (mode == "Create")
+                {
+                    <label>@Resource.Employees</label>
+                    <div class="form-group" id="@VacationEmployeeSelect">
+
+                    </div>
+                }
+                else if (mode == "Edit")
                 {
                     var employeesFromModel = Model.Employees != null && Model.Employees.Any() ?
                         Model.Employees
