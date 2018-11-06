@@ -14,7 +14,7 @@
 }
 <div class="row" align="left">
     <div class="col-md-12">
-        <form asp-action="@mode">
+        <form asp-action="@mode" id="Form_@(modalId)">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -37,7 +37,7 @@
                 <input type="hidden" asp-for="CreatedBy" />
             }
                 <div class="form-group" style="padding-top:30px;" align="right">
-                    <a class="btn btn-default" onclick="$('#@(modalId)').modal('hide');">@Resource.Back</a>
+                    <a class="btn btn-default" onclick="$('#@(modalId)').modal('hide');$('#Form_@(modalId)').trigger('reset');">@Resource.Back</a>
                     @if (mode != "Details")
                     {
                         <input type="submit" value="@(mode == "Create" ? Resource.Add : mode == "Edit" ? Resource.Save : "")" class="btn btn-default default_color" />
