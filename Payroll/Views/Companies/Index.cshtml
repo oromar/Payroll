@@ -9,24 +9,24 @@
     var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
 
     var searchFields = new List<string>
-    {
-        Html.DisplayNameFor(model => model.Name),
-        Html.DisplayNameFor(model => model.SocialReason),
-        Html.DisplayNameFor(model => model.OccupationArea),
-        Resource.Currency,
-        Html.DisplayNameFor(model => model.CreatedBy),
-    };
+{
+Html.DisplayNameFor(model => model.Name),
+Html.DisplayNameFor(model => model.SocialReason),
+Html.DisplayNameFor(model => model.OccupationArea),
+Resource.Currency,
+Html.DisplayNameFor(model => model.CreatedBy),
+};
 
 }
 
 <h2>@Resource.CompaniesTitle</h2>
 
 <p>
-    <a href="#" data-toggle="modal" data-target="#Create_Modal" >
+    <a href="#" data-toggle="modal" data-target="#Create_Modal">
         @Resource.NewCompany
     </a>
 </p>
-<partial name="_Search" model="@searchFields"/>
+<partial name="_Search" model="@searchFields" />
 <table class="table table-bordered table-hover">
     <thead class="default_color">
         <tr>
@@ -112,7 +112,7 @@
             </div>
             <div class="modal-body" style="border:none;">
                 @{ ViewData["Mode"] = "Create";}
-                <partial name="Form" model="new Company()"  view-data="ViewData"/>
+                <partial name="Form" model="new Company()" view-data="ViewData" />
             </div>
         </div>
     </div>

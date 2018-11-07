@@ -3,6 +3,8 @@
 
 // Write your JavaScript code.
 
+    
+
 function loadDepartments(companySelector, departmentSelector) {
     companySelector = '#' + companySelector;
     departmentSelector = '#' + departmentSelector;

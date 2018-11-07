@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - @Resource.ApplicationName</title>
 
@@ -125,9 +125,9 @@
     </div>
 
     <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js">
+        <script type="text/javascript" src="~/lib/jquery/dist/jquery.js">
         </script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js">
+        <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js">
         </script>
         <script src="~/js/site.js" asp-append-version="true">
         </script>
@@ -148,6 +148,9 @@
         <script src="~/js/site.min.js" asp-append-version="true">
         </script>
     </environment>
+    <script type="text/javascript" src="~/js/jquery.mask.min.js">
+    </script>
+
 
     @RenderSection("Scripts", required: false)
 
@@ -187,6 +190,9 @@
         localStorage.setItem("zoom", currentZoom);
         localStorage.setItem("zoomIndex", currentZoomIndex);
         mainContainer.style.display = 'block';
+
+        $('.cpf').mask('000.000.000-00', { reverse: true });
+        $('.cnpj').mask('00.000.000/0000-00', { reverse: true });
     });
 
     function plusZoom() {
@@ -216,6 +222,10 @@
         localStorage.setItem('currentClass', defaultClass);
         localStorage.setItem('currentIconClass', iconClass);
     }
+
+
+    
+
 
 </script>
 </html>
