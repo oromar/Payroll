@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Payroll.Business;
 using Payroll.Common;
 using Payroll.Controllers;
@@ -23,6 +24,20 @@ namespace Payroll.Models
                 .Where(a => !a.IsDeleted));
 
             return await base.Index(page, filter, sort, order);
+        }
+
+        public IActionResult JobRolesByCompany(string companyId)
+        {
+            var jobRoles = Utils
+                .GetOptions(_businessObject
+                .GetDAO()
+                .GetContext()
+                .JobRole
+                .Include(a => a.Company)
+                .Where(a => !a.IsDeleted)
+                .Where(a => a.CompanyId.ToString() == companyId));
+
+            return Ok(jobRoles);
         }
 
     }

@@ -11,6 +11,7 @@
     var searchFields = new List<string>
 {
 Html.DisplayNameFor(model => model.Name),
+Html.DisplayNameFor(model => model.PersonalJuridicalName),
 Html.DisplayNameFor(model => model.SocialReason),
 Html.DisplayNameFor(model => model.OccupationArea),
 Resource.Currency,
@@ -30,7 +31,7 @@ Html.DisplayNameFor(model => model.CreatedBy),
 <table class="table table-striped table-hover">
     <thead class="default_color">
         <tr>
-            <th class="col-md-4">
+            <th class="col-md-2">
                 <a asp-action="Index"
                    asp-route-filter="@filter"
                    asp-route-page="@currentPage"
@@ -39,29 +40,38 @@ Html.DisplayNameFor(model => model.CreatedBy),
                     @Html.DisplayNameFor(model => model.Name)
                 </a>
             </th>
-            <th class="col-md-4">
+            <th class="col-md-2">
                 <a asp-action="Index"
                    asp-route-filter="@filter"
                    asp-route-page="@currentPage"
-                   asp-route-sort="Name"
+                   asp-route-sort="PersonalJuridicalName"
+                   asp-route-order="@(previousSort == "PersonalJuridicalName" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Html.DisplayNameFor(model => model.PersonalJuridicalName)
+                </a>
+            </th>
+            <th class="col-md-2">
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="SocialReason"
                    asp-route-order="@(previousSort == "SocialReason" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
                     @Html.DisplayNameFor(model => model.SocialReason)
                 </a>
             </th>
-            <th class="col-md-2">
+            <th class="col-md-1">
                 <a asp-action="Index"
                    asp-route-filter="@filter"
                    asp-route-page="@currentPage"
-                   asp-route-sort="Name"
+                   asp-route-sort="OccupationArea"
                    asp-route-order="@(previousSort == "OccupationArea" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
                     @Html.DisplayNameFor(model => model.OccupationArea)
                 </a>
             </th>
-            <th class="col-md-2">
+            <th class="col-md-1">
                 <a asp-action="Index"
                    asp-route-filter="@filter"
                    asp-route-page="@currentPage"
-                   asp-route-sort="Name"
+                   asp-route-sort="CreatedBy"
                    asp-route-order="@(previousSort == "CreatedBy" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
                     @Html.DisplayNameFor(model => model.CreatedBy)
                 </a>
@@ -82,21 +92,24 @@ Html.DisplayNameFor(model => model.CreatedBy),
         {
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SocialReason)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.OccupationArea)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreatedBy)
-                    </td>
-                    <partial name="_ActionsColumn" model="@item" />
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="cnpj">
+                    @Html.DisplayFor(modelItem => item.PersonalJuridicalName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SocialReason)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OccupationArea)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                </td>
+                <partial name="_ActionsColumn" model="@item" />
+            </tr>
             }
         }
     </tbody>

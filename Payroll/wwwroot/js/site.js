@@ -3,7 +3,7 @@
 
 // Write your JavaScript code.
 
-    
+
 
 function loadDepartments(companySelector, departmentSelector) {
     companySelector = '#' + companySelector;
@@ -42,9 +42,9 @@ function loadEmployees(departmentSelector, employeeSelector, callback, isSelect)
                             $(employeeSelector)
                                 .append(
                                     '<div class="checkbox">' +
-                                        '<label>' +
-                                            '<input type="checkbox" name="EmployeeId" id="EmployeeId_' + a.value + '" value="' + a.value + '"/>' + '<b>' + a.text + '</b>' +
-                                        '</label>' +
+                                    '<label>' +
+                                    '<input type="checkbox" name="EmployeeId" id="EmployeeId_' + a.value + '" value="' + a.value + '"/>' + '<b>' + a.text + '</b>' +
+                                    '</label>' +
                                     '</div>');
                         }
                     }
@@ -52,6 +52,42 @@ function loadEmployees(departmentSelector, employeeSelector, callback, isSelect)
                 if (callback) {
                     callback();
                 }
+            }
+        }
+    })
+}
+
+function loadFunctions(companySelector, functionsSelector) {
+    companySelector = "#" + companySelector;
+    functionsSelector = "#" + functionsSelector;
+    $.ajax({
+        url: '/Functions/FunctionsByCompany',
+        method: 'GET',
+        data: { companyId: $(companySelector + ' option:selected').val() },
+        success: function (data) {
+            if (data) {
+                $(functionsSelector).empty();
+                data.forEach(function (a) {
+                    $(functionsSelector).append('<option value=' + a.value + '>' + a.text + '</option>');
+                })
+            }
+        }
+    })
+}
+
+function loadJobRoles(companySelector, jobRolesSelector) {
+    companySelector = "#" + companySelector;
+    jobRolesSelector = "#" + jobRolesSelector;
+    $.ajax({
+        url: '/JobRoles/JobRolesByCompany',
+        method: 'GET',
+        data: { companyId: $(companySelector + ' option:selected').val() },
+        success: function (data) {
+            if (data) {
+                $(jobRolesSelector).empty();
+                data.forEach(function (a) {
+                    $(jobRolesSelector).append('<option value=' + a.value + '>' + a.text + '</option>');
+                })
             }
         }
     })
@@ -92,9 +128,9 @@ function loadEmployeesByCompany(companySelector, employeeSelector, callback) {
                         $(employeeSelector)
                             .append(
                                 '<div class="checkbox">' +
-                                    '<label>' +
-                                        '<input type="checkbox" name="EmployeeId" id="EmployeeId_' + a.value + '" value="' + a.value + '"/>' + '<b>' + a.text + '</b>' +
-                                    '</label>' +
+                                '<label>' +
+                                '<input type="checkbox" name="EmployeeId" id="EmployeeId_' + a.value + '" value="' + a.value + '"/>' + '<b>' + a.text + '</b>' +
+                                '</label>' +
                                 '</div>');
                     }
                 })

@@ -27,32 +27,11 @@ namespace Payroll.Controllers
             ViewBag.Companies = Utils
                 .GetOptions(companies);
 
-            ViewBag.JobRoles = Utils
-                .GetOptions(_businessObject
-                .GetDAO()
-                .GetContext()
-                .JobRole
-                .Where(a => !a.IsDeleted));
-
-            ViewBag.Workplaces = Utils
-                .GetOptions(_businessObject
-                .GetDAO()
-                .GetContext()
-                .Workplace
-                .Where(a => !a.IsDeleted));
-
             ViewBag.Occupations = Utils
                 .GetOptions(_businessObject
                 .GetDAO()
                 .GetContext()
                 .Occupation
-                .Where(a => !a.IsDeleted));
-
-            ViewBag.Functions = Utils
-                .GetOptions(_businessObject
-                .GetDAO()
-                .GetContext()
-                .Function
                 .Where(a => !a.IsDeleted));
 
             ViewBag.Managers = _businessObject
@@ -92,6 +71,35 @@ namespace Payroll.Controllers
                 .GetDAO()
                 .GetContext()
                 .Workplace
+                .Where(b => !b.IsDeleted)
+                .Where(c => c.CompanyId == a.Id)
+                .ToList()
+            })
+            .ToDictionary(t => t.Key, t => t.Value);
+
+
+            ViewBag.JobRolesByCompany = companies.AsEnumerable()
+            .Select(a => new
+            {
+                Key = a.Id,
+                Value = _businessObject
+                .GetDAO()
+                .GetContext()
+                .JobRole
+                .Where(b => !b.IsDeleted)
+                .Where(c => c.CompanyId == a.Id)
+                .ToList()
+            })
+            .ToDictionary(t => t.Key, t => t.Value);
+
+            ViewBag.FunctionsByCompany = companies.AsEnumerable()
+            .Select(a => new
+            {
+                Key = a.Id,
+                Value = _businessObject
+                .GetDAO()
+                .GetContext()
+                .Function
                 .Where(b => !b.IsDeleted)
                 .Where(c => c.CompanyId == a.Id)
                 .ToList()

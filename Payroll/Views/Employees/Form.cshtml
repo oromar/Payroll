@@ -7,6 +7,8 @@
     var EmployeeCompanySelect = mode == "Details" ? "EmployeeCompanySelectDetails" : mode == "Create" ? "EmployeeCompanySelectCreate" : "EmployeeCompanySelectEdit" + Model.Id;
     var EmployeeDepartmentSelect = mode == "Details" ? "EmployeeDepartmentSelectDetails" : mode == "Create" ? "EmployeeDepartmentSelectCreate" : "EmployeeDepartmentSelectEdit" + Model.Id;
     var EmployeeWorkplaceSelect = mode == "Details" ? "EmployeeWorkplaceSelectDetails" : mode == "Create" ? "EmployeeWorkplaceSelectCreate" : "EmployeeWorkplaceSelectEdit" + Model.Id;
+    var EmployeeJobRoleSelect = mode == "Details" ? "EmployeeJobRoleSelectDetails" : mode == "Create" ? "EmployeeJobRoleSelectCreate" : "EmployeeJobRoleSelectEdit" + Model.Id;
+    var EmployeeFunctionSelect = mode == "Details" ? "EmployeeFunctionSelectDetails" : mode == "Create" ? "EmployeeFunctionSelectCreate" : "EmployeeFunctionSelectEdit" + Model.Id;
 
     var modalId = string.Empty;
     if (mode != "Create")
@@ -43,7 +45,7 @@
 
                 <div class="form-group">
                     <label asp-for="CompanyId" class="control-label"></label>
-                    <select id="@EmployeeCompanySelect" asp-for="CompanyId" onchange="loadDepartments('@(EmployeeCompanySelect)', '@(EmployeeDepartmentSelect)');loadWorkplaces('@(EmployeeCompanySelect)', '@(EmployeeWorkplaceSelect)');" disabled="@(mode == "Details")" class="form-control" asp-items="ViewBag.Companies"></select>
+                    <select id="@EmployeeCompanySelect" asp-for="CompanyId" onchange="loadDepartments('@(EmployeeCompanySelect)', '@(EmployeeDepartmentSelect)');loadWorkplaces('@(EmployeeCompanySelect)', '@(EmployeeWorkplaceSelect)');loadJobRoles('@(EmployeeCompanySelect)', '@(EmployeeJobRoleSelect)');loadFunctions('@(EmployeeCompanySelect)', '@(EmployeeFunctionSelect)')" disabled="@(mode == "Details")" class="form-control" asp-items="ViewBag.Companies"></select>
                     <span asp-validation-for="CompanyId" class="text-danger"></span>
                 </div>
                 @if (mode == "Details")
@@ -90,11 +92,45 @@
                     <input type="date" asp-for="AdmissionalDate" disabled="@(mode == "Details")" class="form-control" />
                     <span asp-validation-for="AdmissionalDate" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="JobRoleId" class="control-label"></label>
-                    <select asp-for="JobRoleId" disabled="@(mode == "Details")" class="form-control" asp-items="ViewBag.JobRoles"></select>
-                    <span asp-validation-for="JobRoleId" class="text-danger"></span>
-                </div>
+                @if (mode == "Create")
+                {
+                    <div class="form-group">
+                        <label asp-for="JobRoleId" class="control-label"></label>
+                        <select id="@EmployeeJobRoleSelect" name="JobRoleId" disabled="@(mode == "Details")" class="form-control">
+                            <option>@Resource.SelectItem</option>
+                        </select>
+                        <span asp-validation-for="JobRoleId" class="text-danger"></span>
+                    </div>
+                }
+                else if (mode == "Details")
+                {
+                    <div class="form-group">
+                        <label asp-for="JobRoleId" class="control-label"></label>
+                        <select asp-for="JobRoleId" name="JobRoleId" disabled class="form-control" asp-items="new List<SelectListItem> { new SelectListItem { Text = Model.JobRole.Name, Value = Model.JobRole.Id.ToString() } }">
+                            <option>@Resource.SelectItem</option>
+                        </select>
+                        <span asp-validation-for="JobRoleId" class="text-danger"></span>
+                    </div>
+                }
+                else if (mode == "Edit")
+                {
+                    @foreach (var item in ViewBag.JobRolesByCompany)
+                    {
+                        if (Model.CompanyId == item.Key)
+                        {
+                            <div class="form-group">
+                                <label asp-for="WorkplaceId" class="control-label"></label>
+                                <select id="@EmployeeJobRoleSelect" name="WorkplaceId" class="form-control">
+                                    @foreach (var jobRole in item.Value)
+                                    {
+                                        <option value="@(jobRole.Id)" selected="@(Model.WorkplaceId == jobRole.Id)">@jobRole.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        }
+                    }
+                }
+
 
                 @if (mode == "Create")
                 {
@@ -139,11 +175,46 @@
                     <select asp-for="OccupationId" disabled="@(mode == "Details")" class="form-control" asp-items="ViewBag.Occupations"></select>
                     <span asp-validation-for="OccupationId" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="FunctionId" class="control-label"></label>
-                    <select asp-for="FunctionId" disabled="@(mode == "Details")" class="form-control" asp-items="ViewBag.Functions"></select>
-                    <span asp-validation-for="FunctionId" class="text-danger"></span>
-                </div>
+
+                @if (mode == "Create")
+                {
+                    <div class="form-group">
+                        <label asp-for="FunctionId" class="control-label"></label>
+                        <select id="@(EmployeeFunctionSelect)" name="FunctionId" disabled="@(mode == "Details")" class="form-control">
+                            <option>@Resource.SelectItem</option>
+                        </select>
+                        <span asp-validation-for="FunctionId" class="text-danger"></span>
+                    </div>
+                }
+                else if (mode == "Details")
+                {
+                    <div class="form-group">
+                        <label asp-for="FunctionId" class="control-label"></label>
+                        <select asp-for="FunctionId" name="FunctionId" disabled class="form-control" asp-items="new List<SelectListItem> { new SelectListItem { Text = Model.Function.Name, Value = Model.FunctionId.ToString() } }"></select>
+                        <span asp-validation-for="FunctionId" class="text-danger"></span>
+                    </div>
+                }
+                else if (mode == "Edit")
+                {
+                    @foreach (var item in ViewBag.FunctionsByCompany)
+                    {
+                        if (Model.CompanyId == item.Key)
+                        {
+                            <div class="form-group">
+                                <label asp-for="WorkplaceId" class="control-label"></label>
+                                <select id="@EmployeeFunctionSelect" name="WorkplaceId" class="form-control">
+                                    @foreach (var function in item.Value)
+                                    {
+                                        <option value="@(function.Id)" selected="@(Model.FunctionId == function.Id)">@function.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        }
+                    }
+                }
+
+
+
                 <div class="form-group">
                     <label asp-for="ManagerId" class="control-label"></label>
                     <select id="ManagerId" name="ManagerId" disabled="@(mode == "Details")" class="form-control">

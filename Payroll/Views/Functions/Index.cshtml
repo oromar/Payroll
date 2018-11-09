@@ -10,6 +10,7 @@
 
     var searchFields = new List<string>
 {
+Resource.Company,
 Html.DisplayNameFor(model => model.Name),
 Html.DisplayNameFor(model => model.Description),
 Html.DisplayNameFor(model => model.ManagerCommission),
@@ -28,6 +29,15 @@ Html.DisplayNameFor(model => model.CreatedBy),
 <table class="table table-striped table-hover">
     <thead class="default_color">
         <tr>
+            <th>
+                <a asp-action="Index"
+                   asp-route-filter="@filter"
+                   asp-route-page="@currentPage"
+                   asp-route-sort="Company.Name"
+                   asp-route-order="@(previousSort == "Company.Name" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
+                    @Resource.Company
+                </a>
+            </th>
             <th>
                 <a asp-action="Index"
                    asp-route-filter="@filter"
@@ -80,21 +90,24 @@ Html.DisplayNameFor(model => model.CreatedBy),
         {
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ManagerCommission)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreatedBy)
-                    </td>
-                    <partial name="_ActionsColumn" model="@item" />
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManagerCommission)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                </td>
+                <partial name="_ActionsColumn" model="@item" />
+            </tr>
             }
         }
     </tbody>
