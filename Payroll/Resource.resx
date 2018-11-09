@@ -133,7 +133,7 @@
     <value>Voltar</value>
   </data>
   <data name="ClearFilter" xml:space="preserve">
-    <value>Limpar</value>
+    <value>Limpar Filtro</value>
   </data>
   <data name="CreatedAt" xml:space="preserve">
     <value>Criado em</value>
@@ -172,7 +172,7 @@
     <value>Taxa de câmbio obrigatória.</value>
   </data>
   <data name="ExecuteSearch" xml:space="preserve">
-    <value>Pesquisar por</value>
+    <value>Digite o termo a ser pesquisado e pressione ENTER:</value>
   </data>
   <data name="First" xml:space="preserve">
     <value>Primeiro</value>
@@ -584,5 +584,11 @@
   </data>
   <data name="Vacation" xml:space="preserve">
     <value>Férias</value>
+  </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>dd/MM/yyyy</value>
+  </data>
+  <data name="Assignment" xml:space="preserve">
+    <value>Exercício</value>
   </data>
 </root>

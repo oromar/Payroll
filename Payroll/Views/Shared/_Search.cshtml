@@ -3,16 +3,13 @@
     var filter = ViewBag.filter;
     var placeHolder = Model.Aggregate((a, b) => a + ", " + b);
 }
+
 <form>
-    <div class="form-group row">
-        <div class="col-xs-10 col-md-10">
-            <input asp-for="@(filter)" class="form-control" placeholder="@(Resource.ExecuteSearch + " " + placeHolder)" />
-        </div>
-        <div class="col-xs-1 col-md-1">
-            <input asp-route-filter="@(filter)" type="submit" value="@Resource.Search" class="btn default_color" />
-        </div>
-        <div class="col-xs-1 col-md-1">
-            <a asp-action="Index" asp-route-filter="">@Resource.ClearFilter</a>
-        </div>
-    </div>
+    <label for="term">Digite o termo a ser pesquisado e pressione ENTER:</label>
+    <div class="input-group" style="margin-bottom:20px;">
+        <input id="term" asp-for="@(filter)" class="form-control" placeholder="@(placeHolder)" />
+        <span class="input-group-btn">
+            <a asp-action="Index" asp-route-filter="" class="btn btn-default">@Resource.ClearFilter</a>
+        </span>
+    </div>    
 </form>

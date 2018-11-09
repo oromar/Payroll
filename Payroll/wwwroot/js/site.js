@@ -33,7 +33,7 @@ function loadEmployees(departmentSelector, employeeSelector, callback, isSelect)
         success: function (data) {
             if (data) {
                 $(employeeSelector).empty();
-                data[0] = '';
+                data[0] = isSelect ? data[0] : '';
                 data.forEach(function (a) {
                     if (a) {
                         if (isSelect) {

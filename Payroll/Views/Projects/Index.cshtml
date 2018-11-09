@@ -26,7 +26,7 @@ Html.DisplayNameFor(model => model.CreatedBy),
     </a>
 </p>
 <partial name="_Search" model="@searchFields" />
-<table class="table table-bordered table-hover">
+<table class="table table-striped table-hover">
     <thead class="default_color">
         <tr>
             <th>
@@ -122,10 +122,10 @@ Html.DisplayNameFor(model => model.CreatedBy),
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Start)
+                        @item.Start.Value.ToString(Resource.DateFormat)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.End)
+                        @item.End.Value.ToString(Resource.DateFormat)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.CreatedBy)

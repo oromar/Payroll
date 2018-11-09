@@ -133,7 +133,7 @@
     <value>Arrière</value>
   </data>
   <data name="ClearFilter" xml:space="preserve">
-    <value>Clair</value>
+    <value>Clair Le Filtre</value>
   </data>
   <data name="CreatedAt" xml:space="preserve">
     <value>Créé à</value>
@@ -170,9 +170,6 @@
   </data>
   <data name="ExchangeRequired" xml:space="preserve">
     <value>Échange requis</value>
-  </data>
-  <data name="ExecuteSearch" xml:space="preserve">
-    <value>Chercher par</value>
   </data>
   <data name="First" xml:space="preserve">
     <value>Premier</value>
@@ -581,5 +578,14 @@
   </data>
   <data name="Vacation" xml:space="preserve">
     <value>Vacance</value>
+  </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>MM/dd/yyyy</value>
+  </data>
+  <data name="ExecuteSearch" xml:space="preserve">
+    <value>Tapez le terme à rechercher, puis appuyez sur Entrée:</value>
+  </data>
+  <data name="Assignment" xml:space="preserve">
+    <value>Cession</value>
   </data>
 </root>
