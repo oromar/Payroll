@@ -142,3 +142,23 @@ function loadEmployeesByCompany(companySelector, employeeSelector, callback) {
     })
 }
 
+function loadManagersByCompany(companySelector, employeeSelector) {
+    companySelector = '#' + companySelector;
+    employeeSelector = '#' + employeeSelector;
+    $.ajax({
+        url: '/Employees/ManagersByCompany',
+        method: 'GET',
+        data: { companyId: $(companySelector + ' option:selected').val() },
+        success: function (data) {
+            if (data) {
+                $(employeeSelector).empty();
+                data.forEach(function (a) {
+                    if (a) {
+                        $(employeeSelector).append('<option value=' + a.value + '>' + a.text + '</option>');
+                    }
+                })
+            }
+        }
+    })
+}
+

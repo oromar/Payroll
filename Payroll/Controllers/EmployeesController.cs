@@ -34,19 +34,6 @@ namespace Payroll.Controllers
                 .Occupation
                 .Where(a => !a.IsDeleted));
 
-            ViewBag.Managers = _businessObject
-                .GetDAO()
-                .GetContext()
-                .Employee
-                .Include(a => a.Function)
-                .Where(a => !a.IsDeleted)
-                .Where(a => a.Function.IsManagerFunction)
-                .Select(a => new SelectListItem
-                {
-                    Text = a.Name,
-                    Value = a.Id.ToString()
-                });
-
             ViewBag.Genders = Utils.GetGenders();
 
             ViewBag.DepartmentsByCompany = companies.AsEnumerable()
@@ -106,6 +93,22 @@ namespace Payroll.Controllers
             })
             .ToDictionary(t => t.Key, t => t.Value);
 
+            ViewBag.ManagersByCompany = companies.AsEnumerable()
+            .Select(a => new
+            {
+                Key = a.Id,
+                Value = _businessObject
+                .GetDAO()
+                .GetContext()
+                .Employee
+                .Include(b => b.Function)
+                .Where(b => !b.IsDeleted)
+                .Where(c => c.CompanyId == a.Id)
+                .Where(b => b.Function.IsManagerFunction)
+                .ToList()
+            })
+            .ToDictionary(t => t.Key, t => t.Value);
+
             return base.Index(page, filter, sort, order);
         }
 
@@ -133,6 +136,22 @@ namespace Payroll.Controllers
                 .Include(a => a.Company)
                 .Where(a => !a.IsDeleted)
                 .Where(a => a.CompanyId.ToString() == companyId));
+
+            return Ok(employees);
+        }
+
+        public IActionResult ManagersByCompany(string companyId)
+        {
+            var employees = Utils
+                .GetOptions(_businessObject
+                .GetDAO()
+                .GetContext()
+                .Employee
+                .Include(a => a.Function)
+                .Include(a => a.Company)
+                .Where(a => !a.IsDeleted)
+                .Where(a => a.CompanyId.ToString() == companyId)
+                .Where(a => a.Function.IsManagerFunction));
 
             return Ok(employees);
         }
