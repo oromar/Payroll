@@ -40,6 +40,33 @@ namespace Payroll.Controllers
             })
             .ToDictionary(t => t.Key, t => t.Value);
 
+            ViewBag.DepartmentsByCompany = companies.AsEnumerable()
+            .Select(a => new
+            {
+                Key = a.Id,
+                Value = _businessObject
+                .GetDAO()
+                .GetContext()
+                .Department
+                .Where(b => !b.IsDeleted)
+                .Where(c => c.CompanyId == a.Id)
+                .ToList()
+            })
+            .ToDictionary(t => t.Key, t => t.Value);
+
+            ViewBag.WorkplacesByCompany = companies.AsEnumerable()
+            .Select(a => new
+            {
+                Key = a.Id,
+                Value = _businessObject
+                .GetDAO()
+                .GetContext()
+                .Workplace
+                .Where(b => !b.IsDeleted)
+                .Where(c => c.CompanyId == a.Id)
+                .ToList()
+            })
+            .ToDictionary(t => t.Key, t => t.Value);
 
             return base.Index(page, filter, sort, order);
         }

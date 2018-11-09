@@ -18,12 +18,14 @@ namespace Payroll.Controllers
 
         public override Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
-            ViewBag.Companies = Utils
-                .GetOptions(_businessObject
+            var companies = _businessObject
                 .GetDAO()
                 .GetContext()
                 .Company
-                .Where(a => !a.IsDeleted));
+                .Where(a => !a.IsDeleted);
+
+            ViewBag.Companies = Utils
+                .GetOptions(companies);
 
             ViewBag.JobRoles = Utils
                 .GetOptions(_businessObject
@@ -67,6 +69,34 @@ namespace Payroll.Controllers
                 });
 
             ViewBag.Genders = Utils.GetGenders();
+
+            ViewBag.DepartmentsByCompany = companies.AsEnumerable()
+            .Select(a => new
+            {
+                Key = a.Id,
+                Value = _businessObject
+                .GetDAO()
+                .GetContext()
+                .Department
+                .Where(b => !b.IsDeleted)
+                .Where(c => c.CompanyId == a.Id)
+                .ToList()
+            })
+            .ToDictionary(t => t.Key, t => t.Value);
+
+            ViewBag.WorkplacesByCompany = companies.AsEnumerable()
+            .Select(a => new
+            {
+                Key = a.Id,
+                Value = _businessObject
+                .GetDAO()
+                .GetContext()
+                .Workplace
+                .Where(b => !b.IsDeleted)
+                .Where(c => c.CompanyId == a.Id)
+                .ToList()
+            })
+            .ToDictionary(t => t.Key, t => t.Value);
 
             return base.Index(page, filter, sort, order);
         }

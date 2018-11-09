@@ -38,6 +38,28 @@
                         </select>
                     </div>
                 }
+                else if (mode == "Edit")
+                {
+
+                    var departmentFromModel = Model.Department;
+
+                    @foreach (var item in ViewBag.DepartmentsByCompany)
+                    {
+                        if (Model.CompanyId == item.Key)
+                        {
+                            <div class="form-group">
+                                <label asp-for="DepartmentId" class="control-label"></label>
+                                <select id="@ProjectDepartmentSelect" name="DepartmentId" onchange="loadEmployees('@(ProjectDepartmentSelect)', '@(ProjectEmployeeSelect)' );" disabled="@(mode == "Details")" class="form-control">
+                                    @foreach (var department in item.Value)
+                                    {
+                                        <option value="@(department.Id)" selected="@(departmentFromModel.Id == department.Id)">@department.Name</option>
+
+                                    }
+                                </select>
+                            </div>
+                        }
+                    }
+                }
                 else
                 {
                     <div class="form-group">
@@ -56,6 +78,27 @@
                             <option>@Resource.SelectItem</option>
                         </select>
                     </div>
+                }
+                else if (mode == "Edit")
+                {
+                    var workplaceFromModel = Model.Workplace;
+
+                    @foreach (var item in ViewBag.WorkplacesByCompany)
+                    {
+                        if (Model.CompanyId == item.Key)
+                        {
+                            <div class="form-group">
+                                <label asp-for="WorkplaceId" class="control-label"></label>
+                                <select id="@ProjectWorkplaceSelect" name="WorkplaceId" disabled="@(mode == "Details")" class="form-control">
+                                    @foreach (var workplace in item.Value)
+                                    {
+                                        <option value="@(workplace.Id)" selected="@(workplaceFromModel.Id == workplace.Id)">@workplace.Name</option>
+
+                                    }
+                                </select>
+                            </div>
+                        }
+                    }
                 }
                 else
                 {
