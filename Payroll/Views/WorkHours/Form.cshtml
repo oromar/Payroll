@@ -44,7 +44,7 @@
                 @if (mode == "Create")
                 {
                     <div class="row" style="margin-top:10px;padding: 0 0 0 0;">
-                        <div id="@WorkHoursItemsSelect" class="form-group form-inline">
+                        <div id="@WorkHoursItemsSelect" class="form-group form-inline" style="margin-left:15px;">
                             <div style="padding: 0 0 0 0;vertical-align:middle;" class="col-md-3">
                                 <label class="control-label">@Resource.DayOfWeek</label>
                                 <select style="width:100%" name="DayOfWeek" class="form-control" asp-items="ViewBag.DaysOfWeek"></select>
@@ -100,6 +100,52 @@
                                 <input type="checkbox" checked />
                                 @employee.Employee.Name
                             </div>
+                        }
+                    </div>
+                }
+                else if (mode == "Edit")
+                {
+                    foreach (var item in Model.WorkHourItems)
+                    {
+                        <div class="row" style="margin-top:10px;">
+                            <div class="form-group form-inline">
+                                <div style="vertical-align:middle;" class="col-md-3">
+                                    <label class="control-label">@Resource.DayOfWeek</label>
+                                    <select style="width:100%" name="DayOfWeek" class="form-control">
+                                        <option value="@((int)item.DayOfWeek)" selected>@item.DayOfWeekDescription</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="control-label">@Resource.Start</label>
+                                    <input type="time" name="Start" style="width:100%" class="form-control" value="@item.Start" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="control-label">@Resource.End</label>
+                                    <input type="time" name="End" style="width:100%" class="form-control" value="@item.End" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="form-group" style="margin-top:10px;">
+                        <label>@Resource.Employees</label>
+
+                        @{
+                            var employeesFromModel = Model.Employees.Select(a => a.EmployeeId).ToList();
+                        }
+
+                        @foreach (var item in ViewBag.EmployeesByCompany)
+                        {
+                            if (Model.CompanyId == item.Key)
+                            {
+                                foreach (var employee in item.Value)
+                                {
+                                    <div class="form-group checkbox" style="margin-left:20px;">
+                                        <input type="checkbox" name="EmployeeId" checked="@(employeesFromModel.Contains(employee.Id))" value="@employee.Id"/>
+                                        @employee.Name
+                                    </div>
+                                }
+                            }
                         }
                     </div>
                 }

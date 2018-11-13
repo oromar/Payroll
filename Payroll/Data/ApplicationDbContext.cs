@@ -127,5 +127,6 @@ namespace Payroll.Data
         public DbSet<VacationEmployee> VacationEmployee { get; set; }
         public DbSet<WorkHours> WorkHours { get; set; }
         public DbSet<WorkHoursEmployee> WorkHoursEmployee { get; set; }
+        public DbSet<WorkHourItem> WorkHourItems { get; set; }
     }
 }

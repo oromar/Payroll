@@ -25,6 +25,13 @@ namespace Payroll.Business
                     .GetContext()
                     .WorkHoursEmployee
                     .Where(a => a.WorkHoursId == id));
+            _dao
+                .GetContext()
+                .WorkHourItems
+                .RemoveRange(_dao
+                    .GetContext()
+                    .WorkHourItems
+                    .Where(a => a.WorkHoursId == id));
 
             return base.Edit(id, data, userIdentity);
         }

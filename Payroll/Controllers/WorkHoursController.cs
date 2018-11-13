@@ -19,12 +19,29 @@ namespace Payroll.Controllers
         public override Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
 
-            ViewBag.Companies = Utils
-                .GetOptions(_businessObject
+            var companies = _businessObject
                 .GetDAO()
                 .GetContext()
                 .Company
-                .Where(a => !a.IsDeleted));
+                .Where(a => !a.IsDeleted);
+
+            ViewBag.Companies = Utils
+                .GetOptions(companies);
+
+
+            ViewBag.EmployeesByCompany = companies.AsEnumerable()
+            .Select(a => new
+            {
+                Key = a.Id,
+                Value = _businessObject
+                .GetDAO()
+                .GetContext()
+                .Employee
+                .Where(b => !b.IsDeleted)
+                .Where(c => c.CompanyId == a.Id)
+                .ToList()
+            })
+            .ToDictionary(t => t.Key, t => t.Value);
 
             ViewBag.DaysOfWeek = Utils.GetDaysOfWeek();
 
@@ -33,6 +50,8 @@ namespace Payroll.Controllers
 
         public override Task<IActionResult> Edit(Guid id, [BindAttribute] WorkHours data)
         {
+            HandleItems(data);
+
             HandleEmployees(data);
 
             return base.Edit(id, data);
@@ -40,26 +59,7 @@ namespace Payroll.Controllers
 
         public override Task<IActionResult> Create([Bind] WorkHours data)
         {
-            var itemsToAdd = new List<WorkHourItem>();
-
-            var daysOfWeek = HttpContext
-                .Request
-                .Form[Constants.DAY_OF_WEEK];
-
-            for (int i = 0; i < daysOfWeek.Count; i++)
-            {
-                var start = HttpContext
-                    .Request
-                    .Form[Constants.START][i];
-
-                var end = HttpContext
-                    .Request
-                    .Form[Constants.END][i];
-
-                itemsToAdd.Add(new WorkHourItem { DayOfWeek = (Common.DayOfWeek)Enum.Parse(typeof(Common.DayOfWeek), daysOfWeek[i]), Start = TimeSpan.Parse(start), End = TimeSpan.Parse(end) });
-            }
-
-            data.WorkHourItems = itemsToAdd;
+            HandleItems(data);
 
             HandleEmployees(data);
 
@@ -85,6 +85,29 @@ namespace Payroll.Controllers
             data.Employees = employees;
         }
 
+        private void HandleItems(WorkHours data)
+        {
+            var itemsToAdd = new List<WorkHourItem>();
+
+            var daysOfWeek = HttpContext
+                .Request
+                .Form[Constants.DAY_OF_WEEK];
+
+            for (int i = 0; i < daysOfWeek.Count; i++)
+            {
+                var start = HttpContext
+                    .Request
+                    .Form[Constants.START][i];
+
+                var end = HttpContext
+                    .Request
+                    .Form[Constants.END][i];
+
+                itemsToAdd.Add(new WorkHourItem { DayOfWeek = (Common.DayOfWeek)Enum.Parse(typeof(Common.DayOfWeek), daysOfWeek[i]), Start = TimeSpan.Parse(start), End = TimeSpan.Parse(end) });
+            }
+
+            data.WorkHourItems = itemsToAdd;
+        }
 
     }
 }
