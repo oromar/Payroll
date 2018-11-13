@@ -30,10 +30,14 @@ namespace Payroll.Common
         public const string SORT_EMPLOYEE_NAME = "Employee.Name";
         public const string SORT_OCCURRENCE = "Occurrence";
         public const string SORT_OCCURRENCE_TYPE_NAME = "OccurrenceType.Name";
+        public const string SORT_DAY_OF_WEEK = "DayOfWeek";
 
         public const string VALUE_FIRST_SELECT = null;
         public const string EMPLOYEE_ID = "EmployeeId";
         public const string NAME_FIELD = "Name";
+        public const string DAY_OF_WEEK = "DayOfWeek";
+        public const string START = "Start";
+        public const string END = "End";
     }
 }
 

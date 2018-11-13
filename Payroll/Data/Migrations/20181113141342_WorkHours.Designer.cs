@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Payroll.Data;
 
 namespace Payroll.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181113141342_WorkHours")]
+    partial class WorkHours
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -807,26 +809,6 @@ namespace Payroll.Data.Migrations
                     b.ToTable("VacationEmployee");
                 });
 
-            modelBuilder.Entity("Payroll.Models.WorkHourItem", b =>
-                {
-                    b.Property<Guid>("WorkHourItemId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("DayOfWeek");
-
-                    b.Property<TimeSpan>("End");
-
-                    b.Property<TimeSpan>("Start");
-
-                    b.Property<Guid?>("WorkHoursId");
-
-                    b.HasKey("WorkHourItemId");
-
-                    b.HasIndex("WorkHoursId");
-
-                    b.ToTable("WorkHourItem");
-                });
-
             modelBuilder.Entity("Payroll.Models.WorkHours", b =>
                 {
                     b.Property<Guid>("Id")
@@ -838,9 +820,13 @@ namespace Payroll.Data.Migrations
 
                     b.Property<string>("CreatedBy");
 
+                    b.Property<int>("DayOfWeek");
+
                     b.Property<DateTime?>("DeletedAt");
 
                     b.Property<string>("DeletedBy");
+
+                    b.Property<TimeSpan>("End");
 
                     b.Property<bool>("IsDeleted");
 
@@ -848,6 +834,8 @@ namespace Payroll.Data.Migrations
                         .IsRequired();
 
                     b.Property<string>("SearchFields");
+
+                    b.Property<TimeSpan>("Start");
 
                     b.Property<DateTime?>("UpdatedAt");
 
@@ -1106,13 +1094,6 @@ namespace Payroll.Data.Migrations
                         .WithMany("Employees")
                         .HasForeignKey("VacationId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Payroll.Models.WorkHourItem", b =>
-                {
-                    b.HasOne("Payroll.Models.WorkHours")
-                        .WithMany("WorkHourItems")
-                        .HasForeignKey("WorkHoursId");
                 });
 
             modelBuilder.Entity("Payroll.Models.WorkHours", b =>

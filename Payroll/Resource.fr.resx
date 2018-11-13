@@ -588,4 +588,43 @@
   <data name="Assignment" xml:space="preserve">
     <value>Cession</value>
   </data>
+  <data name="DayOfWeek" xml:space="preserve">
+    <value>Jour de la Semaine</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Fin</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Vendredi</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Lundi</value>
+  </data>
+  <data name="NewWorkHours" xml:space="preserve">
+    <value>Nouvelles Heures de Travail</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Samedi</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Début</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Dimanche</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Jeudi</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Mardi</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Mercredi</value>
+  </data>
+  <data name="WorkHoursTitle" xml:space="preserve">
+    <value>Heures de Travail</value>
+  </data>
+  <data name="WorkHours" xml:space="preserve">
+    <value>Heures de Travail</value>
+  </data>
 </root>

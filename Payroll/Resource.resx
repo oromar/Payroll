@@ -591,4 +591,43 @@
   <data name="Assignment" xml:space="preserve">
     <value>Exercício</value>
   </data>
+  <data name="DayOfWeek" xml:space="preserve">
+    <value>Dia da Semana</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Fim</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Sexta</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Segunda</value>
+  </data>
+  <data name="NewWorkHours" xml:space="preserve">
+    <value>Novo Horário de Trabalho</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Sábado</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Domingo</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Quinta</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Terça</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Quarta</value>
+  </data>
+  <data name="WorkHoursTitle" xml:space="preserve">
+    <value>Cadastro de Horários de Trabalho</value>
+  </data>
+  <data name="WorkHours" xml:space="preserve">
+    <value>Horários de Trabalho</value>
+  </data>
 </root>

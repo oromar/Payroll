@@ -176,7 +176,7 @@ namespace Payroll.Data
         {
             var searchValues = new List<string>();
 
-            var types = new[] { typeof(string), typeof(int), typeof(double), typeof(decimal), typeof(float) };
+            var types = new[] { typeof(string), typeof(int), typeof(double), typeof(decimal), typeof(float), typeof(Common.DayOfWeek) };
 
             var relatedTypes = new[] { nameof(Basic), nameof(Addressable) };
 

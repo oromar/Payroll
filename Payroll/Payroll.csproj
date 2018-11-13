@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\js\clockpicker-gh-pages\**" />
+    <Content Remove="wwwroot\js\clockpicker-gh-pages\**" />
+    <EmbeddedResource Remove="wwwroot\js\clockpicker-gh-pages\**" />
+    <None Remove="wwwroot\js\clockpicker-gh-pages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\js\jquery-1.2.6.pack.js" />
     <Content Remove="wwwroot\js\jquery.maskedinput-1.1.4.pack.js" />
   </ItemGroup>

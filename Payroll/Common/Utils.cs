@@ -50,6 +50,48 @@ namespace Payroll.Common
             };
         }
 
+        public static List<SelectListItem> GetDaysOfWeek()
+        {
+            return new List<SelectListItem>
+            {
+                new SelectListItem
+                {
+                    Text = DayOfWeek.SUNDAY.GetDescription(),
+                    Value = ((int)DayOfWeek.SUNDAY).ToString()
+                },
+                new SelectListItem
+                {
+                    Text = DayOfWeek.MONDAY.GetDescription(),
+                    Value = ((int)DayOfWeek.MONDAY).ToString()
+                },
+                new SelectListItem
+                {
+                    Text = DayOfWeek.TUESDAY.GetDescription(),
+                    Value = ((int)DayOfWeek.TUESDAY).ToString()
+                },
+                new SelectListItem
+                {
+                    Text = DayOfWeek.WEDNESDAY.GetDescription(),
+                    Value = ((int)DayOfWeek.WEDNESDAY).ToString()
+                },
+                new SelectListItem
+                {
+                    Text = DayOfWeek.THURSDAY.GetDescription(),
+                    Value = ((int)DayOfWeek.THURSDAY).ToString()
+                },
+                new SelectListItem
+                {
+                    Text = DayOfWeek.FRIDAY.GetDescription(),
+                    Value = ((int)DayOfWeek.FRIDAY).ToString()
+                },
+                new SelectListItem
+                {
+                    Text = DayOfWeek.SATURDAY.GetDescription(),
+                    Value = ((int)DayOfWeek.SATURDAY).ToString()
+                },
+            };
+        }
+
         public static string GetDescription(this Enum value)
         {
             Type type = value.GetType();

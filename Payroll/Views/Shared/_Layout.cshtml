@@ -98,6 +98,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header default_color">
+                    <button type="button" class="close" aria-label="createCompanyModal" onclick="$('#Create_Modal').modal('hide')"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" align="left" id="exampleModalLabel">Por favor aguarde</h4>
                 </div>
                 <div class="modal-body" style="border:none;">
@@ -150,7 +151,6 @@
     </environment>
     <script type="text/javascript" src="~/js/jquery.mask.min.js">
     </script>
-
 
     @RenderSection("Scripts", required: false)
 

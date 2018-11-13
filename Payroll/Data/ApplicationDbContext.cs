@@ -77,6 +77,10 @@ namespace Payroll.Data
                .HasIndex(p => new { p.Id, p.SearchFields })
                .IsUnique(true);
 
+            modelBuilder.Entity<WorkHours>()
+               .HasIndex(p => new { p.Id, p.SearchFields })
+               .IsUnique(true);
+
             modelBuilder.Entity<VacationEmployee>()
                 .HasKey(p => new { p.VacationId, p.EmployeeId });
 
@@ -90,11 +94,24 @@ namespace Payroll.Data
                 .WithMany(p => p.Vacations)
                 .HasForeignKey(p => p.EmployeeId);
 
+            modelBuilder.Entity<WorkHoursEmployee>()
+               .HasKey(p => new { p.WorkHoursId, p.EmployeeId });
+
+            modelBuilder.Entity<WorkHoursEmployee>()
+                .HasOne(p => p.WorkHours)
+                .WithMany(p => p.Employees)
+                .HasForeignKey(p => p.WorkHoursId);
+
+            modelBuilder.Entity<WorkHoursEmployee>()
+                .HasOne(p => p.Employee)
+                .WithMany(p => p.WorkHours)
+                .HasForeignKey(p => p.EmployeeId);
+
             base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Currency> Currency { get; set; }
-        public DbSet<Occupation> Occupation { get; set; }        
+        public DbSet<Occupation> Occupation { get; set; }
         public DbSet<LicenseType> LicenseType { get; set; }
         public DbSet<Company> Company { get; set; }
         public DbSet<Workplace> Workplace { get; set; }
@@ -108,5 +125,7 @@ namespace Payroll.Data
         public DbSet<ProjectEmployee> ProjectEmployee { get; set; }
         public DbSet<Vacation> Vacation { get; set; }
         public DbSet<VacationEmployee> VacationEmployee { get; set; }
+        public DbSet<WorkHours> WorkHours { get; set; }
+        public DbSet<WorkHoursEmployee> WorkHoursEmployee { get; set; }
     }
 }

@@ -1,0 +1,130 @@
+﻿@model Payroll.Models.WorkHours
+
+@{
+
+    var mode = ViewBag.Mode;
+    var modalId = string.Empty;
+    if (mode != "Create")
+    {
+        modalId = mode + "_Modal" + Model.Id;
+    }
+    else
+    {
+        modalId = "Create_Modal";
+    }
+
+    var WorkHoursCompanySelect = mode == "Details" ? "WorkHoursCompanySelectDetails" : mode == "Create" ? "WorkHoursCompanySelectCreate" : "WorkHoursCompanySelectEdit" + Model.Id;
+    var WorkHoursEmployeesSelect = mode == "Details" ? "WorkHoursEmployeesSelectDetails" : mode == "Create" ? "WorkHoursEmployeesSelectCreate" : "WorkHoursEmployeesSelectEdit" + Model.Id;
+    var WorkHoursItemsSelect = mode == "Details" ? "WorkHoursItemsSelectDetails" : mode == "Create" ? "WorkHoursItemsSelectCreate" : "WorkHoursItemsSelectEdit" + Model.Id;
+
+}
+
+<div class="row" align="left">
+    <div class="col-md-12">
+        <form asp-action="@mode" id="Form_@(modalId)">
+            <div style="overflow-y:auto;max-height:350px;padding:10px;overflow-x:hidden">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="CompanyId" class="control-label"></label>
+                    <select id="@WorkHoursCompanySelect" asp-for="CompanyId" disabled="@(mode == "Details")" onchange="loadEmployeesByCompany('@WorkHoursCompanySelect', '@WorkHoursEmployeesSelect')" class="form-control" asp-items="ViewBag.Companies"></select>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" disabled="@(mode == "Details")" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                @if (mode != "Details")
+                {
+                    <div class="form-group right">
+                        <button type="button" class="btn default_color" formnovalidate onclick="addWorkHours(@WorkHoursItemsSelect)">@Resource.Add</button>
+                    </div>
+                }
+
+                @if (mode == "Create")
+                {
+                    <div class="row" style="margin-top:10px;padding: 0 0 0 0;">
+                        <div id="@WorkHoursItemsSelect" class="form-group form-inline">
+                            <div style="padding: 0 0 0 0;vertical-align:middle;" class="col-md-3">
+                                <label class="control-label">@Resource.DayOfWeek</label>
+                                <select style="width:100%" name="DayOfWeek" class="form-control" asp-items="ViewBag.DaysOfWeek"></select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">@Resource.Start</label>
+                                <input type="time" name="Start" style="width:100%" class="form-control" />
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">@Resource.End</label>
+                                <input type="time" name="End" style="width:100%" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" style="margin-top:10px;">
+                        <label>@Resource.Employees</label>
+                        <div class="form-group" id="@WorkHoursEmployeesSelect">
+
+                        </div>
+                    </div>
+                }
+                else if (mode == "Details")
+                {
+                    foreach (var item in Model.WorkHourItems)
+                    {
+                        <div class="row" style="margin-top:10px;">
+                            <div class="form-group form-inline">
+                                <div style="vertical-align:middle;" class="col-md-3">
+                                    <label class="control-label">@Resource.DayOfWeek</label>
+                                    <select style="width:100%" name="DayOfWeek" class="form-control" disabled>
+                                        <option>@item.DayOfWeekDescription</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="control-label">@Resource.Start</label>
+                                    <input type="time" name="Start" style="width:100%" class="form-control" value="@item.Start" disabled />
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="control-label">@Resource.End</label>
+                                    <input type="time" name="End" style="width:100%" class="form-control" value="@item.End" disabled />
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="form-group" style="margin-top:10px;">
+                        <label>@Resource.Employees</label>
+                        @foreach (var employee in Model.Employees)
+                        {
+                            <div class="form-group checkbox" style="margin-left:20px;">
+                                <input type="checkbox" checked />
+                                @employee.Employee.Name
+                            </div>
+                        }
+                    </div>
+                }
+
+            </div>
+
+            @if (mode == "Edit")
+            {
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="CreatedAt" />
+                <input type="hidden" asp-for="CreatedBy" />
+            }
+            <div class="form-group" style="padding-top:30px;" align="right">
+
+                <a class="btn btn-default" onclick="$('#@(modalId)').modal('hide');$('#Form_@(modalId)').trigger('reset');">@Resource.Back</a>
+                @if (mode != "Details")
+                {
+                    <input type="submit" value="@(mode == "Create" ? Resource.Add : mode == "Edit" ? Resource.Save : "")" class="btn btn-default default_color" />
+                }
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
