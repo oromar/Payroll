@@ -3,6 +3,8 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 <!DOCTYPE html>
 <html>
@@ -87,6 +89,9 @@
                     </li>
                     <li><a href="#" class="default_color" style="font-size:0.8em;margin:0;padding-right:4px;" onclick="minusZoom();">A-</a></li>
                     <li><a href="#" class="default_color" style="font-size:1.2em;margin:0;padding-left:4px;" onclick="plusZoom();">A+</a></li>
+                    <li><a href="?culture=pt-BR"><img src="~/images/flag_brazil.png" alt="BR"/></a></li>
+                    <li><a href="?culture=en-US"><img src="~/images/flag_usa.png" alt="USA"/></a></li>
+                    <li><a href="?culture=fr-FR"><img src="~/images/flag_france.png" alt="FR"/></a></li>
                 </ul>
             </div>
         </div>
@@ -222,10 +227,5 @@
         localStorage.setItem('currentClass', defaultClass);
         localStorage.setItem('currentIconClass', iconClass);
     }
-
-
-    
-
-
 </script>
 </html>

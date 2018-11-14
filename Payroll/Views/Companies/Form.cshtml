@@ -50,7 +50,7 @@
                     <input asp-for="Nacionality" disabled="@(mode == "Details")" class="form-control" />
                     <span asp-validation-for="Nacionality" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group">                    
                     <div class="checkbox">
                         <label>
                             <input asp-for="HasStrangers" disabled="@(mode == "Details")" /> @Html.DisplayNameFor(model => model.HasStrangers)

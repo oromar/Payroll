@@ -11,6 +11,9 @@ using Payroll.Business;
 using Payroll.Common;
 using Payroll.Models;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using System.Globalization;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Localization;
 
 namespace Payroll
 {
@@ -38,6 +41,11 @@ namespace Payroll
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+             services.AddLocalization();
+             services.AddMvc()
+                     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                     .AddDataAnnotationsLocalization();
 
             services
                 .AddMvc()
@@ -97,7 +105,19 @@ namespace Payroll
                 app.UseHsts();
             }
 
-            app.UseRequestLocalization("pt-BR", "en-US", "fr-FR");
+            var supportedCultures = new[]
+            {
+                new CultureInfo("pt-BR"),
+                new CultureInfo("en-US"),
+                new CultureInfo("fr-FR")
+            };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("pt-BR"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
