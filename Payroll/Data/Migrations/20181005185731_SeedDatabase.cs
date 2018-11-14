@@ -28,7 +28,7 @@ namespace Payroll.Data.Migrations
                 "NEWID(), GETDATE(), 'oldm@cin.ufpe.br', 0, 'Engenheiro Civil', 1, 'CREA', 'Engenheiro Civil CREA oldm@cin.ufpe.br')");
 
             migrationBuilder.Sql("INSERT INTO Occupation(Id, CreatedAt, CreatedBy, IsDeleted, Name, IsRegulated, CouncilName, SearchFields) VALUES (" +
-                "NEWID(), GETDATE(), 'oldm@cin.ufpe.br', 0, 'Engenheiro Eletrônico', 1, 'CREA', 'Engenheiro Eletrônico CREA oldm@cin.ufpe.br')");
+                "NEWID(), GETDATE(), 'oldm@cin.ufpe.br', 0, 'Engenheiro Eletrônico', 1, 'CREA', 'Engenheiro Eletronico CREA oldm@cin.ufpe.br')");
 
             migrationBuilder.Sql("INSERT INTO Occupation(Id, CreatedAt, CreatedBy, IsDeleted, Name, IsRegulated, CouncilName, SearchFields) VALUES (" +
                 "NEWID(), GETDATE(), 'oldm@cin.ufpe.br', 0, 'Médico', 1, 'CREMEPE', 'Médico CREMEPE oldm@cin.ufpe.br')");
@@ -49,7 +49,7 @@ namespace Payroll.Data.Migrations
                 "NEWID(), GETDATE(), 'oldm@cin.ufpe.br', 0, 'Maternidade', 'Pelo nascimento de um filho (Funcionário do sexo feminino)', 120, 'Maternidade Pelo nascimento de um filho (Funcionário do sexto feminino) 120 oldm@cin.ufpe.br')");
 
             migrationBuilder.Sql("INSERT INTO OccurrenceType(Id, CreatedAt, CreatedBy, IsDeleted, Name, Description, IsAbsence, SearchFields) VALUES (" +
-                "NEWID(), GETDATE(), 'oldm@cin.ufpe.br', 0, 'Licença', 'Licença de qualquer tipo', 1, 'Licença Licença de qualquer tipo oldm@cin.ufpe.br')");
+                "NEWID(), GETDATE(), 'oldm@cin.ufpe.br', 0, 'Licença', 'Licença de qualquer tipo', 1, 'Licenca Licenca de qualquer tipo oldm@cin.ufpe.br')");
 
             migrationBuilder.Sql("INSERT INTO OccurrenceType(Id, CreatedAt, CreatedBy, IsDeleted, Name, Description, IsAbsence, SearchFields) VALUES (" +
                 "NEWID(), GETDATE(), 'oldm@cin.ufpe.br', 0, 'Acidente de Trabalho', 'Quando funcionário sofre acidente no trabalho ou no percurso casa-trabalho/trabalho-casa', 0, 'Acidente de Trabalho Quando funcionário sofre acidente no trabalho ou no percurso casa-trabalho/trabalho-casa oldm@cin.ufpe.br')");

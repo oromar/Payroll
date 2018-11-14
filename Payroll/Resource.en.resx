@@ -586,7 +586,7 @@
     <value>MM/dd/yyyy</value>
   </data>
   <data name="ExecuteSearch" xml:space="preserve">
-    <value>Type the term to search for, and then press ENTER:</value>
+    <value>Type the term to search for, and then press ENTER (To query for more than one value, separate the values with slash / ):</value>
   </data>
   <data name="Assignment" xml:space="preserve">
     <value>Assignment</value>

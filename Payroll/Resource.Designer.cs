@@ -574,7 +574,7 @@ namespace Payroll {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Digite o termo a ser pesquisado e pressione ENTER:.
+        ///   Looks up a localized string similar to Digite o termo a ser pesquisado e pressione ENTER (Para consultar por mais de um valor separe os valores com barra / ):.
         /// </summary>
         public static string ExecuteSearch {
             get {

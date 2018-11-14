@@ -23,6 +23,8 @@ namespace Payroll.Data
 
         public Expression<Func<T, bool>> FilterBy(string filter)
         {
+            var expressions = new List<Expression<Func<T, bool>>>();
+
             var parameter = Expression.Parameter(typeof(T), "entity");
 
             var isDeletedProperty = Expression.Property(parameter, "IsDeleted");
@@ -31,13 +33,30 @@ namespace Payroll.Data
             var notDeletedExpression = Expression.Lambda<Func<T, bool>>(notDeletedMethod, parameter);
             if (filter.IsNullOrEmpty()) return notDeletedExpression;
 
-            var normalizedFilter = filter.RemoveDiacritics().Trim();
-            var propertyName = Expression.Property(parameter, "SearchFields");
-            var constantParameter = Expression.Constant(normalizedFilter);
-            var containsMethod = Expression.Call(propertyName, typeof(string).GetMethod("Contains", new[] { typeof(string) }), constantParameter);
-            var containsExpression = Expression.Lambda<Func<T, bool>>(containsMethod, parameter);
-            var body = Expression.And(Expression.Invoke(notDeletedExpression, parameter), Expression.Invoke(containsExpression, parameter));
-            return Expression.Lambda<Func<T, bool>>(body, parameter);
+            var tokens = filter.Split("/");
+
+            foreach (var token in tokens.Where(a => !string.IsNullOrWhiteSpace(a)))
+            {
+                var normalizedFilter = token.RemoveDiacritics().Trim();
+                var constantParameter = Expression.Constant(normalizedFilter);
+                var propertyName = Expression.Property(parameter, "SearchFields");
+                var containsMethod = Expression.Call(propertyName, typeof(string).GetMethod("Contains", new[] { typeof(string) }), constantParameter);
+                var containsExpression = Expression.Lambda<Func<T, bool>>(containsMethod, parameter);
+                expressions.Add(containsExpression);
+            }
+
+            var result = expressions[0];
+
+            if (expressions.Count > 1)
+            {
+                for (int i = 1; i < expressions.Count; i++)
+                {
+                    result = Expression.Lambda<Func<T, bool>>(Expression.Or(Expression.Invoke(result, parameter), Expression.Invoke(expressions[i], parameter)), parameter);
+                }
+            }
+            result = Expression.Lambda<Func<T, bool>>(Expression.And(Expression.Invoke(notDeletedExpression, parameter), Expression.Invoke(result, parameter)), parameter);
+
+            return result;
         }
 
         public ApplicationDbContext GetContext()
@@ -122,7 +141,7 @@ namespace Payroll.Data
             {
                 _context.Update(data);
                 LoadRelatedItems(data);
-                HandleSearchFields(data);                                
+                HandleSearchFields(data);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -191,7 +210,7 @@ namespace Payroll.Data
             var fields = baseProperties
                 .Where(a => types.Contains(a.PropertyType))
                 .Where(a => a.GetValue(data) != null)
-                .Select(a => a.GetValue(data).ToString().RemoveDiacritics().Trim());
+                .Select(a => a.GetValue(data).ToString().RemoveChars(".-/").RemoveDiacritics().Trim());
 
             searchValues.AddRange(fields);
 

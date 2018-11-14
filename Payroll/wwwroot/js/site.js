@@ -3,6 +3,20 @@
 
 // Write your JavaScript code.
 
+function confirm(id, input, name, form) {
+    if (name.val() !== input.val()) {
+        let spanId = 'span_' + id;
+        if (input === "") {
+            $('#' + spanId).html('@(Resource.RequiredField)');
+        } else {
+            $('#' + spanId).html('@(Resource.InvalidValue)');
+        }
+        return;
+    }
+    form.submit();
+}
+
+
 function addWorkHours(workhoursSelector) {
     let options = '';
     $.ajax({

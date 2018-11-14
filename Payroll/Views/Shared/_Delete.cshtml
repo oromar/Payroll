@@ -2,32 +2,18 @@
 
 @{
 
-    var modalId = "Delete_Modal"+Model.Id;
+    var modalId = "Delete_Modal" + Model.Id;
 
 }
 
 <script type="text/javascript">
-    var id = '@(Model.Id)';
-    function confirm() {
-        var input = document.getElementById('confirm_' + id).value;
-        var name = document.getElementById('name_' + id).value;
-        if (name != input) {
-            var spanId = 'span_' + id;
-            if (input === "") {
-                $('#' + spanId).html('@(Resource.RequiredField)');
-            } else {
-                $('#' + spanId).html('@(Resource.InvalidValue)');
-            }
-            return;
-        }
-        document.getElementById('@("form_"+Model.Id)').submit();
-    }
+   
 </script>
 
 <div class="row" align="left">
     <div class="col-md-12" align="left">
         <h4>@Resource.AreYouSure @Html.DisplayFor(model => model.Name) ?</h4>
-        <form asp-action="Delete" id=@("form_"+Model.Id) onsubmit="return false;">
+        <form asp-action="Delete" id=@("form_"+Model.Id)>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" id=@("name_"+Model.Id) asp-for="Name" />
             <input type="hidden" asp-for="CreatedAt" />
@@ -41,7 +27,7 @@
                     <span id=@("span_"+Model.Id) class="text-danger"></span>
                 </div>
                 <a class="btn btn-default" onclick="$('#@(modalId)').modal('hide');$('#Form_@(modalId)').trigger('reset');">@Resource.Back</a>
-                <input type="button" value=@Resource.Delete class="btn btn-default default_color" onclick="confirm()" />
+                <input type="button" value=@Resource.Delete class="btn btn-default default_color" onclick="confirm('@Model.Id', $('#confirm_@Model.Id'), $('#name_@Model.Id'), $('#form_@Model.Id'))" />
             </div>
         </form>
     </div>

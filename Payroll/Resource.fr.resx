@@ -583,7 +583,7 @@
     <value>MM/dd/yyyy</value>
   </data>
   <data name="ExecuteSearch" xml:space="preserve">
-    <value>Tapez le terme à rechercher, puis appuyez sur Entrée:</value>
+    <value>Tapez le terme à rechercher, puis appuyez sur Entrée (Pour interroger plusieurs valeurs, séparez les valeurs par barre oblique / ):</value>
   </data>
   <data name="Assignment" xml:space="preserve">
     <value>Cession</value>
