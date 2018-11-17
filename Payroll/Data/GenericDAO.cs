@@ -31,9 +31,9 @@ namespace Payroll.Data
             var falseConstant = Expression.Constant(false);
             var notDeletedMethod = Expression.Call(isDeletedProperty, typeof(Boolean).GetMethod("Equals", new[] { typeof(Boolean) }), falseConstant);
             var notDeletedExpression = Expression.Lambda<Func<T, bool>>(notDeletedMethod, parameter);
-            if (filter.IsNullOrEmpty() || filter.Equals("/")) return notDeletedExpression;
+            if (filter.IsNullOrEmpty() || filter.Equals(Constants.QUERY_SEPARATOR)) return notDeletedExpression;
 
-            var tokens = filter.Split("/");
+            var tokens = filter.Split(Constants.QUERY_SEPARATOR);
 
             foreach (var token in tokens.Where(a => !string.IsNullOrWhiteSpace(a)))
             {

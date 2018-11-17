@@ -38,6 +38,7 @@ namespace Payroll.Common
         public const string DAY_OF_WEEK = "DayOfWeek";
         public const string START = "Start";
         public const string END = "End";
+        public const string QUERY_SEPARATOR = "/";
     }
 }
 

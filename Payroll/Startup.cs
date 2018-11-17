@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Localization;
+using System.Threading;
 
 namespace Payroll
 {
@@ -42,10 +43,10 @@ namespace Payroll
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-             services.AddLocalization();
-             services.AddMvc()
-                     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                     .AddDataAnnotationsLocalization();
+            services.AddLocalization();
+            services.AddMvc()
+                    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                    .AddDataAnnotationsLocalization();
 
             services
                 .AddMvc()
@@ -53,7 +54,7 @@ namespace Payroll
                 .AddRazorPagesOptions(options =>
                 {
                     options.AllowAreas = true;
-                    options.Conventions.AddAreaPageRoute("Identity", "/Account/Login", "");                    
+                    options.Conventions.AddAreaPageRoute("Identity", "/Account/Login", "");
                 });
 
             services.AddScoped<BusinessObject<Occupation>>();
@@ -122,7 +123,7 @@ namespace Payroll
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            
+
             app.UseAuthentication();
 
             app.UseMvc(routes =>
@@ -131,6 +132,7 @@ namespace Payroll
                     name: "default",
                     template: "{controller}/{action}/{id?}");
             });
+
         }
     }
 }

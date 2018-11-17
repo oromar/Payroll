@@ -1598,5 +1598,17 @@ namespace Payroll {
                 return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
+
+        public static string ForgotPasswordConfirmation {
+            get {
+                return ResourceManager.GetString("ForgotPasswordConfirmation", resourceCulture);
+            }
+        }
+
+        public static string CheckEmailForgotPassword {
+            get {
+                return ResourceManager.GetString("CheckEmailForgotPassword", resourceCulture);
+            }
+        }
     }
 }

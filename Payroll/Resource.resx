@@ -630,4 +630,7 @@
   <data name="WorkHours" xml:space="preserve">
     <value>Horários de Trabalho</value>
   </data>
+  <data name="CheckEmailForgotPassword" xml:space="preserve">
+    <value>Favor verifique o seu email para redefinir sua senha.</value>
+  </data>
 </root>

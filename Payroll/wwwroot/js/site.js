@@ -210,3 +210,14 @@ function loadManagersByCompany(companySelector, employeeSelector) {
     })
 }
 
+const isRequired = value => value || false
+const maxLength = (value, length) => value.lenght <= length
+
+function validate(field, ...validators) {
+    validators.forEach(function(e) {
+        if (!validators(field)) {
+            return false
+        }
+    })
+    return true
+}

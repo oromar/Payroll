@@ -48,8 +48,8 @@
                    asp-route-filter="@filter"
                    asp-route-page="@currentPage"
                    asp-route-sort="EmployeeNumber"
-                   asp-route-order="@(previousSort == "EmployeeNumber" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">
-                    @Html.DisplayNameFor(model => model.EmployeeNumber)
+                   asp-route-order="@(previousSort == "EmployeeNumber" && previousOrder == "ASC" ? "DESC" : "ASC")" class="default_color">                    
+                        @Html.DisplayNameFor(model => model.EmployeeNumber)                    
                 </a>
             </th>
             <th class="col-md-3">
@@ -93,7 +93,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Company.Name)
                     </td>
-                    <td>
+                    <td class="mat">
                         @Html.DisplayFor(modelItem => item.EmployeeNumber)
                     </td>
                     <td>
