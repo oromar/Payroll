@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using MMLib.Extensions;
 using Payroll.Business;
+using Payroll.Common;
 using Payroll.Models;
 
 namespace Payroll.Data.Migrations
@@ -37,6 +38,7 @@ namespace Payroll.Data.Migrations
             string[] jobRoles = {"Analista", "Técnico", "Auxiliar", "Assistente"};
             string[] functions = {"Gerente de TI", "Gerente Financeiro", "Gerente Técnico", "Diretor Executivo", "Técnico de Enfermagem", "Técnico de Manutenção", "Auxiliar de Cozinha", "Técnico de Eletricidade"};
             string[] workplaces = {"SEDE", "FILIAL 1", "FILIAL 2", "FILIAL 3", "FILIAL 4"};
+            string[] employees = {"João", "José", "Maria", "Ana", "Severina"};
 
             var currencyIds = _context.Currency.Select(a => a.Id).ToArray();
 
@@ -127,6 +129,58 @@ namespace Payroll.Data.Migrations
                         Country = "Brasil"
                     };
                     var k =  new GenericDAO<Workplace>(_context).Create(workplace).Result;
+                }
+
+                var jobRolesFromDB = _context.JobRole.Where(a => a.CompanyId == company.Id).ToList();
+                var functionsFromDB = _context.Function.Where(a => a.CompanyId == company.Id).ToList();
+                var workPlacesFromDB = _context.Workplace.Where(a => a.CompanyId == company.Id).ToList();
+                var departmentsFromDB = _context.Department.Where(a => a.CompanyId == company.Id).ToList();
+                var occupationsFromDB = _context.Occupation.ToList();
+
+                foreach(var department in departmentsFromDB) 
+                {
+                    foreach(var workplace in workPlacesFromDB) 
+                    {
+                        foreach(var jobRole in jobRolesFromDB)  
+                        {
+                            foreach(var function in functionsFromDB)
+                            {
+                                foreach(var occupation in occupationsFromDB)
+                                {
+                                    for(var emp = 0; emp < employees.Length; emp++)
+                                    {
+                                        var employee = new Employee
+                                        {
+                                            Name = employees[emp],
+                                            EmployeeNumber = new string(Guid.NewGuid().ToString().Where(Char.IsDigit).Take(8).ToArray()),
+                                            IDName = employees[emp],
+                                            CompanyId = company.Id,
+                                            DepartmentId = department.Id,
+                                            JobRoleId = jobRole.Id,
+                                            FunctionId = function.Id,
+                                            WorkplaceId = workplace.Id,
+                                            AdmissionalDate = DateTime.Now.AddYears(-emp).AddMonths(-emp).AddDays(-emp),
+                                            OccupationId = occupation.Id,
+                                            Salary = new Random().Next(100, 10000),
+                                            Nationality = "Brasileira",
+                                            Gender = emp <= 1 ? Gender.MASC : Gender.FEM,
+                                            PersonalDocument = new string(Guid.NewGuid().ToString().Where(Char.IsDigit).Take(11).ToArray()),
+                                            PhoneNumber = new string(Guid.NewGuid().ToString().Where(Char.IsDigit).Take(10).ToArray()),
+                                            Address = "Rua a " + emp  + " " + employees[emp],
+                                            Neighborhood = "Bairro " + emp,
+                                            City = "Recife",
+                                            State = "Pernambuco",
+                                            Country = "Brasil",
+                                            CreatedAt = DateTime.Now,
+                                            CreatedBy = "oromar.melo@gmail.com",
+                                            DateBirth = DateTime.Now.AddYears(-(20+emp)).AddMonths(-3)
+                                        };
+                                        var xyz = new GenericDAO<Employee>(_context).Create(employee).Result;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
