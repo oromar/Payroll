@@ -28,7 +28,7 @@ Html.DisplayNameFor(model => model.CreatedBy),
     </a>
 </p>
 <partial name="_Search" model="@searchFields" />
-<table class="table table-striped table-hover">
+<div class="card"><table class="table table-striped table-hover">
     <thead class="default_color">
         <tr>
             <th class="col-md-2">
@@ -113,7 +113,9 @@ Html.DisplayNameFor(model => model.CreatedBy),
             }
         }
     </tbody>
-</table>
+</table></div>
+
+</div>
 
 <partial name="_Pagination" model="@(new {currentPage, hasMore, filter })" />
 

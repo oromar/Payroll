@@ -19,28 +19,54 @@
 <div align="center">
     <nav>
         <ul class="pagination">
+             <li class="page-item">
+                <a asp-action="Index"
+                   asp-route-page="1"
+                   asp-route-filter="@filter"
+                   style="color:black" class="page-link">@Resource.First</a>
+            </li>
             <li class="page-item">
                 <a asp-action="Index"
                    asp-route-page="@(currentPage > 1 ? currentPage-1 : 1)"
                    asp-route-filter="@filter"
                    style="color:black" class="page-link">@Resource.Previous</a>
             </li>
-
-            @for (int i = 1; i <= totalPages; i++)
+            @if (totalPages <= 9)
             {
-                <li class="page-item">
-                    <a asp-action="Index"
-                       asp-route-page="@(i)"
-                       asp-route-filter="@filter"
-                       style="color:black" class="page-link">@(i)</a>
-                </li>
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    <li class="page-item">
+                        <a asp-action="Index"
+                        asp-route-page="@(i)"
+                        asp-route-filter="@filter"
+                        style="color:black" class="page-link">@(i)</a>
+                    </li>
+                }
+            } 
+            else 
+            {
+                 @for (int i = currentPage; i <= currentPage+9 && i <= totalPages; i++)
+                 {
+                     <li class="page-item">
+                         <a asp-action="Index"
+                         asp-route-page="@(i)"
+                         asp-route-filter="@filter"
+                         style="color:black" class="page-link">@(i)</a>
+                     </li>
+                 }
             }
-
+            
             <li class="page-item">
                 <a asp-action="Index"
                    asp-route-page="@(hasMore ? currentPage+1 : currentPage)"
                    asp-route-filter="@filter"
                    style="color:black" class="page-link">@Resource.Next</a>
+            </li>
+             <li class="page-item">
+                <a asp-action="Index"
+                   asp-route-page="@totalPages"
+                   asp-route-filter="@filter"
+                   style="color:black" class="page-link">@Resource.Last</a>
             </li>
         </ul>
     </nav>

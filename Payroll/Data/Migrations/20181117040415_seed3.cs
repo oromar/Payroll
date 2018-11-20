@@ -36,13 +36,13 @@ namespace Payroll.Data.Migrations
             string[] socialReasons = { "Papel macio", "Engordando o gado", "Trindade e Amigos", "Universidade", "Compra e venda" };
             string[] departments = {"Gerência Operacional", "Vendas", "TI", "Compras", "Marketing", "Diretoria"};
             string[] jobRoles = {"Analista", "Técnico", "Auxiliar", "Assistente"};
-            string[] functions = {"Gerente de TI", "Gerente Financeiro", "Gerente Técnico", "Diretor Executivo", "Técnico de Enfermagem", "Técnico de Manutenção", "Auxiliar de Cozinha", "Técnico de Eletricidade"};
+            string[] functions = {"Gerente de TI", "Gerente Técnico", "Diretor Executivo", "Técnico de Enfermagem", "Técnico de Manutenção", "Auxiliar de Cozinha", "Técnico de Eletricidade"};
             string[] workplaces = {"SEDE", "FILIAL 1", "FILIAL 2", "FILIAL 3", "FILIAL 4"};
             string[] employees = {"João", "José", "Maria", "Ana", "Severina"};
 
             var currencyIds = _context.Currency.Select(a => a.Id).ToArray();
 
-            for (var i = 0; i < 5; i++)
+            for (var i = 0; i < 3; i++)
             {
                 var company = new Company
                 {
@@ -106,8 +106,8 @@ namespace Payroll.Data.Migrations
                         CreatedAt = DateTime.Now,
                         CreatedBy = "oromar.melo@gmail.com",
                         Description = "Descrição de " + functions[l],
-                        ManagerCommission = functions[l].Contains("Gerência") ? 1000 : 0,
-                        IsManagerFunction = functions[l].Contains("Gerência"),
+                        ManagerCommission = functions[l].Contains("Gerente") ? 1000 : 0,
+                        IsManagerFunction = functions[l].Contains("Gerente"),
                         HasDangerous = functions[l].Contains("Eletricidade"),
                         HasUnhealthy = functions[l].Contains("Enfermagem")
                     };
@@ -131,11 +131,11 @@ namespace Payroll.Data.Migrations
                     var k =  new GenericDAO<Workplace>(_context).Create(workplace).Result;
                 }
 
-                var jobRolesFromDB = _context.JobRole.Where(a => a.CompanyId == company.Id).ToList();
-                var functionsFromDB = _context.Function.Where(a => a.CompanyId == company.Id).ToList();
-                var workPlacesFromDB = _context.Workplace.Where(a => a.CompanyId == company.Id).ToList();
-                var departmentsFromDB = _context.Department.Where(a => a.CompanyId == company.Id).ToList();
-                var occupationsFromDB = _context.Occupation.ToList();
+                var jobRolesFromDB = _context.JobRole.Where(a => a.CompanyId == company.Id).Take(1).ToList();
+                var functionsFromDB = _context.Function.Where(a => a.CompanyId == company.Id).Take(4).ToList();
+                var workPlacesFromDB = _context.Workplace.Where(a => a.CompanyId == company.Id).Take(2).ToList();
+                var departmentsFromDB = _context.Department.Where(a => a.CompanyId == company.Id).Take(1).ToList();
+                var occupationsFromDB = _context.Occupation.Take(2).ToList();
 
                 foreach(var department in departmentsFromDB) 
                 {

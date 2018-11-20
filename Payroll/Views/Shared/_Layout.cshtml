@@ -31,7 +31,7 @@
                 <div style="float:left; margin-left:10px;">
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <partial name="_Menu" />
+                            <partial name="_Menu" />
                     }
                 </div>
 
@@ -227,6 +227,19 @@
 
         localStorage.setItem('currentClass', defaultClass);
         localStorage.setItem('currentIconClass', iconClass);
+    }
+
+    function openNav() {
+        document.getElementById("side-menu").style.width = "250px";
+        document.getElementById("main_container").style.marginLeft = "250px";
+        document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    }
+
+
+    function closeNav() {
+        document.getElementById("side-menu").style.width = "0";
+        document.getElementById("main_container").style.marginLeft = "0";
+        document.body.style.backgroundColor = "white";
     }
 </script>
 </html>

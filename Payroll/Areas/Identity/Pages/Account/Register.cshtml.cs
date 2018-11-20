@@ -17,7 +17,6 @@ namespace Payroll.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly Message _message;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -30,7 +29,6 @@ namespace Payroll.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-            _message = message;
         }
 
         [BindProperty]
@@ -72,9 +70,6 @@ namespace Payroll.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-
-                    _message.Body = Resource.CreatedSuccessfully;
-                    _message.Type = Resource.SuccessMessageType;
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
