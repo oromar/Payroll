@@ -112,5 +112,13 @@ namespace Payroll.Common
             }
             return null;
         }
+
+        public static DateTime GetFirstDayOfMonth(this DateTime value) {
+            return new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+        }
+
+        public static DateTime GetLastDayOfMonth(this DateTime value) {
+            return DateTime.Now.AddMonths(1).GetFirstDayOfMonth().AddDays(-1);
+        }
     }
 }
