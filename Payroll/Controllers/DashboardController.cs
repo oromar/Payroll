@@ -17,15 +17,19 @@ namespace Payroll.Controllers
         }
         public IActionResult Index()
         {
+            var companies = _context
+            .Company
+            .Where(a => !a.IsDeleted)
+            .ToList();
+
+            ViewBag.Companies = companies;
+
             ViewBag.TotalEmployees = _context
             .Employee
             .Where(a => !a.IsDeleted)
             .Count();
 
-             ViewBag.EmployeesByCompany = _context
-             .Company
-             .Where(a => !a.IsDeleted)
-             .AsEnumerable()
+             ViewBag.EmployeesByCompany = companies
             .Select(a => new
             {
                 Key = a.Id,
@@ -49,14 +53,16 @@ namespace Payroll.Controllers
             .SelectMany(a => a.Employees)
             .ToList();
 
+            var today = DateTime.Today;
+
             ViewBag.EmployeesAbsents = _context
             .EmployeeHistory
             .Where(a => !a.IsDeleted)
             .Include(a => a.Employee)
             .Include(a => a.OccurrenceType)
             .Where(a => a.OccurrenceType.IsAbsence)
-            .Where(a => a.Start <= DateTime.Today)
-            .Where(a => a.End >= DateTime.Today) 
+            .Where(a => a.Start <= today)
+            .Where(a => a.End >= today) 
             .Select(a => a.Employee)
             .ToList();
 
