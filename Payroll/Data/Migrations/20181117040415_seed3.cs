@@ -38,7 +38,7 @@ namespace Payroll.Data.Migrations
             string[] jobRoles = {"Analista", "Técnico", "Auxiliar", "Assistente"};
             string[] functions = {"Gerente de TI", "Gerente Técnico", "Diretor Executivo", "Técnico de Enfermagem", "Técnico de Manutenção", "Auxiliar de Cozinha", "Técnico de Eletricidade"};
             string[] workplaces = {"SEDE", "FILIAL 1", "FILIAL 2", "FILIAL 3", "FILIAL 4"};
-            string[] employees = {"João", "José", "Maria", "Ana", "Severina"};
+            string[] employees = {"João da Silva Xavier", "José de Oliveira e Silva", "Maria das Dores Almeida", "Ana Maria Cavalcante", "Severina José dos Santos"};
 
             var currencyIds = _context.Currency.Select(a => a.Id).ToArray();
 
@@ -132,9 +132,9 @@ namespace Payroll.Data.Migrations
                 }
 
                 var jobRolesFromDB = _context.JobRole.Where(a => a.CompanyId == company.Id).Take(1).ToList();
-                var functionsFromDB = _context.Function.Where(a => a.CompanyId == company.Id).Take(4).ToList();
+                var functionsFromDB = _context.Function.Where(a => a.CompanyId == company.Id).Take(2).ToList();
                 var workPlacesFromDB = _context.Workplace.Where(a => a.CompanyId == company.Id).Take(2).ToList();
-                var departmentsFromDB = _context.Department.Where(a => a.CompanyId == company.Id).Take(1).ToList();
+                var departmentsFromDB = _context.Department.Where(a => a.CompanyId == company.Id).ToList();
                 var occupationsFromDB = _context.Occupation.Take(2).ToList();
 
                 foreach(var department in departmentsFromDB) 
@@ -147,36 +147,35 @@ namespace Payroll.Data.Migrations
                             {
                                 foreach(var occupation in occupationsFromDB)
                                 {
-                                    for(var emp = 0; emp < employees.Length; emp++)
-                                    {
+                                    var random = new Random().Next(0, employees.Length);
+
                                         var employee = new Employee
                                         {
-                                            Name = employees[emp],
+                                            Name = employees[random],
                                             EmployeeNumber = new string(Guid.NewGuid().ToString().Where(Char.IsDigit).Take(8).ToArray()),
-                                            IDName = employees[emp],
+                                            IDName = employees[random],
                                             CompanyId = company.Id,
                                             DepartmentId = department.Id,
                                             JobRoleId = jobRole.Id,
                                             FunctionId = function.Id,
                                             WorkplaceId = workplace.Id,
-                                            AdmissionalDate = DateTime.Now.AddYears(-emp).AddMonths(-emp).AddDays(-emp),
+                                            AdmissionalDate = DateTime.Now.AddYears(-random).AddMonths(-random).AddDays(-random),
                                             OccupationId = occupation.Id,
                                             Salary = new Random().Next(100, 10000),
                                             Nationality = "Brasileira",
-                                            Gender = emp <= 1 ? Gender.MASC : Gender.FEM,
+                                            Gender = random <= 1 ? Gender.MASC : Gender.FEM,
                                             PersonalDocument = new string(Guid.NewGuid().ToString().Where(Char.IsDigit).Take(11).ToArray()),
                                             PhoneNumber = new string(Guid.NewGuid().ToString().Where(Char.IsDigit).Take(10).ToArray()),
-                                            Address = "Rua a " + emp  + " " + employees[emp],
-                                            Neighborhood = "Bairro " + emp,
+                                            Address = "Rua a " + random  + " " + employees[random],
+                                            Neighborhood = "Bairro " + random,
                                             City = "Recife",
                                             State = "Pernambuco",
                                             Country = "Brasil",
                                             CreatedAt = DateTime.Now,
                                             CreatedBy = "oromar.melo@gmail.com",
-                                            DateBirth = DateTime.Now.AddYears(-(20+emp)).AddMonths(-3)
+                                            DateBirth = DateTime.Now.AddYears(-(20+random)).AddMonths(-3)
                                         };
                                         var xyz = new GenericDAO<Employee>(_context).Create(employee).Result;
-                                    }
                                 }
                             }
                         }
