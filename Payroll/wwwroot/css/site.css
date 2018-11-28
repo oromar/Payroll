@@ -236,10 +236,40 @@ svg .icon_purple {
     fill: #FFFFFF !important;
 }
 
-/* .card {
+.card-container {
+    display: inline;    
+}
+
+.card {
+    color: #616161;
+    display: inline-block;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 20px 5px 20px 20px;
+    padding:10px;
+    width: 300px;
+    height: 150px;  
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.card h5 {
+    padding-right: 10px;
+    margin-bottom: 10px;
+    font-size: 2em;
+    font-weight: 900;
+    float: right;    
+}
+
+.card p {
+    line-height: 25px;
+    font-weight: bolder;
 }
 
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-} */
+} 
+
+.big-card {
+    width: 500px;
+    height: 300px;
+}

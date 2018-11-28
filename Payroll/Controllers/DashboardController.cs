@@ -32,7 +32,7 @@ namespace Payroll.Controllers
              ViewBag.EmployeesByCompany = companies
             .Select(a => new
             {
-                Key = a.Id,
+                Key = a.Name,
                 Value = _context
                 .Employee
                 .Where(b => !b.IsDeleted)
@@ -46,12 +46,12 @@ namespace Payroll.Controllers
 
             ViewBag.EmployeesInVacations = _context
             .Vacation
+            .Include(a => a.Company)
+            .Include(a => a.Employees)            
             .Where(a => !a.IsDeleted)
-            .Include(a => a.Employees)
             .Where(a => a.StartDate >= firstDayOfMonth)
             .Where(a => a.EndDate <= lastDayOfMonth)
-            .SelectMany(a => a.Employees)
-            .ToList();
+            .ToDictionary(t => t.Company.Name, t => t.Employees);
 
             var today = DateTime.Today;
 
@@ -59,12 +59,21 @@ namespace Payroll.Controllers
             .EmployeeHistory
             .Where(a => !a.IsDeleted)
             .Include(a => a.Employee)
+            .Include(a => a.Employee.Company)
             .Include(a => a.OccurrenceType)
             .Where(a => a.OccurrenceType.IsAbsence)
             .Where(a => a.Start <= today)
             .Where(a => a.End >= today) 
-            .Select(a => a.Employee)
-            .ToList();
+            .ToDictionary(t => t.Employee, t => t.OccurrenceType);
+
+            ViewBag.Projects = _context
+            .Project
+            .Include(a => a.Company)
+            .Include(a => a.Employees)
+            .Where(a => !a.IsDeleted)            
+            .Where(a => a.Start <= today)
+            .Where(a => a.End >= today)
+            .ToDictionary(t => t, t => t.Employees); 
 
             return View();
         }

@@ -1,7 +1,123 @@
 ﻿@{
     ViewData["Title"] = Resource.ApplicationName;
 }
+<div class="card-container">
 
-<div class="jumbotron">
-    <h1>Dashboard</h1>
+    <div class="card big-card">
+        <h4>Funcionários por Empresa</h4>
+                <table class="table table-stripped">
+            <tr>
+                <th>Empresa</th>
+                <th>Total de Funcionários</th>
+            </tr>
+        @foreach(var company in ViewBag.EmployeesByCompany)
+        {
+            var companyName = company.Key;
+            var employees = company.Value.Count;
+            var link = "/Employees/Index?filter=" + companyName;
+                <tr>
+                    <td><a href='@(link)'>@(companyName)</a></td> 
+                    <td><span style="float:right;">@(employees)</span></td>
+                </tr>
+        }
+        <tr>
+            <td>Total</td>
+            <td><span style="float:right">@ViewBag.TotalEmployees</span></td>
+        </tr>
+
+        </table>
+    </div>
+
+    <div class="card big-card">
+        <h4>Funcionários em Férias</h4>
+                <table class="table table-stripped">
+            <tr>
+                <th>Empresa</th>
+                <th>Nome</th>                
+            </tr>
+        @{ var total = 0; }
+        @foreach(var company in ViewBag.EmployeesInVacations)
+        {
+                var companyName = company.Key;
+                total += company.Value.Count;
+                @foreach (var item in company.Value)
+                {
+                    var link = "/Employees/Index?filter=" + item.Employee.EmployeeNumber;
+                    <tr>
+                        <td>@(companyName)</td> 
+                        <td><a href="@link">@(item.Employee.Name)</a></td>
+                    </tr>                    
+                }
+
+                <tr>
+                    <td>Total</td> 
+                    <td><span style="float:right">@(company.Value.Count)</span></td>
+                </tr>                    
+        }
+        <tr>
+            <td>Total Geral</td>
+            <td><span style="float:right">@total</span></td>
+        </tr>
+
+        </table>
+
+    </div>
+
+
+    <div class="card big-card">
+        <h4>Funcionários Ausentes hoje</h4>
+        <table class="table table-stripped">
+            <tr>
+                <th>Empresa</th>
+                <th>Nome</th>
+                <th>Ocorrência</th>
+            </tr>
+        @foreach (var item in ViewBag.EmployeesAbsents)
+        {
+            var company = item.Key.Company.Name;
+            var name = item.Key.Name;
+            var occurrenceType = item.Value.Name;
+            var link = "/Employees/Index?filter=" + item.Key.EmployeeNumber;
+            <tr>
+            <td>@(company)</td>
+            <td><a href='@link'> @(name)</a></td>
+            <td>@(occurrenceType)</td>
+           </tr>
+        }
+        <tr>
+            <td colspan="2"><b>Total</b></td>
+            <td> <span style="float:right">@ViewBag.EmployeesAbsents.Count</span></td>
+        </tr>
+        </table>
+    </div>
+    <div class="card big-card">
+        <h4>Projetos em andamento</h4>
+        <table class="table table-stripped">
+            <tr>
+                <td>Empresa</td>
+                <td>Projeto</td>
+                <td>Início</td>
+                <td>Fim</td>
+            </tr>
+            @foreach (var item in ViewBag.Projects)
+            {
+                var companyName = item.Key.Company.Name;
+                var projectName = item.Key.Name;
+                var start = item.Key.Start;
+                var end = item.Key.End;
+                <tr>
+                    <td>@(companyName)</td>
+                    <td>@(projectName)</td>
+                    <td>@(start.ToString(@Resource.DateFormat))</td>
+                    <td>@(end.ToString(@Resource.DateFormat))</td>
+                </tr>
+
+            }
+            <tr>
+                <td colspan="2"><b>Total</b></td>
+                <td colspan="2"><span style="float:right">@ViewBag.Projects.Count</span></td>
+            </tr>
+        </table>
+
+    </div>
 </div>

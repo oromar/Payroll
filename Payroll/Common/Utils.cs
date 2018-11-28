@@ -114,7 +114,7 @@ namespace Payroll.Common
         }
 
         public static DateTime GetFirstDayOfMonth(this DateTime value) {
-            return new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            return new DateTime(value.Year, value.Month, 1);
         }
 
         public static DateTime GetLastDayOfMonth(this DateTime value) {
