@@ -54,13 +54,13 @@
                         <tr>
                             <td>@(companyName)</td> 
                             <td><a href="@link">@(item.Employee.Name)</a></td>
-                        </tr>                    
+                        </tr>                                
                     }
 
                     <tr>
                         <td><b>Total</b></td> 
                         <td><span style="float:right">@(company.Value.Count)</span></td>
-                    </tr>                    
+                    </tr>                                
             }
             <tr>
                 <td><b>Total Geral</b></td>
@@ -117,9 +117,10 @@
                     var projectName = item.Key.Name;
                     var start = item.Key.Start;
                     var end = item.Key.End;
+                    var link = "/Projects/Index?filter="+@projectName;
                     <tr>
                         <td>@(companyName)</td>
-                        <td>@(projectName)</td>
+                        <td><a href="@link">@(projectName)</a></td>
                         <td>@(start.ToString(@Resource.DateFormat))</td>
                         <td>@(end.ToString(@Resource.DateFormat))</td>
                     </tr>
@@ -132,4 +133,39 @@
             </table>
         </div>
     }
+
+    @if (ViewBag.ProjectsToStart.Count > 0 )
+    {
+        <div class="card big-card">
+            <h4>Projetos a iniciar</h4>
+            <table class="table table-stripped">
+                <tr>
+                    <th>Empresa</th>
+                    <th>Projeto</th>
+                    <th>Início</th>
+                    <th>Fim</th>
+                </tr>
+                @foreach (var item in ViewBag.ProjectsToStart)
+                {
+                    var companyName = item.Key.Company.Name;
+                    var projectName = item.Key.Name;
+                    var start = item.Key.Start;
+                    var end = item.Key.End;
+                    var link = "/Projects/Index?filter=" + @projectName;
+                    <tr>
+                        <td>@(companyName)</td>
+                        <td> <a href="@link"> @(projectName)</a></td>
+                        <td>@(start.ToString(@Resource.DateFormat))</td>
+                        <td>@(end.ToString(@Resource.DateFormat))</td>
+                    </tr>
+
+                }
+                <tr>
+                    <td colspan="2"><b>Total</b></td>
+                    <td colspan="2"><span style="float:right">@ViewBag.ProjectsToStart.Count</span></td>
+                </tr>
+            </table>
+        </div>
+    }
+
 </div>

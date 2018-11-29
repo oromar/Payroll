@@ -54,6 +54,7 @@ namespace Payroll.Data
                     result = Expression.Lambda<Func<T, bool>>(Expression.Or(Expression.Invoke(result, parameter), Expression.Invoke(expressions[i], parameter)), parameter);
                 }
             }
+            
             result = Expression.Lambda<Func<T, bool>>(Expression.And(Expression.Invoke(notDeletedExpression, parameter), Expression.Invoke(result, parameter)), parameter);
 
             return result;

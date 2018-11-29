@@ -75,6 +75,14 @@ namespace Payroll.Controllers
             .Where(a => a.End >= today)
             .ToDictionary(t => t, t => t.Employees); 
 
+            ViewBag.ProjectsToStart = _context
+            .Project
+            .Include(a => a.Company)
+            .Include(a => a.Employees)
+            .Where(a => !a.IsDeleted)            
+            .Where(a => a.Start > today)
+            .ToDictionary(t => t, t => t.Employees); 
+
             return View();
         }
 

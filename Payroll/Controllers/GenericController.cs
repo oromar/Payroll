@@ -127,12 +127,12 @@ namespace Payroll.Controllers
                     {
                         CreateMessage(Resource.DangerMessageType, e.Message);
 
-                        return View(data);
+                        return RedirectToAction(nameof(Index));
                     }
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(data);
+            return RedirectToAction(nameof(Index));
         }
 
         public virtual async Task<IActionResult> Delete(Guid? id)
