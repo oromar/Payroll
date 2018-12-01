@@ -25,12 +25,17 @@ namespace Payroll.Controllers
             ViewBag.Companies = Utils
                 .GetOptions(companies);
 
-            ViewBag.Employees = Utils
-                .GetOptions(_businessObject
+            var employees = _businessObject
                 .GetDAO()
                 .GetContext()
                 .Employee                
-                .Where(a => !a.IsDeleted));
+                .Where(a => !a.IsDeleted)
+                .ToList();
+
+            employees.ForEach(Utils.GetEmployeeOption());
+
+            ViewBag.Employees = Utils
+                .GetOptions(employees);
 
             ViewBag.OccurrenceTypes = Utils
                 .GetOptions(_businessObject

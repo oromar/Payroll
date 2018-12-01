@@ -11,6 +11,29 @@ namespace Payroll.Common
 {
     public static class Utils
     {
+        public static Action<Employee> GetEmployeeOption() => 
+            new Action<Employee>(a => a.Name = a.Name + " - " + @Resource.EmployeeNumber + ": " + a.EmployeeNumber);
+
+        public static List<SelectListItem> GetOptions<T>(IEnumerable<T> items) where T : Basic
+        {
+            var firstOption = new SelectListItem
+            {
+                Value = Constants.VALUE_FIRST_SELECT,
+                Text = Resource.SelectItem
+            };
+
+            var result = new List<SelectListItem>
+            {
+                firstOption
+            };
+            result.AddRange(items.Select(a => new SelectListItem
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name
+            }));
+
+            return result;
+        }
         public static List<SelectListItem> GetOptions<T>(IQueryable<T> items) where T : Basic
         {
             var firstOption = new SelectListItem
@@ -32,7 +55,6 @@ namespace Payroll.Common
 
             return result;
         }
-
         public static List<SelectListItem> GetGenders()
         {
             return new List<SelectListItem>

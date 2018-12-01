@@ -114,36 +114,47 @@ namespace Payroll.Controllers
 
         public IActionResult EmployeesByDepartment(string departmentId)
         {
-            var employees = Utils
-                .GetOptions(_businessObject
+            var employeesFromDB = _businessObject
                 .GetDAO()
                 .GetContext()
                 .Employee
                 .Include(a => a.Department)
                 .Where(a => !a.IsDeleted)
-                .Where(a => a.DepartmentId.ToString() == departmentId));
+                .Where(a => a.DepartmentId.ToString() == departmentId)
+                .ToList();
+
+            employeesFromDB.ForEach(Utils.GetEmployeeOption());
+
+
+            var employees = Utils
+                .GetOptions(employeesFromDB);
 
             return Ok(employees);
         }
 
         public IActionResult EmployeesByCompany(string companyId)
         {
-            var employees = Utils
-                .GetOptions(_businessObject
+            var employeesFromDB = _businessObject
                 .GetDAO()
                 .GetContext()
                 .Employee
                 .Include(a => a.Company)
                 .Where(a => !a.IsDeleted)
-                .Where(a => a.CompanyId.ToString() == companyId));
+                .Where(a => a.CompanyId.ToString() == companyId)
+                .ToList();
+
+            employeesFromDB
+            .ForEach(Utils.GetEmployeeOption());
+
+            var employees = Utils
+                .GetOptions(employeesFromDB);
 
             return Ok(employees);
         }
 
         public IActionResult ManagersByCompany(string companyId)
         {
-            var employees = Utils
-                .GetOptions(_businessObject
+            var employeesFromDB = _businessObject
                 .GetDAO()
                 .GetContext()
                 .Employee
@@ -151,7 +162,15 @@ namespace Payroll.Controllers
                 .Include(a => a.Company)
                 .Where(a => !a.IsDeleted)
                 .Where(a => a.CompanyId.ToString() == companyId)
-                .Where(a => a.Function.IsManagerFunction));
+                .Where(a => a.Function.IsManagerFunction)
+                .ToList();
+
+            employeesFromDB
+            .ForEach(Utils.GetEmployeeOption());
+
+
+            var employees = Utils
+                .GetOptions(employeesFromDB);
 
             return Ok(employees);
         }
