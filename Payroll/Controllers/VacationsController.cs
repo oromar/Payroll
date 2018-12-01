@@ -29,7 +29,7 @@ namespace Payroll.Controllers
                 .GetOptions(companies);
 
 
-            ViewBag.EmployeesByCompany = companies.AsEnumerable()
+            var dict = companies.AsEnumerable()
             .Select(a => new
             {
                 Key = a.Id,
@@ -39,9 +39,19 @@ namespace Payroll.Controllers
                 .Employee
                 .Where(b => !b.IsDeleted)
                 .Where(c => c.CompanyId == a.Id)
-                .ToList()
+                .ToList()                
             })
             .ToDictionary(t => t.Key, t => t.Value);
+
+            foreach(var i in dict.Keys)
+            {
+                foreach(var j in dict[i])
+                {
+                    j.Name = j.Name + " - " + @Resource.EmployeeNumber + ": " + j.EmployeeNumber;
+                }
+            }
+
+            ViewBag.EmployeesByCompany = dict;
 
             return base.Index(page, filter, sort, order);
         }
