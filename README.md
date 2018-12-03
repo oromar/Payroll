@@ -2,6 +2,8 @@
 
 Este projeto foi desenvolvido para a obtenção de aprovação na disciplina de TCC na Universidade Estácio.
 
+Consiste em uma aplicação web de gerenciamento de Recursos Humanos para uma empresa fictícia que oferece este serviço para outras empresas. Inclue cadastros diversos onde o usuário poderá criar, remover, alterar e consultar os dados de cada entidade da aplicação.
+
 Tecnologias relacionadas:
 <ul>
   <li> C# </li>
@@ -9,17 +11,15 @@ Tecnologias relacionadas:
   <li> Sql Server </li>  
 </ul>
 
-Este projeto teve como premissas:
+Premissas levada em consideração no desenvolvimento:
 <ul>
   <li> Desenvolvimento rápido de aplicações </li>
   <li> Reuso de código </li>
   <li> Abstrações </li>  
-  <li> Desenvolvimento centrado no usuário </li>  
+  <li> Aplicação centrado no usuário </li>  
 </ul>
 
 O projeto está desenvolvido com a arquitetura de 3 camadas (Apresentação, negócio e dados) com responsabilidades bem definidas para cada uma das camadas. Foi também desenvolvido para o reuso de código afim de produzir menos código que faz mais trabalho.
-
-Este projeto consiste em uma aplicação de gerenciamento de Recursos Humanos para uma empresa fictícia que oferece este serviço para outras empresas. Inclue cadastros diversos onde o usuário poderá criar, remover, alterar e consultar os dados de cada entidade da aplicação.
 
 A aplicação está internacionalizada para os seguintes idiomas: pt-BR, en-US, fr-FR. De acordo com o idioma o browser a aplicação irá aplicar o idioma correspondente, caso a aplicação não dê suporte ao idioma solicitado pelo browser continuará com o idioma atual, o padrão é pt-BR. 
 
