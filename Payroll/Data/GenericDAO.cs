@@ -190,6 +190,8 @@ namespace Payroll.Data
         private static void HandleSearchFields(T data)
         {
             var searchValues = new List<string>();
+            
+            var relatedPropertiesToSearchFields = new[] {Constants.NAME_FIELD, Constants.EMPLOYEE_NUMBER};
 
             var types = new[] { typeof(string), typeof(int), typeof(double), typeof(decimal), typeof(float), typeof(Common.DayOfWeek) };
 
@@ -221,11 +223,17 @@ namespace Payroll.Data
 
                 if (relatedObject != null)
                 {
-                    var value = relatedObject.GetPropertyValue<string>(Constants.NAME_FIELD);
-
-                    if (value != null)
+                    foreach(var property in relatedPropertiesToSearchFields)
                     {
-                        searchValues.Add(value.ToString().RemoveDiacritics().Trim());
+                        if (relatedObject.GetType().GetProperty(property) != null)
+                        {
+                            var value = relatedObject.GetPropertyValue<string>(property);
+
+                            if (value != null)
+                            {
+                                searchValues.Add(value.ToString().RemoveDiacritics().Trim());
+                            }
+                        }
                     }
                 }
             }

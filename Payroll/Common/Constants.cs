@@ -46,6 +46,8 @@ namespace Payroll.Common
         public const string CONTAINS = "Contains";
         public const string ASC = "ASC";
         public const string MASK_CHARS = ".-/";
+
+        public const string EMPLOYEE_NUMBER = "EmployeeNumber";
     }
 }
 

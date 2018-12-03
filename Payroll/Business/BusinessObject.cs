@@ -73,7 +73,6 @@ namespace Payroll.Business
             data.DeletedAt = DateTime.Now;
             return await _dao.Delete(data);
         }
-
     }
 }
 

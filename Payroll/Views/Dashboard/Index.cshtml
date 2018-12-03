@@ -85,7 +85,7 @@
                 var company = item.Key.Company.Name;
                 var name = item.Key.Name;
                 var occurrenceType = item.Value.Name;
-                var link = "/Employees/Index?filter=" + item.Key.EmployeeNumber;
+                var link = "/EmployeeHistories/Index?filter=" + item.Key.EmployeeNumber;
                 <tr>
                 <td>@(company)</td>
                 <td><a href='@link'> @(name)</a></td>
