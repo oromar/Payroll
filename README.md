@@ -20,3 +20,31 @@ Este projeto teve como premissas:
 O projeto está desenvolvido com a arquitetura de 3 camadas (Apresentação, negócio e dados) com responsabilidades bem definidas para cada uma das camadas. Foi também desenvolvido para o reuso de código afim de produzir menos código que faz mais trabalho.
 
 Este projeto consiste em uma aplicação de gerenciamento de Recursos Humanos para uma empresa fictícia que oferece este serviço para outras empresas. Inclue cadastros diversos onde o usuário poderá criar, remover, alterar e consultar os dados de cada entidade da aplicação.
+
+Imagens da aplicação: 
+
+Dashboard 
+ - Home da aplicação onde o usuário poderá ter acesso a informações rápidas sobre os funcionários gerenciados.
+ 
+  ![Screenshot](dashboard.png)
+
+Telas de Listagens
+  - O usuário poderá ter uma visão geral dos registros cadastrados bem como utilizar o filtro para pesquisar registros rapidamente
+  
+  ![Screenshot](index.png)
+ 
+Telas de Edição
+  - O usuário poderá criar novos registros como também editar registros
+  
+  ![Screenshot](create.png)
+
+Telas de Detalhes
+  - O usuário pode ter acesso a todas as informações de um único registro
+  
+  ![Screenshot](details.png)
+  
+Telas de exclusão
+  - Para o usuário excluir determinado registro
+  
+  ![Screenshot](remove.png)
+  
