@@ -55,6 +55,10 @@ Telas de exclusão
   
   ![Screenshot](remove.png)
   
+Modelo de dados
+
+  ![Screenshot](ER.png)	
+  
   Trabalhos futuros (para uma possível v2)
 - Dashboard configurável pelo usuário
 - Calcular folha de pagamento
