@@ -1,6 +1,6 @@
 # Payroll
 
-Este projeto foi desenvolvido para a obtenção de aprovação na disciplina de TCC na Universidade Estácio.
+Este projeto foi desenvolvido para a obtenção de aprovação na disciplina de TCC na Universidade Estácio do Recife.
 
 Consiste em uma aplicação web de gerenciamento de Recursos Humanos para uma empresa fictícia que oferece este serviço para outras empresas. Inclue cadastros diversos onde o usuário poderá criar, remover, alterar e consultar os dados de cada entidade da aplicação.
 
