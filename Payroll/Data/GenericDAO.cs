@@ -120,11 +120,6 @@ namespace Payroll.Data
                 .CountAsync();
         }
 
-        public async Task<T> Details(Guid id)
-        {
-            return await Find(id);
-        }
-
         public async Task<T> Create(T data)
         {
             _context.Add(data);

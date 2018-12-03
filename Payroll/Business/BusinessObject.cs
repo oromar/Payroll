@@ -41,11 +41,6 @@ namespace Payroll.Business
             return await _dao.Count(filter);
         }
 
-        public virtual async Task<T> Details(Guid id)
-        {
-            return await Find(id);
-        }
-
         public virtual async Task<T> Create(T data, string userIdentity)
         {
             data.Id = Guid.NewGuid();

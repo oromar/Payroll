@@ -48,28 +48,6 @@ namespace Payroll.Controllers
             return View(await _businessObject.Search(page, filter, sort, order));
         }
 
-        public virtual async Task<IActionResult> Details(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var currency = await _businessObject.Find(id);
-
-            if (currency == null)
-            {
-                return NotFound();
-            }
-
-            return View(currency);
-        }
-
-        public virtual IActionResult Create()
-        {
-            return View();
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public virtual async Task<IActionResult> Create([Bind] T data)
@@ -86,22 +64,7 @@ namespace Payroll.Controllers
             {
                 CreateMessage(Resource.DangerMessageType, Resource.InvalidData);
             }
-            return View(data);
-        }
-
-        public virtual async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var currency = await _businessObject.Find(id);
-            if (currency == null)
-            {
-                return NotFound();
-            }
-            return View(currency);
+            return RedirectToAction(nameof(Index));;
         }
 
         [HttpPost]
@@ -140,23 +103,6 @@ namespace Payroll.Controllers
                 CreateMessage(Resource.DangerMessageType, @Resource.InvalidData);
             }
             return RedirectToAction(nameof(Index));
-        }
-
-        public virtual async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var currency = await _businessObject.Find(id);
-
-            if (currency == null)
-            {
-                return NotFound();
-            }
-
-            return View(currency);
         }
 
         [HttpPost, ActionName("Delete")]
