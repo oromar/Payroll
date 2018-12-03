@@ -50,7 +50,8 @@ Telas de exclusão
   
   ![Screenshot](remove.png)
   
-Futuros trabalhos (para uma possível v2)
+  Trabalhos futuros (para uma possível v2)
 - Dashboard configurável pelo usuário
 - Calcular folha de pagamento
 - Oferecer opções de tradução diretamente na interface
+- Suporte a novos idiomas (es por exemplo)
