@@ -60,3 +60,4 @@ Telas de exclusão
 - Calcular folha de pagamento
 - Oferecer opções de tradução diretamente na interface
 - Suporte a novos idiomas (es-ES por exemplo)
+- Adicionar auto-complete nos combos
