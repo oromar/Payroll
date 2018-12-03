@@ -82,6 +82,10 @@ namespace Payroll.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
+            else 
+            {
+                CreateMessage(Resource.DangerMessageType, Resource.InvalidData);
+            }
             return View(data);
         }
 
@@ -129,8 +133,11 @@ namespace Payroll.Controllers
 
                         return RedirectToAction(nameof(Index));
                     }
-                }
-                return RedirectToAction(nameof(Index));
+                }               
+            } 
+            else 
+            {
+                CreateMessage(Resource.DangerMessageType, @Resource.InvalidData);
             }
             return RedirectToAction(nameof(Index));
         }

@@ -630,4 +630,52 @@
   <data name="CheckEmailForgotPassword" xml:space="preserve">
     <value>Veuillez vérifier votre email pour redéfinir votre mot de passe.</value>
   </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="EmployeesByCompany" xml:space="preserve">
+    <value>Employés par Entreprise</value>
+  </data>
+  <data name="EmployeeQuantity" xml:space="preserve">
+    <value>Quantité des Employés</value>
+  </data>
+  <data name="EmployeesInVacation" xml:space="preserve">
+    <value>Employés en Vacances</value>
+  </data>
+  <data name="GeneralTotal" xml:space="preserve">
+    <value>Total Général</value>
+  </data>
+  <data name="EmployeesAbsentsToday" xml:space="preserve">
+    <value>Employés Absents aujourd'hui</value>
+  </data>
+  <data name="ProjectsStarted" xml:space="preserve">
+    <value>Projets Commencés</value>
+  </data>
+  <data name="ProjectsToStart" xml:space="preserve">
+    <value>Projets à Démarrer</value>
+  </data>
+  <data name="LogoutSuccessfully" xml:space="preserve">
+    <value>Logout successfully.</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Réinitialiser le Mot de Passe</value>
+  </data>
+  <data name="ResetPasswordSubTitle" xml:space="preserve">
+    <value>Informez tous les champs pour réinitialiser votre mot de passe.</value>
+  </data>
+  <data name="ResetPasswordConfirmationTitle" xml:space="preserve">
+    <value>Le mot de passe a été modifié avec succès.</value>
+  </data>
+  <data name="ResetPasswordConfirmationMessage" xml:space="preserve">
+    <value>Votre mot de passe à été changé avec succès. S'il vous plaît </value>
+  </data>
+  <data name="ResetPasswordLink" xml:space="preserve">
+    <value>Cliquez ici pour vous identifier.</value>
+  </data>
+  <data name="InvalidData" xml:space="preserve">
+    <value>Une erreur est survenue :( , réessayez</value>
+  </data>
 </root>

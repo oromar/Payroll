@@ -241,6 +241,7 @@ svg .icon_purple {
 }
 
 .card {
+    z-index: 9;
     color: #616161;
     display: inline-block;
     overflow-x: hidden;
@@ -249,7 +250,7 @@ svg .icon_purple {
     padding: 0px 10px 10px 10px;
     width: 300px;
     height: 150px;  
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);    
 }
 
 .card h5 {

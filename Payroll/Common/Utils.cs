@@ -11,8 +11,8 @@ namespace Payroll.Common
 {
     public static class Utils
     {
-        public static Action<Employee> GetEmployeeOption() => 
-            new Action<Employee>(a => a.Name = a.Name + " - " + @Resource.EmployeeNumber + ": " + a.EmployeeNumber);
+        public static Action<Employee> GetEmployeeOption => 
+            a => a.Name = a.Name + " | " + @Resource.EmployeeNumber + ": " + a.EmployeeNumber;
 
         public static List<SelectListItem> GetOptions<T>(IEnumerable<T> items) where T : Basic
         {
@@ -71,7 +71,6 @@ namespace Payroll.Common
                 }
             };
         }
-
         public static List<SelectListItem> GetDaysOfWeek()
         {
             return new List<SelectListItem>

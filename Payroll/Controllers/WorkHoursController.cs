@@ -15,10 +15,8 @@ namespace Payroll.Controllers
             base(whBO, message)
         { }
 
-
         public override Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
-
             var companies = _businessObject
                 .GetDAO()
                 .GetContext()
@@ -28,8 +26,7 @@ namespace Payroll.Controllers
             ViewBag.Companies = Utils
                 .GetOptions(companies);
 
-
-            ViewBag.EmployeesByCompany = companies.AsEnumerable()
+            var dict = companies.AsEnumerable()
             .Select(a => new
             {
                 Key = a.Id,
@@ -42,6 +39,16 @@ namespace Payroll.Controllers
                 .ToList()
             })
             .ToDictionary(t => t.Key, t => t.Value);
+
+            foreach(var i in dict.Keys)
+            {
+                foreach(var j in dict[i]) 
+                {
+                    j.Name = j.Name + " | " + @Resource.EmployeeNumber + ": " + j.EmployeeNumber;
+                }
+            }
+
+            ViewBag.EmployeesByCompany = dict;
 
             ViewBag.DaysOfWeek = Utils.GetDaysOfWeek();
 

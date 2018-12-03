@@ -40,7 +40,6 @@
                 }
                 else if (mode == "Edit")
                 {
-
                     var departmentFromModel = Model.Department;
 
                     @foreach (var item in ViewBag.DepartmentsByCompany)
@@ -143,7 +142,6 @@
                                    value="@(employee.EmployeeId)"
                                    checked="checked"
                                    disabled="disabled" />
-
                             <label for="EmployeeId_@(employee.EmployeeId)"> @(employee.Employee.Name) </label>
                         }
                     </div>

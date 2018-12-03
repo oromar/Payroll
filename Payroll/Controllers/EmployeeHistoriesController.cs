@@ -32,7 +32,7 @@ namespace Payroll.Controllers
                 .Where(a => !a.IsDeleted)
                 .ToList();
 
-            employees.ForEach(Utils.GetEmployeeOption());
+            employees.ForEach(Utils.GetEmployeeOption);
 
             ViewBag.Employees = Utils
                 .GetOptions(employees);

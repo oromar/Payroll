@@ -25,11 +25,11 @@ namespace Payroll.Data
         {
             var expressions = new List<Expression<Func<T, bool>>>();
 
-            var parameter = Expression.Parameter(typeof(T), "entity");
+            var parameter = Expression.Parameter(typeof(T), Constants.ENTITY);
 
-            var isDeletedProperty = Expression.Property(parameter, "IsDeleted");
+            var isDeletedProperty = Expression.Property(parameter, Constants.IS_DELETED);
             var falseConstant = Expression.Constant(false);
-            var notDeletedMethod = Expression.Call(isDeletedProperty, typeof(Boolean).GetMethod("Equals", new[] { typeof(Boolean) }), falseConstant);
+            var notDeletedMethod = Expression.Call(isDeletedProperty, typeof(Boolean).GetMethod(Constants.EQUALS, new[] { typeof(Boolean) }), falseConstant);
             var notDeletedExpression = Expression.Lambda<Func<T, bool>>(notDeletedMethod, parameter);
             if (filter.IsNullOrEmpty() || filter.Equals(Constants.QUERY_SEPARATOR)) return notDeletedExpression;
 
@@ -39,8 +39,8 @@ namespace Payroll.Data
             {
                 var normalizedFilter = token.RemoveDiacritics().Trim();
                 var constantParameter = Expression.Constant(normalizedFilter);
-                var propertyName = Expression.Property(parameter, "SearchFields");
-                var containsMethod = Expression.Call(propertyName, typeof(string).GetMethod("Contains", new[] { typeof(string) }), constantParameter);
+                var propertyName = Expression.Property(parameter, Constants.SEARCH_FIELDS);
+                var containsMethod = Expression.Call(propertyName, typeof(string).GetMethod(Constants.CONTAINS, new[] { typeof(string) }), constantParameter);
                 var containsExpression = Expression.Lambda<Func<T, bool>>(containsMethod, parameter);
                 expressions.Add(containsExpression);
             }
@@ -83,7 +83,7 @@ namespace Payroll.Data
                 .Any(a => a.Id == id);
         }
 
-        public async Task<List<T>> Search(int page = 1, string filter = "", string sort = "", string order = "ASC")
+        public async Task<List<T>> Search(int page = 1, string filter = "", string sort = "", string order = Constants.ASC)
         {
             var where = FilterBy(filter);
             var orderBy = SortBy(sort);
@@ -97,7 +97,7 @@ namespace Payroll.Data
                 query = query.Include(item.Name);
             });
 
-            if (order == "ASC")
+            if (order == Constants.ASC)
             {
                 query = query.OrderBy(orderBy);
             }
@@ -211,7 +211,7 @@ namespace Payroll.Data
             var fields = baseProperties
                 .Where(a => types.Contains(a.PropertyType))
                 .Where(a => a.GetValue(data) != null)
-                .Select(a => a.GetValue(data).ToString().RemoveChars(".-/").RemoveDiacritics().Trim());
+                .Select(a => a.GetValue(data).ToString().RemoveChars(Constants.MASK_CHARS).RemoveDiacritics().Trim());
 
             searchValues.AddRange(fields);
 
@@ -226,7 +226,7 @@ namespace Payroll.Data
 
                 if (relatedObject != null)
                 {
-                    var value = relatedObject.GetPropertyValue<string>("Name");
+                    var value = relatedObject.GetPropertyValue<string>(Constants.NAME_FIELD);
 
                     if (value != null)
                     {

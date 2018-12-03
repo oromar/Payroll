@@ -633,4 +633,52 @@
   <data name="CheckEmailForgotPassword" xml:space="preserve">
     <value>Please check your email to redefine your password.</value>
   </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="EmployeesByCompany" xml:space="preserve">
+    <value>Employees by Company</value>
+  </data>
+  <data name="EmployeeQuantity" xml:space="preserve">
+    <value>Employees Quantity</value>
+  </data>
+  <data name="EmployeesInVacation" xml:space="preserve">
+    <value>Employees in Vacation</value>
+  </data>
+  <data name="GeneralTotal" xml:space="preserve">
+    <value>General Total</value>
+  </data>
+  <data name="EmployeesAbsentsToday" xml:space="preserve">
+    <value>Employees Absents Today</value>
+  </data>
+  <data name="ProjectsStarted" xml:space="preserve">
+    <value>Projects Started</value>
+  </data>
+  <data name="ProjectsToStart" xml:space="preserve">
+    <value>Projects to Start</value>
+  </data>
+  <data name="LogoutSuccessfully" xml:space="preserve">
+    <value>Logout successfully.</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="ResetPasswordSubTitle" xml:space="preserve">
+    <value>Inform all fields to reset your password.</value>
+  </data>
+  <data name="ResetPasswordConfirmationTitle" xml:space="preserve">
+    <value>Password changed successfully.</value>
+  </data>
+  <data name="ResetPasswordConfirmationMessage" xml:space="preserve">
+    <value>Your password was changed successfully. Please </value>
+  </data>
+  <data name="ResetPasswordLink" xml:space="preserve">
+    <value>click here to login.</value>
+  </data>
+  <data name="InvalidData" xml:space="preserve">
+    <value>An error occurred :( , please try again.</value>
+  </data>
 </root>

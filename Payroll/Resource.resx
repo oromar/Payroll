@@ -633,4 +633,52 @@
   <data name="CheckEmailForgotPassword" xml:space="preserve">
     <value>Favor verifique o seu email para redefinir sua senha.</value>
   </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="EmployeesByCompany" xml:space="preserve">
+    <value>Funcionários por Empresa</value>
+  </data>
+  <data name="EmployeeQuantity" xml:space="preserve">
+    <value>Quantidade de funcionários</value>
+  </data>
+  <data name="EmployeesInVacation" xml:space="preserve">
+    <value>Funcionários em Férias</value>
+  </data>
+  <data name="GeneralTotal" xml:space="preserve">
+    <value>Total Geral</value>
+  </data>
+  <data name="EmployeesAbsentsToday" xml:space="preserve">
+    <value>Funcionários Ausentes hoje</value>
+  </data>
+  <data name="ProjectsStarted" xml:space="preserve">
+    <value>Projetos em andamento</value>
+  </data>
+  <data name="ProjectsToStart" xml:space="preserve">
+    <value>Projetos a iniciar</value>
+  </data>
+  <data name="LogoutSuccessfully" xml:space="preserve">
+    <value>Finalizado sessão com sucesso.</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Alterar Senha</value>
+  </data>
+  <data name="ResetPasswordSubTitle" xml:space="preserve">
+    <value>Informe todos os campos para alterar sua senha.</value>
+  </data>
+  <data name="ResetPasswordConfirmationTitle" xml:space="preserve">
+    <value>Senha alterada com sucesso</value>
+  </data>
+  <data name="ResetPasswordConfirmationMessage" xml:space="preserve">
+    <value>Sua senha foi alterada com sucesso. Por favor </value>
+  </data>
+  <data name="ResetPasswordLink" xml:space="preserve">
+    <value>clique aqui para realizar o login novamente.</value>
+  </data>
+  <data name="InvalidData" xml:space="preserve">
+    <value>Ocorreu um erro :( ao processar sua solicitação, tente novamente.</value>
+  </data>  
 </root>

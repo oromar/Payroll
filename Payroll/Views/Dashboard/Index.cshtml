@@ -2,18 +2,18 @@
     ViewData["Title"] = Resource.ApplicationName;
 }
 
-<h2>Dashboard</h2>
+<h2>@Resource.Dashboard</h2>
 
 <div class="card-container">
     @if (ViewBag.EmployeesByCompany.Count > 0)
     {
         
         <div class="card big-card">
-            <h4>Funcionários por Empresa</h4>
+            <h4>@Resource.EmployeesByCompany</h4>
             <table class="table table-stripped">
                 <tr>
-                    <th>Empresa</th>
-                    <th>Quantidade de Funcionários</th>
+                    <th>@Resource.Company</th>
+                    <th>@Resource.EmployeeQuantity</th>
                 </tr>
             @foreach(var company in ViewBag.EmployeesByCompany)
             {
@@ -26,7 +26,7 @@
                     </tr>
             }
             <tr>
-                <td>Total</td>
+                <td>@Resource.Total</td>
                 <td><span style="float:right">@ViewBag.TotalEmployees</span></td>
             </tr>
 
@@ -37,11 +37,11 @@
     @if (ViewBag.EmployeesInVacations.Count > 0)
     {
         <div class="card big-card">
-            <h4>Funcionários em Férias</h4>
+            <h4>@Resource.EmployeesInVacation</h4>
                     <table class="table table-stripped">
                 <tr>
-                    <th>Empresa</th>
-                    <th>Nome</th>                
+                    <th>@Resource.Company</th>
+                    <th>@Resource.Name</th>                
                 </tr>
             @{ var total = 0; }
             @foreach(var company in ViewBag.EmployeesInVacations)
@@ -58,12 +58,12 @@
                     }
 
                     <tr>
-                        <td><b>Total</b></td> 
+                        <td><b>@Resource.Total</b></td> 
                         <td><span style="float:right">@(company.Value.Count)</span></td>
                     </tr>                                
             }
             <tr>
-                <td><b>Total Geral</b></td>
+                <td><b>@Resource.GeneralTotal</b></td>
                 <td><span style="float:right">@total</span></td>
             </tr>
             </table>
@@ -73,12 +73,12 @@
     @if (ViewBag.EmployeesAbsents.Count > 0 )
     {
         <div class="card big-card">
-            <h4>Funcionários Ausentes hoje</h4>
+            <h4>@Resource.EmployeesAbsentsToday</h4>
             <table class="table table-stripped">
                 <tr>
-                    <th>Empresa</th>
-                    <th>Nome</th>
-                    <th>Ocorrência</th>
+                    <th>@Resource.Company</th>
+                    <th>@Resource.Name</th>
+                    <th>@Resource.Occurrence</th>
                 </tr>
             @foreach (var item in ViewBag.EmployeesAbsents)
             {
@@ -93,7 +93,7 @@
             </tr>
             }
             <tr>
-                <td colspan="2"><b>Total</b></td>
+                <td colspan="2"><b>@Resource.Total</b></td>
                 <td> <span style="float:right">@ViewBag.EmployeesAbsents.Count</span></td>
             </tr>
             </table>
@@ -103,13 +103,13 @@
     @if (ViewBag.Projects.Count > 0 )
     {
         <div class="card big-card">
-            <h4>Projetos em andamento</h4>
+            <h4>@Resource.ProjectsStarted</h4>
             <table class="table table-stripped">
                 <tr>
-                    <th>Empresa</th>
-                    <th>Projeto</th>
-                    <th>Início</th>
-                    <th>Fim</th>
+                    <th>@Resource.Company</th>
+                    <th>@Resource.Project</th>
+                    <th>@Resource.Start</th>
+                    <th>@Resource.End</th>
                 </tr>
                 @foreach (var item in ViewBag.Projects)
                 {
@@ -127,7 +127,7 @@
 
                 }
                 <tr>
-                    <td colspan="2"><b>Total</b></td>
+                    <td colspan="2"><b>@Resource.Total</b></td>
                     <td colspan="2"><span style="float:right">@ViewBag.Projects.Count</span></td>
                 </tr>
             </table>
@@ -137,13 +137,13 @@
     @if (ViewBag.ProjectsToStart.Count > 0 )
     {
         <div class="card big-card">
-            <h4>Projetos a iniciar</h4>
+            <h4>@Resource.ProjectsToStart</h4>
             <table class="table table-stripped">
                 <tr>
-                    <th>Empresa</th>
-                    <th>Projeto</th>
-                    <th>Início</th>
-                    <th>Fim</th>
+                    <th>@Resource.Company</th>
+                    <th>@Resource.Project</th>
+                    <th>@Resource.Start</th>
+                    <th>@Resource.End</th>
                 </tr>
                 @foreach (var item in ViewBag.ProjectsToStart)
                 {
@@ -161,7 +161,7 @@
 
                 }
                 <tr>
-                    <td colspan="2"><b>Total</b></td>
+                    <td colspan="2"><b>@Resource.Total</b></td>
                     <td colspan="2"><span style="float:right">@ViewBag.ProjectsToStart.Count</span></td>
                 </tr>
             </table>

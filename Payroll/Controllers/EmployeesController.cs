@@ -123,7 +123,7 @@ namespace Payroll.Controllers
                 .Where(a => a.DepartmentId.ToString() == departmentId)
                 .ToList();
 
-            employeesFromDB.ForEach(Utils.GetEmployeeOption());
+            employeesFromDB.ForEach(Utils.GetEmployeeOption);
 
 
             var employees = Utils
@@ -144,7 +144,7 @@ namespace Payroll.Controllers
                 .ToList();
 
             employeesFromDB
-            .ForEach(Utils.GetEmployeeOption());
+            .ForEach(Utils.GetEmployeeOption);
 
             var employees = Utils
                 .GetOptions(employeesFromDB);
@@ -166,7 +166,7 @@ namespace Payroll.Controllers
                 .ToList();
 
             employeesFromDB
-            .ForEach(Utils.GetEmployeeOption());
+            .ForEach(Utils.GetEmployeeOption);
 
 
             var employees = Utils

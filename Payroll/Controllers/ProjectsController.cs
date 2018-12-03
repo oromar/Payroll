@@ -44,7 +44,7 @@ namespace Payroll.Controllers
             {
                 foreach (var j in dict[i])
                 {
-                    j.Name = j.Name + " - " + @Resource.EmployeeNumber + ": " + j.EmployeeNumber;
+                    j.Name = j.Name + " | " + @Resource.EmployeeNumber + ": " + j.EmployeeNumber;
                 }
             }
 

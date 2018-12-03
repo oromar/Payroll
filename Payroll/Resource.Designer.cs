@@ -1610,5 +1610,101 @@ namespace Payroll {
                 return ResourceManager.GetString("CheckEmailForgotPassword", resourceCulture);
             }
         }
+
+        public static string Total {
+            get {
+                return ResourceManager.GetString("Total", resourceCulture);
+            }
+        }
+
+        public static string Dashboard {
+            get {
+                return ResourceManager.GetString("Dashboard", resourceCulture);
+            }
+        }
+
+        public static string EmployeesByCompany {
+            get {
+                return ResourceManager.GetString("EmployeesByCompany", resourceCulture);
+            }
+        }
+
+        public static string EmployeeQuantity {
+            get {
+                return ResourceManager.GetString("EmployeeQuantity", resourceCulture);
+            }
+        }
+
+        public static string EmployeesInVacation {
+            get {
+                return ResourceManager.GetString("EmployeesInVacation", resourceCulture);
+            }
+        }
+
+        public static string GeneralTotal {
+            get {
+                return ResourceManager.GetString("GeneralTotal", resourceCulture);
+            }
+        }
+
+        public static string EmployeesAbsentsToday{
+            get {
+                return ResourceManager.GetString("EmployeesAbsentsToday", resourceCulture);
+            }
+        }
+
+        public static string ProjectsStarted {
+            get {
+                return ResourceManager.GetString("ProjectsStarted", resourceCulture);
+            }
+        }
+
+        public static string ProjectsToStart {
+            get {
+                return ResourceManager.GetString("ProjectsToStart", resourceCulture);
+            }
+        }
+
+        public static string ResetPasswordConfirmationTitle {
+            get {
+                return ResourceManager.GetString("ResetPasswordConfirmationTitle", resourceCulture);
+            }
+        }
+
+        public static string ResetPasswordLink {
+            get {
+                return ResourceManager.GetString("ResetPasswordLink", resourceCulture);
+            }
+        }
+
+        public static string ResetPassword {
+            get {
+                return ResourceManager.GetString("ResetPassword", resourceCulture);
+            }
+        }
+
+        public static string ResetPasswordSubTitle {
+            get {
+                return ResourceManager.GetString("ResetPasswordSubTitle", resourceCulture);
+            }
+        }
+
+        public static string LogoutSuccessfully {
+            get {
+                return ResourceManager.GetString("LogoutSuccessfully", resourceCulture);
+            }
+        }
+
+         public static string ResetPasswordConfirmationMessage {
+            get {
+                return ResourceManager.GetString("ResetPasswordConfirmationMessage", resourceCulture);
+            }
+        }
+
+        public static string InvalidData {
+            get {
+                return ResourceManager.GetString("InvalidData", resourceCulture);
+            }
+        }
     }
 }

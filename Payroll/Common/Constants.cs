@@ -39,6 +39,13 @@ namespace Payroll.Common
         public const string START = "Start";
         public const string END = "End";
         public const string QUERY_SEPARATOR = "/";
+        public const string ENTITY = "entity";
+        public const string IS_DELETED = "IsDeleted";
+        public const string EQUALS = "Equals";
+        public const string SEARCH_FIELDS = "SearchFields";
+        public const string CONTAINS = "Contains";
+        public const string ASC = "ASC";
+        public const string MASK_CHARS = ".-/";
     }
 }
 
