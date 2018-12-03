@@ -117,6 +117,7 @@ namespace Payroll.Data
             return await _context
                 .Set<T>()
                 .Where(FilterBy(filter))
+                .Select(a => a.Id)
                 .CountAsync();
         }
 

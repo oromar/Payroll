@@ -26,7 +26,6 @@ namespace Payroll.Models
         [Display(ResourceType = typeof(Resource), Name = "DeletedBy")]
         public string DeletedBy { get; set; }
         public string SearchFields { get; set; }
-
         public abstract Expression SortBy(string sort);
     }  
 }

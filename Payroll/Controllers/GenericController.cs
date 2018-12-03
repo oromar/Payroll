@@ -28,11 +28,9 @@ namespace Payroll.Controllers
 
         public virtual async Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
-            var totalItems = await _businessObject.Count(filter);
+            var totalItems = _businessObject.Count(filter);
             ViewBag.CurrentPage = page;
             ViewBag.CurrentFilter = filter;
-            ViewBag.TotalItems = totalItems;
-            ViewBag.HasMore = totalItems > (page * Constants.MAX_ITEMS_PER_PAGE);
             ViewBag.ItemsPerPage = Constants.MAX_ITEMS_PER_PAGE;
             ViewBag.Sort = sort;
             ViewBag.Order = order;
@@ -44,6 +42,9 @@ namespace Payroll.Controllers
 
                 _message.Clear();
             }
+
+            ViewBag.TotalItems = totalItems.Result;
+            ViewBag.HasMore = totalItems.Result > (page * Constants.MAX_ITEMS_PER_PAGE);
 
             return View(await _businessObject.Search(page, filter, sort, order));
         }
