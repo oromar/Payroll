@@ -25,6 +25,11 @@ A aplicação está internacionalizada para os seguintes idiomas: pt-BR, en-US, 
 
 Imagens da aplicação: 
 
+Menu 
+ - Menu com todas as opções disponíveis para o usuário
+ 
+   ![Screenshot](menu.png)
+
 Dashboard 
  - Home da aplicação onde o usuário poderá ter acesso a informações rápidas sobre os funcionários gerenciados.
  
