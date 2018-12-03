@@ -21,6 +21,8 @@ O projeto está desenvolvido com a arquitetura de 3 camadas (Apresentação, neg
 
 Este projeto consiste em uma aplicação de gerenciamento de Recursos Humanos para uma empresa fictícia que oferece este serviço para outras empresas. Inclue cadastros diversos onde o usuário poderá criar, remover, alterar e consultar os dados de cada entidade da aplicação.
 
+A aplicação está internacionalizada para os seguintes idiomas: pt, en, fr. De acordo com o idioma o browser a aplicação irá aplicar o idioma correspondente (padrão en). 
+
 Imagens da aplicação: 
 
 Dashboard 
@@ -48,3 +50,7 @@ Telas de exclusão
   
   ![Screenshot](remove.png)
   
+Futuros trabalhos (para uma possível v2)
+- Dashboard configurável pelo usuário
+- Calcular folha de pagamento
+- Oferecer opções de tradução diretamente na interface
