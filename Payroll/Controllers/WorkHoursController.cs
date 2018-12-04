@@ -115,6 +115,5 @@ namespace Payroll.Controllers
 
             data.WorkHourItems = itemsToAdd;
         }
-
     }
 }

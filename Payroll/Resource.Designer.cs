@@ -1706,5 +1706,22 @@ namespace Payroll {
                 return ResourceManager.GetString("InvalidData", resourceCulture);
             }
         }
+        public static string Certifications {
+            get {
+                return ResourceManager.GetString("Certifications", resourceCulture);
+            }
+        }
+
+        public static string CertificationName {
+            get {
+                return ResourceManager.GetString("CertificationName", resourceCulture);
+            }
+        }
+
+        public static string CertificationDate {
+            get {
+                return ResourceManager.GetString("CertificationDate", resourceCulture);
+            }
+        }
     }
 }

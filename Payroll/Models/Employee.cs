@@ -55,6 +55,7 @@ namespace Payroll.Models
         public virtual IEnumerable<ProjectEmployee> Projects { get; set; }
         public virtual IEnumerable<VacationEmployee> Vacations { get; set; }
         public virtual IEnumerable<WorkHoursEmployee> WorkHours { get; set; }
+        public virtual IEnumerable<Certification> Certifications {get; set;}
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         [Display(ResourceType = typeof(Resource), Name = "IDName")]

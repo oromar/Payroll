@@ -681,4 +681,13 @@
   <data name="InvalidData" xml:space="preserve">
     <value>Ocorreu um erro :( ao processar sua solicitação, tente novamente.</value>
   </data>  
+  <data name="Certifications" xml:space="preserve">
+    <value>Certificados</value>
+  </data>  
+  <data name="CertificationName" xml:space="preserve">
+    <value>Nome</value>
+  </data>  
+  <data name="CertificationDate" xml:space="preserve">
+    <value>Data</value>
+  </data>  
 </root>

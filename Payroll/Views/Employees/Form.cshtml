@@ -10,6 +10,8 @@
     var EmployeeJobRoleSelect = mode == "Details" ? "EmployeeJobRoleSelectDetails" : mode == "Create" ? "EmployeeJobRoleSelectCreate" : "EmployeeJobRoleSelectEdit" + Model.Id;
     var EmployeeFunctionSelect = mode == "Details" ? "EmployeeFunctionSelectDetails" : mode == "Create" ? "EmployeeFunctionSelectCreate" : "EmployeeFunctionSelectEdit" + Model.Id;
     var EmployeeManagerSelect = mode == "Details" ? "EmployeeManagerSelectDetails" : mode == "Create" ? "EmployeeManagerSelectCreate" : "EmployeeManagerSelectEdit" + Model.Id;
+    var EmployeeCertificationItemSelect = mode == "Details" ? "EmployeeCertificationItemSelectDetails": mode == "Create" ? "EmployeeCertificationItemSelectCreate": "EmployeeCertificationItemSelectEdit" + Model.Id;
+    var EmployeeCertificationSelect = mode == "Details" ? "EmployeeCertificationSelectDetails": mode == "Create" ? "EmployeeCertificationSelectCreate": "EmployeeCertificationSelectEdit" + Model.Id;
 
     var modalId = string.Empty;
     if (mode != "Create")
@@ -26,7 +28,7 @@
 <div class="row" align="left">
     <div class="col-md-12">
         <form asp-action="@mode" id="Form_@(modalId)">
-            <div style="overflow-y:auto;max-height:350px;padding:10px;">
+            <div style="overflow-y:auto;overflow-x:hidden;max-height:350px;padding:10px;">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
@@ -121,8 +123,8 @@
                         if (Model.CompanyId == item.Key)
                         {
                             <div class="form-group">
-                                <label asp-for="WorkplaceId" class="control-label"></label>
-                                <select id="@EmployeeJobRoleSelect" name="WorkplaceId" class="form-control">
+                                <label asp-for="JobRoleId" class="control-label"></label>
+                                <select id="@EmployeeJobRoleSelect" name="JobRoleId" class="form-control">
                                     @foreach (var jobRole in item.Value)
                                     {
                                         <option value="@(jobRole.Id)" selected="@(Model.WorkplaceId == jobRole.Id)">@jobRole.Name</option>
@@ -203,8 +205,8 @@
                         if (Model.CompanyId == item.Key)
                         {
                             <div class="form-group">
-                                <label asp-for="WorkplaceId" class="control-label"></label>
-                                <select id="@EmployeeFunctionSelect" name="WorkplaceId" class="form-control">
+                                <label asp-for="FunctionId" class="control-label"></label>
+                                <select id="@EmployeeFunctionSelect" name="FunctionId" class="form-control">
                                     @foreach (var function in item.Value)
                                     {
                                         <option value="@(function.Id)" selected="@(Model.FunctionId == function.Id)">@function.Name</option>
@@ -314,6 +316,71 @@
                     <input asp-for="Country" disabled="@(mode == "Details")" class="form-control" />
                     <span asp-validation-for="Country" class="text-danger"></span>
                 </div>
+                <div class="form-group">
+                    <label class="control-label">@Resource.Certifications</label>
+                </div>
+                @if (mode != "Details")
+                {
+                    <div class="form-group">
+                        <button type="button" class="btn default_color" formnovalidate onclick="addCertification('#'+'@EmployeeCertificationSelect')">@Resource.Add</button>
+                    </div>
+                }
+                
+                 @if (mode == "Create") 
+                 {
+                     <div class="row" style="margin-top:10px;padding: 0 0 0 0;">
+                        <div id="@EmployeeCertificationItemSelect" class="form-group form-inline">
+                            <div class="col-md-6">
+                                <label class="control-label">@Resource.CertificationName</label>
+                                <input type="text" name="CertificationName" style="width:100%" class="form-control" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">@Resource.CertificationDate</label>
+                                <input type="date" name="CertificationDate" style="width:100%" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" style="margin-top:10px;">
+                        <div class="form-group" id="@EmployeeCertificationSelect">
+
+                        </div>
+                    </div>
+                 }
+                 else
+                 {
+                    if (Model.Certifications != null)
+                    {
+                        foreach (var item in Model.Certifications)
+                        {
+                            if (item != null) 
+                            {
+                                <div class="row" style="margin-top:10px;">
+                                    <div class="form-group form-inline">
+                                        <div class="col-md-6">
+                                            <label class="control-label">@Resource.CertificationName</label>
+                                            <input type="text" name="CertificationName" style="width:100%" class="form-control" asp-for="@item.Name" disabled='@(mode == "Details")' />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label">@Resource.CertificationDate</label>
+                                            <input type="date" name="CertificationDate" style="width:100%" class="form-control" asp-for="@item.Date" disabled='@(mode == "Details")' />
+                                        </div>
+                                    </div>
+                                </div>
+                            }                            
+                        }
+                    }
+
+                    @if (mode == "Edit")
+                    {
+                        <div class="form-group" style="margin-top:10px;">
+                            <div class="form-group" id="@EmployeeCertificationSelect">
+                                
+                            </div>
+                        </div>
+                    }
+                 }                 
             </div>
 
             @if (mode == "Edit")

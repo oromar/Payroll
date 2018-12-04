@@ -678,4 +678,13 @@
   <data name="InvalidData" xml:space="preserve">
     <value>Une erreur est survenue :( , réessayez</value>
   </data>
+  <data name="Certifications" xml:space="preserve">
+    <value>Certifications</value>
+  </data>  
+  <data name="CertificationName" xml:space="preserve">
+    <value>Nom</value>
+  </data>  
+  <data name="CertificationDate" xml:space="preserve">
+    <value>L'date</value>
+  </data>  
 </root>

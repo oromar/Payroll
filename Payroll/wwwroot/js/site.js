@@ -16,6 +16,22 @@ function confirm(id, input, name, form) {
     form.submit();
 }
 
+function addCertification(employeeCertification) {
+    $(employeeCertification)
+        .append('<div class="row" style="margin-top:10px;padding: 0 0 0 0;">' + 
+                '<div class="form-group form-inline">' +
+                '<div class="col-md-6">' +
+                '<label class="control-label">Nome</label>' +
+                '<input type="text" name="CertificationName" style="width:100%" class="form-control" />' + 
+                '</div>' +
+                '<div class="col-md-6">' +
+                '<label class="control-label">Data</label>' +
+                '<input type="date" name="CertificationDate" style="width:100%" class="form-control" />' +
+                '</div>' +
+                '</div>' +
+                '</div>');
+}
+
 
 function addWorkHours(workhoursSelector) {
     let options = '';

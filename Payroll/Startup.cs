@@ -65,7 +65,7 @@ namespace Payroll
             services.AddScoped<BusinessObject<JobRole>>();
             services.AddScoped<BusinessObject<Function>>();
             services.AddScoped<BusinessObject<OccurrenceType>>();
-            services.AddScoped<BusinessObject<Employee>>();
+            services.AddScoped<EmployeesBO>();
             services.AddScoped<BusinessObject<Department>>();
             services.AddScoped<BusinessObject<EmployeeHistory>>();
             services.AddScoped<ProjectBO>();

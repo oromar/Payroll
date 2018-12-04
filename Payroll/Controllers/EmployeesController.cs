@@ -13,7 +13,7 @@ namespace Payroll.Controllers
 {
     public class EmployeesController : GenericController<Employee>
     {
-        public EmployeesController(BusinessObject<Employee> businessObject, Message message)
+        public EmployeesController(EmployeesBO businessObject, Message message)
             : base(businessObject, message) { }
 
         public override Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")
@@ -112,6 +112,20 @@ namespace Payroll.Controllers
             return base.Index(page, filter, sort, order);
         }
 
+        public override async Task<IActionResult> Create(Employee data)
+        {
+            HandleItems(data);
+
+            return await base.Create(data);
+        }
+
+        public override async Task<IActionResult> Edit(Guid id, Employee data)
+        {
+            HandleItems(data);
+
+            return await base.Edit(id, data);
+        }
+
         public IActionResult EmployeesByDepartment(string departmentId)
         {
             var employeesFromDB = _businessObject
@@ -173,6 +187,30 @@ namespace Payroll.Controllers
                 .GetOptions(employeesFromDB);
 
             return Ok(employees);
+        }
+
+        private void HandleItems(Employee data)
+        {
+            var itemsToAdd = new List<Certification>();
+
+            var names = HttpContext
+                .Request
+                .Form[Constants.CERTIFICATION_NAME];
+            
+            var dates = HttpContext
+                .Request
+                .Form[Constants.CERTIFICATION_DATE];
+
+            for (int i = 0; i < names.Count; i++)
+            {
+                itemsToAdd.Add(new Certification 
+                {
+                     Name = names[i], 
+                     Date = DateTime.Parse(dates[i])
+                     
+                });
+            }
+            data.Certifications = itemsToAdd;
         }
     }
 }

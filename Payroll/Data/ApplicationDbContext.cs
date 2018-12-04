@@ -128,5 +128,6 @@ namespace Payroll.Data
         public DbSet<WorkHours> WorkHours { get; set; }
         public DbSet<WorkHoursEmployee> WorkHoursEmployee { get; set; }
         public DbSet<WorkHourItem> WorkHourItems { get; set; }
+        public DbSet<Certification> Certification {get; set;}
     }
 }
