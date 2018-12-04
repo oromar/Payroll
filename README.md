@@ -19,7 +19,7 @@ Premissas levada em consideração no desenvolvimento:
   <li> Aplicação centrado no usuário </li>  
 </ul>
 
-O projeto está desenvolvido com a arquitetura de 3 camadas (Apresentação, negócio e dados) com responsabilidades bem definidas para cada uma das camadas. Foi também desenvolvido levando em consideração o reuso de código afim de produzir menos código que faz mais trabalho.
+O projeto está desenvolvido com a arquitetura de 3 camadas (API, negócio e dados) com responsabilidades bem definidas para cada uma das camadas. Foi também desenvolvido levando em consideração o reuso de código afim de produzir menos código que faz mais trabalho.
 
 A aplicação está internacionalizada para os seguintes idiomas: pt-BR, en-US, fr-FR. De acordo com o idioma o browser a aplicação irá aplicar o idioma correspondente, caso a aplicação não dê suporte ao idioma solicitado pelo browser continuará com o idioma atual, o padrão é pt-BR. 
 
