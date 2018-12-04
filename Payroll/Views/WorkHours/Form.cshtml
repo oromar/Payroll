@@ -76,17 +76,17 @@
                             <div class="form-group form-inline">
                                 <div style="vertical-align:middle;" class="col-md-3">
                                     <label class="control-label">@Resource.DayOfWeek</label>
-                                    <select style="width:100%" name="DayOfWeek" class="form-control" disabled>
+                                    <select required style="width:100%" name="DayOfWeek" class="form-control" disabled>
                                         <option>@item.DayOfWeekDescription</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
                                     <label class="control-label">@Resource.Start</label>
-                                    <input type="time" name="Start" style="width:100%" class="form-control" value="@item.Start" disabled />
+                                    <input required type="time" name="Start" style="width:100%" class="form-control" value="@item.Start" disabled />
                                 </div>
                                 <div class="col-md-3">
                                     <label class="control-label">@Resource.End</label>
-                                    <input type="time" name="End" style="width:100%" class="form-control" value="@item.End" disabled />
+                                    <input required type="time" name="End" style="width:100%" class="form-control" value="@item.End" disabled />
                                 </div>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                                 <input type="checkbox" checked />
                                 @employee.Employee.Name
                             </div>
-                        }
+                        }''
                     </div>
                 }
                 else if (mode == "Edit")
@@ -128,7 +128,7 @@
                     }
 
                     <div id="@WorkHoursItemsSelect" class="form-group">
-                            
+
                     </div>
 
                     <div class="form-group" style="margin-top:10px;">

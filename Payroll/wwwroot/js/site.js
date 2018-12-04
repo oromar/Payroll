@@ -22,11 +22,11 @@ function addCertification(employeeCertification) {
                 '<div class="form-group form-inline">' +
                 '<div class="col-md-6">' +
                 '<label class="control-label">Nome</label>' +
-                '<input type="text" name="CertificationName" style="width:100%" class="form-control" />' + 
+                '<input type="text" name="CertificationName" required style="width:100%" class="form-control" />' + 
                 '</div>' +
                 '<div class="col-md-6">' +
                 '<label class="control-label">Data</label>' +
-                '<input type="date" name="CertificationDate" style="width:100%" class="form-control" />' +
+                '<input type="date" name="CertificationDate" required style="width:100%" class="form-control" />' +
                 '</div>' +
                 '</div>' +
                 '</div>');
@@ -48,19 +48,19 @@ function addWorkHours(workhoursSelector) {
                     .append('<div class="col-md-12" style="padding: 0 0 0 0; margin-top:10px">' +
                         '<div style="padding: 0 0 0 0;vertical-align:middle;" class="col-md-3">' +
                         '<label class="control-label">Dia da Semana</label>' +
-                        '<select style="width:100%" name="DayOfWeek" class="form-control">' +
+                        '<select required style="width:100%" name="DayOfWeek" class="form-control">' +
                         options +
                         '</select>' +
                         '<span asp-validation-for="DayOfWeek" class="text-danger"></span>' +
                         '</div>' +
                         '<div class=" col-md-3">' +
                         '<label class="control-label">Inicio</label>' +
-                        '<input type="time" name="Start" style="width:100%" class="form-control" />' +
+                        '<input required type="time" name="Start" style="width:100%" class="form-control" />' +
                         '<span asp-validation-for="Start" class="text-danger"></span>' +
                         '</div>' +
                         '<div class="col-md-3">' +
                         '<label class="control-label">Fim</label>' +
-                        '<input type="time" name="End" style="width:100%" class="form-control" />' +
+                        '<input required type="time" name="End" style="width:100%" class="form-control" />' +
                         '<span asp-validation-for="End" class="text-danger"></span>' +
                     '</div></div>')
             }
