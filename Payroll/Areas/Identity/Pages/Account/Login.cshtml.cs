@@ -92,7 +92,7 @@ namespace Payroll.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, @Resource.InvalidLoginAttempt);
                     return Page();
                 }
             }

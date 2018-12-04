@@ -23,9 +23,16 @@ namespace Payroll.Models
         public virtual Department Department { get; set; }
 
         [Display(ResourceType = typeof(Resource), Name = "Workplace")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public Guid WorkplaceId { get; set; }
         [ForeignKey("WorkplaceId")]
         public Workplace Workplace { get; set; }
+
+        [Display(ResourceType =typeof(Resource), Name ="Responsible")]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
+        public Guid ResponsibleId { get; set;}
+        [ForeignKey("ResponsibleId")]
+        public virtual Employee Responsible { get; set; }
 
         [Display(ResourceType =typeof(Resource), Name ="Description")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]

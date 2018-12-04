@@ -297,9 +297,19 @@
                     <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <label asp-for="Number" class="control-label"></label>
+                    <input asp-for="Number" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="Number" class="text-danger"></span>
+                </div>
+                <div class="form-group">
                     <label asp-for="Neighborhood" class="control-label"></label>
                     <input asp-for="Neighborhood" disabled="@(mode == "Details")" class="form-control" />
                     <span asp-validation-for="Neighborhood" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Complement" class="control-label"></label>
+                    <input asp-for="Complement" disabled="@(mode == "Details")" class="form-control" />
+                    <span asp-validation-for="Complement" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="City" class="control-label"></label>
@@ -328,21 +338,7 @@
                 
                  @if (mode == "Create") 
                  {
-                     <div class="row" style="margin-top:10px;padding: 0 0 0 0;">
-                        <div id="@EmployeeCertificationItemSelect" class="form-group form-inline">
-                            <div class="col-md-6">
-                                <label class="control-label">@Resource.CertificationName</label>
-                                <input required type="text" name="CertificationName" style="width:100%" class="form-control" />
-                            </div>
-                            <div class="col-md-6">
-                                <label class="control-label">@Resource.CertificationDate</label>
-                                <input required type="date" name="CertificationDate" style="width:100%" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group" style="margin-top:10px;">
+                     <div class="form-group" style="margin-top:10px;">
                         <div class="form-group" id="@EmployeeCertificationSelect">
 
                         </div>
@@ -360,11 +356,11 @@
                                     <div class="form-group form-inline">
                                         <div class="col-md-6">
                                             <label class="control-label">@Resource.CertificationName</label>
-                                            <input type="text" name="CertificationName" style="width:100%" class="form-control" asp-for="@item.Name" disabled='@(mode == "Details")' />
+                                            <input required type="text" name="CertificationName" style="width:100%" class="form-control" asp-for="@item.Name" disabled='@(mode == "Details")' />
                                         </div>
                                         <div class="col-md-6">
                                             <label class="control-label">@Resource.CertificationDate</label>
-                                            <input type="date" name="CertificationDate" style="width:100%" class="form-control" asp-for="@item.Date" disabled='@(mode == "Details")' />
+                                            <input required type="date" name="CertificationDate" style="width:100%" class="form-control" asp-for="@item.Date" disabled='@(mode == "Details")' />
                                         </div>
                                     </div>
                                 </div>

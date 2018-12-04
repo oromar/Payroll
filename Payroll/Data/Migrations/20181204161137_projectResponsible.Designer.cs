@@ -10,8 +10,8 @@ using Payroll.Data;
 namespace Payroll.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181117040415_seed3")]
-    partial class seed3
+    [Migration("20181204161137_projectResponsible")]
+    partial class projectResponsible
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -186,6 +186,25 @@ namespace Payroll.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Payroll.Models.Certification", b =>
+                {
+                    b.Property<Guid>("CertificationId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<Guid>("EmployeeId");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("CertificationId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Certification");
+                });
+
             modelBuilder.Entity("Payroll.Models.Company", b =>
                 {
                     b.Property<Guid>("Id")
@@ -196,6 +215,8 @@ namespace Payroll.Data.Migrations
 
                     b.Property<string>("City")
                         .IsRequired();
+
+                    b.Property<string>("Complement");
 
                     b.Property<string>("Country")
                         .IsRequired();
@@ -225,6 +246,8 @@ namespace Payroll.Data.Migrations
 
                     b.Property<string>("Neighborhood")
                         .IsRequired();
+
+                    b.Property<string>("Number");
 
                     b.Property<string>("OccupationArea")
                         .IsRequired();
@@ -354,6 +377,8 @@ namespace Payroll.Data.Migrations
 
                     b.Property<Guid>("CompanyId");
 
+                    b.Property<string>("Complement");
+
                     b.Property<string>("Country")
                         .IsRequired();
 
@@ -394,6 +419,8 @@ namespace Payroll.Data.Migrations
 
                     b.Property<string>("Neighborhood")
                         .IsRequired();
+
+                    b.Property<string>("Number");
 
                     b.Property<Guid>("OccupationId");
 
@@ -714,6 +741,8 @@ namespace Payroll.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
+                    b.Property<Guid>("ResponsibleId");
+
                     b.Property<string>("SearchFields");
 
                     b.Property<DateTime?>("Start")
@@ -730,6 +759,8 @@ namespace Payroll.Data.Migrations
                     b.HasIndex("CompanyId");
 
                     b.HasIndex("DepartmentId");
+
+                    b.HasIndex("ResponsibleId");
 
                     b.HasIndex("WorkplaceId");
 
@@ -892,6 +923,8 @@ namespace Payroll.Data.Migrations
 
                     b.Property<Guid>("CompanyId");
 
+                    b.Property<string>("Complement");
+
                     b.Property<string>("Country")
                         .IsRequired();
 
@@ -910,6 +943,8 @@ namespace Payroll.Data.Migrations
 
                     b.Property<string>("Neighborhood")
                         .IsRequired();
+
+                    b.Property<string>("Number");
 
                     b.Property<string>("SearchFields");
 
@@ -973,6 +1008,14 @@ namespace Payroll.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Payroll.Models.Certification", b =>
+                {
+                    b.HasOne("Payroll.Models.Employee", "Employee")
+                        .WithMany("Certifications")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1068,6 +1111,11 @@ namespace Payroll.Data.Migrations
                     b.HasOne("Payroll.Models.Department", "Department")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Payroll.Models.Employee", "Responsible")
+                        .WithMany()
+                        .HasForeignKey("ResponsibleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Payroll.Models.Workplace", "Workplace")

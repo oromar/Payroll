@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Payroll.Business;
 using Payroll.Common;
 using Payroll.Models;
@@ -49,6 +50,24 @@ namespace Payroll.Controllers
             }
 
             ViewBag.EmployeesByCompany = dict;
+
+            var managers = companies.AsEnumerable()
+            .Select(a => new
+            {
+                Key = a.Id,
+                Value = _businessObject
+                .GetDAO()
+                .GetContext()
+                .Employee
+                .Include(b => b.Function)
+                .Where(b => !b.IsDeleted)
+                .Where(b => b.Function.IsManagerFunction)
+                .Where(c => c.CompanyId == a.Id)
+                .ToList()
+            })
+            .ToDictionary(t => t.Key, t => t.Value);
+
+            ViewBag.ManagersByCompany = managers;
 
             ViewBag.DepartmentsByCompany = companies.AsEnumerable()
             .Select(a => new

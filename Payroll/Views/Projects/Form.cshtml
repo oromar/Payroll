@@ -4,9 +4,10 @@
     var mode = ViewBag.Mode;
 
     var ProjectCompanySelect = mode == "Details" ? "ProjectCompanySelectDetails" : mode == "Create" ? "ProjectCompanySelectCreate" : "ProjectCompanySelectEdit" + Model.Id;
-    var ProjectDepartmentSelect = mode == "Details" ? "ProjectDepartmentSelectDetails" : mode == "Create" ? "ProjectDepartmentSelectCreate" : "ProjectDepartmentSelectEdit" + Model.Id; ;
-    var ProjectWorkplaceSelect = mode == "Details" ? "ProjectWorkplaceSelectDetails" : mode == "Create" ? "ProjectWorkplaceSelectCreate" : "ProjectWorkplaceSelectEdit" + Model.Id; ; ;
-    var ProjectEmployeeSelect = mode == "Details" ? "ProjectEmployeeSelectDetails" : mode == "Create" ? "ProjectEmployeeSelectCreate" : "ProjectEmployeeSelectEdit" + Model.Id; ; ; ;
+    var ProjectDepartmentSelect = mode == "Details" ? "ProjectDepartmentSelectDetails" : mode == "Create" ? "ProjectDepartmentSelectCreate" : "ProjectDepartmentSelectEdit" + Model.Id;
+    var ProjectWorkplaceSelect = mode == "Details" ? "ProjectWorkplaceSelectDetails" : mode == "Create" ? "ProjectWorkplaceSelectCreate" : "ProjectWorkplaceSelectEdit" + Model.Id;
+    var ProjectEmployeeSelect = mode == "Details" ? "ProjectEmployeeSelectDetails" : mode == "Create" ? "ProjectEmployeeSelectCreate" : "ProjectEmployeeSelectEdit" + Model.Id; 
+    var ResponsibleEmployeeSelect = mode == "Details" ? "ResponsibleEmployeeSelectDetails" : mode == "Create" ? "ResponsibleEmployeeSelectCreate" : "ResponsibleEmployeeSelectEdit" + Model.Id; 
 
     var modalId = string.Empty;
     if (mode != "Create")
@@ -26,7 +27,7 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="CompanyId" class="control-label"></label>
-                    <select id="@ProjectCompanySelect" asp-for="CompanyId" disabled="@(mode == "Details")" onchange="loadDepartments('@(ProjectCompanySelect)', '@(ProjectDepartmentSelect)'); loadWorkplaces('@(ProjectCompanySelect)','@(ProjectWorkplaceSelect)');" class="form-control" asp-items="ViewBag.Companies"></select>
+                    <select id="@ProjectCompanySelect" asp-for="CompanyId" disabled="@(mode == "Details")" onchange="loadDepartments('@(ProjectCompanySelect)', '@(ProjectDepartmentSelect)'); loadWorkplaces('@(ProjectCompanySelect)','@(ProjectWorkplaceSelect)');loadManagersByCompany('@(ProjectCompanySelect)', '@(ResponsibleEmployeeSelect)');" class="form-control" asp-items="ViewBag.Companies"></select>
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 @if (mode == "Create")
@@ -109,6 +110,45 @@
                     </div>
                 }
 
+                @if (mode == "Create")
+                {
+                    <div class="form-group">
+                        <label asp-for="ResponsibleId" class="control-label"></label>
+                        <select id="@ResponsibleEmployeeSelect" name="ResponsibleId" class="form-control">
+                            <option>@Resource.SelectItem</option>
+                        </select>
+                    </div>
+                } 
+                else if (mode == "Details")
+                {
+                    var aspItems = Model.ResponsibleId != null ?
+                                                       new List<SelectListItem> { new SelectListItem { Text = Model.Responsible.Name, Value = Model.ResponsibleId.ToString() } } :
+                                                       new List<SelectListItem> { new SelectListItem { Text = Resource.SelectItem, Value = null } };
+                    <div class="form-group">
+                        <label asp-for="ResponsibleId" class="control-label"></label>
+                        <select id="@(ResponsibleEmployeeSelect)" asp-for="ResponsibleId" name="ResponsibleId" disabled class="form-control" asp-items="@aspItems"></select>
+                        <span asp-validation-for="ResponsibleId" class="text-danger"></span>
+                    </div>
+                }
+                else if (mode == "Edit")
+                {
+                    @foreach (var item in ViewBag.ManagersByCompany)
+                    {
+                        if (Model.CompanyId == item.Key)
+                        {
+                            <div class="form-group">
+                                <label asp-for="ResponsibleId" class="control-label"></label>
+                                <select id="@ResponsibleEmployeeSelect" name="ResponsibleId" class="form-control">
+                                    @foreach (var manager in item.Value)
+                                    {
+                                        <option value="@(manager.Id)" selected="@(Model.ResponsibleId == manager.Id)">@manager.Name</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="ResponsibleId" class="text-danger"></span>
+                            </div>
+                        }
+                    }
+                }
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
                     <input asp-for="Name" disabled="@(mode == "Details")" class="form-control" />

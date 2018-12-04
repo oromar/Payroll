@@ -687,4 +687,16 @@
   <data name="CertificationDate" xml:space="preserve">
     <value>L'date</value>
   </data>  
+  <data name="Number" xml:space="preserve">
+    <value>Nombre</value>
+  </data>  
+  <data name="Complement" xml:space="preserve">
+    <value>Complément</value>
+  </data> 
+  <data name="InvalidLoginAttempt" xml:space="preserve">
+    <value>Les informations d'identification invalides</value>
+  </data>  
+  <data name="Responsible" xml:space="preserve">
+    <value>Responsable</value>
+  </data>  
 </root>

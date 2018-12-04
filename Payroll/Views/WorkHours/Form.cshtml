@@ -47,15 +47,15 @@
                         <div id="@WorkHoursItemsSelect" class="form-group form-inline" style="margin-left:15px;">
                             <div style="padding: 0 0 0 0;vertical-align:middle;" class="col-md-3">
                                 <label class="control-label">@Resource.DayOfWeek</label>
-                                <select style="width:100%" name="DayOfWeek" class="form-control" asp-items="ViewBag.DaysOfWeek"></select>
+                                <select required style="width:100%" name="DayOfWeek" class="form-control" asp-items="ViewBag.DaysOfWeek"></select>
                             </div>
                             <div class="col-md-3">
                                 <label class="control-label">@Resource.Start</label>
-                                <input type="time" name="Start" style="width:100%" class="form-control" />
+                                <input required type="time" name="Start" style="width:100%" class="form-control" />
                             </div>
                             <div class="col-md-3">
                                 <label class="control-label">@Resource.End</label>
-                                <input type="time" name="End" style="width:100%" class="form-control" />
+                                <input required type="time" name="End" style="width:100%" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -111,17 +111,17 @@
                             <div class="form-group form-inline">
                                 <div style="vertical-align:middle;" class="col-md-3">
                                     <label class="control-label">@Resource.DayOfWeek</label>
-                                    <select style="width:100%" name="DayOfWeek" class="form-control">
+                                    <select required style="width:100%" name="DayOfWeek" class="form-control">
                                         <option value="@((int)item.DayOfWeek)" selected>@item.DayOfWeekDescription</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
                                     <label class="control-label">@Resource.Start</label>
-                                    <input type="time" name="Start" style="width:100%" class="form-control" value="@item.Start" />
+                                    <input required type="time" name="Start" style="width:100%" class="form-control" value="@item.Start" />
                                 </div>
                                 <div class="col-md-3">
                                     <label class="control-label">@Resource.End</label>
-                                    <input type="time" name="End" style="width:100%" class="form-control" value="@item.End" />
+                                    <input required type="time" name="End" style="width:100%" class="form-control" value="@item.End" />
                                 </div>
                             </div>
                         </div>

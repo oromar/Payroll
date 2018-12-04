@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Payroll.Data;
 
 namespace Payroll.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181204152902_number")]
+    partial class number
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -739,8 +741,6 @@ namespace Payroll.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<Guid>("ResponsibleId");
-
                     b.Property<string>("SearchFields");
 
                     b.Property<DateTime?>("Start")
@@ -757,8 +757,6 @@ namespace Payroll.Data.Migrations
                     b.HasIndex("CompanyId");
 
                     b.HasIndex("DepartmentId");
-
-                    b.HasIndex("ResponsibleId");
 
                     b.HasIndex("WorkplaceId");
 
@@ -1109,11 +1107,6 @@ namespace Payroll.Data.Migrations
                     b.HasOne("Payroll.Models.Department", "Department")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Payroll.Models.Employee", "Responsible")
-                        .WithMany()
-                        .HasForeignKey("ResponsibleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Payroll.Models.Workplace", "Workplace")

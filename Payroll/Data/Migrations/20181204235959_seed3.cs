@@ -25,7 +25,7 @@ namespace Payroll.Data.Migrations
         {
             _context = context;
         }
-        protected async override void Up(MigrationBuilder migrationBuilder)
+        protected override void Up(MigrationBuilder migrationBuilder)
         {
             string[] companyNames = { "Comércio e Indústria de Papéis LTDA", "Agronegócio SA", "Trindade Advogados LTDA", "UNIDAT SA", "Sá e Souza SA" };
             string[] companyAddress = { "Rua do Hospício", "Rua do Aragão", "Rua A", "Av Dantas Barreto", "Avenida Presidente Kennedy" };
@@ -57,6 +57,8 @@ namespace Payroll.Data.Migrations
                     HasStrangers = true,
                     Nacionality = "Brasileira",
                     Neighborhood = neighborhoods[i],
+                    Complement = null,
+                    Number = null,
                     PersonalJuridicalName = personalJuridicalNames[i],
                     OccupationArea = occupationAreas[i],
                     SocialReason = socialReasons[i],
@@ -122,6 +124,8 @@ namespace Payroll.Data.Migrations
                         Name= workplaces[m],
                         CreatedAt = DateTime.Now,
                         CreatedBy = "oromar.melo@gmail.com",
+                        Complement = null,
+                        Number = null,
                         Address = companyAddress[m],
                         Neighborhood = neighborhoods[m],
                         City = companyCities[m],
@@ -168,6 +172,8 @@ namespace Payroll.Data.Migrations
                                             PhoneNumber = new string(Guid.NewGuid().ToString().Where(Char.IsDigit).Take(10).ToArray()),
                                             Address = "Rua a " + random  + " " + employees[random],
                                             Neighborhood = "Bairro " + random,
+                                            Complement = null,
+                                            Number = null,
                                             City = "Recife",
                                             State = "Pernambuco",
                                             Country = "Brasil",

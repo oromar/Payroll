@@ -39,13 +39,14 @@
         <div class="card big-card">
             <h4>@Resource.EmployeesInVacation</h4>
                     <table class="table table-stripped">
-                <tr>
-                    <th>@Resource.Company</th>
-                    <th>@Resource.Name</th>                
-                </tr>
+                
             @{ var total = 0; }
             @foreach(var company in ViewBag.EmployeesInVacations)
             {
+                    <tr>
+                        <th>@Resource.Company</th>
+                        <th>@Resource.Name</th>                
+                    </tr>
                     var companyName = company.Key;
                     total += company.Value.Count;
                     @foreach (var item in company.Value)
@@ -60,7 +61,7 @@
                     <tr>
                         <td><b>@Resource.Total</b></td> 
                         <td><span style="float:right">@(company.Value.Count)</span></td>
-                    </tr>                                
+                    </tr>  
             }
             <tr>
                 <td><b>@Resource.GeneralTotal</b></td>

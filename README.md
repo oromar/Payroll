@@ -60,8 +60,8 @@ Modelo de dados
   ![Screenshot](ER.png)	
   
   Trabalhos futuros (para uma possível v2)
-- Dashboard configurável pelo usuário
+- Dashboard configurável pelo usuário (filtros, possibilidade de criar novos cards etc)
 - Calcular folha de pagamento
-- Oferecer opções de tradução diretamente na interface
+- Escolher idioma diretamente na interface
 - Suporte a novos idiomas (es-ES por exemplo)
 - Adicionar auto-complete nos combos
