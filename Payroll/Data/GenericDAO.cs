@@ -209,7 +209,16 @@ namespace Payroll.Data
             var fields = baseProperties
                 .Where(a => types.Contains(a.PropertyType))
                 .Where(a => a.GetValue(data) != null)
-                .Select(a => a.GetValue(data).ToString().RemoveChars(Constants.MASK_CHARS).RemoveDiacritics().Trim());
+                .Select(a => a.GetValue(data).ToString().RemoveDiacritics().Trim())
+                .ToList();
+
+            fields.ForEach(a => 
+            {
+                if (nameof(a) == Constants.PERSONAL_NUMBER || nameof(a) == Constants.PERSONAL_JURIDICAL_NUMBER || nameof(a) == Constants.EMPLOYEE_NUMBER)
+                {
+                    a.RemoveChars(Constants.MASK_CHARS);
+                }
+            });
 
             searchValues.AddRange(fields);
 

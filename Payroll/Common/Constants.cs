@@ -49,6 +49,8 @@ namespace Payroll.Common
         public const string EMPLOYEE_NUMBER = "EmployeeNumber";
         public const string CERTIFICATION_NAME = "CertificationName";
         public const string CERTIFICATION_DATE = "CertificationDate";
+        public const string PERSONAL_NUMBER = "PersonalDocument";
+        public const string PERSONAL_JURIDICAL_NUMBER = "PersonalJuridicalName";
     }
 }
 
