@@ -114,7 +114,7 @@ namespace Payroll.Data
             return result;
         }
 
-        private Expression<Func<T, bool>> GetExpression(string filterName, object filterValue, 
+        private Expression<Func<T, bool>> GetDatabaseExpression(string filterName, object filterValue,
                                                         ParameterExpression entity, Expression property, Expression constant)
         {
             Expression statement = null;
@@ -134,24 +134,9 @@ namespace Payroll.Data
             return Expression.Lambda<Func<T, bool>>(statement, entity);
         }
 
-        public Expression<Func<T, bool>> Filter(IDictionary<string, object> filters)
+        private Expression<Func<T, bool>> GetDatabaseQueryExpression(List<Expression<Func<T, bool>>> expressions,
+                                                                     ParameterExpression entity)
         {
-            var expressions = new List<Expression<Func<T, bool>>>();
-
-            var entity = Expression.Parameter(typeof(T), nameof(T));
-
-            var notDeletedExpression = GetNotDeletedExpression(entity);
-
-            if (filters == null || !filters.Any()) return notDeletedExpression;
-
-            foreach (var filterName in filters.Keys)
-            {
-                var filterValue = filters[filterName];
-                var constant = Expression.Constant(filterValue);
-                var property = GetPropertyExpression(filterName, entity);
-                expressions.Add(GetExpression(filterName, filterValue, entity, property, constant));
-            }
-
             var result = expressions[0];
 
             if (expressions.Count > 1)
@@ -163,11 +148,30 @@ namespace Payroll.Data
                         entity);
                 }
             }
-            result = Expression.Lambda<Func<T, bool>>(
-                Expression.And(Expression.Invoke(notDeletedExpression, entity), Expression.Invoke(result, entity)),
-                entity);
-
             return result;
+        }
+
+        public Expression<Func<T, bool>> Filter(IDictionary<string, object> filters)
+        {
+            var expressions = new List<Expression<Func<T, bool>>>();
+
+            var entity = Expression.Parameter(typeof(T), Constants.ENTITY);
+
+            var notDeletedExpression = GetNotDeletedExpression(entity);
+
+            if (filters == null || !filters.Any()) return notDeletedExpression;
+
+            foreach (var filterName in filters.Keys)
+            {
+                var filterValue = filters[filterName];
+                var constant = Expression.Constant(filterValue);
+                var property = GetPropertyExpression(filterName, entity);
+                expressions.Add(GetDatabaseExpression(filterName, filterValue, entity, property, constant));
+            }
+            var query = GetDatabaseQueryExpression(expressions, entity);
+            return Expression.Lambda<Func<T, bool>>(
+                Expression.And(Expression.Invoke(notDeletedExpression, entity), Expression.Invoke(query, entity)),
+                entity);
         }
 
         public ApplicationDbContext GetContext()
