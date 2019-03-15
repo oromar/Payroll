@@ -114,7 +114,7 @@ namespace Payroll.Data
             return result;
         }
 
-        private Expression<Func<T, bool>> GetDatabaseExpression(string filterName, object filterValue,
+        private Expression<Func<T, bool>> GetStatementExpression(string filterName, object filterValue,
                                                         ParameterExpression entity, Expression property, Expression constant)
         {
             Expression statement = null;
@@ -166,7 +166,7 @@ namespace Payroll.Data
                 var filterValue = filters[filterName];
                 var constant = Expression.Constant(filterValue);
                 var property = GetPropertyExpression(filterName, entity);
-                expressions.Add(GetDatabaseExpression(filterName, filterValue, entity, property, constant));
+                expressions.Add(GetStatementExpression(filterName, filterValue, entity, property, constant));
             }
             var query = GetDatabaseQueryExpression(expressions, entity);
             return Expression.Lambda<Func<T, bool>>(
