@@ -60,56 +60,77 @@ namespace Payroll.Data
             return result;
         }
 
-        public Expression<Func<T, bool>> Filter(IDictionary<string, object> filters)
+        private Expression<Func<T, bool>> GetNotDeletedExpression(ParameterExpression entity)
+        {
+            var statement = Expression.Equal(Expression.Property(entity, Constants.IS_DELETED), Expression.Constant(false));
+            return Expression.Lambda<Func<T, bool>>(statement, entity);
+        }
+
+        private Expression GetPropertyExpression(string filterName, ParameterExpression entity)
+        {
+            const string PATH_SEPARATOR = ".";
+            if (filterName.Contains(PATH_SEPARATOR))
+            {
+                Expression relatedEntity = null;
+                var tokens = filterName.Split(PATH_SEPARATOR);
+                for(int i =0; i < tokens.Length-1; i++)
+                {
+                    relatedEntity = Expression.Property(relatedEntity ?? entity, tokens[i]);
+                }
+                return Expression.Property(relatedEntity, tokens[tokens.Length-1]);
+            }
+            else 
+            {
+                return Expression.Property(entity, filterName);
+            }
+        }
+
+        private Expression GetStringExpression(Expression property, Expression constant)
+        {
+            return Expression.Call(property, typeof(string).GetMethod(Constants.CONTAINS, new[] { typeof(string) }), constant);
+        }
+
+        private Expression GetDateTimeExpression(string filterName, Expression property, Expression constant)
         {
             const string START = "start";
             const string END = "end";
-            const string PATH_SEPARATOR = ".";
 
+            if (filterName.Contains(START, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return Expression.GreaterThanOrEqual(property, constant);
+            }
+            else if (filterName.Contains(END, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return Expression.LessThanOrEqual(property, constant);
+            }
+            // todo: change to other 'datetime' types
+            return Expression.IsTrue(Expression.Constant(true));
+        }
+
+        public Expression<Func<T, bool>> Filter(IDictionary<string, object> filters)
+        {
             var expressions = new List<Expression<Func<T, bool>>>();
 
             var entity = Expression.Parameter(typeof(T), nameof(T));
 
-            var isDeletedProperty = Expression.Property(entity, Constants.IS_DELETED);
-            var falseConstant = Expression.Constant(false);
-            var notDeletedMethod = Expression.Call(isDeletedProperty, typeof(Boolean).GetMethod(Constants.EQUALS, new[] { typeof(Boolean) }), falseConstant);
-            var notDeletedExpression = Expression.Lambda<Func<T, bool>>(notDeletedMethod, entity);
+            var notDeletedExpression = GetNotDeletedExpression(entity);
+
             if (filters == null || !filters.Any()) return notDeletedExpression;
 
             foreach (var filterName in filters.Keys)
             {
                 Expression statement = null;
-                Expression property = null;
+                
                 var filterValue = filters[filterName];
                 var constant = Expression.Constant(filterValue);
-                if (filterName.Contains(PATH_SEPARATOR))
-                {
-                    Expression relatedEntity = null;
-                    var tokens = filterName.Split(PATH_SEPARATOR);
-                    for(int i =0; i < tokens.Length-1; i++)
-                    {
-                        relatedEntity = Expression.Property(relatedEntity ?? entity, tokens[i]);
-                    }
-                    property = Expression.Property(relatedEntity, tokens[tokens.Length-1]);
-                }
-                else 
-                {
-                    property = Expression.Property(entity, filterName);
-                }
+                var property = GetPropertyExpression(filterName, entity);
                 if (filterValue is string)
                 {
-                    statement = Expression.Call(property, typeof(string).GetMethod(Constants.CONTAINS, new[] { typeof(string) }), constant);
+                    statement = GetStringExpression(property, constant);
                 }
                 else if (filterValue is DateTime)
                 {
-                   if (filterName.Contains(START, StringComparison.InvariantCultureIgnoreCase))
-                   {
-                        statement = Expression.GreaterThanOrEqual(property, constant);
-                   }
-                   else if (filterName.Contains(END, StringComparison.InvariantCultureIgnoreCase))
-                   {
-                        statement = Expression.LessThanOrEqual(property, constant);
-                   }
+                   statement = GetDateTimeExpression(filterName, property, constant);
                 }
                 else 
                 {
@@ -159,7 +180,7 @@ namespace Payroll.Data
         public async Task<List<T>> Search(int page = 1, string filter = "", string sort = "", string order = Constants.ASC)
         {
             var x = new Dictionary<string, object>();
-            x.Add("Workplace.Company.PaymentCurrency.Name", "Euro");
+            x.Add("Exchange", 4.0);
             var where = Filter(x);
             var orderBy = SortBy(sort);
 
