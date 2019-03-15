@@ -25,7 +25,7 @@ namespace Payroll.Controllers
             _message.Body = message;
             _message.Type = type;
         }
-
+        
         public virtual async Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
             var totalItems = _businessObject.Count(filter);

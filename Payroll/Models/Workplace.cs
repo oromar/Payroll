@@ -37,7 +37,7 @@ namespace Payroll.Models
                     break;
 
                 case Constants.SORT_CREATED_BY:
-                    result = a => a.State;
+                    result = a => a.CreatedBy;
                     break;
 
                 default:

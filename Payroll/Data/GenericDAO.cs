@@ -60,6 +60,79 @@ namespace Payroll.Data
             return result;
         }
 
+        public Expression<Func<T, bool>> Filter(IDictionary<string, object> filters)
+        {
+            const string START = "start";
+            const string END = "end";
+            const string PATH_SEPARATOR = ".";
+
+            var expressions = new List<Expression<Func<T, bool>>>();
+
+            var entity = Expression.Parameter(typeof(T), nameof(T));
+
+            var isDeletedProperty = Expression.Property(entity, Constants.IS_DELETED);
+            var falseConstant = Expression.Constant(false);
+            var notDeletedMethod = Expression.Call(isDeletedProperty, typeof(Boolean).GetMethod(Constants.EQUALS, new[] { typeof(Boolean) }), falseConstant);
+            var notDeletedExpression = Expression.Lambda<Func<T, bool>>(notDeletedMethod, entity);
+            if (filters == null || !filters.Any()) return notDeletedExpression;
+
+            foreach (var filterName in filters.Keys)
+            {
+                Expression statement = null;
+                Expression property = null;
+                var filterValue = filters[filterName];
+                var constant = Expression.Constant(filterValue);
+                if (filterName.Contains(PATH_SEPARATOR))
+                {
+                    Expression relatedEntity = null;
+                    var tokens = filterName.Split(PATH_SEPARATOR);
+                    for(int i =0; i < tokens.Length-1; i++)
+                    {
+                        relatedEntity = Expression.Property(relatedEntity ?? entity, tokens[i]);
+                    }
+                    property = Expression.Property(relatedEntity, tokens[tokens.Length-1]);
+                }
+                else 
+                {
+                    property = Expression.Property(entity, filterName);
+                }
+                if (filterValue is string)
+                {
+                    statement = Expression.Call(property, typeof(string).GetMethod(Constants.CONTAINS, new[] { typeof(string) }), constant);
+                }
+                else if (filterValue is DateTime)
+                {
+                   if (filterName.Contains(START, StringComparison.InvariantCultureIgnoreCase))
+                   {
+                        statement = Expression.GreaterThanOrEqual(property, constant);
+                   }
+                   else if (filterName.Contains(END, StringComparison.InvariantCultureIgnoreCase))
+                   {
+                        statement = Expression.LessThanOrEqual(property, constant);
+                   }
+                }
+                else 
+                {
+                    statement = Expression.Equal(property, constant);
+                }
+                var expression = Expression.Lambda<Func<T, bool>>(statement, entity);
+                expressions.Add(expression);
+            }
+
+            var result = expressions[0];
+
+            if (expressions.Count > 1)
+            {
+                for (int i = 1; i < expressions.Count; i++)
+                {
+                    result = Expression.Lambda<Func<T, bool>>(Expression.And(Expression.Invoke(result, entity), Expression.Invoke(expressions[i], entity)), entity);
+                }
+            }
+            result = Expression.Lambda<Func<T, bool>>(Expression.And(Expression.Invoke(notDeletedExpression, entity), Expression.Invoke(result, entity)), entity);
+
+            return result;
+        }
+
         public ApplicationDbContext GetContext()
         {
             return _context;
@@ -85,7 +158,9 @@ namespace Payroll.Data
 
         public async Task<List<T>> Search(int page = 1, string filter = "", string sort = "", string order = Constants.ASC)
         {
-            var where = FilterBy(filter);
+            var x = new Dictionary<string, object>();
+            x.Add("Workplace.Company.PaymentCurrency.Name", "Euro");
+            var where = Filter(x);
             var orderBy = SortBy(sort);
 
             var query = _context

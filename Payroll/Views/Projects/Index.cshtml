@@ -122,10 +122,10 @@ Html.DisplayNameFor(model => model.CreatedBy),
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     <td>
-                        @item.Start.Value.ToString(Resource.DateFormat)
+                        @item.Start.ToString(Resource.DateFormat)
                     </td>
                     <td>
-                        @item.End.Value.ToString(Resource.DateFormat)
+                        @item.End.ToString(Resource.DateFormat)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.CreatedBy)
