@@ -51,11 +51,15 @@ namespace Payroll.Data
             {
                 for (int i = 1; i < expressions.Count; i++)
                 {
-                    result = Expression.Lambda<Func<T, bool>>(Expression.Or(Expression.Invoke(result, parameter), Expression.Invoke(expressions[i], parameter)), parameter);
+                    result = Expression.Lambda<Func<T, bool>>(
+                        Expression.Or(Expression.Invoke(result, parameter), Expression.Invoke(expressions[i], parameter)),
+                        parameter);
                 }
             }
-            
-            result = Expression.Lambda<Func<T, bool>>(Expression.And(Expression.Invoke(notDeletedExpression, parameter), Expression.Invoke(result, parameter)), parameter);
+
+            result = Expression.Lambda<Func<T, bool>>(
+                Expression.And(Expression.Invoke(notDeletedExpression, parameter), Expression.Invoke(result, parameter)),
+                parameter);
 
             return result;
         }
@@ -69,42 +73,65 @@ namespace Payroll.Data
         private Expression GetPropertyExpression(string filterName, ParameterExpression entity)
         {
             const string PATH_SEPARATOR = ".";
+            Expression result;
             if (filterName.Contains(PATH_SEPARATOR))
             {
                 Expression relatedEntity = null;
                 var tokens = filterName.Split(PATH_SEPARATOR);
-                for(int i =0; i < tokens.Length-1; i++)
+                for (int i = 0; i < tokens.Length - 1; i++)
                 {
                     relatedEntity = Expression.Property(relatedEntity ?? entity, tokens[i]);
                 }
-                return Expression.Property(relatedEntity, tokens[tokens.Length-1]);
+                result = Expression.Property(relatedEntity, tokens[tokens.Length - 1]);
             }
-            else 
+            else
             {
-                return Expression.Property(entity, filterName);
+                result = Expression.Property(entity, filterName);
             }
+            return result;
         }
 
-        private Expression GetStringExpression(Expression property, Expression constant)
+        private Expression GetStringContainsExpression(Expression property, Expression constant)
         {
             return Expression.Call(property, typeof(string).GetMethod(Constants.CONTAINS, new[] { typeof(string) }), constant);
         }
 
-        private Expression GetDateTimeExpression(string filterName, Expression property, Expression constant)
+        private Expression GetStartEndDateTimeExpression(string filterName, Expression property, Expression constant)
         {
             const string START = "start";
             const string END = "end";
 
+            Expression result = null;
+
             if (filterName.Contains(START, StringComparison.InvariantCultureIgnoreCase))
             {
-                return Expression.GreaterThanOrEqual(property, constant);
+                result = Expression.GreaterThanOrEqual(property, constant);
             }
             else if (filterName.Contains(END, StringComparison.InvariantCultureIgnoreCase))
             {
-                return Expression.LessThanOrEqual(property, constant);
+                result = Expression.LessThanOrEqual(property, constant);
             }
-            // todo: change to other 'datetime' types
-            return Expression.IsTrue(Expression.Constant(true));
+            return result;
+        }
+
+        private Expression<Func<T, bool>> GetExpression(string filterName, object filterValue, 
+                                                        ParameterExpression entity, Expression property, Expression constant)
+        {
+            Expression statement = null;
+
+            if (filterValue is string)
+            {
+                statement = GetStringContainsExpression(property, constant);
+            }
+            else if (filterValue is DateTime)
+            {
+                statement = GetStartEndDateTimeExpression(filterName, property, constant);
+            }
+            else
+            {
+                statement = Expression.Equal(property, constant);
+            }
+            return Expression.Lambda<Func<T, bool>>(statement, entity);
         }
 
         public Expression<Func<T, bool>> Filter(IDictionary<string, object> filters)
@@ -119,25 +146,10 @@ namespace Payroll.Data
 
             foreach (var filterName in filters.Keys)
             {
-                Expression statement = null;
-                
                 var filterValue = filters[filterName];
                 var constant = Expression.Constant(filterValue);
                 var property = GetPropertyExpression(filterName, entity);
-                if (filterValue is string)
-                {
-                    statement = GetStringExpression(property, constant);
-                }
-                else if (filterValue is DateTime)
-                {
-                   statement = GetDateTimeExpression(filterName, property, constant);
-                }
-                else 
-                {
-                    statement = Expression.Equal(property, constant);
-                }
-                var expression = Expression.Lambda<Func<T, bool>>(statement, entity);
-                expressions.Add(expression);
+                expressions.Add(GetExpression(filterName, filterValue, entity, property, constant));
             }
 
             var result = expressions[0];
@@ -146,10 +158,14 @@ namespace Payroll.Data
             {
                 for (int i = 1; i < expressions.Count; i++)
                 {
-                    result = Expression.Lambda<Func<T, bool>>(Expression.And(Expression.Invoke(result, entity), Expression.Invoke(expressions[i], entity)), entity);
+                    result = Expression.Lambda<Func<T, bool>>(
+                        Expression.And(Expression.Invoke(result, entity), Expression.Invoke(expressions[i], entity)),
+                        entity);
                 }
             }
-            result = Expression.Lambda<Func<T, bool>>(Expression.And(Expression.Invoke(notDeletedExpression, entity), Expression.Invoke(result, entity)), entity);
+            result = Expression.Lambda<Func<T, bool>>(
+                Expression.And(Expression.Invoke(notDeletedExpression, entity), Expression.Invoke(result, entity)),
+                entity);
 
             return result;
         }
@@ -287,8 +303,8 @@ namespace Payroll.Data
         private static void HandleSearchFields(T data)
         {
             var searchValues = new List<string>();
-            
-            var relatedPropertiesToSearchFields = new[] {Constants.NAME_FIELD, Constants.EMPLOYEE_NUMBER};
+
+            var relatedPropertiesToSearchFields = new[] { Constants.NAME_FIELD, Constants.EMPLOYEE_NUMBER };
 
             var types = new[] { typeof(string), typeof(int), typeof(double), typeof(decimal), typeof(float), typeof(Common.DayOfWeek) };
 
@@ -308,7 +324,7 @@ namespace Payroll.Data
                 .Select(a => a.GetValue(data).ToString().RemoveDiacritics().Trim())
                 .ToList();
 
-            fields.ForEach(a => 
+            fields.ForEach(a =>
             {
                 if (nameof(a) == Constants.PERSONAL_NUMBER || nameof(a) == Constants.PERSONAL_JURIDICAL_NUMBER || nameof(a) == Constants.EMPLOYEE_NUMBER)
                 {
@@ -329,7 +345,7 @@ namespace Payroll.Data
 
                 if (relatedObject != null)
                 {
-                    foreach(var property in relatedPropertiesToSearchFields)
+                    foreach (var property in relatedPropertiesToSearchFields)
                     {
                         if (relatedObject.GetType().GetProperty(property) != null)
                         {
