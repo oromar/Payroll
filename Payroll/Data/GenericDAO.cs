@@ -29,8 +29,8 @@ namespace Payroll.Data
 
             var isDeletedProperty = Expression.Property(parameter, Constants.IS_DELETED);
             var falseConstant = Expression.Constant(false);
-            var notDeletedMethod = Expression.Call(isDeletedProperty, typeof(Boolean).GetMethod(Constants.EQUALS, new[] { typeof(Boolean) }), falseConstant);
-            var notDeletedExpression = Expression.Lambda<Func<T, bool>>(notDeletedMethod, parameter);
+            var notDeleted = Expression.Equal(isDeletedProperty, falseConstant);
+            var notDeletedExpression = Expression.Lambda<Func<T, bool>>(notDeleted, parameter);
             if (filter.IsNullOrEmpty() || filter.Equals(Constants.QUERY_SEPARATOR)) return notDeletedExpression;
 
             var tokens = filter.Split(Constants.QUERY_SEPARATOR);
@@ -168,9 +168,11 @@ namespace Payroll.Data
                 var property = GetPropertyExpression(filterName, entity);
                 expressions.Add(GetStatementExpression(filterName, filterValue, entity, property, constant));
             }
-            var query = GetDatabaseQueryExpression(expressions, entity);
+
+            var databaseQuery = GetDatabaseQueryExpression(expressions, entity);
+            
             return Expression.Lambda<Func<T, bool>>(
-                Expression.And(Expression.Invoke(notDeletedExpression, entity), Expression.Invoke(query, entity)),
+                Expression.And(Expression.Invoke(notDeletedExpression, entity), Expression.Invoke(databaseQuery, entity)),
                 entity);
         }
 
@@ -199,9 +201,7 @@ namespace Payroll.Data
 
         public async Task<List<T>> Search(int page = 1, string filter = "", string sort = "", string order = Constants.ASC)
         {
-            var x = new Dictionary<string, object>();
-            x.Add("Exchange", 4.0);
-            var where = Filter(x);
+            var where = FilterBy(filter);
             var orderBy = SortBy(sort);
 
             var query = _context
