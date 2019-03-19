@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace Payroll.Models
 {
-    public class Workplace: Addressable
+    public class Workplace : Addressable
     {
         [ForeignKey("CompanyId")]
         public virtual Company Company { get; set; }
@@ -18,7 +18,13 @@ namespace Payroll.Models
 
         public override void CreateSearchText()
         {
-            SearchFields = $@"{Company.Name} {Name} {Address} {City} {State} {CreatedBy}".RemoveDiacritics();
+            SearchFields = string.Join(" ", Company.Name,
+                                            Name,
+                                            Address,
+                                            City,
+                                            State,
+                                            CreatedBy)
+                                 .RemoveDiacritics();
         }
 
         public override List<string> GetSearchFields()

@@ -17,10 +17,10 @@ namespace Payroll.Models
 
         public override void CreateSearchText()
         {
-            SearchFields = $@"{Name} 
-                              {Symbol} 
-                              {Exchange} 
-                              {CreatedBy}"
+            SearchFields = string.Join(" ", Name,
+                                            Symbol,
+                                            Exchange,
+                                            CreatedBy)
                               .RemoveDiacritics();
         }
 

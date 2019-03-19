@@ -33,16 +33,37 @@ namespace Payroll.Data
             var notDeletedExpression = Expression.Lambda<Func<T, bool>>(notDeleted, parameter);
             if (filter.IsNullOrEmpty() || filter.Equals(Constants.QUERY_SEPARATOR)) return notDeletedExpression;
 
-            var tokens = filter.Split(Constants.QUERY_SEPARATOR);
-
-            foreach (var token in tokens.Where(a => !string.IsNullOrWhiteSpace(a)))
+            if (Constants.INCREMENTAL_SEARCH_ACTIVE)
             {
-                var normalizedFilter = token.RemoveDiacritics().Trim();
-                var constantParameter = Expression.Constant(normalizedFilter);
-                var propertyName = Expression.Property(parameter, Constants.SEARCH_FIELDS);
-                var containsMethod = Expression.Call(propertyName, typeof(string).GetMethod(Constants.CONTAINS, new[] { typeof(string) }), constantParameter);
-                var containsExpression = Expression.Lambda<Func<T, bool>>(containsMethod, parameter);
-                expressions.Add(containsExpression);
+                var step = 3;
+                var current = step;
+                var normalizedFilter = filter.RemoveDiacritics().Trim();
+                var totalLetters = normalizedFilter.Count();
+                while (current <= totalLetters)
+                {
+                    var currentToken = new string(normalizedFilter.Take(current).ToArray());
+                    var constant = Expression.Constant(currentToken);
+                    var property = Expression.Property(parameter, Constants.SEARCH_FIELDS);
+                    var contains = Expression.Call(property, typeof(string).GetMethod(Constants.CONTAINS, new[] { typeof(string) }), constant);
+                    var expression = Expression.Lambda<Func<T, bool>>(contains, parameter);
+                    expressions.Add(expression);
+                    if (current >= totalLetters) break;
+                    current = (current + step) < totalLetters ? (current + step) : totalLetters;
+                }
+            }
+            else
+            {
+                var tokens = filter.Split(Constants.QUERY_SEPARATOR);
+                foreach (var token in tokens.Where(a => !string.IsNullOrWhiteSpace(a)))
+                {
+                    var normalizedFilter = token.RemoveDiacritics().Trim();
+                    var constantParameter = Expression.Constant(normalizedFilter);
+                    var propertyName = Expression.Property(parameter, Constants.SEARCH_FIELDS);
+                    var containsMethod = Expression.Call(propertyName, typeof(string).GetMethod(Constants.CONTAINS, new[] { typeof(string) }), constantParameter);
+                    var containsExpression = Expression.Lambda<Func<T, bool>>(containsMethod, parameter);
+                    expressions.Add(containsExpression);
+                }
+
             }
 
             var result = expressions[0];
@@ -51,7 +72,9 @@ namespace Payroll.Data
             {
                 for (int i = 1; i < expressions.Count; i++)
                 {
-                    result = Expression.Lambda<Func<T, bool>>(
+                    result = Constants.INCREMENTAL_SEARCH_ACTIVE ? Expression.Lambda<Func<T, bool>>(
+                        Expression.Or(Expression.Invoke(result, parameter), Expression.Invoke(expressions[i], parameter)),
+                        parameter) : Expression.Lambda<Func<T, bool>>(
                         Expression.And(Expression.Invoke(result, parameter), Expression.Invoke(expressions[i], parameter)),
                         parameter);
                 }
@@ -209,7 +232,7 @@ namespace Payroll.Data
 
             foreach (var item in Activator.CreateInstance<T>().GetRelatedItems())
             {
-                query = query.Include(item.Item2);
+                query = query.Include(item.Name);
             }
 
             if (order == Constants.ASC)
@@ -270,13 +293,13 @@ namespace Payroll.Data
         {
             foreach (var item in data.GetRelatedItems())
             {
-                if (typeof(IEnumerable).IsAssignableFrom(item.Item1))
+                if (typeof(IEnumerable).IsAssignableFrom(item.Type))
                 {
-                    _context.Entry(data).Collection(item.Item2).Load();
+                    _context.Entry(data).Collection(item.Name).Load();
                 }
                 else
                 {
-                    _context.Entry(data).Reference(item.Item2).Load();
+                    _context.Entry(data).Reference(item.Name).Load();
                 }
             }
         }

@@ -52,13 +52,13 @@ namespace Payroll.Models
 
         public override void CreateSearchText()
         {
-            SearchFields = $@"{Name} 
-                              {PersonalJuridicalName} 
-                              {SocialReason} 
-                              {OccupationArea} 
-                              {PaymentCurrency.Name} 
-                              {CreatedBy}"
-                              .RemoveDiacritics();
+            SearchFields = string.Join(" ", Name,
+                                            PersonalJuridicalName,
+                                            SocialReason,
+                                            OccupationArea,
+                                            PaymentCurrency.Name,
+                                            CreatedBy)
+                                 .RemoveDiacritics();
         }
 
         public override Expression SortBy(string sort)

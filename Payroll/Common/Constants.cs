@@ -7,6 +7,9 @@ namespace Payroll.Common
 {
     public class Constants
     {
+        //experimental
+        public static bool INCREMENTAL_SEARCH_ACTIVE = false;
+
         public const int MAX_ITEMS_PER_PAGE = 10;
 
         public const string SORT_QTY_DAYS = "QtyDaysDefault";

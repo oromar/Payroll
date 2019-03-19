@@ -23,7 +23,10 @@ namespace Payroll.Models
 
         public override void CreateSearchText()
         {
-            SearchFields = $@"{Company.Name} {Name} {CreatedBy}".RemoveDiacritics();
+            SearchFields = string.Join(" ", Company.Name,
+                                            Name,
+                                            CreatedBy)
+                                 .RemoveDiacritics();
         }
 
         public override List<string> GetSearchFields()

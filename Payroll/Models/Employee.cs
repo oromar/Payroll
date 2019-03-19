@@ -89,15 +89,15 @@ namespace Payroll.Models
 
         public override void CreateSearchText()
         {
-            SearchFields = $@"{Name} 
-                              {Company.Name} 
-                              {JobRole.Name} 
-                              {Function.Name} 
-                              {Manager.Name} 
-                              {IDName} 
-                              {EmployeeNumber} 
-                              {Department.Name} 
-                              {CreatedBy}"
+            SearchFields = string.Join(" ", Name,
+                                            Company.Name,
+                                            JobRole.Name,
+                                            Function.Name,
+                                            Manager.Name,
+                                            IDName,
+                                            EmployeeNumber,
+                                            Department.Name,
+                                            CreatedBy)
                               .RemoveDiacritics();
         }
 
