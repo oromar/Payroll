@@ -8,19 +8,7 @@
     var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
     var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
 
-    var searchFields = new List<string>
-    {
-        Html.DisplayNameFor(model => model.Name),
-        Resource.Company,
-        Resource.JobRole,
-        Resource.Function,
-        Resource.Manager,
-        Resource.IDName,
-        Resource.EmployeeNumber,
-        Resource.Department,
-        Html.DisplayNameFor(model => model.CreatedBy),
-    };
-
+    var searchFields = new Employee().GetSearchFields();
 }
 
 <h2>@Resource.EmployeesTitle</h2>

@@ -1,8 +1,10 @@
-﻿using Payroll.Common;
+﻿using MMLib.Extensions;
+using Payroll.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace Payroll.Models
@@ -13,7 +15,7 @@ namespace Payroll.Models
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public Guid CompanyId { get; set; }
         [ForeignKey("CompanyId")]
-        public Company Company { get; set; }
+        public virtual Company Company { get; set; }
 
         [Display(ResourceType = typeof(Resource), Name = "StartDate")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
@@ -23,6 +25,21 @@ namespace Payroll.Models
         public DateTime? EndDate { get; set; }
 
         public virtual IEnumerable<VacationEmployee> Employees { get; set; }
+
+        public override void CreateSearchText()
+        {
+            SearchFields = $@"{Company.Name} {Name} {CreatedBy}".RemoveDiacritics();
+        }
+
+        public override List<string> GetSearchFields()
+        {
+            return new List<string>
+            {
+                Resource.Company,
+                Resource.Assignment,
+                Resource.CreatedBy
+            };
+        }
 
         public override Expression SortBy(string sort)
         {

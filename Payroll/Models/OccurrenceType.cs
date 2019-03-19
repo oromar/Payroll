@@ -1,5 +1,7 @@
-﻿using Payroll.Common;
+﻿using MMLib.Extensions;
+using Payroll.Common;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 
@@ -13,6 +15,21 @@ namespace Payroll.Models
         [Display(ResourceType = typeof(Resource), Name = "IsAbsence")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public bool IsAbsence { get; set; }
+
+        public override void CreateSearchText()
+        {
+            SearchFields = $@"{Name} {Description} {CreatedBy}".RemoveDiacritics();
+        }
+
+        public override List<string> GetSearchFields()
+        {
+            return new List<string>
+            {
+                Resource.Name,
+                Resource.Description,
+                Resource.CreatedBy
+            };
+        }
 
         public override Expression SortBy(string sort)
         {

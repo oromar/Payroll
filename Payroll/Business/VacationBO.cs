@@ -15,7 +15,6 @@ namespace Payroll.Business
         {
 
         }
-
         public override Task<Vacation> Edit(Guid id, Vacation data, string userIdentity)
         {
             _dao
@@ -25,7 +24,7 @@ namespace Payroll.Business
                     .GetContext()
                     .VacationEmployee
                     .Where(a => a.VacationId == id));
-
+            
             return base.Edit(id, data, userIdentity);
         }
 

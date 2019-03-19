@@ -1,5 +1,7 @@
-﻿using Payroll.Common;
+﻿using MMLib.Extensions;
+using Payroll.Common;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 
@@ -11,6 +13,21 @@ namespace Payroll.Models
         public bool IsRegulated { get; set; }
         [Display(ResourceType = typeof(Resource), Name = "CouncilName")]
         public string CouncilName { get; set; }
+
+        public override void CreateSearchText()
+        {
+            SearchFields = $@"{Name} {CouncilName} {CreatedBy}".RemoveDiacritics();
+        }
+
+        public override List<string> GetSearchFields()
+        {
+            return new List<string> 
+            {
+                Resource.Name,
+                Resource.CouncilName,
+                Resource.CreatedBy
+            };
+        }
 
         public override Expression SortBy(string sort)
         {

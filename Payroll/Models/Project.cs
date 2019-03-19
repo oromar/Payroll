@@ -1,4 +1,5 @@
-﻿using Payroll.Common;
+﻿using MMLib.Extensions;
+using Payroll.Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace Payroll.Models
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public Guid WorkplaceId { get; set; }
         [ForeignKey("WorkplaceId")]
-        public Workplace Workplace { get; set; }
+        public virtual Workplace Workplace { get; set; }
 
         [Display(ResourceType =typeof(Resource), Name ="Responsible")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
@@ -45,6 +46,22 @@ namespace Payroll.Models
         public DateTime End { get; set; }
 
         public virtual IEnumerable<ProjectEmployee> Employees { get; set; }
+
+        public override void CreateSearchText()
+        {
+            SearchFields = $@"{Company.Name} {Name} {Description} {CreatedBy}".RemoveDiacritics();
+        }
+
+        public override List<string> GetSearchFields()
+        {
+            return new List<string>
+            {
+                Resource.Company,
+                Resource.Name,
+                Resource.Description,
+                Resource.CreatedBy
+            };
+        }
 
         public override Expression SortBy(string sort)
         {

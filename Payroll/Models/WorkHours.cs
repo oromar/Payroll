@@ -1,4 +1,5 @@
-﻿using Payroll.Common;
+﻿using MMLib.Extensions;
+using Payroll.Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +20,21 @@ namespace Payroll.Models
         public IEnumerable<WorkHourItem> WorkHourItems { get; set; }
 
         public virtual IEnumerable<WorkHoursEmployee> Employees { get; set; }
+
+        public override void CreateSearchText()
+        {
+            SearchFields = $@"{Company.Name} {Name} {CreatedBy}".RemoveDiacritics();
+        }
+
+        public override List<string> GetSearchFields()
+        {
+            return new List<string>
+            {
+                Resource.Company,
+                Resource.Name,
+                Resource.CreatedBy
+            };
+        }
 
         public override Expression SortBy(string sort)
         {

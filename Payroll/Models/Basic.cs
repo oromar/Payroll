@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace Payroll.Models
@@ -27,5 +28,16 @@ namespace Payroll.Models
         public string DeletedBy { get; set; }
         public string SearchFields { get; set; }
         public abstract Expression SortBy(string sort);
-    }  
+        public abstract void CreateSearchText();
+        public abstract List<string> GetSearchFields();
+        public List<Tuple<Type, string>> GetRelatedItems()
+        {
+            var result = new List<Tuple<Type, string>>();
+            foreach (var property in GetType().GetProperties().Where(a => a.GetGetMethod().IsVirtual))
+            {
+                result.Add(Tuple.Create<Type, string>(property.PropertyType, property.Name));
+            }
+            return result;
+        }
+    }
 }

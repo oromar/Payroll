@@ -1,4 +1,5 @@
-﻿using Payroll.Common;
+﻿using MMLib.Extensions;
+using Payroll.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -48,7 +49,7 @@ namespace Payroll.Models
         [Display(ResourceType = typeof(Resource), Name = "Occupation")]
         public Guid OccupationId { get; set; }
         [ForeignKey("OccupationId")]
-        public Occupation Occupation { get; set; }
+        public virtual Occupation Occupation { get; set; }
 
         public virtual IEnumerable<EmployeeHistory> Occurrences { get; set; }
         public virtual IEnumerable<Employee> Subordinates { get; set; }
@@ -85,6 +86,36 @@ namespace Payroll.Models
         [Display(ResourceType = typeof(Resource), Name = "Gender")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public Gender Gender { get; set; }
+
+        public override void CreateSearchText()
+        {
+            SearchFields = $@"{Name} 
+                              {Company.Name} 
+                              {JobRole.Name} 
+                              {Function.Name} 
+                              {Manager.Name} 
+                              {IDName} 
+                              {EmployeeNumber} 
+                              {Department.Name} 
+                              {CreatedBy}"
+                              .RemoveDiacritics();
+        }
+
+        public override List<string> GetSearchFields()
+        {
+            return new List<string>
+            {
+                Resource.Name,
+                Resource.Company,
+                Resource.JobRole,
+                Resource.Function,
+                Resource.Manager,
+                Resource.IDName,
+                Resource.EmployeeNumber,
+                Resource.Department,
+                Resource.CreatedBy
+            };
+        }
 
         public override Expression SortBy(string sort)
         {

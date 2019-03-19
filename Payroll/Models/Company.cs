@@ -1,4 +1,5 @@
-﻿using Payroll.Common;
+﻿using MMLib.Extensions;
+using Payroll.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace Payroll.Models
 {
-    public class Company: Addressable
+    public class Company : Addressable
     {
         [Display(ResourceType = typeof(Resource), Name = "PersonalJuridicalName")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
@@ -36,11 +37,35 @@ namespace Payroll.Models
         public virtual IEnumerable<JobRole> JobRoles { get; set; }
         public virtual IEnumerable<Department> Departments { get; set; }
 
+        public override List<string> GetSearchFields()
+        {
+            return new List<string>
+            {
+                Resource.Name,
+                Resource.PersonalJuridicalName,
+                Resource.SocialReason,
+                Resource.OccupationArea,
+                Resource.Currency,
+                Resource.CreatedBy,
+            };
+        }
+
+        public override void CreateSearchText()
+        {
+            SearchFields = $@"{Name} 
+                              {PersonalJuridicalName} 
+                              {SocialReason} 
+                              {OccupationArea} 
+                              {PaymentCurrency.Name} 
+                              {CreatedBy}"
+                              .RemoveDiacritics();
+        }
+
         public override Expression SortBy(string sort)
         {
             Expression<Func<Company, object>> result = null;
 
-           switch(sort)
+            switch (sort)
             {
                 case Constants.SORT_OCCUPATION_AREA:
                     result = a => a.OccupationArea;
@@ -57,10 +82,12 @@ namespace Payroll.Models
                 default:
                     result = a => a.Name;
                     break;
-                
+
             }
 
             return result as Expression;
         }
+
+        
     }
 }

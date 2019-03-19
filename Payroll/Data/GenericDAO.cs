@@ -52,7 +52,7 @@ namespace Payroll.Data
                 for (int i = 1; i < expressions.Count; i++)
                 {
                     result = Expression.Lambda<Func<T, bool>>(
-                        Expression.Or(Expression.Invoke(result, parameter), Expression.Invoke(expressions[i], parameter)),
+                        Expression.And(Expression.Invoke(result, parameter), Expression.Invoke(expressions[i], parameter)),
                         parameter);
                 }
             }
@@ -150,7 +150,6 @@ namespace Payroll.Data
             }
             return result;
         }
-
         public Expression<Func<T, bool>> Filter(IDictionary<string, object> filters)
         {
             var expressions = new List<Expression<Func<T, bool>>>();
@@ -170,7 +169,7 @@ namespace Payroll.Data
             }
 
             var databaseQuery = GetDatabaseQueryExpression(expressions, entity);
-            
+
             return Expression.Lambda<Func<T, bool>>(
                 Expression.And(Expression.Invoke(notDeletedExpression, entity), Expression.Invoke(databaseQuery, entity)),
                 entity);
@@ -208,10 +207,10 @@ namespace Payroll.Data
                 .Set<T>()
                 .Where(where);
 
-            HandleRelatedItems((item) =>
+            foreach (var item in Activator.CreateInstance<T>().GetRelatedItems())
             {
-                query = query.Include(item.Name);
-            });
+                query = query.Include(item.Item2);
+            }
 
             if (order == Constants.ASC)
             {
@@ -236,14 +235,11 @@ namespace Payroll.Data
                 .Select(a => a.Id)
                 .CountAsync();
         }
-
         public async Task<T> Create(T data)
         {
             _context.Add(data);
-
             LoadRelatedItems(data);
-
-            HandleSearchFields(data);
+            data.CreateSearchText();
             await _context.SaveChangesAsync();
             return data;
         }
@@ -254,7 +250,7 @@ namespace Payroll.Data
             {
                 _context.Update(data);
                 LoadRelatedItems(data);
-                HandleSearchFields(data);
+                data.CreateSearchText();
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -272,98 +268,17 @@ namespace Payroll.Data
 
         private void LoadRelatedItems(T data)
         {
-            HandleRelatedItems((item) =>
+            foreach (var item in data.GetRelatedItems())
             {
-                if (typeof(IEnumerable).IsAssignableFrom(item.PropertyType))
+                if (typeof(IEnumerable).IsAssignableFrom(item.Item1))
                 {
-                    _context.Entry(data).Collection(item.Name).Load();
+                    _context.Entry(data).Collection(item.Item2).Load();
                 }
                 else
                 {
-                    _context.Entry(data).Reference(item.Name).Load();
-                }
-            });
-        }
-
-        private void HandleRelatedItems(Action<PropertyInfo> action)
-        {
-            var related = Activator.CreateInstance<T>()
-                                   .GetType()
-                                   .GetProperties()
-                                   .Where(a => a.PropertyType.BaseType != null)
-                                   .Where(a => a.PropertyType.BaseType.Name == nameof(Basic) ||
-                                               a.PropertyType.BaseType.Name == nameof(Addressable))
-                                   .ToList();
-
-            if (related != null && related.Any())
-            {
-                foreach (var item in related)
-                {
-                    action(item);
+                    _context.Entry(data).Reference(item.Item2).Load();
                 }
             }
-        }
-
-        private static void HandleSearchFields(T data)
-        {
-            var searchValues = new List<string>();
-
-            var relatedPropertiesToSearchFields = new[] { Constants.NAME_FIELD, Constants.EMPLOYEE_NUMBER };
-
-            var types = new[] { typeof(string), typeof(int), typeof(double), typeof(decimal), typeof(float), typeof(Common.DayOfWeek) };
-
-            var relatedTypes = new[] { nameof(Basic), nameof(Addressable) };
-
-            var baseProperties = data.GetType()
-                .GetProperties();
-
-            var relatedEntities = baseProperties
-                .Where(a => a.PropertyType.BaseType != null)
-                .Where(a => relatedTypes.Contains(a.PropertyType.BaseType.Name))
-                .ToList();
-
-            var fields = baseProperties
-                .Where(a => types.Contains(a.PropertyType))
-                .Where(a => a.GetValue(data) != null)
-                .Select(a => a.GetValue(data).ToString().RemoveDiacritics().Trim())
-                .ToList();
-
-            fields.ForEach(a =>
-            {
-                if (nameof(a) == Constants.PERSONAL_NUMBER || nameof(a) == Constants.PERSONAL_JURIDICAL_NUMBER || nameof(a) == Constants.EMPLOYEE_NUMBER)
-                {
-                    a.RemoveChars(Constants.MASK_CHARS);
-                }
-            });
-
-            searchValues.AddRange(fields);
-
-            foreach (var entity in relatedEntities)
-            {
-                var entityProperties = entity.PropertyType
-                    .GetProperties()
-                    .Where(a => types.Contains(a.PropertyType))
-                    .ToList();
-
-                var relatedObject = data.GetPropertyValue(data.GetType().GetProperty(entity.Name).Name);
-
-                if (relatedObject != null)
-                {
-                    foreach (var property in relatedPropertiesToSearchFields)
-                    {
-                        if (relatedObject.GetType().GetProperty(property) != null)
-                        {
-                            var value = relatedObject.GetPropertyValue<string>(property);
-
-                            if (value != null)
-                            {
-                                searchValues.Add(value.ToString().RemoveDiacritics().Trim());
-                            }
-                        }
-                    }
-                }
-            }
-            data.SearchFields = searchValues.Aggregate((a, b) => a + " " + b);
         }
     }
 }

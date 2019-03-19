@@ -1,5 +1,7 @@
-﻿using Payroll.Common;
+﻿using MMLib.Extensions;
+using Payroll.Common;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
@@ -15,6 +17,22 @@ namespace Payroll.Models
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         [Display(ResourceType = typeof(Resource), Name = "QtyDaysDefault")]
         public int QtyDaysDefault { get; set; }
+
+        public override void CreateSearchText()
+        {
+            SearchFields = $@"{Name} {Description} {QtyDaysDefault} {CreatedBy}".RemoveDiacritics();
+        }
+
+        public override List<string> GetSearchFields()
+        {
+            return new List<string>
+            {
+                Resource.Name,
+                Resource.Description,
+                Resource.QtyDaysDefault,
+                Resource.CreatedBy
+            };
+        }
 
         public override Expression SortBy(string sort)
         {

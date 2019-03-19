@@ -1,5 +1,7 @@
-﻿using Payroll.Common;
+﻿using MMLib.Extensions;
+using Payroll.Common;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
@@ -11,12 +13,12 @@ namespace Payroll.Models
         [Display(ResourceType = typeof(Resource), Name = "EmployeeName")]
         public Guid EmployeeId { get; set; }
         [ForeignKey("EmployeeId")]
-        public Employee Employee { get; set; }
+        public virtual Employee Employee { get; set; }
 
         [Display(ResourceType = typeof(Resource), Name = "OccurrenceType")]
         public Guid OccurrenceTypeId { get; set; }
         [ForeignKey("OccurrenceTypeId")]       
-        public OccurrenceType OccurrenceType { get; set; }
+        public virtual OccurrenceType OccurrenceType { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         [Display(ResourceType = typeof(Resource), Name = "Occurrence")]
@@ -27,6 +29,22 @@ namespace Payroll.Models
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         [Display(ResourceType = typeof(Resource), Name = "EndDate")]
         public DateTime? End { get; set; }
+
+        public override void CreateSearchText()
+        {
+            SearchFields = $@"{Employee.Name} {OccurrenceType.Name} {Occurrence} {CreatedBy}".RemoveDiacritics();
+        }
+
+        public override List<string> GetSearchFields()
+        {
+            return new List<string>
+            {
+                Resource.EmployeeName,
+                Resource.OccurrenceType,
+                Resource.Occurrence,
+                Resource.CreatedBy
+            };
+        }
 
         public override Expression SortBy(string sort)
         {

@@ -1,5 +1,7 @@
-﻿using Payroll.Common;
+﻿using MMLib.Extensions;
+using Payroll.Common;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
@@ -25,6 +27,22 @@ namespace Payroll.Models
         public bool HasDangerous { get; set; }
         [Display(ResourceType = typeof(Resource), Name = "HasUnhealthy")]
         public bool HasUnhealthy { get; set; }
+
+        public override void CreateSearchText()
+        {
+            SearchFields = $@"{Name} {Description} {ManagerCommission} {CreatedBy}".RemoveDiacritics();
+        }
+
+        public override List<string> GetSearchFields()
+        {
+            return new List<string>
+            {
+                Resource.Name,
+                Resource.Description,
+                Resource.ManagerCommission,
+                Resource.CreatedBy
+            };
+        }
 
         public override Expression SortBy(string sort)
         {

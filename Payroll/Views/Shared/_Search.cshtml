@@ -1,7 +1,7 @@
 @model IEnumerable<string>
 @{
     var filter = ViewBag.filter;
-    var placeHolder = Model.Aggregate((a, b) => a + ", " + b);
+    var placeHolder = string.Join(", ", Model);
 }
 
 <form>
