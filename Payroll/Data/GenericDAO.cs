@@ -223,18 +223,15 @@ namespace Payroll.Data
 
         public async Task<List<T>> Search(int page = 1, string filter = "", string sort = "", string order = Constants.ASC)
         {
-            var builder = new ExpressionBuilder<T>();
-
-            builder.Where(nameof(Basic.SearchFields), LogicOperator.LIKE, filter)
-                   .And(nameof(Basic.IsDeleted), LogicOperator.EQUALS, false);
-
-            var where = builder.Build();
-
+            var whereClause = new ExpressionBuilder<T>().EnableMultTerms(SqlConnector.AND)
+                                                        .Where(nameof(Basic.SearchFields), LogicOperator.LIKE, filter)
+                                                        .And(nameof(Basic.IsDeleted), LogicOperator.EQUALS, false)
+                                                        .Build();
             var orderBy = SortBy(sort);
 
             var query = _context
                 .Set<T>()
-                .Where(where);
+                .Where(whereClause);
 
             foreach (var item in Activator.CreateInstance<T>().GetRelatedItems())
             {
@@ -258,9 +255,13 @@ namespace Payroll.Data
 
         public async Task<int> Count(string filter = "")
         {
+            var whereClause = new ExpressionBuilder<T>().EnableMultTerms(SqlConnector.AND)
+                                                        .Where(nameof(Basic.SearchFields), LogicOperator.LIKE, filter)
+                                                        .And(nameof(Basic.IsDeleted), LogicOperator.EQUALS, false)
+                                                        .Build();
             return await _context
                 .Set<T>()
-                .Where(FilterBy(filter))
+                .Where(whereClause)
                 .Select(a => a.Id)
                 .CountAsync();
         }

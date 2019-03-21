@@ -172,7 +172,7 @@
     <value>Taxa de câmbio obrigatória.</value>
   </data>
   <data name="ExecuteSearch" xml:space="preserve">
-    <value>Digite o termo a ser pesquisado e pressione ENTER (Para consultar por mais de um valor separe os valores com barra / ):</value>
+    <value>Digite o termo a ser pesquisado e pressione ENTER (Para consultar por mais de um valor separe os valores com barra espaço em branco ):</value>
   </data>
   <data name="First" xml:space="preserve">
     <value>Primeiro</value>
