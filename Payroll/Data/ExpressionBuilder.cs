@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using MMLib.Extensions;
 using Payroll.Common;
@@ -11,7 +13,8 @@ public enum LogicOperator
     GREATHER_THAN,
     GREATHER_OR_EQUAL_THAN,
     EQUALS,
-    LIKE
+    LIKE,
+    IN
 }
 public enum SqlConnector
 {
@@ -122,28 +125,49 @@ public class ExpressionBuilder<T> where T : class
             case LogicOperator.LESS_OR_EQUAL_THAN:
                 statement = Expression.LessThanOrEqual(property, constant);
                 break;
+            case LogicOperator.IN:
+                statement = GetInStatement(filterValue as object[], property);
+                break;
             case LogicOperator.LIKE:
-                if (filterValue is String)
-                {
-                    var normalized = filterValue.ToString().RemoveDiacritics().Trim();
-                    if (multTerms)
-                    {
-                        statement = GetMultTermsStatement(normalized, property);
-                    }
-                    else
-                    {
-                        constant = Expression.Constant(normalized);
-                        statement = Expression.Call(property, typeof(string).GetMethod(CONTAINS, new[] { typeof(string) }), constant);
-                    }
-                }
-                else
-                {
-                    statement = Expression.Equal(property, constant);
-                }
+                statement = GetLikeOrEqualStatement(filterValue, property);
                 break;
             default:
                 //does nothing
                 break;
+        }
+        return statement;
+    }
+    private Expression GetInStatement(object[] items, Expression property)
+    {
+        if (items == null || !items.Any()) return null;
+        Expression statement = GetLikeOrEqualStatement(items[0], property);
+        if (items.Count() > 1)
+        {
+            for (int i = 1; i < items.Count(); i++)
+            {
+                statement = Expression.Or(statement, GetLikeOrEqualStatement(items[i], property));
+            }
+        }
+        return statement;
+    }
+    private Expression GetLikeOrEqualStatement(object filterValue, Expression property)
+    {
+        Expression statement = null;
+        if (filterValue is String)
+        {
+            var normalized = filterValue.ToString().RemoveDiacritics().Trim();
+            if (multTerms)
+            {
+                statement = GetMultTermsStatement(normalized, property);
+            }
+            else
+            {
+                statement = Expression.Call(property, typeof(string).GetMethod(CONTAINS, new[] { typeof(string) }), Expression.Constant(normalized));
+            }
+        }
+        else
+        {
+            statement = Expression.Equal(property, Expression.Constant(filterValue));
         }
         return statement;
     }
