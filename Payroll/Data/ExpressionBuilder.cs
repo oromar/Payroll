@@ -105,9 +105,10 @@ public class ExpressionBuilder<T> where T : class
         }
         return property;
     }
-    private Expression GetStatement(object filterValue, Expression property, Expression constant, LogicOperator operation)
+    private Expression GetStatement(object filterValue, Expression property, LogicOperator operation)
     {
         Expression statement = null;
+        var constant = Expression.Constant(filterValue);
         switch (operation)
         {
             case LogicOperator.EQUALS:
@@ -126,6 +127,7 @@ public class ExpressionBuilder<T> where T : class
                 statement = Expression.LessThanOrEqual(property, constant);
                 break;
             case LogicOperator.IN:
+                if (!(filterValue is object[])) return null;
                 statement = GetInStatement(filterValue as object[], property);
                 break;
             case LogicOperator.LIKE:
@@ -162,7 +164,8 @@ public class ExpressionBuilder<T> where T : class
             }
             else
             {
-                statement = Expression.Call(property, typeof(string).GetMethod(CONTAINS, new[] { typeof(string) }), Expression.Constant(normalized));
+                statement = Expression.Call(property,
+                    typeof(string).GetMethod(CONTAINS, new[] { typeof(string) }), Expression.Constant(normalized));
             }
         }
         else
@@ -174,8 +177,7 @@ public class ExpressionBuilder<T> where T : class
     private void AddStatement(string filterName, object filterValue, LogicOperator operation, SqlConnector connector)
     {
         var property = GetPropertyExpression(filterName);
-        var constant = Expression.Constant(filterValue);
-        var statement = GetStatement(filterValue, property, constant, operation);
+        var statement = GetStatement(filterValue, property, operation);
         if (statement != null)
         {
             statements.Add(new Statement
@@ -200,7 +202,9 @@ public class ExpressionBuilder<T> where T : class
         statement = expressions[0];
         for (int i = 1; i < expressions.Count; i++)
         {
-            statement = multTermsConnector == SqlConnector.OR ? Expression.Or(statement, expressions[i]) : Expression.And(statement, expressions[i]);
+            statement = multTermsConnector == SqlConnector.OR ?
+                    Expression.Or(statement, expressions[i]) :
+                    Expression.And(statement, expressions[i]);
         }
         return statement;
     }
