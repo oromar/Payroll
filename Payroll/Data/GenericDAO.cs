@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ExpressionUtils;
+using Microsoft.EntityFrameworkCore;
 using MMLib.Extensions;
 using Payroll.Common;
 using Payroll.Models;
@@ -9,7 +10,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
-
 namespace Payroll.Data
 {
     public class GenericDAO<T> where T : Basic
@@ -223,9 +223,8 @@ namespace Payroll.Data
 
         public async Task<List<T>> Search(int page = 1, string filter = "", string sort = "", string order = Constants.ASC)
         {
-            var whereClause = new ExpressionBuilder<T>().EnableMultTerms(SqlConnector.AND)
-                                                        .Where(nameof(Basic.SearchFields), LogicOperator.LIKE, filter)
-                                                        .And(nameof(Basic.IsDeleted), LogicOperator.EQUALS, false)
+            var whereClause = new ExpressionBuilder<T>().Where(nameof(Basic.SearchFields), Operator.LIKE, filter)
+                                                        .And(nameof(Basic.IsDeleted), Operator.EQUALS, false)
                                                         .Build();
             var orderBy = SortBy(sort);
 
@@ -255,9 +254,8 @@ namespace Payroll.Data
 
         public async Task<int> Count(string filter = "")
         {
-            var whereClause = new ExpressionBuilder<T>().EnableMultTerms(SqlConnector.AND)
-                                                        .Where(nameof(Basic.SearchFields), LogicOperator.LIKE, filter)
-                                                        .And(nameof(Basic.IsDeleted), LogicOperator.EQUALS, false)
+            var whereClause = new ExpressionBuilder<T>().Where(nameof(Basic.SearchFields), Operator.LIKE, filter)
+                                                        .And(nameof(Basic.IsDeleted), Operator.EQUALS, false)
                                                         .Build();
             return await _context
                 .Set<T>()

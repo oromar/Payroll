@@ -10,7 +10,7 @@ namespace Payroll.Common
         //experimental
         public static bool INCREMENTAL_SEARCH_ACTIVE = false;
 
-        public const int MAX_ITEMS_PER_PAGE = 10;
+        public const int MAX_ITEMS_PER_PAGE = 5;
 
         public const string SORT_QTY_DAYS = "QtyDaysDefault";
         public const string SORT_DESCRIPTION = "Description";
