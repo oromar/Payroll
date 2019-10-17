@@ -12,6 +12,7 @@ namespace Payroll.Business
     {
         protected readonly GenericDAO<T> _dao;
         private readonly BusinessRule<T> createRule, editRule, deleteRule;
+        
         public BusinessObject(GenericDAO<T> dao, BusinessRule<T> createRule, 
         BusinessRule<T> editRule, BusinessRule<T> deleteRule)
         {
