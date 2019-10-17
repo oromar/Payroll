@@ -702,4 +702,7 @@
   <data name="Responsible" xml:space="preserve">
     <value>Responsible</value>
   </data>  
+  <data name="PersonalDocumentAlreadyExists" xml:space="preserve">
+    <value>CPF Já existente</value>
+  </data>
 </root>

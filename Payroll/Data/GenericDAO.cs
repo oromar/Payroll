@@ -216,14 +216,14 @@ namespace Payroll.Data
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 
-        public bool Exists(Guid id)
+        public async Task<bool> Exists(Guid id)
         {
             var whereClause = new ExpressionBuilder<T>().Where(nameof(Basic.IsDeleted), Operator.EQUALS, false)
                                                         .Build();
-            return _context
+            return await _context
                 .Set<T>()
                 .Where(whereClause)
-                .Any(a => a.Id == id);
+                .AnyAsync(a => a.Id == id);
         }
 
         public async Task<List<T>> Search(int page = 1, string filter = "", string sort = "", string order = Constants.ASC)

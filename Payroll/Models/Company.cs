@@ -22,16 +22,16 @@ namespace Payroll.Models
         [Display(ResourceType = typeof(Resource), Name = "FoundationDate")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public DateTime? FoundationDate { get; set; }
-        [Display(ResourceType = typeof(Resource), Name = "Nacionality")]
-        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
+        [Display(ResourceType = typeof(Resource), Name = nameof(Nacionality))]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = nameof(Resource.RequiredField))]
         public string Nacionality { get; set; }
-        [Display(ResourceType = typeof(Resource), Name = "HasStrangers")]
-        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
+        [Display(ResourceType = typeof(Resource), Name = nameof(HasStrangers))]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = nameof(Resource.RequiredField))]
         public bool HasStrangers { get; set; }
-        [Display(ResourceType = typeof(Resource), Name = "Currency")]
-        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
+        [Display(ResourceType = typeof(Resource), Name = nameof(Currency))]
+        [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = nameof(Resource.RequiredField))]
         public Guid CurrencyId { get; set; }
-        [ForeignKey("CurrencyId")]
+        [ForeignKey(nameof(CurrencyId))]
         public virtual Currency PaymentCurrency { get; set; }
         public virtual IEnumerable<Workplace> Workplaces { get; set; }
         public virtual IEnumerable<JobRole> JobRoles { get; set; }

@@ -87,7 +87,8 @@ namespace Payroll.Controllers
                 }
                 catch (DbUpdateConcurrencyException e)
                 {
-                    if (!Exists(data.Id))
+                    var exists = await Exists(data.Id);
+                    if (!exists)
                     {
                         return NotFound();
                     }
@@ -117,9 +118,9 @@ namespace Payroll.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool Exists(Guid id)
+        private async Task<bool> Exists(Guid id)
         {
-            return _businessObject.Exists(id);
+            return await _businessObject.Exists(id);
         }
     }
 }

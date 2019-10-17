@@ -10,21 +10,10 @@ namespace Payroll.Business
 {
     public class EmployeesBO : BusinessObject<Employee>
     {
-        public EmployeesBO(GenericDAO<Employee> dao) : base(dao)
+        public EmployeesBO(GenericDAO<Employee> dao, CreateEmployeeBusinessRule createRule, 
+        DeleteEmployeeBusinessRule deleteRule, EditEmployeeBusinessRule editRule) : 
+        base(dao, createRule, editRule, deleteRule)
         {
-        }
-
-        public override Task<Employee> Edit(Guid id, Employee data, string userIdentity)
-        {
-            _dao
-                .GetContext()
-                .Certification
-                .RemoveRange(_dao
-                    .GetContext()
-                    .Certification
-                    .Where(a => a.EmployeeId == id));
-
-            return base.Edit(id, data, userIdentity);
         }
 
         public override async Task<List<Employee>> Search(int page = 1, string filter = "", string sort = "", string order = "ASC")

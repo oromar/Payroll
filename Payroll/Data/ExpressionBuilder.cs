@@ -23,7 +23,8 @@ namespace ExpressionUtils
     public enum SqlConnector
     {
         AND = 1,
-        OR
+        OR,
+        XOR
     }
 
     public class ExpressionBuilder<T> where T : class
@@ -49,7 +50,7 @@ namespace ExpressionUtils
             entity = Expression.Parameter(typeof(T), ENTITY);
             statements = new List<Statement>();
         }
-        public ExpressionBuilder<T> EnableIncrementalSearch(int step)
+        public ExpressionBuilder<T> EnableIncrementalSearch(int step = 1)
         {
             if (multTerms) throw new ArgumentException("Cannot enable incremental search and mult terms search simultaneously, please choose only one option");
             incrementalSearch = true;
@@ -89,8 +90,16 @@ namespace ExpressionUtils
             AddStatement(filterName, filterValue, operation, SqlConnector.OR);
             return this;
         }
+        public ExpressionBuilder<T> Xor(string filterName, Operator operation, object filterValue)
+        {
+            AddStatement(filterName, filterValue, operation, SqlConnector.XOR);
+            return this;
+        }
+
         public Expression<Func<T, bool>> Build()
         {
+            if (!statements.Any()) return null;
+
             var result = statements[0].Expression;
 
             if (statements.Count > 1)
@@ -100,13 +109,30 @@ namespace ExpressionUtils
                     if (statements[i].SqlConnector == SqlConnector.AND)
                     {
                         result = Expression.Lambda<Func<T, bool>>(
-                        Expression.And(Expression.Invoke(result, entity), Expression.Invoke(statements[i].Expression, entity)),
+                        Expression.And(
+                            Expression.Invoke(result, entity), 
+                            Expression.Invoke(statements[i].Expression, entity)),
                         entity);
                     }
-                    else
+                    else if (statements[i].SqlConnector == SqlConnector.OR)
                     {
                         result = Expression.Lambda<Func<T, bool>>(
-                        Expression.Or(Expression.Invoke(result, entity), Expression.Invoke(statements[i].Expression, entity)),
+                        Expression.Or(
+                            Expression.Invoke(result, entity), 
+                            Expression.Invoke(statements[i].Expression, entity)),
+                        entity);
+                    }
+                    else if (statements[i].SqlConnector == SqlConnector.XOR)
+                    {
+                        result = Expression.Lambda<Func<T, bool>>(
+                        Expression.Or(
+                            Expression.And(
+                                Expression.Not(Expression.Invoke(result, entity)), 
+                                Expression.Invoke(statements[i].Expression, entity)),                                
+                            Expression.And(
+                                Expression.Invoke(result, entity), 
+                                Expression.Not(Expression.Invoke(statements[i].Expression, entity)))
+                        ),
                         entity);
                     }
                 }
@@ -215,7 +241,9 @@ namespace ExpressionUtils
             else
             {
                 statement = Expression.Call(property,
-                    typeof(string).GetMethod(CONTAINS, new[] { typeof(string) }), Expression.Constant(normalized));
+                    typeof(string).GetMethod(
+                        CONTAINS, new[] { typeof(string) }), Expression.Constant(normalized)
+                        );
             }
             return statement;
         }

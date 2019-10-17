@@ -11,27 +11,15 @@ namespace Payroll.Business
     public class WorkHoursBO : BusinessObject<WorkHours>
     {
 
-        public WorkHoursBO(GenericDAO<WorkHours> dao) : base(dao)
+        public WorkHoursBO(GenericDAO<WorkHours> dao, CreateWorkHoursBusinessRule createRule,
+        EditWorkHoursBusinessRule editRule, DeleteWorkHoursBusinessRule deleteRule) : base(dao, createRule, editRule, deleteRule)
         {
 
         }
 
         public override Task<WorkHours> Edit(Guid id, WorkHours data, string userIdentity)
         {
-            _dao
-                .GetContext()
-                .WorkHoursEmployee
-                .RemoveRange(_dao
-                    .GetContext()
-                    .WorkHoursEmployee
-                    .Where(a => a.WorkHoursId == id));
-            _dao
-                .GetContext()
-                .WorkHourItems
-                .RemoveRange(_dao
-                    .GetContext()
-                    .WorkHourItems
-                    .Where(a => a.WorkHoursId == id));
+            
 
             return base.Edit(id, data, userIdentity);
         }

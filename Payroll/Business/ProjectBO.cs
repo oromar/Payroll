@@ -11,22 +11,9 @@ namespace Payroll.Business
     public class ProjectBO : BusinessObject<Project>
     {
 
-        public ProjectBO(GenericDAO<Project> dao) : base(dao)
+        public ProjectBO(GenericDAO<Project> dao, CreateProjectBusinessRule createRule,
+        EditProjectBusinessRule editRule, DeleteProjectBusinessRule deleteRule) : base(dao, createRule, editRule, deleteRule)
         {
-
-        }
-
-        public override Task<Project> Edit(Guid id, Project data, string userIdentity)
-        {
-            _dao
-                .GetContext()
-                .ProjectEmployee
-                .RemoveRange(_dao
-                    .GetContext()
-                    .ProjectEmployee
-                    .Where(a => a.ProjectId == id));
-
-            return base.Edit(id, data, userIdentity);
         }
 
         public override async Task<List<Project>> Search(int page = 1, string filter = "", string sort = "", string order = "ASC")

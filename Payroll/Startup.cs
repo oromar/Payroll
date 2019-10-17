@@ -87,6 +87,19 @@ namespace Payroll
             services.AddScoped<GenericDAO<Vacation>>();
             services.AddScoped<GenericDAO<WorkHours>>();
 
+            services.AddScoped<CreateEmployeeBusinessRule>();
+            services.AddScoped<EditEmployeeBusinessRule>();
+            services.AddScoped<DeleteEmployeeBusinessRule>();
+            services.AddScoped<CreateProjectBusinessRule>();
+            services.AddScoped<DeleteProjectBusinessRule>();
+            services.AddScoped<EditProjectBusinessRule>();
+            services.AddScoped<CreateVacationBusinessRule>();
+            services.AddScoped<EditVacationBusinessRule>();
+            services.AddScoped<DeleteVacationBusinessRule>();
+            services.AddScoped<CreateWorkHoursBusinessRule>();
+            services.AddScoped<DeleteWorkHoursBusinessRule>();
+            services.AddScoped<EditWorkHoursBusinessRule>();
+
             services.AddScoped<IEmailSender, EmailSender>();
 
             services.AddSingleton<Message>();
