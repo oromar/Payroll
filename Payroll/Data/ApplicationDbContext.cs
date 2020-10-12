@@ -17,47 +17,47 @@ namespace Payroll.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Currency>()
-                .HasIndex(p => new { p.Id, p.SearchFields })
+                .HasIndex(p => new { p.Id, p.SearchText })
                 .IsUnique(true);
 
             modelBuilder.Entity<Occupation>()
-                .HasIndex(p => new { p.Id, p.SearchFields })
+                .HasIndex(p => new { p.Id, p.SearchText })
                 .IsUnique(true);
 
             modelBuilder.Entity<LicenseType>()
-                .HasIndex(p => new { p.Id, p.SearchFields })
+                .HasIndex(p => new { p.Id, p.SearchText })
                 .IsUnique(true);
 
             modelBuilder.Entity<Company>()
-                .HasIndex(p => new { p.Id, p.SearchFields })
+                .HasIndex(p => new { p.Id, p.SearchText })
                 .IsUnique(true);
 
             modelBuilder.Entity<Workplace>()
-                .HasIndex(p => new { p.Id, p.SearchFields })
+                .HasIndex(p => new { p.Id, p.SearchText })
                 .IsUnique(true);
 
             modelBuilder.Entity<JobRole>()
-                .HasIndex(p => new { p.Id, p.SearchFields })
+                .HasIndex(p => new { p.Id, p.SearchText })
                 .IsUnique(true);
 
             modelBuilder.Entity<Function>()
-                .HasIndex(p => new { p.Id, p.SearchFields })
+                .HasIndex(p => new { p.Id, p.SearchText })
                 .IsUnique(true);
 
             modelBuilder.Entity<OccurrenceType>()
-               .HasIndex(p => new { p.Id, p.SearchFields })
+               .HasIndex(p => new { p.Id, p.SearchText })
                .IsUnique(true);
 
             modelBuilder.Entity<Employee>()
-               .HasIndex(p => new { p.Id, p.SearchFields })
+               .HasIndex(p => new { p.Id, p.SearchText })
                .IsUnique(true);
 
             modelBuilder.Entity<Project>()
-               .HasIndex(p => new { p.Id, p.SearchFields })
+               .HasIndex(p => new { p.Id, p.SearchText })
                .IsUnique(true);
 
             modelBuilder.Entity<Department>()
-                .HasIndex(p => new { p.Id, p.SearchFields })
+                .HasIndex(p => new { p.Id, p.SearchText })
                 .IsUnique(true);
 
             modelBuilder.Entity<ProjectEmployee>()
@@ -74,11 +74,11 @@ namespace Payroll.Data
                 .HasForeignKey(p => p.EmployeeId);
 
             modelBuilder.Entity<Vacation>()
-               .HasIndex(p => new { p.Id, p.SearchFields })
+               .HasIndex(p => new { p.Id, p.SearchText })
                .IsUnique(true);
 
             modelBuilder.Entity<WorkHours>()
-               .HasIndex(p => new { p.Id, p.SearchFields })
+               .HasIndex(p => new { p.Id, p.SearchText })
                .IsUnique(true);
 
             modelBuilder.Entity<VacationEmployee>()

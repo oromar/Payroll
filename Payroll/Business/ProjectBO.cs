@@ -11,8 +11,7 @@ namespace Payroll.Business
     public class ProjectBO : BusinessObject<Project>
     {
 
-        public ProjectBO(GenericDAO<Project> dao, CreateProjectBusinessRule createRule,
-        EditProjectBusinessRule editRule, DeleteProjectBusinessRule deleteRule) : base(dao, createRule, editRule, deleteRule)
+        public ProjectBO(GenericDAO<Project> dao) : base(dao)
         {
         }
 
@@ -23,7 +22,7 @@ namespace Payroll.Business
             result.ForEach(a =>
             {
                 a.Employees = _dao
-                .GetContext()
+                .Context
                 .ProjectEmployee
                 .Include(b => b.Employee)
                 .Where(b => b.ProjectId == a.Id)

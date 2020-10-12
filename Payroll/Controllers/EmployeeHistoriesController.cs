@@ -18,7 +18,7 @@ namespace Payroll.Controllers
         {
             var companies = _businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Company
                 .Where(a => !a.IsDeleted);
 
@@ -27,8 +27,8 @@ namespace Payroll.Controllers
 
             var employees = _businessObject
                 .GetDAO()
-                .GetContext()
-                .Employee                
+                .Context
+                .Employee
                 .Where(a => !a.IsDeleted)
                 .ToList();
 
@@ -40,7 +40,7 @@ namespace Payroll.Controllers
             ViewBag.OccurrenceTypes = Utils
                 .GetOptions(_businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .OccurrenceType
                 .Where(a => !a.IsDeleted));
 
@@ -50,14 +50,14 @@ namespace Payroll.Controllers
                 Key = a.Id,
                 Value = _businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Department
                 .Where(b => !b.IsDeleted)
                 .Where(c => c.CompanyId == a.Id)
                 .ToList()
             })
             .ToDictionary(t => t.Key, t => t.Value);
-            
+
             var departments = companies
             .Include(a => a.Departments)
             .Where(a => !a.IsDeleted)
@@ -65,21 +65,21 @@ namespace Payroll.Controllers
 
             ViewBag.EmployeesByDepartments = departments
             .AsEnumerable()
-            .Select (a => new 
+            .Select(a => new
             {
                 Key = a.Id,
                 Value = _businessObject
-                .GetDAO()
-                .GetContext()
-                .Employee
-                .Where(b => !b.IsDeleted)
-                .Where(b => b.DepartmentId == a.Id)
-                .ToList()
+               .GetDAO()
+               .Context
+               .Employee
+               .Where(b => !b.IsDeleted)
+               .Where(b => b.DepartmentId == a.Id)
+               .ToList()
 
             })
             .ToDictionary(t => t.Key, t => t.Value);
 
-            return  base.Index(page, filter, sort, order);
+            return base.Index(page, filter, sort, order);
         }
 
 
@@ -97,11 +97,12 @@ namespace Payroll.Controllers
             return base.Edit(id, data);
         }
 
-        private void HandleName(EmployeeHistory data) {
+        private void HandleName(EmployeeHistory data)
+        {
 
             var employee = _businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Employee
                 .Find(data.EmployeeId);
 

@@ -20,7 +20,7 @@ namespace Payroll.Controllers
         {
             var companies = _businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Company
                 .Where(a => !a.IsDeleted);
 
@@ -33,7 +33,7 @@ namespace Payroll.Controllers
                 Key = a.Id,
                 Value = _businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Employee
                 .Where(b => !b.IsDeleted)
                 .Where(c => c.CompanyId == a.Id)
@@ -41,7 +41,7 @@ namespace Payroll.Controllers
             })
             .ToDictionary(t => t.Key, t => t.Value);
 
-            foreach(var i in dict.Keys)
+            foreach (var i in dict.Keys)
             {
                 foreach (var j in dict[i])
                 {
@@ -57,7 +57,7 @@ namespace Payroll.Controllers
                 Key = a.Id,
                 Value = _businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Employee
                 .Include(b => b.Function)
                 .Where(b => !b.IsDeleted)
@@ -75,7 +75,7 @@ namespace Payroll.Controllers
                 Key = a.Id,
                 Value = _businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Department
                 .Where(b => !b.IsDeleted)
                 .Where(c => c.CompanyId == a.Id)
@@ -89,7 +89,7 @@ namespace Payroll.Controllers
                 Key = a.Id,
                 Value = _businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Workplace
                 .Where(b => !b.IsDeleted)
                 .Where(c => c.CompanyId == a.Id)

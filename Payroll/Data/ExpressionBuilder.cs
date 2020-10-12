@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -16,9 +15,11 @@ namespace ExpressionUtils
         GREATHER_OR_EQUAL_THAN,
         EQUALS,
         LIKE,
+        ILIKE,
         STARTS_WITH,
         ENDS_WITH,
-        IN
+        IN,
+        NOT_IN
     }
     public enum SqlConnector
     {
@@ -39,12 +40,14 @@ namespace ExpressionUtils
         private const string CONTAINS = "Contains";
         private const string STARTS_WITH = "StartsWith";
         private const string ENDS_WITH = "EndsWith";
-        private ParameterExpression entity;
-        private List<Statement> statements;
+        private const string TO_LOWER = "ToLower";
+        private readonly ParameterExpression entity;
+        private readonly List<Statement> statements;
         private bool multTerms = false;
+        private SqlConnector multTermsConnector = SqlConnector.OR;
+        private string multTermsSeparator = string.Empty;
         private bool incrementalSearch = false;
         private int incrementalSearchStep = 1;
-        private SqlConnector multTermsConnector = SqlConnector.OR;
         public ExpressionBuilder()
         {
             entity = Expression.Parameter(typeof(T), ENTITY);
@@ -63,11 +66,12 @@ namespace ExpressionUtils
             incrementalSearchStep = 1;
             return this;
         }
-        public ExpressionBuilder<T> EnableMultTerms(SqlConnector connector)
+        public ExpressionBuilder<T> EnableMultTerms(SqlConnector connector, string separator = " ")
         {
             if (incrementalSearch) throw new ArgumentException("Cannot enable mult terms search and incremental search simultaneously, please choose only one option");
             multTerms = true;
             multTermsConnector = connector;
+            multTermsSeparator = separator;
             return this;
         }
         public ExpressionBuilder<T> DisableMultTerms()
@@ -80,19 +84,31 @@ namespace ExpressionUtils
             AddStatement(filterName, filterValue, operation, SqlConnector.AND);
             return this;
         }
-        public ExpressionBuilder<T> And(string filterName, Operator operation, object filterValue)
+        public ExpressionBuilder<T> Where(Expression<Func<T, bool>> predicate)
         {
-            AddStatement(filterName, filterValue, operation, SqlConnector.AND);
+            AddStatement(predicate, SqlConnector.AND);
             return this;
         }
+        public ExpressionBuilder<T> And(string filterName, Operator operation, object filterValue) => Where(filterName, operation, filterValue);
+        public ExpressionBuilder<T> And(Expression<Func<T, bool>> predicate) => Where(predicate);
         public ExpressionBuilder<T> Or(string filterName, Operator operation, object filterValue)
         {
             AddStatement(filterName, filterValue, operation, SqlConnector.OR);
             return this;
         }
+        public ExpressionBuilder<T> Or(Expression<Func<T, bool>> predicate)
+        {
+            AddStatement(predicate, SqlConnector.OR);
+            return this;
+        }
         public ExpressionBuilder<T> Xor(string filterName, Operator operation, object filterValue)
         {
             AddStatement(filterName, filterValue, operation, SqlConnector.XOR);
+            return this;
+        }
+        public ExpressionBuilder<T> Xor(Expression<Func<T, bool>> predicate)
+        {
+            AddStatement(predicate, SqlConnector.XOR);
             return this;
         }
 
@@ -106,34 +122,35 @@ namespace ExpressionUtils
             {
                 for (int i = 1; i < statements.Count; i++)
                 {
-                    if (statements[i].SqlConnector == SqlConnector.AND)
+                    switch (statements[i].SqlConnector)
                     {
-                        result = Expression.Lambda<Func<T, bool>>(
-                        Expression.And(
-                            Expression.Invoke(result, entity), 
-                            Expression.Invoke(statements[i].Expression, entity)),
-                        entity);
-                    }
-                    else if (statements[i].SqlConnector == SqlConnector.OR)
-                    {
-                        result = Expression.Lambda<Func<T, bool>>(
-                        Expression.Or(
-                            Expression.Invoke(result, entity), 
-                            Expression.Invoke(statements[i].Expression, entity)),
-                        entity);
-                    }
-                    else if (statements[i].SqlConnector == SqlConnector.XOR)
-                    {
-                        result = Expression.Lambda<Func<T, bool>>(
-                        Expression.Or(
+                        case SqlConnector.AND:
+                            result = Expression.Lambda<Func<T, bool>>(
                             Expression.And(
-                                Expression.Not(Expression.Invoke(result, entity)), 
-                                Expression.Invoke(statements[i].Expression, entity)),                                
-                            Expression.And(
-                                Expression.Invoke(result, entity), 
-                                Expression.Not(Expression.Invoke(statements[i].Expression, entity)))
-                        ),
-                        entity);
+                                Expression.Invoke(result, entity),
+                                Expression.Invoke(statements[i].Expression, entity)),
+                            entity);
+                            break;
+                        case SqlConnector.OR:
+                            result = Expression.Lambda<Func<T, bool>>(
+                            Expression.Or(
+                                Expression.Invoke(result, entity),
+                                Expression.Invoke(statements[i].Expression, entity)),
+                            entity);
+                            break;
+                        case SqlConnector.XOR:
+
+                            result = Expression.Lambda<Func<T, bool>>(
+                            Expression.Or(
+                                Expression.And(
+                                    Expression.Not(Expression.Invoke(result, entity)),
+                                    Expression.Invoke(statements[i].Expression, entity)),
+                                Expression.And(
+                                    Expression.Invoke(result, entity),
+                                    Expression.Not(Expression.Invoke(statements[i].Expression, entity)))
+                            ),
+                            entity);
+                            break;
                     }
                 }
             }
@@ -183,8 +200,15 @@ namespace ExpressionUtils
                     if (!(filterValue is object[])) return null;
                     statement = GetInStatement(filterValue as object[], property);
                     break;
+                case Operator.NOT_IN:
+                    if (!(filterValue is object[])) return null;
+                    statement = Expression.Not(GetInStatement(filterValue as object[], property));
+                    break;
                 case Operator.LIKE:
                     statement = GetLikeStatement(filterValue, property);
+                    break;
+                case Operator.ILIKE:
+                    statement = GetILikeStatement(filterValue, property);
                     break;
                 case Operator.STARTS_WITH:
                     statement = GetStartsWithStatement(filterValue, property);
@@ -227,7 +251,7 @@ namespace ExpressionUtils
         }
         private Expression GetLikeStatement(object filterValue, Expression property)
         {
-            Expression statement = null;
+            Expression statement;
             if (filterValue == null) return null;
             var normalized = filterValue.ToString().RemoveDiacritics().Trim();
             if (multTerms)
@@ -247,8 +271,41 @@ namespace ExpressionUtils
             }
             return statement;
         }
+        private Expression GetILikeStatement(object filterValue, Expression property)
+        {
+            Expression statement;
+            if (filterValue == null) return null;
+            var normalized = filterValue.ToString().ToLower().RemoveDiacritics().Trim();
+            var toLowerProperty = Expression.Call(property, typeof(string).GetMethod(TO_LOWER, new Type[] { }));
+            if (multTerms)
+            {
+                statement = GetMultTermsStatement(normalized, toLowerProperty);
+            }
+            else if (incrementalSearch)
+            {
+                statement = GetIncrementalSearchStatement(normalized, toLowerProperty);
+            }
+            else
+            {
+                statement = Expression.Call(toLowerProperty,
+                    typeof(string).GetMethod(
+                        CONTAINS, new[] { typeof(string) }), Expression.Constant(normalized)
+                        );
+            }
+            return statement;
+        }
+        private void AddStatement(Expression<Func<T, bool>> predicate, SqlConnector connector)
+        {
+            statements.Add(new Statement
+            {
+                SqlConnector = connector,
+                Expression = predicate,
+            });
+        }
+
         private void AddStatement(string filterName, object filterValue, Operator operation, SqlConnector connector)
         {
+            if (string.IsNullOrWhiteSpace(filterName)) throw new ArgumentException("Filter name is required for non Lambda filters");
             var property = GetPropertyExpression(filterName);
             var statement = GetStatement(filterValue, property, operation);
             if (statement != null)
@@ -279,7 +336,7 @@ namespace ExpressionUtils
         private Expression GetMultTermsStatement(string value, Expression property)
         {
             Expression constant;
-            Expression statement = null;
+            Expression statement;
             List<Expression> expressions = new List<Expression>();
             var tokens = GetTokens(value);
             foreach (var token in tokens)
@@ -299,17 +356,7 @@ namespace ExpressionUtils
         }
         private string[] GetTokens(string value)
         {
-            const string WHITE_SPACE = " ";
-            const string SLASH = "/";
-            const string AMPERSAND = "&";
-            const string SEMI_COLON = ";";
-            const string COLON = ",";
-            if (value.Contains(WHITE_SPACE)) return value.Split(WHITE_SPACE);
-            if (value.Contains(SLASH)) return value.Split(SLASH);
-            if (value.Contains(AMPERSAND)) return value.Split(AMPERSAND);
-            if (value.Contains(SEMI_COLON)) return value.Split(SEMI_COLON);
-            if (value.Contains(COLON)) return value.Split(COLON);
-            return new string[] { value };
+            return value.Split(multTermsSeparator);
         }
     }
 }

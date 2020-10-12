@@ -63,8 +63,7 @@ namespace Payroll.Data.Migrations
                     OccupationArea = occupationAreas[i],
                     SocialReason = socialReasons[i],
                     State = "Pernambuco",
-                    IsDeleted = false,
-                    SearchFields = companyNames[i].RemoveDiacritics().Trim()                    
+                    IsDeleted = false,                                      
                 };
                 var x = new GenericDAO<Company>(_context).Create(company).Result;
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -11,8 +10,7 @@ namespace Payroll.Business
     public class VacationBO : BusinessObject<Vacation>
     {
 
-        public VacationBO(GenericDAO<Vacation> dao, CreateVacationBusinessRule createRule,
-        EditVacationBusinessRule editRule, DeleteVacationBusinessRule deleteRule) : base(dao, createRule, editRule, deleteRule)
+        public VacationBO(GenericDAO<Vacation> dao) : base(dao)
         {
 
         }
@@ -24,7 +22,7 @@ namespace Payroll.Business
             result.ForEach(a =>
             {
                 a.Employees = _dao
-                .GetContext()
+                .Context
                 .VacationEmployee
                 .Include(b => b.Employee)
                 .Where(b => b.VacationId == a.Id)

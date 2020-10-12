@@ -20,7 +20,7 @@ namespace Payroll.Controllers
         {
             var companies = _businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Company
                 .Where(a => !a.IsDeleted);
 
@@ -30,7 +30,7 @@ namespace Payroll.Controllers
             ViewBag.Occupations = Utils
                 .GetOptions(_businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Occupation
                 .Where(a => !a.IsDeleted));
 
@@ -42,7 +42,7 @@ namespace Payroll.Controllers
                 Key = a.Id,
                 Value = _businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Department
                 .Where(b => !b.IsDeleted)
                 .Where(c => c.CompanyId == a.Id)
@@ -56,7 +56,7 @@ namespace Payroll.Controllers
                 Key = a.Id,
                 Value = _businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Workplace
                 .Where(b => !b.IsDeleted)
                 .Where(c => c.CompanyId == a.Id)
@@ -71,7 +71,7 @@ namespace Payroll.Controllers
                 Key = a.Id,
                 Value = _businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .JobRole
                 .Where(b => !b.IsDeleted)
                 .Where(c => c.CompanyId == a.Id)
@@ -85,7 +85,7 @@ namespace Payroll.Controllers
                 Key = a.Id,
                 Value = _businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Function
                 .Where(b => !b.IsDeleted)
                 .Where(c => c.CompanyId == a.Id)
@@ -99,7 +99,7 @@ namespace Payroll.Controllers
                 Key = a.Id,
                 Value = _businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Employee
                 .Include(b => b.Function)
                 .Where(b => !b.IsDeleted)
@@ -130,7 +130,7 @@ namespace Payroll.Controllers
         {
             var employeesFromDB = _businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Employee
                 .Include(a => a.Department)
                 .Where(a => !a.IsDeleted)
@@ -150,7 +150,7 @@ namespace Payroll.Controllers
         {
             var employeesFromDB = _businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Employee
                 .Include(a => a.Company)
                 .Where(a => !a.IsDeleted)
@@ -170,7 +170,7 @@ namespace Payroll.Controllers
         {
             var employeesFromDB = _businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Employee
                 .Include(a => a.Function)
                 .Include(a => a.Company)
@@ -196,18 +196,18 @@ namespace Payroll.Controllers
             var names = HttpContext
                 .Request
                 .Form[Constants.CERTIFICATION_NAME];
-            
+
             var dates = HttpContext
                 .Request
                 .Form[Constants.CERTIFICATION_DATE];
 
             for (int i = 0; i < names.Count; i++)
             {
-                itemsToAdd.Add(new Certification 
+                itemsToAdd.Add(new Certification
                 {
-                     Name = names[i], 
-                     Date = DateTime.Parse(dates[i])
-                     
+                    Name = names[i],
+                    Date = DateTime.Parse(dates[i])
+
                 });
             }
             data.Certifications = itemsToAdd;

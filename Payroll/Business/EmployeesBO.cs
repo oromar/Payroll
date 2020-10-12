@@ -10,9 +10,8 @@ namespace Payroll.Business
 {
     public class EmployeesBO : BusinessObject<Employee>
     {
-        public EmployeesBO(GenericDAO<Employee> dao, CreateEmployeeBusinessRule createRule, 
-        DeleteEmployeeBusinessRule deleteRule, EditEmployeeBusinessRule editRule) : 
-        base(dao, createRule, editRule, deleteRule)
+        public EmployeesBO(GenericDAO<Employee> dao) :
+        base(dao)
         {
         }
 
@@ -23,7 +22,7 @@ namespace Payroll.Business
             result.ForEach(a =>
             {
                 a.Certifications = _dao
-                .GetContext()
+                .Context
                 .Employee
                 .Include(b => b.Certifications)
                 .First(b => b.Id == a.Id)

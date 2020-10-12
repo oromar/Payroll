@@ -1,11 +1,7 @@
-﻿using MMLib.Extensions;
-using Payroll.Common;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq.Expressions;
 
 namespace Payroll.Models
 {
@@ -20,45 +16,5 @@ namespace Payroll.Models
         public IEnumerable<WorkHourItem> WorkHourItems { get; set; }
 
         public virtual IEnumerable<WorkHoursEmployee> Employees { get; set; }
-
-        public override void CreateSearchText()
-        {
-            SearchFields = string.Join(" ", Company.Name,
-                                            Name,
-                                            CreatedBy)
-                                 .RemoveDiacritics();
-        }
-
-        public override List<string> GetSearchFields()
-        {
-            return new List<string>
-            {
-                Resource.Company,
-                Resource.Name,
-                Resource.CreatedBy
-            };
-        }
-
-        public override Expression SortBy(string sort)
-        {
-            Expression<Func<WorkHours, object>> result = null;
-
-            switch (sort)
-            {
-                case Constants.SORT_COMPANY_NAME:
-                    result = a => a.Company.Name;
-                    break;
-
-                case Constants.SORT_CREATED_BY:
-                    result = a => a.CreatedBy;
-                    break;
-
-                default:
-                    result = a => a.Name;
-                    break;
-            }
-
-            return result as Expression;
-        }
     }
 }

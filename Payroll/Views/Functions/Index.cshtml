@@ -8,7 +8,7 @@
     var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
     var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
 
-    var searchFields = new Function().GetSearchFields();
+    var searchFields = new Function().SearchFields;
 }
 
 <h2>@Resource.FunctionsTitle</h2>

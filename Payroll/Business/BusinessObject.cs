@@ -3,7 +3,6 @@ using Payroll.Data;
 using Payroll.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Payroll.Business
@@ -11,15 +10,10 @@ namespace Payroll.Business
     public class BusinessObject<T> where T : Basic
     {
         protected readonly GenericDAO<T> _dao;
-        private readonly BusinessRule<T> createRule, editRule, deleteRule;
-        
-        public BusinessObject(GenericDAO<T> dao, BusinessRule<T> createRule, 
-        BusinessRule<T> editRule, BusinessRule<T> deleteRule)
+
+        public BusinessObject(GenericDAO<T> dao)
         {
             _dao = dao;
-            this.createRule = createRule;
-            this.editRule = editRule;
-            this.deleteRule = deleteRule;
         }
 
         public GenericDAO<T> GetDAO()
@@ -49,7 +43,6 @@ namespace Payroll.Business
 
         public virtual async Task<T> Create(T data, string userIdentity)
         {
-            createRule?.Apply(data);
             data.Id = Guid.NewGuid();
             data.CreatedAt = DateTime.Now;
             data.CreatedBy = userIdentity;
@@ -61,7 +54,6 @@ namespace Payroll.Business
         {
             try
             {
-                editRule?.Apply(data);
                 data.UpdatedAt = DateTime.Now;
                 data.UpdatedBy = userIdentity;
                 await _dao.Edit(id, data);
@@ -76,7 +68,6 @@ namespace Payroll.Business
         public virtual async Task<int> Delete(Guid id, string userIdentity)
         {
             var data = await Find(id);
-            deleteRule?.Apply(data);
             data.IsDeleted = true;
             data.DeletedBy = userIdentity;
             data.DeletedAt = DateTime.Now;

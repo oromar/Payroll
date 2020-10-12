@@ -1,6 +1,5 @@
 ﻿using ExpressionUtils;
 using Microsoft.EntityFrameworkCore;
-using MMLib.Extensions;
 using Payroll.Common;
 using Payroll.Models;
 using System;
@@ -8,59 +7,53 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Threading.Tasks;
 namespace Payroll.Data
 {
     public class GenericDAO<T> where T : Basic
     {
-        private readonly ApplicationDbContext _context;
-
         public GenericDAO(ApplicationDbContext context)
         {
-            _context = context;
+            Context = context;
         }
 
-        public ApplicationDbContext GetContext()
-        {
-            return _context;
-        }
+        public ApplicationDbContext Context { get; }
 
-        public Expression<Func<T, object>> SortBy(string sort) => Activator.CreateInstance<T>().SortBy(sort) as Expression<Func<T, object>>;
+        public Expression<Func<T, object>> SortBy(string sort) => Activator.CreateInstance<T>().SortBy<T>(sort);
 
         public async Task<T> Find(Guid? id)
         {
-            var whereClause = new ExpressionBuilder<T>().Where(nameof(Basic.IsDeleted), Operator.EQUALS, false)
-                                                        .Build();
+            var filter = new ExpressionBuilder<T>().Where(nameof(Basic.IsDeleted), Operator.EQUALS, false)
+                                                   .And(a => a.Id == id)
+                                                   .Build();
 
-            return await _context
+            return await Context
                 .Set<T>()
-                .Where(whereClause)
-                .FirstOrDefaultAsync(a => a.Id == id);
+                .FirstOrDefaultAsync(filter);
         }
 
         public async Task<bool> Exists(Guid id)
         {
-            var whereClause = new ExpressionBuilder<T>().Where(nameof(Basic.IsDeleted), Operator.EQUALS, false)
-                                                        .Build();
-            return await _context
+            var filter = new ExpressionBuilder<T>().Where(nameof(Basic.IsDeleted), Operator.EQUALS, false)
+                                                   .And(nameof(Basic.Id), Operator.EQUALS, id)
+                                                   .Build();
+            return await Context
                 .Set<T>()
-                .Where(whereClause)
-                .AnyAsync(a => a.Id == id);
+                .AnyAsync(filter);
         }
 
         public async Task<List<T>> Search(int page = 1, string filter = "", string sort = "", string order = Constants.ASC)
         {
-            var whereClause = new ExpressionBuilder<T>().Where(nameof(Basic.SearchFields), Operator.LIKE, filter)
-                                                        .And(nameof(Basic.IsDeleted), Operator.EQUALS, false)
-                                                        .Build();
+            var filterInDB = new ExpressionBuilder<T>().Where(nameof(Basic.IsDeleted), Operator.EQUALS, false)
+                                                       .And(nameof(Basic.SearchText), Operator.ILIKE, filter)
+                                                       .Build();
             var orderBy = SortBy(sort);
 
-            var query = _context
+            var query = Context
                 .Set<T>()
-                .Where(whereClause);
+                .Where(filterInDB);
 
-            foreach (var item in Activator.CreateInstance<T>().GetRelatedItems())
+            foreach (var item in Activator.CreateInstance<T>().RelatedItems)
             {
                 query = query.Include(item.Name);
             }
@@ -82,57 +75,46 @@ namespace Payroll.Data
 
         public async Task<int> Count(string filter = "")
         {
-            var whereClause = new ExpressionBuilder<T>().Where(nameof(Basic.SearchFields), Operator.LIKE, filter)
-                                                        .And(nameof(Basic.IsDeleted), Operator.EQUALS, false)
-                                                        .Build();
-            return await _context
+            var filterInDB = new ExpressionBuilder<T>().Where(nameof(Basic.IsDeleted), Operator.EQUALS, false)
+                                                       .And(nameof(Basic.SearchText), Operator.LIKE, filter)
+                                                       .Build();
+            return await Context
                 .Set<T>()
-                .Where(whereClause)
-                .Select(a => a.Id)
-                .CountAsync();
+                .CountAsync(filterInDB);
         }
         public async Task<T> Create(T data)
         {
-            _context.Add(data);
-            LoadRelatedItems(data);
-            data.CreateSearchText();
-            await _context.SaveChangesAsync();
+            Context.Add(data);
+            await LoadRelatedItems(data);
+            await Context.SaveChangesAsync();
             return data;
         }
 
         public async Task<T> Edit(Guid id, T data)
         {
-            try
-            {
-                _context.Update(data);
-                LoadRelatedItems(data);
-                data.CreateSearchText();
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }
+            Context.Update(data);
+            await LoadRelatedItems(data);
+            await Context.SaveChangesAsync();
             return data;
         }
 
         public async Task<int> Delete(T data)
         {
-            _context.Update(data);
-            return await _context.SaveChangesAsync();
+            Context.Update(data);
+            return await Context.SaveChangesAsync();
         }
 
-        private void LoadRelatedItems(T data)
+        private async Task LoadRelatedItems(T data)
         {
-            foreach (var item in data.GetRelatedItems())
+            foreach (var item in data.RelatedItems)
             {
                 if (typeof(IEnumerable).IsAssignableFrom(item.Type))
                 {
-                    _context.Entry(data).Collection(item.Name).Load();
+                    await Context.Entry(data).Collection(item.Name).LoadAsync();
                 }
                 else
                 {
-                    _context.Entry(data).Reference(item.Name).Load();
+                    await Context.Entry(data).Reference(item.Name).LoadAsync();
                 }
             }
         }

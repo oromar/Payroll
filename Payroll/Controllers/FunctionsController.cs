@@ -19,7 +19,7 @@ namespace Payroll.Controllers
             ViewBag.Companies = Utils
                 .GetOptions(_businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Company
                 .Where(a => !a.IsDeleted));
 
@@ -31,7 +31,7 @@ namespace Payroll.Controllers
             var functions = Utils
                 .GetOptions(_businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Function
                 .Include(a => a.Company)
                 .Where(a => !a.IsDeleted)

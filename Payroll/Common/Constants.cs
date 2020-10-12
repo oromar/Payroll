@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace Payroll.Common
 {
     public class Constants
     {
-        //experimental
-        public static bool INCREMENTAL_SEARCH_ACTIVE = false;
-
         public const int MAX_ITEMS_PER_PAGE = 5;
 
         public const string SORT_QTY_DAYS = "QtyDaysDefault";

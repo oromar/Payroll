@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Payroll.Common
 {
@@ -139,7 +138,7 @@ namespace Payroll.Common
         }
 
         public static DateTime GetLastDayOfMonth(this DateTime value) {
-            return DateTime.Now.AddMonths(1).GetFirstDayOfMonth().AddDays(-1);
+            return value.AddMonths(1).GetFirstDayOfMonth().AddDays(-1);
         }
     }
 }

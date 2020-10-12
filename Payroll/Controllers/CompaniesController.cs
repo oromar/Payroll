@@ -20,7 +20,7 @@ namespace Payroll.Controllers
             ViewBag.Currencies = Utils
                 .GetOptions(_businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Currency
                 .Where(a => !a.IsDeleted));
 

@@ -8,7 +8,7 @@
     var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
     var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
 
-    var searchFields = new LicenseType().GetSearchFields();
+    var searchFields = new LicenseType().SearchFields;
 
 
 }

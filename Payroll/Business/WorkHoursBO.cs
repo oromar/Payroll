@@ -11,15 +11,14 @@ namespace Payroll.Business
     public class WorkHoursBO : BusinessObject<WorkHours>
     {
 
-        public WorkHoursBO(GenericDAO<WorkHours> dao, CreateWorkHoursBusinessRule createRule,
-        EditWorkHoursBusinessRule editRule, DeleteWorkHoursBusinessRule deleteRule) : base(dao, createRule, editRule, deleteRule)
+        public WorkHoursBO(GenericDAO<WorkHours> dao) : base(dao)
         {
 
         }
 
         public override Task<WorkHours> Edit(Guid id, WorkHours data, string userIdentity)
         {
-            
+
 
             return base.Edit(id, data, userIdentity);
         }
@@ -31,7 +30,7 @@ namespace Payroll.Business
             result.ForEach(a =>
             {
                 a.WorkHourItems = _dao
-                .GetContext()
+                .Context
                 .WorkHours
                 .Include(b => b.WorkHourItems)
                 .First(b => b.Id == a.Id)
@@ -43,7 +42,7 @@ namespace Payroll.Business
             result.ForEach(a =>
             {
                 a.Employees = _dao
-                .GetContext()
+                .Context
                 .WorkHoursEmployee
                 .Include(b => b.Employee)
                 .Where(b => b.WorkHoursId == a.Id)

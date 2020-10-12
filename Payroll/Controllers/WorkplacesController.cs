@@ -12,15 +12,16 @@ namespace Payroll.Controllers
 {
     public class WorkplacesController : GenericController<Workplace>
     {
-        public WorkplacesController(BusinessObject<Workplace> businessObject, Message message) : 
-            base(businessObject, message) {}
+        public WorkplacesController(BusinessObject<Workplace> businessObject, Message message) :
+            base(businessObject, message)
+        { }
 
         public override async Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")
         {
             ViewBag.Companies = Utils
                 .GetOptions(_businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Company
                 .Where(a => !a.IsDeleted));
 
@@ -33,7 +34,7 @@ namespace Payroll.Controllers
             var workplaces = Utils
                 .GetOptions(_businessObject
                 .GetDAO()
-                .GetContext()
+                .Context
                 .Workplace
                 .Include(a => a.Company)
                 .Where(a => !a.IsDeleted)

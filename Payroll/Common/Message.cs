@@ -7,7 +7,7 @@ namespace Payroll.Common
         public string Body { get; set; }
         public string Type { get; set; }
 
-        public Boolean HasMessage
+        public bool HasMessage
         {
             get
             {

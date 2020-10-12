@@ -1,10 +1,8 @@
-﻿using MMLib.Extensions;
-using Payroll.Common;
+﻿using Payroll.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq.Expressions;
 
 namespace Payroll.Models
 {
@@ -86,65 +84,5 @@ namespace Payroll.Models
         [Display(ResourceType = typeof(Resource), Name = "Gender")]
         [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "RequiredField")]
         public Gender Gender { get; set; }
-
-        public override void CreateSearchText()
-        {
-            SearchFields = string.Join(" ", Name,
-                                            Company.Name,
-                                            JobRole.Name,
-                                            Function.Name,
-                                            Manager.Name,
-                                            IDName,
-                                            EmployeeNumber,
-                                            Department.Name,
-                                            CreatedBy)
-                              .RemoveDiacritics();
-        }
-
-        public override List<string> GetSearchFields()
-        {
-            return new List<string>
-            {
-                Resource.Name,
-                Resource.Company,
-                Resource.JobRole,
-                Resource.Function,
-                Resource.Manager,
-                Resource.IDName,
-                Resource.EmployeeNumber,
-                Resource.Department,
-                Resource.CreatedBy
-            };
-        }
-
-        public override Expression SortBy(string sort)
-        {
-            Expression<Func<Employee, object>> result = null;
-
-            switch (sort)
-            {
-                case Constants.SORT_COMPANY_NAME:
-                    result = a => a.Company.Name;
-                    break;
-
-                case Constants.SORT_SALARY:
-                    result = a => a.Salary;
-                    break;
-
-                case Constants.SORT_CREATED_BY:
-                    result = a => a.CreatedBy;
-                    break;
-
-                case Constants.SORT_EMPLOYEE_NUMBER:
-                    result = a => a.EmployeeNumber;
-                    break;
-
-                default:
-                    result = a => a.Name;
-                    break;
-            }
-
-            return result as Expression;
-        }
     }
 }
