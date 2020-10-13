@@ -13,7 +13,7 @@ namespace Payroll.Models
         [ForeignKey("CompanyId")]
         public virtual Company Company { get; set; }
 
-        public IEnumerable<WorkHourItem> WorkHourItems { get; set; }
+        public virtual IEnumerable<WorkHourItem> WorkHourItems { get; set; }
 
         public virtual IEnumerable<WorkHoursEmployee> Employees { get; set; }
     }

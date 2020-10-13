@@ -14,7 +14,7 @@ namespace Payroll.Controllers
 {
     public class VacationsController : GenericController<Vacation>
     {
-        public VacationsController(VacationBO businessObject, Message message) : base(businessObject, message) { }
+        public VacationsController(BusinessObject<Vacation> businessObject, Message message) : base(businessObject, message) { }
 
 
         public override Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")

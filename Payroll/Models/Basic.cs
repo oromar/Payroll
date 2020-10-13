@@ -30,21 +30,17 @@ namespace Payroll.Models
         public DateTime? DeletedAt { get; set; }
         [Display(ResourceType = typeof(Resource), Name = "DeletedBy")]
         public string DeletedBy { get; set; }
-        [NotMapped]
-        public List<RelatedItem> RelatedItems
+        public List<RelatedItem> GetRelatedItems()
         {
-            get
+            return GetType().GetProperties()
+            .Where(a => a.GetGetMethod().IsVirtual)
+            .Select(a => new RelatedItem
             {
-                return GetType().GetProperties()
-                .Where(a => a.GetGetMethod().IsVirtual)
-                .Select(a => new RelatedItem
-                {
-                    Name = a.Name,
-                    Type = a.PropertyType,
-                    Value = a.GetValue(this)
-                })
-                .ToList();
-            }
+                Name = a.Name,
+                Type = a.PropertyType,
+                Value = a.GetValue(this)
+            })
+            .ToList();
         }
         private string _searchText;
         public string SearchText
@@ -63,17 +59,13 @@ namespace Payroll.Models
                 this._searchText = value;
             }
         }
-        [NotMapped]
-        public List<string> SearchFields
+        public List<string> GetSearchFields()
         {
-            get
-            {
-                return GetType().GetProperties()
-                .Where(a => (a.Name == nameof(Name)|| (a.Name == nameof(CreatedBy)) || a.DeclaringType != typeof(Basic)))
-                .Where(a => typesToSearch.Contains(a.PropertyType))
-                .Select(a => Resource.ResourceManager.GetString(a.Name))
-                .ToList();
-            }
+            return GetType().GetProperties()
+            .Where(a => (a.Name == nameof(Name) || (a.Name == nameof(CreatedBy)) || a.DeclaringType != typeof(Basic)))
+            .Where(a => typesToSearch.Contains(a.PropertyType))
+            .Select(a => Resource.ResourceManager.GetString(a.Name))
+            .ToList();
         }
         public Expression<Func<T, object>> SortBy<T>(string sort) where T : Basic
         {

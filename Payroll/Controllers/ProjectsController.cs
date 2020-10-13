@@ -12,7 +12,7 @@ namespace Payroll.Controllers
 {
     public class ProjectsController : GenericController<Project>
     {
-        public ProjectsController(ProjectBO businessObject, Message message)
+        public ProjectsController(BusinessObject<Project> businessObject, Message message)
             : base(businessObject, message) { }
 
 

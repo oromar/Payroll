@@ -11,7 +11,7 @@ namespace Payroll.Controllers
 {
     public class WorkHoursController : GenericController<WorkHours>
     {
-        public WorkHoursController(WorkHoursBO whBO, Message message) :
+        public WorkHoursController(BusinessObject<WorkHours> whBO, Message message) :
             base(whBO, message)
         { }
 

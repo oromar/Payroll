@@ -65,12 +65,12 @@ namespace Payroll
             services.AddScoped<BusinessObject<JobRole>>();
             services.AddScoped<BusinessObject<Function>>();
             services.AddScoped<BusinessObject<OccurrenceType>>();
-            services.AddScoped<EmployeesBO>();
             services.AddScoped<BusinessObject<Department>>();
             services.AddScoped<BusinessObject<EmployeeHistory>>();
-            services.AddScoped<ProjectBO>();
-            services.AddScoped<VacationBO>();
-            services.AddScoped<WorkHoursBO>();
+            services.AddScoped<BusinessObject<Employee>>();
+            services.AddScoped<BusinessObject<WorkHours>>();
+            services.AddScoped<BusinessObject<Project>>();
+            services.AddScoped<BusinessObject<Vacation>>();
 
             services.AddScoped<GenericDAO<Occupation>>();
             services.AddScoped<GenericDAO<Currency>>();

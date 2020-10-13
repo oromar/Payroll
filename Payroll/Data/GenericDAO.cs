@@ -27,9 +27,13 @@ namespace Payroll.Data
                                                    .And(a => a.Id == id)
                                                    .Build();
 
-            return await Context
+            var result =  await Context
                 .Set<T>()
                 .FirstOrDefaultAsync(filter);
+
+            await LoadRelatedItems(result);
+
+            return result;
         }
 
         public async Task<bool> Exists(Guid id)
@@ -53,7 +57,7 @@ namespace Payroll.Data
                 .Set<T>()
                 .Where(filterInDB);
 
-            foreach (var item in Activator.CreateInstance<T>().RelatedItems)
+            foreach (var item in Activator.CreateInstance<T>().GetRelatedItems())
             {
                 query = query.Include(item.Name);
             }
@@ -67,10 +71,14 @@ namespace Payroll.Data
                 query = query.OrderByDescending(orderBy);
             }
 
-            return await query
+            var result = await query
                 .Skip((page - 1) * Constants.MAX_ITEMS_PER_PAGE)
                 .Take(Constants.MAX_ITEMS_PER_PAGE)
                 .ToListAsync();
+
+            result.ForEach(a => LoadRelatedItems(a).Wait());
+
+            return result;
         }
 
         public async Task<int> Count(string filter = "")
@@ -106,7 +114,7 @@ namespace Payroll.Data
 
         private async Task LoadRelatedItems(T data)
         {
-            foreach (var item in data.RelatedItems)
+            foreach (var item in data.GetRelatedItems())
             {
                 if (typeof(IEnumerable).IsAssignableFrom(item.Type))
                 {

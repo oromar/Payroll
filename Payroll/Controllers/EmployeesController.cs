@@ -13,7 +13,7 @@ namespace Payroll.Controllers
 {
     public class EmployeesController : GenericController<Employee>
     {
-        public EmployeesController(EmployeesBO businessObject, Message message)
+        public EmployeesController(BusinessObject<Employee> businessObject, Message message)
             : base(businessObject, message) { }
 
         public override Task<IActionResult> Index(int page = 1, string filter = "", string sort = "", string order = "ASC")

@@ -9,7 +9,7 @@
     var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
     var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
 
-    var searchFields = new Vacation().SearchFields;
+    var searchFields = new Vacation().GetSearchFields();
 
 }
 

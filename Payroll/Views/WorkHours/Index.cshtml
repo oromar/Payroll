@@ -8,7 +8,7 @@
     var previousSort = string.IsNullOrEmpty(ViewBag.Sort) ? "Name" : ViewBag.Sort;
     var previousOrder = string.IsNullOrEmpty(ViewBag.Order) ? "ASC" : ViewBag.Order;
 
-    var searchFields = new WorkHours().SearchFields;
+    var searchFields = new WorkHours().GetSearchFields();
 }
 
 <h2>@Resource.WorkHoursTitle</h2>
